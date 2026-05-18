@@ -1,0 +1,21 @@
+{
+  "name": "BEGAN Partner",
+  "short_name": "BEGAN",
+  "start_url": "https://www.barkahgarment.com/began-partner-dashboard-dev",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a0b5ced6af0a075d5f7188c_icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a0b5ceedee67e6b05a619c2_icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
