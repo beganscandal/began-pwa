@@ -1,0 +1,3 @@
+console.log(
+  "BEGAN NOTIFICATION SYSTEM LOADED"
+);
