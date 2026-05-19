@@ -6,9 +6,7 @@ console.log(
 // CONFIG
 // =========================
 
-const NOTIFICATION_API =
-"https://script.google.com/macros/s/AKfycbza5dLHKWO8iizfjp_8CaT_QsNQ50e4zxf40mt_mfinlvhnMqCwpLxdrrBh7fEc79Fs/exec?action=notificationStatus";
-
+const NOTIFICATION_API = "https://script.google.com/macros/s/AKfycbza5dLHKWO8iizfjp_8CaT_QsNQ50e4zxf40mt_mfinlvhnMqCwpLxdrrBh7fEc79Fs/exec?action=notificationStatus";
 // =========================
 // LAST VERSION
 // =========================
