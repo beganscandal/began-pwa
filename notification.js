@@ -234,7 +234,7 @@ function renderNewDropTest(){
 
       <img
         class="new-drop-image"
-        src="https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/682e65df4d96f4b8d629f2f8_20s-black-boxy.jpg"
+        src="https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a0fc2a27b033d67ccdbfc02_Untitled%20design%20(23).webp"
       >
 
       <div class="new-drop-content">
