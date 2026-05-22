@@ -183,6 +183,7 @@ function showNotificationBadge(){
 
 checkArticleUpdate();
 showNewDropSection();
+renderNewDropTest();
 const unread =
 localStorage.getItem(
   "articleUnread"
@@ -215,5 +216,31 @@ function showNewDropSection(){
 
   }, 800);
   
+
+}
+
+function renderNewDropTest(){
+
+  const grid =
+    document.querySelector(
+      ".new-drop-grid"
+    );
+
+  if(!grid) return;
+
+  grid.innerHTML = `
+  
+    <div style="
+      background:#111;
+      color:white;
+      padding:20px;
+      border:1px solid red;
+    ">
+    
+      NEW DROP TEST
+    
+    </div>
+
+  `;
 
 }
