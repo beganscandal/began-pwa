@@ -106,22 +106,50 @@ currentVersion;
     // =========================
 
     if(
-      currentVersion >
-      LAST_ARTICLE_VERSION
-    ){
+  currentVersion >
+  LAST_ARTICLE_VERSION
+){
 
-      console.log(
-        "ARTIKEL BARU TERDETEKSI"
-      );
+  console.log(
+    "ARTIKEL BARU TERDETEKSI"
+  );
 
-      localStorage.setItem(
-        "articleUnread",
-        "true"
-      );
+  localStorage.setItem(
+    "articleUnread",
+    "true"
+  );
 
-      newDropSound.play()
-      .catch(()=>{});
+  localStorage.setItem(
+    "lastArticleVersion",
+    currentVersion
+  );
 
+  localStorage.setItem(
+    "newDropSeenAt",
+    Date.now()
+  );
+
+  newDropSound.play()
+  .catch(()=>{});
+
+  showNotificationBadge();
+
+//  showNewDropOverlay({
+
+  //  title:
+    //  data.drop_title,
+
+   // subtitle:
+    //  data.drop_subtitle,
+
+    //image:
+      //data.drop_image
+
+  //});
+
+ // showNewDropSection();
+
+//}
     }
 
   }catch(err){
@@ -131,7 +159,22 @@ currentVersion;
       err
     );
 
-  }
+}
+}
+
+function showNotificationBadge(){
+
+  const badges =
+    document.querySelectorAll(
+      ".notif-dot"
+    );
+
+  badges.forEach(badge => {
+
+    badge.style.display =
+      "block";
+
+  });
 }
 
 // =========================
@@ -139,3 +182,38 @@ currentVersion;
 // =========================
 
 checkArticleUpdate();
+showNewDropSection();
+const unread =
+localStorage.getItem(
+  "articleUnread"
+);
+
+if(unread === "true"){
+
+  showNotificationBadge();
+}
+
+function showNewDropSection(){
+
+  const section =
+    document.getElementById(
+      "new-drop-section"
+    );
+
+  if(!section) return;
+
+  section.style.display =
+    "block";
+
+  setTimeout(()=>{
+
+    section.scrollIntoView({
+
+      behavior:"smooth"
+
+    });
+
+  }, 800);
+  
+
+}
