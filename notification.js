@@ -236,6 +236,11 @@ function renderNewDropTest(){
         class="new-drop-image"
         src="https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a0fc2a27b033d67ccdbfc02_Untitled%20design%20(23).webp"
       >
+      <div class="new-drop-label">
+
+  NEW ARTICLE
+
+</div>
 
       <div class="new-drop-content">
 
