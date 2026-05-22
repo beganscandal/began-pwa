@@ -229,16 +229,31 @@ function renderNewDropTest(){
   if(!grid) return;
 
   grid.innerHTML = `
-  
-    <div style="
-      background:#111;
-      color:white;
-      padding:20px;
-      border:1px solid red;
-    ">
-    
-      NEW DROP TEST
-    
+
+    <div class="new-drop-card">
+
+      <img
+        class="new-drop-image"
+        src="https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/682e65df4d96f4b8d629f2f8_20s-black-boxy.jpg"
+      >
+
+      <div class="new-drop-content">
+
+        <div class="new-drop-title">
+
+          NEW DROP 20s BOXY
+
+        </div>
+
+        <div class="new-drop-subtitle">
+
+          Oversize boxy premium cotton combed.
+          Ready stock priority partner access.
+
+        </div>
+
+      </div>
+
     </div>
 
   `;
