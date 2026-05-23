@@ -588,7 +588,7 @@ sub.innerText =
 
   overlay.style.display =
     "flex";
-
+ 
   const close = ()=>{
 
     overlay.style.display =
@@ -628,33 +628,32 @@ function scrollToNewDrop(){
 
       if(!firstDrop){
 
-        setTimeout(()=>{
+  setTimeout(()=>{
 
-          firstDrop =
-            document.querySelector(
-              ".new-drop"
-            );
+    firstDrop =
+      document.querySelector(
+        ".new-drop"
+      );
 
-          if(!firstDrop) return;
+    if(!firstDrop) return;
 
-          firstDrop.scrollIntoView({
+    firstDrop.scrollIntoView({
 
-            behavior:
+      behavior:
 document.body.classList.contains(
   "a55-lite"
 )
 ? "auto"
 : "smooth",
 
-            block:"center"
+      block:"center"
 
-          });
+    });
 
-        },1200);
+  },1200);
 
-        return;
-      }
-
+  return;
+}
       firstDrop.scrollIntoView({
 
         behavior:
@@ -674,6 +673,7 @@ document.body.classList.contains(
 
 }
 
+let PUSH_FAILSAFE = null;
 // =========================
 // PUSH OVERLAY SYSTEM
 // =========================
@@ -897,15 +897,16 @@ function(){
 
   overlay.style.display =
     "flex";
+  clearTimeout(PUSH_FAILSAFE);
+
+PUSH_FAILSAFE = setTimeout(()=>{
+
+  closePushOverlay();
+
+},25000);
 
   // FAILSAFE
-  setTimeout(()=>{
-
-    overlay.style.display =
-      "none";
-
-  },25000);
-
+  
 };
 
 // =========================
@@ -913,6 +914,8 @@ function(){
 // =========================
 
 function closePushOverlay(){
+  
+  clearTimeout(PUSH_FAILSAFE);
 
   const overlay =
     document.getElementById(
@@ -948,6 +951,17 @@ window.addEventListener(
   "message",
 
   (event)=>{
+
+  if(
+
+    event.origin !==
+    "https://pwa.barkahgarment.com"
+
+  ){
+
+    return;
+  }
+
 
     // SUCCESS
     if(
