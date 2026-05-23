@@ -58,7 +58,7 @@ document.addEventListener(
 // =========================
 // LAST VERSION
 // =========================
-
+let NEW_DROP_ACTIVE = false;
 let LAST_ARTICLE_VERSION =
 Number(
   localStorage.getItem(
@@ -133,23 +133,19 @@ currentVersion;
   .catch(()=>{});
 
   showNotificationBadge();
+      if(data.drop_image){
 
-//  showNewDropOverlay({
+  const preload =
+    new Image();
 
-  //  title:
-    //  data.drop_title,
+  preload.src =
+    data.drop_image;
 
-   // subtitle:
-    //  data.drop_subtitle,
+}
+showNewDropOverlay(data);
+      scrollToNewDrop();
 
-    //image:
-      //data.drop_image
 
-  //});
-
- // showNewDropSection();
-
-//}
     }
 
   }catch(err){
@@ -180,10 +176,323 @@ function showNotificationBadge(){
 // =========================
 // START
 // =========================
+injectNewDropOverlay();
+function injectNewDropOverlay(){
+
+  if(
+    document.querySelector(
+      ".new-drop-overlay"
+    )
+  ) return;
+
+  const style =
+  document.createElement("style");
+
+  style.innerHTML = `
+
+  .new-drop-overlay{
+
+  position:fixed;
+
+inset:0;
+  
+  padding:
+max(20px, env(safe-area-inset-top))
+20px
+max(20px, env(safe-area-inset-bottom));
+
+  background:
+  rgba(0,0,0,.82);
+
+  z-index:999999;
+
+  display:none;
+
+  justify-content:center;
+  align-items:center;
+
+  backdrop-filter:blur(8px);
+
+ 
+
+}
+
+.new-drop-popup{
+
+  width:100%;
+  max-width:900px;
+
+  background:#050505;
+
+  border:
+  1px solid rgba(57,255,20,.18);
+
+  border-radius:28px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+  1fr 1fr;
+
+  box-shadow:
+  0 0 60px rgba(57,255,20,.12);
+  animation:
+dropFade .25s ease;
+
+}
+
+.new-drop-image{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  min-height:420px;
+
+  display:block;
+
+  filter:
+  contrast(1.05)
+  brightness(.92);
+
+}
+
+.new-drop-content{
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  padding:50px;
+
+  position:relative;
+
+}
+
+.new-drop-content::after{
+
+  content:"";
+
+  position:absolute;
+
+  bottom:0;
+  left:0;
+  right:0;
+
+  height:120px;
+
+  background:
+  radial-gradient(
+    rgba(57,255,20,.25),
+    transparent 70%
+  );
+
+  filter:blur(40px);
+
+}
+
+.new-drop-close{
+
+  position:absolute;
+
+  top:18px;
+  right:18px;
+
+  width:34px;
+  height:34px;
+
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.06);
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  color:white;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:3;
+  cursor:pointer;
+
+}
+
+.new-drop-badge{
+
+  display:inline-flex;
+
+  width:max-content;
+
+  padding:6px 14px;
+
+  border-radius:999px;
+
+  border:
+  1px solid #39FF14;
+
+  color:#39FF14;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  margin-bottom:20px;
+
+}
+
+.new-drop-title{
+
+  color:white;
+
+  font-size:
+clamp(
+  34px,
+  6vw,
+  64px
+);
+
+  line-height:.92;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+}
+
+
+.new-drop-sub{
+
+  margin-top:26px;
+
+  color:white;
+
+  font-size:20px;
+
+  line-height:1.5;
+
+}
+
+
+.new-drop-footer{
+
+  margin-top:40px;
+
+  color:#999;
+
+  letter-spacing:5px;
+
+  font-size:10px;
+
+}
+
+@media(max-width:767px){
+
+  .new-drop-popup{
+
+    grid-template-columns:
+    1fr;
+
+    max-width:360px;
+   
+  }
+
+  .new-drop-image{
+
+    min-height:260px;
+
+  }
+
+  .new-drop-content{
+
+    padding:28px;
+
+  }
+
+ 
+  .new-drop-sub{
+
+    font-size:15px;
+
+  }
+
+}
+
+  .a55-lite .new-drop-overlay{
+
+    backdrop-filter:none;
+
+  }
+
+  .a55-lite .new-drop-popup{
+
+    animation:none;
+
+    box-shadow:none;
+
+  }
+
+  `;
+
+  document.head.appendChild(style);
+
+  const overlay =
+  document.createElement("div");
+
+  overlay.className =
+    "new-drop-overlay";
+
+  overlay.innerHTML = `
+
+    <div class="new-drop-popup">
+
+  <div class="new-drop-close">
+    ✕
+  </div>
+
+  <img
+    class="new-drop-image"
+    src=""
+  >
+
+  <div class="new-drop-content">
+
+    <div class="new-drop-badge">
+      NEW DROP
+    </div>
+
+    <div class="new-drop-title">
+    </div>
+
+    <div class="new-drop-sub">
+    </div>
+
+    <div class="new-drop-footer">
+      TAP ANYWHERE TO CONTINUE
+    </div>
+
+  </div>
+
+</div>
+  `;
+
+  document.body.appendChild(
+    overlay
+  );
+
+}
 
 checkArticleUpdate();
-showNewDropSection();
-renderNewDropTest();
+
 const unread =
 localStorage.getItem(
   "articleUnread"
@@ -194,73 +503,173 @@ if(unread === "true"){
   showNotificationBadge();
 }
 
-function showNewDropSection(){
+function showNewDropOverlay(data){
 
-  const section =
-    document.getElementById(
-      "new-drop-section"
+  if(NEW_DROP_ACTIVE) return;
+
+  
+
+  const overlay =
+    document.querySelector(
+      ".new-drop-overlay"
     );
 
-  if(!section) return;
+  if(!overlay){
 
-  section.style.display =
-    "block";
+  return;
+    
+  }
+  NEW_DROP_ACTIVE = true;
 
-  setTimeout(()=>{
-
-    section.scrollIntoView({
-
-      behavior:"smooth"
-
-    });
-
-  }, 800);
   
+  const popup =
+  overlay.querySelector(
+    ".new-drop-popup"
+  );
+
+if(popup){
+
+  popup.onclick = (e)=>{
+
+    e.stopPropagation();
+
+  };
 
 }
 
-function renderNewDropTest(){
-
-  const grid =
-    document.querySelector(
-      ".new-drop-grid"
+  const image =
+    overlay.querySelector(
+      ".new-drop-image"
     );
 
-  if(!grid) return;
+  const title =
+    overlay.querySelector(
+      ".new-drop-title"
+    );
 
-  grid.innerHTML = `
+  const sub =
+    overlay.querySelector(
+      ".new-drop-sub"
+    );
 
-    <div class="new-drop-card">
+  if(
+  image &&
+  data.drop_image &&
+  image.src !== data.drop_image
+){
 
-      <img
-        class="new-drop-image"
-        src="https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a0fc2a27b033d67ccdbfc02_Untitled%20design%20(23).webp"
-      >
-      <div class="new-drop-label">
+  image.src =
+    data.drop_image;
 
-  NEW ARTICLE
+}
+  if(title){
 
-</div>
+    const safeTitle =
+String(
+  data.drop_title || ""
+).trim();
 
-      <div class="new-drop-content">
+title.innerText =
+  safeTitle ||
+  "NEW DROP";
+  }
 
-        <div class="new-drop-title">
+  if(sub){
 
-          NEW DROP 20s BOXY
+    const safeSub =
+String(
+  data.drop_subtitle || ""
+).trim();
 
-        </div>
+sub.innerText =
+  safeSub ||
+  "New article available.";
+  }
 
-        <div class="new-drop-subtitle">
+  overlay.style.display =
+    "flex";
 
-          Oversize boxy premium cotton combed.
-          Ready stock priority partner access.
+  const close = ()=>{
 
-        </div>
+    overlay.style.display =
+      "none";
 
-      </div>
+    NEW_DROP_ACTIVE = false;
 
-    </div>
+  };
 
-  `;
+  overlay.onclick = close;
+
+  const closeBtn =
+    overlay.querySelector(
+      ".new-drop-close"
+    );
+
+  if(closeBtn){
+
+    closeBtn.onclick = close;
+  }
+
+  setTimeout(close, 2000);
+
+}
+
+
+function scrollToNewDrop(){
+
+  requestAnimationFrame(()=>{
+
+    setTimeout(()=>{
+
+      let firstDrop =
+        document.querySelector(
+          ".new-drop"
+        );
+
+      if(!firstDrop){
+
+        setTimeout(()=>{
+
+          firstDrop =
+            document.querySelector(
+              ".new-drop"
+            );
+
+          if(!firstDrop) return;
+
+          firstDrop.scrollIntoView({
+
+            behavior:
+document.body.classList.contains(
+  "a55-lite"
+)
+? "auto"
+: "smooth",
+
+            block:"center"
+
+          });
+
+        },1200);
+
+        return;
+      }
+
+      firstDrop.scrollIntoView({
+
+        behavior:
+document.body.classList.contains(
+  "a55-lite"
+)
+? "auto"
+: "smooth",
+
+        block:"center"
+
+      });
+
+    },1400);
+
+  });
 
 }
