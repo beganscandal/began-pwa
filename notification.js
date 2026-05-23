@@ -769,11 +769,12 @@ async function initOneSignal(){
           appId:
 "c8acf160-3a17-450f-a33e-5993db724cff",
 
+          serviceWorkerPath:
+"/OneSignalSDKWorker.js",
+
           notifyButton:{
             enable:false
-          },
-
-          allowLocalhostAsSecureOrigin:true
+          }
 
         });
 
@@ -793,4 +794,5 @@ async function initOneSignal(){
     );
 
   }
+
 }
