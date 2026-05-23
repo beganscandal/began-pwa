@@ -779,7 +779,7 @@ async function initOneSignal(){
         await OneSignal.init({
 
           appId:
-"37e11236-e95b-4d5d-b925-f7b5f8308cdd",
+"APP_ID_DEV_BARU",
 
           notifyButton:{
             enable:false
