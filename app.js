@@ -23,6 +23,16 @@ async function initPush(){
     btn.innerHTML =
       "CONNECTING...";
   }
+  const failSafe = setTimeout(()=>{
+
+  window.parent.postMessage({
+
+    type:
+    "BEGAN_PUSH_DENIED"
+
+  },"*");
+
+},25000);
 
   try{
 
@@ -97,6 +107,26 @@ async function initPush(){
 
           try{
 
+            const alreadySubscribed =
+
+await OneSignal
+.User
+.PushSubscription
+.optedIn;
+
+if(alreadySubscribed){
+
+  clearTimeout(failSafe);
+  window.parent.postMessage({
+
+    type:
+    "BEGAN_PUSH_SUCCESS"
+
+  },"*");
+
+  return;
+}
+
             const permission =
 
               await OneSignal
@@ -137,6 +167,7 @@ async function initPush(){
                   "🔥 ALERT ACTIVE";
               }
 
+              clearTimeout(failSafe);
               window.parent.postMessage({
 
                 type:
@@ -151,7 +182,7 @@ async function initPush(){
             // =========================
 
             else{
-
+clearTimeout(failSafe);
               window.parent.postMessage({
 
                 type:
@@ -164,7 +195,7 @@ async function initPush(){
           }catch(err){
 
             console.log(err);
-
+clearTimeout(failSafe);
             window.parent.postMessage({
 
               type:
