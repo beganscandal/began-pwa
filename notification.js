@@ -673,124 +673,310 @@ document.body.classList.contains(
   });
 
 }
-// =========================
-// DEV DOMAIN ONLY
-// =========================
 
-const IS_DEV =
-
-location.hostname.includes(
-  "webflow.io"
-);
 // =========================
-// ONESIGNAL SAFE INIT
+// PUSH OVERLAY SYSTEM
 // =========================
 
-if(
+injectPushOverlay();
 
-  IS_DEV &&
+function injectPushOverlay(){
 
-  !window.BEGAN_ONESIGNAL_INIT
+  if(
+    document.querySelector(
+      "#began-push-overlay"
+    )
+  ) return;
 
-){  
-  window.BEGAN_ONESIGNAL_INIT =
-    true;
+  // =========================
+  // STYLE
+  // =========================
 
-  initOneSignal();
+  const style =
+  document.createElement(
+    "style"
+  );
+
+  style.innerHTML = `
+
+#began-push-overlay{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+background:
+rgba(0,0,0,.45);
+
+backdrop-filter:
+blur(10px);
+
+z-index:999999;
+
+padding:
+max(20px,env(safe-area-inset-top))
+20px
+max(20px,env(safe-area-inset-bottom));
 
 }
 
-async function initOneSignal(){
+.began-push-box{
 
-  try{
+position:relative;
 
-    const isA55Lite =
+width:100%;
+max-width:420px;
 
-      document.body.classList.contains(
-        "a55-lite"
-      );
+height:85vh;
 
-    await new Promise(resolve =>
+border-radius:28px;
 
-      setTimeout(
+overflow:hidden;
 
-        resolve,
+background:#050505;
 
-        isA55Lite
-        ? 4000
-        : 1800
+border:
+1px solid rgba(57,255,20,.15);
 
-      )
+box-shadow:
+0 0 60px rgba(57,255,20,.12);
+
+}
+
+.began-push-frame{
+
+width:100%;
+height:100%;
+
+border:none;
+
+background:#050505;
+
+}
+
+.began-push-close{
+
+position:absolute;
+
+top:14px;
+right:14px;
+
+width:34px;
+height:34px;
+
+border-radius:999px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:white;
+
+font-size:13px;
+
+cursor:pointer;
+
+z-index:10;
+
+backdrop-filter:
+blur(10px);
+
+}
+
+.a55-lite #began-push-overlay{
+
+backdrop-filter:none;
+
+}
+
+`;
+
+  document.head.appendChild(
+    style
+  );
+
+  // =========================
+  // HTML
+  // =========================
+
+  const overlay =
+  document.createElement(
+    "div"
+  );
+
+  overlay.id =
+    "began-push-overlay";
+
+  overlay.innerHTML = `
+
+<div class="began-push-box">
+
+<div
+class="began-push-close">
+
+✕
+
+</div>
+
+<iframe
+id="began-push-frame"
+class="began-push-frame">
+</iframe>
+
+</div>
+
+`;
+
+  document.body.appendChild(
+    overlay
+  );
+
+  // =========================
+  // CLOSE BUTTON
+  // =========================
+
+  overlay
+  .querySelector(
+    ".began-push-close"
+  )
+  .onclick =
+  closePushOverlay;
+
+}
+
+// =========================
+// OPEN PUSH
+// =========================
+
+window.openPushOverlay =
+function(){
+
+  const partner =
+    JSON.parse(
+
+      localStorage.getItem(
+        "began_partner"
+      ) || "{}"
 
     );
 
-    if(
-      !document.querySelector(
-        '#began-onesignal-sdk'
-      )
-    ){
+  const partnerId =
+    partner.id || "";
 
-      const sdk =
-      document.createElement(
-        "script"
-      );
+  const toko =
+    partner.toko || "";
 
-      sdk.id =
-        "began-onesignal-sdk";
-
-      sdk.src =
-"https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
-
-      sdk.defer = true;
-
-      document.head.appendChild(
-        sdk
-      );
-
-      await new Promise(resolve => {
-
-        sdk.onload = resolve;
-
-      });
-
-    }
-
-    window.OneSignalDeferred =
-      window.OneSignalDeferred || [];
-
-    OneSignalDeferred.push(
-
-      async function(OneSignal){
-
-        await OneSignal.init({
-
-          appId:
-"c8acf160-3a17-450f-a33e-5993db724cff",
-
-          serviceWorkerPath:
-"/OneSignalSDKWorker.js",
-
-          notifyButton:{
-            enable:false
-          }
-
-        });
-
-        console.log(
-          "BEGAN ONESIGNAL READY"
-        );
-
-      }
-
+  const frame =
+    document.getElementById(
+      "began-push-frame"
     );
 
-  }catch(err){
-
-    console.log(
-      "ONESIGNAL INIT ERROR",
-      err
+  const overlay =
+    document.getElementById(
+      "began-push-overlay"
     );
+
+  if(!frame || !overlay) return;
+
+  frame.src =
+
+`https://pwa.barkahgarment.com
+/?partner=${encodeURIComponent(partnerId)}
+&toko=${encodeURIComponent(toko)}`;
+
+  overlay.style.display =
+    "flex";
+
+  // FAILSAFE
+  setTimeout(()=>{
+
+    overlay.style.display =
+      "none";
+
+  },25000);
+
+};
+
+// =========================
+// CLOSE
+// =========================
+
+function closePushOverlay(){
+
+  const overlay =
+    document.getElementById(
+      "began-push-overlay"
+    );
+
+  const frame =
+    document.getElementById(
+      "began-push-frame"
+    );
+
+  if(overlay){
+
+    overlay.style.display =
+      "none";
+
+  }
+
+  if(frame){
+
+    frame.src = "about:blank";
 
   }
 
 }
+
+// =========================
+// LISTENER
+// =========================
+
+window.addEventListener(
+
+  "message",
+
+  (event)=>{
+
+    // SUCCESS
+    if(
+      event.data.type ===
+      "BEGAN_PUSH_SUCCESS"
+    ){
+
+      closePushOverlay();
+
+      alert(
+        "🔥 ALERT DROP ACTIVE"
+      );
+
+    }
+
+    // DENIED
+    if(
+      event.data.type ===
+      "BEGAN_PUSH_DENIED"
+    ){
+
+      closePushOverlay();
+
+      alert(
+        "Notification belum diaktifkan."
+      );
+
+    }
+
+  }
+
+);
