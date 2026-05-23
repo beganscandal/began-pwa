@@ -673,3 +673,139 @@ document.body.classList.contains(
   });
 
 }
+// =========================
+// DEV DOMAIN ONLY
+// =========================
+
+const IS_DEV =
+
+location.hostname.includes(
+  "webflow.io"
+);
+
+// =========================
+// ONESIGNAL SAFE INIT
+// =========================
+
+if(
+
+  IS_DEV &&
+
+  !window.BEGAN_ONESIGNAL_INIT
+
+){
+
+  window.BEGAN_ONESIGNAL_INIT =
+    true;
+
+  initOneSignal();
+
+}
+
+async function initOneSignal(){
+
+  try{
+
+    // =========================
+    // A55 SAFE DELAY
+    // =========================
+
+    const isA55Lite =
+
+      document.body.classList.contains(
+        "a55-lite"
+      );
+
+    await new Promise(resolve =>
+
+      setTimeout(
+
+        resolve,
+
+        isA55Lite
+        ? 4000
+        : 1800
+
+      )
+
+    );
+
+    // =========================
+    // LOAD SDK ONCE
+    // =========================
+
+    if(
+      !document.querySelector(
+        '#began-onesignal-sdk'
+      )
+    ){
+
+      const sdk =
+      document.createElement(
+        "script"
+      );
+
+      sdk.id =
+        "began-onesignal-sdk";
+
+      sdk.src =
+"https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
+
+      sdk.defer = true;
+
+      document.head.appendChild(
+        sdk
+      );
+
+      await new Promise(resolve => {
+
+        sdk.onload = resolve;
+
+      });
+
+    }
+
+    // =========================
+    // INIT SAFE
+    // =========================
+
+    window.OneSignalDeferred =
+      window.OneSignalDeferred || [];
+
+    OneSignalDeferred.push(
+
+      async function(OneSignal){
+
+        await OneSignal.init({
+
+          appId:
+"37e11236-e95b-4d5d-b925-f7b5f8308cdd",
+
+          notifyButton:{
+            enable:false
+          },
+
+          serviceWorkerPath:
+"/began-pwa/OneSignalSDKWorker.js",
+
+          allowLocalhostAsSecureOrigin:true
+
+        });
+
+        console.log(
+          "BEGAN ONESIGNAL READY"
+        );
+
+      }
+
+    );
+
+  }catch(err){
+
+    console.log(
+      "ONESIGNAL INIT ERROR",
+      err
+    );
+
+  }
+}
