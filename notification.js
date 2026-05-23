@@ -706,10 +706,6 @@ async function initOneSignal(){
 
   try{
 
-    // =========================
-    // A55 SAFE DELAY
-    // =========================
-
     const isA55Lite =
 
       document.body.classList.contains(
@@ -729,10 +725,6 @@ async function initOneSignal(){
       )
 
     );
-
-    // =========================
-    // LOAD SDK ONCE
-    // =========================
 
     if(
       !document.querySelector(
@@ -765,10 +757,6 @@ async function initOneSignal(){
 
     }
 
-    // =========================
-    // INIT SAFE
-    // =========================
-
     window.OneSignalDeferred =
       window.OneSignalDeferred || [];
 
@@ -785,7 +773,6 @@ async function initOneSignal(){
             enable:false
           },
 
-          
           allowLocalhostAsSecureOrigin:true
 
         });
