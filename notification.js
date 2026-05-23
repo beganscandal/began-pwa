@@ -785,9 +785,7 @@ async function initOneSignal(){
             enable:false
           },
 
-          serviceWorkerPath:
-"/began-pwa/OneSignalSDKWorker.js",
-
+          
           allowLocalhostAsSecureOrigin:true
 
         });
