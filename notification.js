@@ -610,7 +610,7 @@ sub.innerText =
     closeBtn.onclick = close;
   }
 
-  setTimeout(close, 2000);
+  setTimeout(close, 6000);
 
 }
 
