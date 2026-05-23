@@ -677,24 +677,27 @@ document.body.classList.contains(
 // DEV DOMAIN ONLY
 // =========================
 
-const IS_DEV =
+const IS_ALLOWED_DOMAIN =
 
 location.hostname.includes(
   "webflow.io"
-);
+) ||
 
+location.hostname.includes(
+  "barkahgarment.com"
+);
 // =========================
 // ONESIGNAL SAFE INIT
 // =========================
 
 if(
 
-  IS_DEV &&
+  IS_ALLOWED_DOMAIN &&
 
   !window.BEGAN_ONESIGNAL_INIT
 
 ){
-
+  
   window.BEGAN_ONESIGNAL_INIT =
     true;
 
