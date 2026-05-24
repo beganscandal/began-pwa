@@ -781,10 +781,7 @@ async function(OneSignal){
 
     serviceWorkerUpdaterPath:
 "https://pwa.barkahgarment.com/OneSignalSDKUpdaterWorker.js",
-    serviceWorkerParam: {
-    scope: "/"
-  },
-
+   
     allowLocalhostAsSecureOrigin:true
 
   });
