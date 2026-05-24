@@ -1,3 +1,35 @@
+// =========================
+// ONESIGNAL INIT
+// =========================
+
+window.OneSignalDeferred =
+window.OneSignalDeferred || [];
+
+OneSignalDeferred.push(
+async function(OneSignal){
+
+  await OneSignal.init({
+
+    appId:
+    "c8acf160-3a17-450f-a33e-5993db724cff",
+
+    safari_web_id:
+    "web.onesignal.auto.0b751c21-4ab5-448f-a888-cd2e20e2cfd5",
+
+    notifyButton:{
+      enable:false
+    },
+
+    allowLocalhostAsSecureOrigin:true
+
+  });
+
+  console.log(
+    "ONESIGNAL INIT SUCCESS"
+  );
+
+});
+
 // GALAXY A55 ULTRA LITE
 // Chrome 148 + Android 16
 
@@ -289,9 +321,6 @@ max(20px, env(safe-area-inset-bottom));
   align-items:center;
 
   backdrop-filter:blur(8px);
-
- 
-
 }
 
 .new-drop-popup{
@@ -743,73 +772,73 @@ document.body.classList.contains(
 // =========================
 
 window.openPushOverlay =
-async function(){
+function(){
 
-  try{
-    if(
-      Notification.permission ===
-      "granted"
-    ){
+  OneSignalDeferred.push(
 
-      updatePushButton();
+    async function(OneSignal){
 
-      alert(
-        "✅ Pemberitahuan sudah aktif"
-      );
+      try{
 
-      return;
+        console.log(
+          "OPEN PUSH"
+        );
+
+        if(
+          Notification.permission ===
+          "granted"
+        ){
+
+          updatePushButton();
+
+          alert(
+            "✅ Pemberitahuan sudah aktif"
+          );
+
+          return;
+        }
+
+        const permission =
+
+        await OneSignal
+        .Notifications
+        .requestPermission();
+
+        console.log(
+          "PERMISSION:",
+          permission
+        );
+
+        if(
+          Notification.permission ===
+          "granted"
+        ){
+
+          alert(
+            "🔥 ALERT DROP ACTIVE"
+          );
+
+          updatePushButton();
+
+        }else{
+
+          alert(
+            "Notification belum diaktifkan."
+          );
+
+        }
+
+      }catch(err){
+
+        console.log(
+          "PUSH ERROR",
+          err
+        );
+
+      }
+
     }
 
-    await OneSignal
-    .Notifications
-    .requestPermission();
-
-    if(
-      Notification.permission ===
-      "granted"
-    ){
-
-      alert(
-        "🔥 ALERT DROP ACTIVE"
-      );
-      updatePushButton();
-
-    }else{
-
-      alert(
-        "Notification belum diaktifkan."
-      );
-
-    }
-
-  }catch(err){
-
-    console.log(
-      "PUSH ERROR",
-      err
-    );
-
-  }
-
-};
-
-function updatePushButton(){
-
-  const btn =
-  document.getElementById(
-    "push-btn"
   );
 
-  if(!btn) return;
-
-  if(
-    Notification.permission ===
-    "granted"
-  ){
-
-    btn.style.display =
-      "none";
-
-  }
-
-}
+};
