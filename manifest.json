@@ -1,7 +1,7 @@
 {
   "name": "BEGAN Partner",
   "short_name": "BEGAN",
-  "start_url": "https://www.barkahgarment.com/began-partner-dashboard-dev",
+  "start_url": "https://pwa.barkahgarment.com",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
