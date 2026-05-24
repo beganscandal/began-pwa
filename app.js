@@ -88,10 +88,7 @@ async function initPush(){
   serviceWorkerUpdaterPath:
   "https://pwa.barkahgarment.com/OneSignalSDKUpdaterWorker.js",
 
-  serviceWorkerParam:{
-    scope:"/"
-  },
-
+  
   notifyButton:{
     enable:false
   }
