@@ -103,6 +103,8 @@ document.addEventListener(
 // LAST VERSION
 // =========================
 let NEW_DROP_ACTIVE = false;
+let PUSH_OVERLAY_ACTIVE = false;
+let PUSH_OVERLAY_TIMEOUT = null;
 let NEW_DROP_SOUND_PLAYED =
 
 sessionStorage.getItem(
@@ -256,16 +258,15 @@ function showNotificationBadge(){
 // =========================
 injectNewDropOverlay();
 function injectNewDropOverlay(){
-
-  if(
-    document.querySelector(
-      ".new-drop-overlay"
-    )
-  ) return;
+ if(
+  document.querySelector(
+    ".new-drop-overlay"
+  )
+) return;
 
   const style =
   document.createElement("style");
-
+    
   style.innerHTML = `
 
   .new-drop-overlay{
@@ -589,8 +590,24 @@ if(unread === "true"){
 }
 
 function showNewDropOverlay(data){
+  if(
+  localStorage.getItem(
+    PARTNER_ARTICLE_KEY
+  ) === String(
+    window.CURRENT_ARTICLE_VERSION
+  )
+){
+
+  return;
+
+}
 
   if(NEW_DROP_ACTIVE) return;
+  
+  if(PUSH_OVERLAY_ACTIVE){
+
+    return;
+    }
 
   
 
@@ -676,6 +693,13 @@ sub.innerText =
  
   const close = ()=>{
 
+    localStorage.setItem(
+  PARTNER_ARTICLE_KEY,
+  String(
+    window.CURRENT_ARTICLE_VERSION
+  )
+);
+
     overlay.style.display =
       "none";
 
@@ -757,7 +781,24 @@ document.body.classList.contains(
   });
 
 }
+const partnerId =
+localStorage.getItem(
+  "partnerId"
+) || "";
 
+const toko =
+localStorage.getItem(
+  "partnerToko"
+) || "";
+const PARTNER_ARTICLE_KEY =
+partnerId
+? `article_seen_${partnerId}`
+: "article_seen_guest";
+
+const PARTNER_PUSH_KEY =
+partnerId
+? `push_seen_${partnerId}`
+: "push_seen_guest";
 // =========================
 // ONESIGNAL INIT
 // =========================
@@ -771,16 +812,16 @@ async function(OneSignal){
   await OneSignal.init({
 
     appId:
-    "c8acf160-3a17-450f-a33e-5993db724cff",
+    "37e11236-e95b-4d5d-b925-f7b5f8308cdd",
+    safari_web_id:
+"web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
+
 
     notifyButton:{
       enable:false
     },
     serviceWorkerPath:
-  "https://pwa.barkahgarment.com/OneSignalSDKWorker.js",
-
-    serviceWorkerUpdaterPath:
-"https://pwa.barkahgarment.com/OneSignalSDKUpdaterWorker.js",
+"https://pwa.barkahgarment.com/OneSignalSDKWorker.js",
    
     allowLocalhostAsSecureOrigin:true
 
@@ -794,35 +835,226 @@ async function(OneSignal){
 
 
 // =========================
-// PUSH NOTIFICATION
+// PUSH PERMISSION LAYER
 // =========================
 
-window.openPushOverlay =
-function(){
+function injectPushPermissionLayer(){
+  
+
+  if(
+    document.querySelector(
+      ".push-permission-layer"
+    )
+  ) return;
+
+  let style =
+document.getElementById(
+  "push-permission-style"
+);
+
+if(!style){
+
+  style =
+  document.createElement(
+    "style"
+  );
+
+  style.id =
+  "push-permission-style";
+
+  style.innerHTML = `
+
+  .push-permission-layer{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:999999;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    background:
+    rgba(0,0,0,.10);
+
+    backdrop-filter:
+    blur(4px);
+
+    animation:
+    pushFade .2s ease;
+
+  }
+
+  .push-permission-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:#0a0a0a;
+
+    color:white;
+
+    padding:14px 18px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.22);
+
+  }
+
+  .push-permission-text{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+  }
+
+  .push-permission-btn{
+
+    border:none;
+
+    outline:none;
+
+    height:38px;
+
+    padding:0 16px;
+
+    border-radius:12px;
+
+    background:white;
+
+    color:black;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+  }
+
+  @keyframes pushFade{
+
+    from{
+
+      opacity:0;
+
+    }
+
+    to{
+
+      opacity:1;
+
+    }
+
+  }
+
+  `;
+
+  document.head.appendChild(
+    style
+  );
+
+}
+  const layer =
+  document.createElement("div");
+
+  layer.className =
+    "push-permission-layer";
+  PUSH_OVERLAY_ACTIVE = true;
+
+  layer.innerHTML = `
+
+    <div class="push-permission-box">
+
+      <div class="push-permission-text">
+
+        🔔 Aktifkan Alert Artikel Baru
+
+      </div>
+
+      <button
+        class="push-permission-btn">
+
+        AKTIFKAN
+
+      </button>
+
+    </div>
+
+  `;
+
+  document.body.appendChild(
+    layer
+  );
+  PUSH_OVERLAY_TIMEOUT = setTimeout(()=>{
+
+  if(layer){
+
+    layer.remove();
+
+  }
+
+  PUSH_OVERLAY_ACTIVE = false;
+
+},15000);
+
+  layer.onclick = (e)=>{
+
+  if(e.target !== layer){
+
+    return;
+
+  }
+
+  clearTimeout(
+  PUSH_OVERLAY_TIMEOUT
+);
+
+  layer.remove();
+
+  PUSH_OVERLAY_ACTIVE = false;
+
+};
+
+  const btn =
+  layer.querySelector(
+    ".push-permission-btn"
+  );
+
+ btn.onclick =
+async ()=>{
+
+  btn.disabled = true;
+
+  btn.style.opacity = ".6";
+
+  await requestPushPermission();
+
+};
+}
+
+// =========================
+// REQUEST PUSH
+// =========================
+
+async function requestPushPermission(){
 
   OneSignalDeferred.push(
 
     async function(OneSignal){
 
       try{
-
-        console.log(
-          "OPEN PUSH"
-        );
-
-        if(
-          Notification.permission ===
-          "granted"
-        ){
-
-          updatePushButton();
-
-          alert(
-            "✅ Pemberitahuan sudah aktif"
-          );
-
-          return;
-        }
 
         const permission =
 
@@ -835,24 +1067,69 @@ function(){
           permission
         );
 
+        const layer =
+        document.querySelector(
+          ".push-permission-layer"
+        );
+
+        if(layer){
+
+  clearTimeout(
+  PUSH_OVERLAY_TIMEOUT
+);
+  layer.remove();
+
+}
+
+PUSH_OVERLAY_ACTIVE = false;
         if(
-          Notification.permission ===
-          "granted"
-        ){
+  permission !== "granted"
+){
 
-          alert(
-            "🔥 ALERT DROP ACTIVE"
-          );
+  sessionStorage.setItem(
+    "pushOverlayCooldown",
+    "true"
+  );
 
-          updatePushButton();
+}
 
-        }else{
+if(
+  Notification.permission ===
+  "granted"
+){
 
-          alert(
-            "Notification belum diaktifkan."
-          );
+  if(partnerId){
 
-        }
+    await OneSignal.login(
+      partnerId
+    );
+
+    await OneSignal.User.addTag(
+      "partner",
+      partnerId
+    );
+
+  }
+
+  if(toko){
+
+    await OneSignal.User.addTag(
+      "toko",
+      toko
+    );
+
+  }
+localStorage.setItem(
+  PARTNER_PUSH_KEY,
+  "true"
+);
+  console.log(
+    "PUSH ACTIVE"
+  );
+
+  updatePushButton();
+
+}
 
       }catch(err){
 
@@ -867,4 +1144,122 @@ function(){
 
   );
 
+}
+
+// =========================
+// OPEN PUSH OVERLAY
+// =========================
+
+window.openPushOverlay =
+function(){
+
+  if(
+    localStorage.getItem(
+  PARTNER_PUSH_KEY
+    ) === "true"
+  ){
+
+    return;
+
+  }
+
+  if(
+    Notification.permission ===
+    "granted"
+  )
+    
+  {
+
+    return;
+
+  }
+
+  if(
+    Notification.permission ===
+    "denied"
+  ){
+
+    return;
+
+  }
+if(
+  sessionStorage.getItem(
+    "pushOverlayCooldown"
+  ) === "true"
+){
+
+  return;
+
+}
+  
+ /* injectPushPermissionLayer(); */
+  requestPushPermission();
+
 };
+document.addEventListener(
+
+  "visibilitychange",
+
+  ()=>{
+
+    if(
+      document.hidden
+    ){
+
+      const layer =
+      document.querySelector(
+        ".push-permission-layer"
+      );
+
+      if(layer){
+
+        layer.remove();
+
+      }
+
+      PUSH_OVERLAY_ACTIVE =
+      false;
+
+    }
+
+  }
+
+);
+
+//button binding
+window.addEventListener(
+
+  "load",
+
+  ()=>{
+
+    const pushBtn =
+    document.getElementById(
+      "push-btn"
+    );
+
+    if(!pushBtn) return;
+
+    pushBtn.addEventListener(
+
+      "click",
+
+      ()=>{
+
+        if(
+          typeof
+          window.openPushOverlay ===
+          "function"
+        ){
+
+          window.openPushOverlay();
+
+        }
+
+      }
+
+    );
+
+  }
+
+);
