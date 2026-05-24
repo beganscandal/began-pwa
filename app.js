@@ -77,27 +77,26 @@ async function initPush(){
       async function(OneSignal){
        if(!window.BEGAN_ONESIGNAL_READY){
 
-  await OneSignal.init({
+ await OneSignal.init({
 
-    appId:
-    "c8acf160-3a17-450f-a33e-5993db724cff",
+  appId:
+  "c8acf160-3a17-450f-a33e-5993db724cff",
 
-    serviceWorkerPath:
-    "/OneSignalSDKWorker.js",
+  serviceWorkerPath:
+  "https://pwa.barkahgarment.com/OneSignalSDKWorker.js",
 
-    serviceWorkerUpdaterPath:
-    "/OneSignalSDKUpdaterWorker.js",
+  serviceWorkerUpdaterPath:
+  "https://pwa.barkahgarment.com/OneSignalSDKUpdaterWorker.js",
 
-    serviceWorkerParam: {
-    scope: "/"
+  serviceWorkerParam:{
+    scope:"/"
   },
 
-    notifyButton:{
-      enable:false
-    }
+  notifyButton:{
+    enable:false
+  }
 
-  });
-
+});
   window.BEGAN_ONESIGNAL_READY =
   true;
 
