@@ -844,3 +844,23 @@ function(){
   );
 
 };
+function updatePushButton(){
+
+  const btn =
+  document.getElementById(
+    "push-btn"
+  );
+
+  if(!btn) return;
+
+  if(
+    Notification.permission ===
+    "granted"
+  ){
+
+    btn.style.display =
+      "none";
+
+  }
+
+}
