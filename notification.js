@@ -1,34 +1,3 @@
-// =========================
-// ONESIGNAL INIT
-// =========================
-
-window.OneSignalDeferred =
-window.OneSignalDeferred || [];
-
-OneSignalDeferred.push(
-async function(OneSignal){
-
-  await OneSignal.init({
-
-    appId:
-    "c8acf160-3a17-450f-a33e-5993db724cff",
-
-    safari_web_id:
-    "web.onesignal.auto.0b751c21-4ab5-448f-a888-cd2e20e2cfd5",
-
-    notifyButton:{
-      enable:false
-    },
-
-    allowLocalhostAsSecureOrigin:true
-
-  });
-
-  console.log(
-    "ONESIGNAL INIT SUCCESS"
-  );
-
-});
 
 // GALAXY A55 ULTRA LITE
 // Chrome 148 + Android 16
@@ -766,6 +735,39 @@ document.body.classList.contains(
   });
 
 }
+
+// =========================
+// ONESIGNAL INIT
+// =========================
+
+window.OneSignalDeferred =
+window.OneSignalDeferred || [];
+
+OneSignalDeferred.push(
+async function(OneSignal){
+
+  await OneSignal.init({
+
+    appId:
+    "c8acf160-3a17-450f-a33e-5993db724cff",
+
+    safari_web_id:
+    "web.onesignal.auto.0b751c21-4ab5-448f-a888-cd2e20e2cfd5",
+
+    notifyButton:{
+      enable:false
+    },
+
+    allowLocalhostAsSecureOrigin:true
+
+  });
+
+  console.log(
+    "ONESIGNAL INIT SUCCESS"
+  );
+
+});
+
 
 // =========================
 // PUSH NOTIFICATION
