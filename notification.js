@@ -556,6 +556,7 @@ clamp(
 }
 
 checkArticleUpdate();
+updatePushButton();
 
 const unread =
 localStorage.getItem(
@@ -737,307 +738,43 @@ document.body.classList.contains(
 
 }
 
-let PUSH_FAILSAFE = null;
 // =========================
-// PUSH OVERLAY SYSTEM
-// =========================
-
-injectPushOverlay();
-
-function injectPushOverlay(){
-
-  if(
-    document.querySelector(
-      "#began-push-overlay"
-    )
-  ) return;
-
-  // =========================
-  // STYLE
-  // =========================
-
-  const style =
-  document.createElement(
-    "style"
-  );
-
-  style.innerHTML = `
-
-#began-push-overlay{
-
-position:fixed;
-
-inset:0;
-
-display:none;
-
-justify-content:center;
-align-items:center;
-
-background:
-rgba(0,0,0,.45);
-
-backdrop-filter:
-blur(10px);
-
-z-index:999999;
-
-padding:
-max(20px,env(safe-area-inset-top))
-20px
-max(20px,env(safe-area-inset-bottom));
-
-}
-
-.began-push-box{
-
-position:relative;
-
-width:100%;
-max-width:420px;
-
-height:85vh;
-
-border-radius:28px;
-
-overflow:hidden;
-
-background:#050505;
-
-border:
-1px solid rgba(57,255,20,.15);
-
-box-shadow:
-0 0 60px rgba(57,255,20,.12);
-
-}
-
-.began-push-frame{
-
-width:100%;
-height:100%;
-
-border:none;
-
-background:#050505;
-
-}
-
-.began-push-close{
-
-position:absolute;
-
-top:14px;
-right:14px;
-
-width:34px;
-height:34px;
-
-border-radius:999px;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-background:
-rgba(255,255,255,.08);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-color:white;
-
-font-size:13px;
-
-cursor:pointer;
-
-z-index:10;
-
-backdrop-filter:
-blur(10px);
-
-}
-
-`;
-
-  document.head.appendChild(
-    style
-  );
-
-  // =========================
-  // HTML
-  // =========================
-
-  const overlay =
-  document.createElement(
-    "div"
-  );
-
-  overlay.id =
-    "began-push-overlay";
-
-  overlay.innerHTML = `
-
-<div class="began-push-box">
-
-<div
-class="began-push-close">
-
-✕
-
-</div>
-
-<iframe
-id="began-push-frame"
-class="began-push-frame">
-</iframe>
-
-</div>
-
-`;
-
-  document.body.appendChild(
-    overlay
-  );
-
-  // =========================
-  // CLOSE BUTTON
-  // =========================
-
-  overlay
-  .querySelector(
-    ".began-push-close"
-  )
-  .onclick =
-  closePushOverlay;
-
-}
-
-// =========================
-// OPEN PUSH
+// PUSH NOTIFICATION
 // =========================
 
 window.openPushOverlay =
-function(){
+async function(){
 
-  const partner =
-    JSON.parse(
-
-      localStorage.getItem(
-        "began_partner"
-      ) || "{}"
-
-    );
-
-  const partnerId =
-    partner.id || "";
-
-  const toko =
-    partner.toko || "";
-
-  const frame =
-    document.getElementById(
-      "began-push-frame"
-    );
-
-  const overlay =
-    document.getElementById(
-      "began-push-overlay"
-    );
-
-  if(!frame || !overlay) return;
-
-  frame.src =`https://pwa.barkahgarment.com/?partner=${encodeURIComponent(partnerId)}&toko=${encodeURIComponent(toko)}`;
-
-  overlay.style.display =
-    "flex";
-  clearTimeout(PUSH_FAILSAFE);
-
-PUSH_FAILSAFE = setTimeout(()=>{
-
-  closePushOverlay();
-
-},25000);
-
-  // FAILSAFE
-  
-};
-
-// =========================
-// CLOSE
-// =========================
-
-function closePushOverlay(){
-  
-  clearTimeout(PUSH_FAILSAFE);
-
-  const overlay =
-    document.getElementById(
-      "began-push-overlay"
-    );
-
-  const frame =
-    document.getElementById(
-      "began-push-frame"
-    );
-
-  if(overlay){
-
-    overlay.style.display =
-      "none";
-
-  }
-
-  if(frame){
-
-    frame.src = "about:blank";
-
-  }
-
-}
-
-// =========================
-// LISTENER
-// =========================
-
-window.addEventListener(
-
-  "message",
-
-  (event)=>{
-
-  if(
-
-    event.origin !==
-    "https://pwa.barkahgarment.com"
-
-  ){
-
-    return;
-  }
-
-
-    // SUCCESS
+  try{
     if(
-      event.data.type ===
-      "BEGAN_PUSH_SUCCESS"
+      Notification.permission ===
+      "granted"
     ){
 
-      closePushOverlay();
+      updatePushButton();
+
+      alert(
+        "✅ Pemberitahuan sudah aktif"
+      );
+
+      return;
+    }
+
+    await OneSignal
+    .Notifications
+    .requestPermission();
+
+    if(
+      Notification.permission ===
+      "granted"
+    ){
 
       alert(
         "🔥 ALERT DROP ACTIVE"
       );
+      updatePushButton();
 
-    }
-
-    // DENIED
-    if(
-      event.data.type ===
-      "BEGAN_PUSH_DENIED"
-    ){
-
-      closePushOverlay();
+    }else{
 
       alert(
         "Notification belum diaktifkan."
@@ -1045,6 +782,34 @@ window.addEventListener(
 
     }
 
+  }catch(err){
+
+    console.log(
+      "PUSH ERROR",
+      err
+    );
+
   }
 
-);
+};
+
+function updatePushButton(){
+
+  const btn =
+  document.getElementById(
+    "push-btn"
+  );
+
+  if(!btn) return;
+
+  if(
+    Notification.permission ===
+    "granted"
+  ){
+
+    btn.style.display =
+      "none";
+
+  }
+
+}
