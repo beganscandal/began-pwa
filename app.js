@@ -88,6 +88,10 @@ async function initPush(){
     serviceWorkerUpdaterPath:
     "/OneSignalSDKUpdaterWorker.js",
 
+    serviceWorkerParam: {
+    scope: "/"
+  },
+
     notifyButton:{
       enable:false
     }
