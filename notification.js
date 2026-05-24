@@ -779,6 +779,11 @@ async function(OneSignal){
     notifyButton:{
       enable:false
     },
+    serviceWorkerPath:
+  "/OneSignalSDKWorker.js",
+
+    serviceWorkerUpdaterPath:
+"/OneSignalSDKUpdaterWorker.js",
 
     allowLocalhostAsSecureOrigin:true
 
