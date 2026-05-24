@@ -80,15 +80,8 @@ MARQUEE
 
 .a55-lite .marquee-content{
 
-  animation:marquee 45s linear infinite !important;
+  animation:none !important;
 
-  text-shadow:none !important;
-
-  filter:none !important;
-
-  will-change:auto !important;
-
-  
 }
 
 /* =========================
