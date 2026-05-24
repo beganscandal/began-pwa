@@ -1,0 +1,287 @@
+
+/* =========================
+🔥 GALAXY A55 PERFORMANCE MODE
+========================= */
+
+/* BADGE */
+.a55-lite .qty-badge-wrapper{
+
+  animation-duration: 7s !important;
+
+  box-shadow:
+    0 0 6px rgba(57,255,20,0.18) !important;
+}
+
+/* BLUR REDUCE */
+.a55-lite .product-info,
+.a55-lite .history-partner{
+
+  backdrop-filter: none !important;
+}
+
+/* HOVER GPU */
+.a55-lite .main-image:hover,
+.a55-lite .thumb:hover{
+
+  transform: none !important;
+}
+
+/* GPU STABILITY */
+.a55-lite .product-card,
+.a55-lite .checkout-btn,
+.a55-lite .qty-badge-wrapper{
+
+  transform: translateZ(0);
+}
+  .notif-dot{
+
+  width:20px;
+  height:20px;
+
+  background-image:url(
+    "https://beganscandal.github.io/began-pwa/assets/notif-badge.png"
+  );
+
+  background-size:contain;
+
+  background-position:center;
+
+  background-repeat:no-repeat;
+
+  position:absolute;
+
+  top:0;
+  right:0;
+
+  transform:
+    translate(35%,-35%);
+
+  display:none;
+
+  z-index:999;
+}
+/* =========================
+🔥 GALAXY A55 ULTRA LITE MODE
+Chrome 148 + Android 16
+========================= */
+
+.a55-lite *{
+
+  /* kurangi GPU repaint */
+  backface-visibility:hidden;
+
+  -webkit-font-smoothing:antialiased;
+}
+
+/* =========================
+MARQUEE
+(TETAP DIPERTAHANKAN)
+========================= */
+
+.a55-lite .marquee-content{
+
+  animation:marquee 45s linear infinite !important;
+
+  text-shadow:none !important;
+
+  filter:none !important;
+
+  will-change:auto !important;
+
+  
+}
+
+/* =========================
+HAPUS BLUR BERAT
+========================= */
+
+.a55-lite .product-info,
+.a55-lite .history-partner,
+.a55-lite .history-modal,
+.a55-lite #partner-info{
+
+  backdrop-filter:none !important;
+
+  -webkit-backdrop-filter:none !important;
+}
+
+/* =========================
+MATIKAN GLOW BERAT
+========================= */
+
+.a55-lite .checkout-btn,
+.a55-lite .qty-badge-wrapper,
+.a55-lite .history-partner,
+.a55-lite .filter-toggle,
+.a55-lite .btn-history{
+
+  box-shadow:none !important;
+
+  text-shadow:none !important;
+}
+
+/* =========================
+STOP ANIMATION GPU
+========================= */
+
+.a55-lite .checkout-btn,
+.a55-lite .qty-badge-wrapper,
+.a55-lite .history-item,
+.a55-lite .reserve-card,
+.a55-lite .panduan-card{
+
+  animation:none !important;
+
+  transition-duration:.01ms !important;
+}
+
+/* =========================
+STOP HOVER TRANSFORM
+========================= */
+
+.a55-lite .main-image:hover,
+.a55-lite .thumb:hover,
+.a55-lite .checkout-btn:hover,
+.a55-lite .btn-history:hover,
+.a55-lite .reserve-card:hover,
+.a55-lite .panduan-card:hover{
+
+  transform:none !important;
+}
+
+/* =========================
+IMAGE STABILITY
+========================= */
+
+.a55-lite img{
+
+  image-rendering:auto;
+
+  
+}
+
+/* =========================
+FIXED ELEMENT STABILITY
+========================= */
+
+.a55-lite #checkout-btn,
+.a55-lite .qty-badge-wrapper{
+
+  will-change:auto !important;
+
+  
+}
+
+/* =========================
+TEXT RENDER
+========================= */
+
+.a55-lite .history-title,
+.a55-lite .reserve-title,
+.a55-lite .panduan-title{
+
+  text-shadow:none !important;
+}
+
+/* =========================
+SCROLL PERFORMANCE
+========================= */
+
+.a55-lite .history-modal-content,
+.a55-lite #order-review{
+
+  -webkit-overflow-scrolling:touch;
+
+  overscroll-behavior:contain;
+}
+
+/* =========================
+FILTER DROPDOWN
+========================= */
+
+.a55-lite .filter-dropdown-panel{
+
+  box-shadow:none !important;
+}
+
+
+/* =========================
+GLOBAL PAINT REDUCE
+========================= */
+
+.a55-lite .product-card,
+.a55-lite .history-item,
+.a55-lite .reserve-card,
+.a55-lite .panduan-card{
+
+  contain:layout paint;
+}
+  /* =========================
+ONESIGNAL OVERLAY FIX
+========================= */
+
+.a55-lite iframe{
+
+  transform:none !important;
+
+  filter:none !important;
+
+  backdrop-filter:none !important;
+
+  will-change:auto !important;
+
+  contain:paint;
+}
+
+  .a55-lite .new-drop-overlay{
+
+    backdrop-filter:none;
+
+  }
+
+  .a55-lite .new-drop-popup{
+
+    animation:none;
+
+    box-shadow:none;
+
+  }
+  .a55-lite #began-push-overlay{
+
+backdrop-filter:none;
+
+}
+
+/* =========================
+FIX OVERLAY LAYER
+========================= */
+
+.a55-lite #onesignal-slidedown-container,
+.a55-lite .onesignal-customlink-container,
+.a55-lite .os-notification-permission-popup{
+
+  transform:none !important;
+
+  filter:none !important;
+
+  backdrop-filter:none !important;
+
+  box-shadow:none !important;
+}
+
+/* =========================
+PREVENT SAMSUNG FREEZE
+========================= */
+
+.a55-lite #video-modal-overlay,
+.a55-lite #custom-alert,
+.a55-lite #success-modal,
+.a55-lite #order-review,
+.a55-lite .history-modal{
+
+  transform:none !important;
+
+  will-change:auto !important;
+
+  contain:layout paint;
+}
