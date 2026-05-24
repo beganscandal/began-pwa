@@ -23,16 +23,17 @@ async function initPush(){
     btn.innerHTML =
       "CONNECTING...";
   }
+
   const failSafe = setTimeout(()=>{
 
-  window.parent.postMessage({
+    window.parent.postMessage({
 
-    type:
-    "BEGAN_PUSH_DENIED"
+      type:
+      "BEGAN_PUSH_DENIED"
 
-  },"*");
+    },"*");
 
-},25000);
+  },25000);
 
   try{
 
@@ -69,181 +70,179 @@ async function initPush(){
     // =========================
 
     window.OneSignalDeferred =
-  window.OneSignalDeferred || [];
+      window.OneSignalDeferred || [];
 
+    await new Promise(resolve=>{
 
-    OneSignalDeferred.push(
+      OneSignalDeferred.push(
+        async function(OneSignal){
 
-      async function(OneSignal){
-       if(!window.BEGAN_ONESIGNAL_READY){
+          await OneSignal.init({
 
- await OneSignal.init({
+            appId:
+"37e11236-e95b-4d5d-b925-f7b5f8308cdd",
 
-  appId:
-  "c8acf160-3a17-450f-a33e-5993db724cff",
+            safari_web_id:
+"web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
 
-  serviceWorkerPath:
-  "https://pwa.barkahgarment.com/OneSignalSDKWorker.js",
+            notifyButton: {
+              enable: true,
+            },
 
-  serviceWorkerUpdaterPath:
-  "https://pwa.barkahgarment.com/OneSignalSDKUpdaterWorker.js",
+          });
 
-  
-  notifyButton:{
-    enable:false
-  }
+          resolve();
 
-});
-  window.BEGAN_ONESIGNAL_READY =
-  true;
-
-}
-
-        console.log(
-          "ONESIGNAL READY"
-        );
-
-        if(btn){
-
-          btn.innerHTML =
-            "ALLOW NOTIFICATION";
         }
+      );
 
-        // =========================
-        // DELAY
-        // =========================
+    });
 
-        setTimeout(async()=>{
+    window.BEGAN_ONESIGNAL_READY =
+      true;
 
-          try{
+    console.log(
+      "ONESIGNAL READY"
+    );
 
-            const alreadySubscribed =
+    if(btn){
+
+      btn.innerHTML =
+        "ALLOW NOTIFICATION";
+    }
+
+    // =========================
+    // DELAY
+    // =========================
+
+    setTimeout(async()=>{
+
+      try{
+
+        const alreadySubscribed =
 
 await OneSignal
 .User
 .PushSubscription
 .optedIn;
 
-if(alreadySubscribed){
+        if(alreadySubscribed){
 
-  if(partnerId){
+          if(partnerId){
 
-    await OneSignal.login(
-      partnerId
-    );
+            await OneSignal.login(
+              partnerId
+            );
 
-    await OneSignal.User.addTag(
-      "partner",
-      partnerId
-    );
-
-  }
-
-  if(toko){
-
-    await OneSignal.User.addTag(
-      "toko",
-      toko
-    );
-
-  }
-
-  if(btn){
-
-    btn.innerHTML =
-      "🔥 ALERT ACTIVE";
-  }
-
-  clearTimeout(failSafe);
-
-  window.parent.postMessage({
-
-    type:
-    "BEGAN_PUSH_SUCCESS"
-
-  },"*");
-
-  return;
-
-
-}
-       const permission =
-
-await OneSignal.Notifications.requestPermission();
-
-if(permission === "granted"){
-
-  if(partnerId){
-
-    await OneSignal.login(
-      partnerId
-    );
-
-    await OneSignal.User.addTag(
-      "partner",
-      partnerId
-    );
-
-  }
-
-  if(toko){
-
-    await OneSignal.User.addTag(
-      "toko",
-      toko
-    );
-
-  }
-
-  if(btn){
-
-    btn.innerHTML =
-      "🔥 ALERT ACTIVE";
-  }
-
-  clearTimeout(failSafe);
-
-  window.parent.postMessage({
-
-    type:
-    "BEGAN_PUSH_SUCCESS"
-
-  },"*");
-
-}
-            // =========================
-            // DENIED
-            // =========================
-
-            else{
-clearTimeout(failSafe);
-              window.parent.postMessage({
-
-                type:
-                "BEGAN_PUSH_DENIED"
-
-              },"*");
-
-            }
-
-          }catch(err){
-
-            console.log(err);
-clearTimeout(failSafe);
-            window.parent.postMessage({
-
-              type:
-              "BEGAN_PUSH_DENIED"
-
-            },"*");
+            await OneSignal.User.addTag(
+              "partner",
+              partnerId
+            );
 
           }
 
-        },1200);
+          if(toko){
+
+            await OneSignal.User.addTag(
+              "toko",
+              toko
+            );
+
+          }
+
+          if(btn){
+
+            btn.innerHTML =
+              "🔥 ALERT ACTIVE";
+          }
+
+          clearTimeout(failSafe);
+
+          window.parent.postMessage({
+
+            type:
+            "BEGAN_PUSH_SUCCESS"
+
+          },"*");
+
+          return;
+
+        }
+
+        const permission =
+
+await OneSignal
+.Notifications
+.requestPermission();
+
+        if(permission === "granted"){
+
+          if(partnerId){
+
+            await OneSignal.login(
+              partnerId
+            );
+
+            await OneSignal.User.addTag(
+              "partner",
+              partnerId
+            );
+
+          }
+
+          if(toko){
+
+            await OneSignal.User.addTag(
+              "toko",
+              toko
+            );
+
+          }
+
+          if(btn){
+
+            btn.innerHTML =
+              "🔥 ALERT ACTIVE";
+          }
+
+          clearTimeout(failSafe);
+
+          window.parent.postMessage({
+
+            type:
+            "BEGAN_PUSH_SUCCESS"
+
+          },"*");
+
+        }else{
+
+          clearTimeout(failSafe);
+
+          window.parent.postMessage({
+
+            type:
+            "BEGAN_PUSH_DENIED"
+
+          },"*");
+
+        }
+
+      }catch(err){
+
+        console.log(err);
+
+        clearTimeout(failSafe);
+
+        window.parent.postMessage({
+
+          type:
+          "BEGAN_PUSH_DENIED"
+
+        },"*");
 
       }
 
-    );
+    },1200);
 
   }catch(err){
 
