@@ -102,6 +102,12 @@ document.addEventListener(
 // LAST VERSION
 // =========================
 let NEW_DROP_ACTIVE = false;
+let NEW_DROP_SOUND_PLAYED =
+
+sessionStorage.getItem(
+"began_newdrop_sound"
+) === "true";
+
 let LAST_ARTICLE_VERSION =
 Number(
   localStorage.getItem(
@@ -136,6 +142,19 @@ checkArticleUpdate(){
     
     window.CURRENT_ARTICLE_VERSION =
 currentVersion;
+    if(
+currentVersion >
+LAST_ARTICLE_VERSION
+){
+
+sessionStorage.removeItem(
+"began_newdrop_sound"
+);
+
+NEW_DROP_SOUND_PLAYED =
+false;
+
+}
 
     console.log({
 
@@ -164,17 +183,32 @@ currentVersion;
 
   localStorage.setItem(
     "lastArticleVersion",
-    currentVersion
-  );
+    currentVersion);
+    LAST_ARTICLE_VERSION =
+currentVersion;
+  
 
   localStorage.setItem(
     "newDropSeenAt",
     Date.now()
   );
 
-  newDropSound.play()
-  .catch(()=>{});
+  if(!NEW_DROP_SOUND_PLAYED){
 
+NEW_DROP_SOUND_PLAYED =
+true;
+
+sessionStorage.setItem(
+"began_newdrop_sound",
+"true"
+);
+
+newDropSound.currentTime = 0;
+
+newDropSound.play()
+.catch(()=>{});
+
+}
   showNotificationBadge();
       if(data.drop_image){
 
