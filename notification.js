@@ -784,6 +784,9 @@ async function(OneSignal){
 
     serviceWorkerUpdaterPath:
 "/OneSignalSDKUpdaterWorker.js",
+    serviceWorkerParam: {
+    scope: "/"
+  },
 
     allowLocalhostAsSecureOrigin:true
 
