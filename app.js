@@ -26,15 +26,28 @@ async function initPush(){
 
   const failSafe = setTimeout(()=>{
 
-    window.parent.postMessage({
+  if(window.opener){
+
+    window.opener.postMessage({
 
       type:
       "BEGAN_PUSH_DENIED"
 
-    },"*");
+    },
 
-  },25000);
+    "https://www.barkahgarment.com"
 
+    );
+
+    setTimeout(()=>{
+
+      window.close();
+
+    },1200);
+
+  }
+
+},25000);
   try{
 
     // =========================
@@ -121,10 +134,7 @@ async function initPush(){
 
         const alreadySubscribed =
 
-await OneSignal
-.User
-.PushSubscription
-.optedIn;
+await OneSignal.User.PushSubscription.optedIn;
 
         if(alreadySubscribed){
 
@@ -158,22 +168,33 @@ await OneSignal
 
           clearTimeout(failSafe);
 
-          window.parent.postMessage({
+          if(window.opener){
 
-            type:
-            "BEGAN_PUSH_SUCCESS"
+  window.opener.postMessage({
 
-          },"*");
+    type:
+    "BEGAN_PUSH_SUCCESS"
 
+  },
+
+  "https://www.barkahgarment.com"
+
+  );
+
+  setTimeout(()=>{
+
+    window.close();
+
+  },1200);
+
+}
           return;
 
         }
 
         const permission =
 
-await OneSignal
-.Notifications
-.requestPermission();
+await OneSignal.Notifications.requestPermission();
 
         if(permission === "granted"){
 
@@ -207,57 +228,97 @@ await OneSignal
 
           clearTimeout(failSafe);
 
-          window.parent.postMessage({
+          if(window.opener){
 
-            type:
-            "BEGAN_PUSH_SUCCESS"
+  window.opener.postMessage({
 
-          },"*");
+    type:
+    "BEGAN_PUSH_SUCCESS"
 
+  },
+
+  "https://www.barkahgarment.com"
+
+  );
+
+  setTimeout(()=>{
+
+    window.close();
+
+  },1200);
+
+}
+          return;
+          
         }else{
 
           clearTimeout(failSafe);
 
-          window.parent.postMessage({
+          if(window.opener){
 
-            type:
-            "BEGAN_PUSH_DENIED"
+  window.opener.postMessage({
 
-          },"*");
+    type:
+    "BEGAN_PUSH_DENIED"
 
+  },
+
+  "https://www.barkahgarment.com"
+
+  );
+
+  setTimeout(()=>{
+
+    window.close();
+
+  },1200);
+          }
         }
 
-      }catch(err){
+    }catch(err){
 
-        console.log(err);
+  console.log(err);
 
-        clearTimeout(failSafe);
+  clearTimeout(failSafe);
 
-        window.parent.postMessage({
+  if(window.opener){
 
-          type:
-          "BEGAN_PUSH_DENIED"
+    window.opener.postMessage({
 
-        },"*");
+      type:
+      "BEGAN_PUSH_DENIED"
 
-      }
+    },
+
+    "https://www.barkahgarment.com"
+
+    );
+
+    setTimeout(()=>{
+
+      window.close();
 
     },1200);
 
-  }catch(err){
-
-    console.log(err);
-
-    if(btn){
-
-      btn.disabled = false;
-
-      btn.innerHTML =
-        "TRY AGAIN";
-    }
-
   }
 
+}
+
+},1200);
+
+}catch(err){
+
+  console.log(err);
+
+  if(btn){
+
+    btn.disabled = false;
+
+    btn.innerHTML =
+      "TRY AGAIN";
+  }
+
+}
 }
 
 document
