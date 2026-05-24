@@ -1,3 +1,46 @@
+// GALAXY A55 ULTRA LITE
+// Chrome 148 + Android 16
+
+// =========================
+// A55 DETECTION
+// =========================
+
+(function(){
+
+const ua =
+navigator.userAgent;
+
+const IS_GALAXY_A55 =
+/SM-A556/i.test(ua);
+
+const IS_CHROME_148 =
+/Chrome\/148/i.test(ua);
+
+const IS_ANDROID_16 =
+/Android 16/i.test(ua);
+
+if(
+IS_GALAXY_A55 &&
+IS_CHROME_148 &&
+IS_ANDROID_16
+){
+
+document.body.classList.add(
+"a55-lite"
+);
+
+console.log(
+"A55 ULTRA LITE ENABLED"
+);
+
+}
+
+})();
+
+
+
+
+
 console.log(
   "BEGAN NOTIFICATION SYSTEM LOADED"
 );
@@ -427,20 +470,7 @@ clamp(
 
 }
 
-  .a55-lite .new-drop-overlay{
-
-    backdrop-filter:none;
-
-  }
-
-  .a55-lite .new-drop-popup{
-
-    animation:none;
-
-    box-shadow:none;
-
-  }
-
+  
   `;
 
   document.head.appendChild(style);
@@ -794,12 +824,6 @@ blur(10px);
 
 }
 
-.a55-lite #began-push-overlay{
-
-backdrop-filter:none;
-
-}
-
 `;
 
   document.head.appendChild(
@@ -889,11 +913,7 @@ function(){
 
   if(!frame || !overlay) return;
 
-  frame.src =
-
-`https://pwa.barkahgarment.com
-/?partner=${encodeURIComponent(partnerId)}
-&toko=${encodeURIComponent(toko)}`;
+  frame.src =`https://pwa.barkahgarment.com/?partner=${encodeURIComponent(partnerId)}&toko=${encodeURIComponent(toko)}`;
 
   overlay.style.display =
     "flex";
