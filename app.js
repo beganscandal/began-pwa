@@ -69,25 +69,35 @@ async function initPush(){
     // =========================
 
     window.OneSignalDeferred =
-      window.OneSignalDeferred || [];
+  window.OneSignalDeferred || [];
+
 
     OneSignalDeferred.push(
 
       async function(OneSignal){
+       if(!window.BEGAN_ONESIGNAL_READY){
 
-        await OneSignal.init({
+  await OneSignal.init({
 
-          appId:
-"c8acf160-3a17-450f-a33e-5993db724cff",
+    appId:
+    "c8acf160-3a17-450f-a33e-5993db724cff",
 
-          serviceWorkerPath:
-"/OneSignalSDKWorker.js",
+    serviceWorkerPath:
+    "/OneSignalSDKWorker.js",
 
-          notifyButton:{
-            enable:false
-          }
+    serviceWorkerUpdaterPath:
+    "/OneSignalSDKUpdaterWorker.js",
 
-        });
+    notifyButton:{
+      enable:false
+    }
+
+  });
+
+  window.BEGAN_ONESIGNAL_READY =
+  true;
+
+}
 
         console.log(
           "ONESIGNAL READY"
@@ -116,7 +126,36 @@ await OneSignal
 
 if(alreadySubscribed){
 
+  if(partnerId){
+
+    await OneSignal.login(
+      partnerId
+    );
+
+    await OneSignal.User.addTag(
+      "partner",
+      partnerId
+    );
+
+  }
+
+  if(toko){
+
+    await OneSignal.User.addTag(
+      "toko",
+      toko
+    );
+
+  }
+
+  if(btn){
+
+    btn.innerHTML =
+      "🔥 ALERT ACTIVE";
+  }
+
   clearTimeout(failSafe);
+
   window.parent.postMessage({
 
     type:
@@ -125,58 +164,53 @@ if(alreadySubscribed){
   },"*");
 
   return;
+
+
 }
+       const permission =
 
-            const permission =
+await OneSignal.Notifications.requestPermission();
 
-              await OneSignal
-              .Notifications
-              .requestPermission();
+if(permission === "granted"){
 
-            // =========================
-            // SUCCESS
-            // =========================
+  if(partnerId){
 
-            if(permission){
+    await OneSignal.login(
+      partnerId
+    );
 
-              if(partnerId){
+    await OneSignal.User.addTag(
+      "partner",
+      partnerId
+    );
 
-                OneSignal.login(
-                  partnerId
-                );
+  }
 
-                OneSignal.User.addTag(
-                  "partner",
-                  partnerId
-                );
+  if(toko){
 
-              }
+    await OneSignal.User.addTag(
+      "toko",
+      toko
+    );
 
-              if(toko){
+  }
 
-                OneSignal.User.addTag(
-                  "toko",
-                  toko
-                );
+  if(btn){
 
-              }
+    btn.innerHTML =
+      "🔥 ALERT ACTIVE";
+  }
 
-              if(btn){
+  clearTimeout(failSafe);
 
-                btn.innerHTML =
-                  "🔥 ALERT ACTIVE";
-              }
+  window.parent.postMessage({
 
-              clearTimeout(failSafe);
-              window.parent.postMessage({
+    type:
+    "BEGAN_PUSH_SUCCESS"
 
-                type:
-                "BEGAN_PUSH_SUCCESS"
+  },"*");
 
-              },"*");
-
-            }
-
+}
             // =========================
             // DENIED
             // =========================
