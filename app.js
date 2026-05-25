@@ -20,6 +20,59 @@ async function initPush(){
     "enableNotif"
   );
 
+  // =========================
+  // IOS UNSUPPORTED CHECK
+  // =========================
+
+  const isIOS =
+
+/iPad|iPhone|iPod/.test(
+  navigator.userAgent
+) ||
+
+(
+  navigator.platform === "MacIntel" &&
+  navigator.maxTouchPoints > 1
+);
+
+const unsupportedIOS =
+
+isIOS &&
+
+!(
+  "PushManager" in window
+);
+  if(unsupportedIOS){
+
+    console.log(
+      "IOS PUSH NOT SUPPORTED"
+    );
+
+    const sub =
+    document.querySelector(
+      ".auth-sub"
+    );
+
+    if(sub){
+
+      sub.innerHTML =
+
+"iPhone ini belum support push notification Safari.<br><br>Minimal iOS 16.4 diperlukan.";
+
+    }
+
+    if(btn){
+
+      btn.disabled = true;
+
+      btn.innerHTML =
+        "DEVICE NOT SUPPORTED";
+    }
+
+    return;
+
+  }
+
   if(btn){
 
     btn.disabled = true;
@@ -28,6 +81,7 @@ async function initPush(){
       "CONNECTING...";
   }
 
+ 
   const failSafe = setTimeout(()=>{
 
   if(window.opener){
@@ -145,11 +199,8 @@ resolve();
     }
 
     // =========================
-    // DELAY
+    // DIRECT FLOW
     // =========================
-
-    setTimeout(async()=>{
-
       try{
 
         const alreadySubscribed =
@@ -204,7 +255,6 @@ OneSignal.User.PushSubscription.optedIn;
   setTimeout(()=>{
 
     window.close();
-
   },1200);
 
 }else{
@@ -358,7 +408,7 @@ return;
 
 }
 
-},1200);
+}
 
 }catch(err){
 
