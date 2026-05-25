@@ -26,13 +26,7 @@
   transform: none !important;
 }
 
-/* GPU STABILITY */
-.a55-lite .product-card,
-.a55-lite .checkout-btn,
-.a55-lite .qty-badge-wrapper{
 
-  transform: translateZ(0);
-}
   .notif-dot{
 
   width:20px;
@@ -300,6 +294,6 @@ LOGIN OVERLAY GPU FIX
 
   will-change:auto !important;
 
-  contain:strict;
+  
 
 }
