@@ -70,12 +70,13 @@ async function initPush(){
         sdk
       );
 
-      await new Promise(resolve=>{
+      await new Promise((resolve,reject)=>{
 
-        sdk.onload = resolve;
+  sdk.onload = resolve;
 
-      });
+  sdk.onerror = reject;
 
+});
     }
 
     // =========================
@@ -134,8 +135,8 @@ async function initPush(){
 
         const alreadySubscribed =
 
-await OneSignal.User.PushSubscription.optedIn;
-
+OneSignal.User.PushSubscription.optedIn;
+        
         if(alreadySubscribed){
 
           if(partnerId){
@@ -187,6 +188,12 @@ await OneSignal.User.PushSubscription.optedIn;
 
   },1200);
 
+}else{
+
+  window.location.href =
+
+"https://www.barkahgarment.com/began-partner-dashboard-dev?push=success";
+
 }
           return;
 
@@ -196,7 +203,13 @@ await OneSignal.User.PushSubscription.optedIn;
 
 await OneSignal.Notifications.requestPermission();
 
-        if(permission === "granted"){
+        if(
+
+  permission === "granted" ||
+
+  permission === true
+
+){
 
           if(partnerId){
 
@@ -247,36 +260,50 @@ await OneSignal.Notifications.requestPermission();
 
   },1200);
 
+}else{
+
+  window.location.href =
+
+"https://www.barkahgarment.com/began-partner-dashboard-dev?push=success";
+
 }
-          return;
+
+return;
           
         }else{
 
-          clearTimeout(failSafe);
+  clearTimeout(failSafe);
 
-          if(window.opener){
+  if(window.opener){
 
-  window.opener.postMessage({
+    window.opener.postMessage({
 
-    type:
-    "BEGAN_PUSH_DENIED"
+      type:
+      "BEGAN_PUSH_DENIED"
 
-  },
+    },
 
-  "https://www.barkahgarment.com"
+    "https://www.barkahgarment.com"
 
-  );
+    );
 
-  setTimeout(()=>{
+    setTimeout(()=>{
 
-    window.close();
+      window.close();
 
-  },1200);
-          }
-        }
+    },1200);
 
-    }catch(err){
+  }else{
 
+    window.location.href =
+
+"https://www.barkahgarment.com/began-partner-dashboard-dev?push=denied";
+
+  }
+
+}
+    
+}catch(err){
   console.log(err);
 
   clearTimeout(failSafe);
