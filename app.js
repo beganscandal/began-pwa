@@ -3,7 +3,7 @@ const partnerId = params.get("partner") || "";
 const toko = params.get("toko") || "";
 
 // ========================================================
-// 1. STRATEGI SAFARI: LOAD & INIT SDK SAAT HALAMAN DIBUKA
+// 1. PRELOAD SDK ONESIGNAL (Wajib di awal)
 // ========================================================
 (async function preloadOneSignal() {
   if (!window.OneSignal) {
@@ -11,7 +11,6 @@ const toko = params.get("toko") || "";
     sdk.src = "https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
     sdk.defer = true;
     document.head.appendChild(sdk);
-
     await new Promise(resolve => { sdk.onload = resolve; });
   }
 
@@ -20,15 +19,12 @@ const toko = params.get("toko") || "";
     await OneSignal.init({
       appId: "37e11236-e95b-4d5d-b925-f7b5f8308cdd",
       safari_web_id: "web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
-      notifyButton: {
-        enable: false, // Diset false agar widget bawaan OS tidak mengganggu tombol custom
-      },
+      notifyButton: { enable: false },
     });
 
     window.BEGAN_ONESIGNAL_READY = true;
     console.log("ONESIGNAL READY IN BACKGROUND");
 
-    // Aktifkan kembali tombol jika SDK sudah ready
     const btn = document.getElementById("enableNotif");
     if (btn) {
       btn.disabled = false;
@@ -38,12 +34,28 @@ const toko = params.get("toko") || "";
 })();
 
 // ========================================================
-// 2. FUNGSI KLIK TOMBOL (CEPAT & INSTAN TANPA SCRIPT LOADING)
+// 2. FUNGSI SYNC & LOGIN (DIPISAH SUPAYA TIDAK MEMBLOCK SAFARI)
 // ========================================================
-async function initPush() {
+async function syncOneSignalTags() {
+  try {
+    if (partnerId) {
+      await window.OneSignal.login(partnerId);
+      await window.OneSignal.User.addTag("partner", partnerId);
+    }
+    if (toko) {
+      await window.OneSignal.User.addTag("toko", toko);
+    }
+  } catch (e) {
+    console.error("Gagal sinkronisasi tags:", e);
+  }
+}
+
+// ========================================================
+// 3. FUNGSI KLIK UTAMA (DIJAMIN LOLOS POP-UP BLOCKER SAFARI)
+// ========================================================
+function initPush() {
   const btn = document.getElementById("enableNotif");
 
-  // Jika di background SDK-nya belum kelar download, cegah eksekusi
   if (!window.BEGAN_ONESIGNAL_READY) {
     if (btn) btn.innerHTML = "LOADING SDK... TRY AGAIN";
     return;
@@ -54,7 +66,6 @@ async function initPush() {
     btn.innerHTML = "CONNECTING...";
   }
 
-  // FAILSAFE TIMEOUT
   const failSafe = setTimeout(() => {
     if (window.opener) {
       window.opener.postMessage({ type: "BEGAN_PUSH_DENIED" }, "https://www.barkahgarment.com");
@@ -62,73 +73,46 @@ async function initPush() {
     setTimeout(() => { window.close(); }, 1200);
   }, 25000);
 
-  try {
-    // Jalankan langsung tanpa setTimeout pembungkus agar lolos dari Pop-up Blocker Safari
-    const alreadySubscribed = await window.OneSignal.User.PushSubscription.optedIn;
+  // TRIK SAFARI: Langsung panggil requestPermission() murni menggunakan .then() 
+  // Tanpa keyword 'await' di depan agar tidak memutus rantai klik manusia di mata iOS
+  window.OneSignal.Notifications.requestPermission()
+    .then(async (permission) => {
+      if (permission === "granted") {
+        
+        // Jalankan proses login & tagging di background setelah izin didapat
+        await syncOneSignalTags();
 
-    if (alreadySubscribed) {
-      if (partnerId) {
-        await window.OneSignal.login(partnerId);
-        await window.OneSignal.User.addTag("partner", partnerId);
+        if (btn) btn.innerHTML = "🔥 ALERT ACTIVE";
+        clearTimeout(failSafe);
+
+        if (window.opener) {
+          window.opener.postMessage({ type: "BEGAN_PUSH_SUCCESS" }, "https://www.barkahgarment.com");
+        }
+        setTimeout(() => { window.close(); }, 1200);
+      } else {
+        // Jika permission denied / ditolak
+        clearTimeout(failSafe);
+        if (window.opener) {
+          window.opener.postMessage({ type: "BEGAN_PUSH_DENIED" }, "https://www.barkahgarment.com");
+        }
+        setTimeout(() => { window.close(); }, 1200);
       }
-      if (toko) {
-        await window.OneSignal.User.addTag("toko", toko);
-      }
-
-      if (btn) btn.innerHTML = "🔥 ALERT ACTIVE";
-      clearTimeout(failSafe);
-
-      if (window.opener) {
-        window.opener.postMessage({ type: "BEGAN_PUSH_SUCCESS" }, "https://www.barkahgarment.com");
-      }
-      setTimeout(() => { window.close(); }, 1200);
-      return;
-    }
-
-    // Pemicu Native Prompt Dialog (Wajib instan setelah user-click di Safari)
-    const permission = await window.OneSignal.Notifications.requestPermission();
-
-    if (permission === "granted") {
-      if (partnerId) {
-        await window.OneSignal.login(partnerId);
-        await window.OneSignal.User.addTag("partner", partnerId);
-      }
-      if (toko) {
-        await window.OneSignal.User.addTag("toko", toko);
-      }
-
-      if (btn) btn.innerHTML = "🔥 ALERT ACTIVE";
-      clearTimeout(failSafe);
-
-      if (window.opener) {
-        window.opener.postMessage({ type: "BEGAN_PUSH_SUCCESS" }, "https://www.barkahgarment.com");
-      }
-      setTimeout(() => { window.close(); }, 1200);
-    } else {
-      // Jika user memilih deny/block
+    })
+    .catch((err) => {
+      console.error("Safari Native Push Error:", err);
       clearTimeout(failSafe);
       if (window.opener) {
         window.opener.postMessage({ type: "BEGAN_PUSH_DENIED" }, "https://www.barkahgarment.com");
       }
       setTimeout(() => { window.close(); }, 1200);
-    }
-
-  } catch (err) {
-    console.error("Error during push flow:", err);
-    clearTimeout(failSafe);
-    if (window.opener) {
-      window.opener.postMessage({ type: "BEGAN_PUSH_DENIED" }, "https://www.barkahgarment.com");
-    }
-    setTimeout(() => { window.close(); }, 1200);
-  }
+    });
 }
 
 // ========================================================
-// 3. EVENT BINDING TOMBOL
+// 4. BIND EVENT TOMBOL
 // ========================================================
 const enableBtn = document.getElementById("enableNotif");
 if (enableBtn) {
-  // Jika saat tombol ke-render SDK belum siap, berikan state memuat
   if (!window.BEGAN_ONESIGNAL_READY) {
     enableBtn.disabled = true;
     enableBtn.innerHTML = "INITIALIZING...";
