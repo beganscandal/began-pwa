@@ -104,7 +104,7 @@ document.addEventListener(
 // =========================
 let NEW_DROP_ACTIVE = false;
 let PUSH_OVERLAY_ACTIVE = false;
-let PUSH_OVERLAY_TIMEOUT = null;
+
 let NEW_DROP_SOUND_PLAYED =
 
 sessionStorage.getItem(
@@ -781,15 +781,19 @@ document.body.classList.contains(
   });
 
 }
+const partnerData =
+JSON.parse(
+  localStorage.getItem(
+    "began_partner"
+  ) || "{}"
+);
+
 const partnerId =
-localStorage.getItem(
-  "partnerId"
-) || "";
+partnerData.id || "";
 
 const toko =
-localStorage.getItem(
-  "partnerToko"
-) || "";
+partnerData.toko || "";
+
 const PARTNER_ARTICLE_KEY =
 partnerId
 ? `article_seen_${partnerId}`
@@ -799,403 +803,8 @@ const PARTNER_PUSH_KEY =
 partnerId
 ? `push_seen_${partnerId}`
 : "push_seen_guest";
-// =========================
-// ONESIGNAL INIT
-// =========================
 
-window.OneSignalDeferred =
-window.OneSignalDeferred || [];
 
-OneSignalDeferred.push(
-async function(OneSignal){
-
-  await OneSignal.init({
-
-    appId:
-    "37e11236-e95b-4d5d-b925-f7b5f8308cdd",
-    safari_web_id:
-"web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
-
-
-    notifyButton:{
-      enable:false
-    },
-    serviceWorkerPath:
-"https://pwa.barkahgarment.com/OneSignalSDKWorker.js",
-   
-    allowLocalhostAsSecureOrigin:true
-
-  });
-
-  console.log(
-    "ONESIGNAL INIT SUCCESS"
-  );
-
-});
-
-
-// =========================
-// PUSH PERMISSION LAYER
-// =========================
-
-function injectPushPermissionLayer(){
-  
-
-  if(
-    document.querySelector(
-      ".push-permission-layer"
-    )
-  ) return;
-
-  let style =
-document.getElementById(
-  "push-permission-style"
-);
-
-if(!style){
-
-  style =
-  document.createElement(
-    "style"
-  );
-
-  style.id =
-  "push-permission-style";
-
-  style.innerHTML = `
-
-  .push-permission-layer{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:999999;
-
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    background:
-    rgba(0,0,0,.10);
-
-    backdrop-filter:
-    blur(4px);
-
-    animation:
-    pushFade .2s ease;
-
-  }
-
-  .push-permission-box{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    background:#0a0a0a;
-
-    color:white;
-
-    padding:14px 18px;
-
-    border-radius:18px;
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,.22);
-
-  }
-
-  .push-permission-text{
-
-    font-size:14px;
-
-    font-weight:600;
-
-    white-space:nowrap;
-
-  }
-
-  .push-permission-btn{
-
-    border:none;
-
-    outline:none;
-
-    height:38px;
-
-    padding:0 16px;
-
-    border-radius:12px;
-
-    background:white;
-
-    color:black;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-  }
-
-  @keyframes pushFade{
-
-    from{
-
-      opacity:0;
-
-    }
-
-    to{
-
-      opacity:1;
-
-    }
-
-  }
-
-  `;
-
-  document.head.appendChild(
-    style
-  );
-
-}
-  const layer =
-  document.createElement("div");
-
-  layer.className =
-    "push-permission-layer";
-  PUSH_OVERLAY_ACTIVE = true;
-
-  layer.innerHTML = `
-
-    <div class="push-permission-box">
-
-      <div class="push-permission-text">
-
-        🔔 Aktifkan Alert Artikel Baru
-
-      </div>
-
-      <button
-        class="push-permission-btn">
-
-        AKTIFKAN
-
-      </button>
-
-    </div>
-
-  `;
-
-  document.body.appendChild(
-    layer
-  );
-  PUSH_OVERLAY_TIMEOUT = setTimeout(()=>{
-
-  if(layer){
-
-    layer.remove();
-
-  }
-
-  PUSH_OVERLAY_ACTIVE = false;
-
-},15000);
-
-  layer.onclick = (e)=>{
-
-  if(e.target !== layer){
-
-    return;
-
-  }
-
-  clearTimeout(
-  PUSH_OVERLAY_TIMEOUT
-);
-
-  layer.remove();
-
-  PUSH_OVERLAY_ACTIVE = false;
-
-};
-
-  const btn =
-  layer.querySelector(
-    ".push-permission-btn"
-  );
-
- btn.onclick =
-async ()=>{
-
-  btn.disabled = true;
-
-  btn.style.opacity = ".6";
-
-  await requestPushPermission();
-
-};
-}
-
-// =========================
-// REQUEST PUSH
-// =========================
-
-async function requestPushPermission(){
-
-  OneSignalDeferred.push(
-
-    async function(OneSignal){
-
-      try{
-
-        const permission =
-
-        await OneSignal
-        .Notifications
-        .requestPermission();
-
-        console.log(
-          "PERMISSION:",
-          permission
-        );
-
-        const layer =
-        document.querySelector(
-          ".push-permission-layer"
-        );
-
-        if(layer){
-
-  clearTimeout(
-  PUSH_OVERLAY_TIMEOUT
-);
-  layer.remove();
-
-}
-
-PUSH_OVERLAY_ACTIVE = false;
-        if(
-  permission !== "granted"
-){
-
-  sessionStorage.setItem(
-    "pushOverlayCooldown",
-    "true"
-  );
-
-}
-
-if(
-  Notification.permission ===
-  "granted"
-){
-
-  if(partnerId){
-
-    await OneSignal.login(
-      partnerId
-    );
-
-    await OneSignal.User.addTag(
-      "partner",
-      partnerId
-    );
-
-  }
-
-  if(toko){
-
-    await OneSignal.User.addTag(
-      "toko",
-      toko
-    );
-
-  }
-localStorage.setItem(
-  PARTNER_PUSH_KEY,
-  "true"
-);
-  console.log(
-    "PUSH ACTIVE"
-  );
-
-  updatePushButton();
-
-}
-
-      }catch(err){
-
-        console.log(
-          "PUSH ERROR",
-          err
-        );
-
-      }
-
-    }
-
-  );
-
-}
-
-// =========================
-// OPEN PUSH OVERLAY
-// =========================
-
-window.openPushOverlay =
-function(){
-
-  if(
-    localStorage.getItem(
-  PARTNER_PUSH_KEY
-    ) === "true"
-  ){
-
-    return;
-
-  }
-
-  if(
-    Notification.permission ===
-    "granted"
-  )
-    
-  {
-
-    return;
-
-  }
-
-  if(
-    Notification.permission ===
-    "denied"
-  ){
-
-    return;
-
-  }
-if(
-  sessionStorage.getItem(
-    "pushOverlayCooldown"
-  ) === "true"
-){
-
-  return;
-
-}
-  
- /* injectPushPermissionLayer(); */
-  requestPushPermission();
-
-};
 document.addEventListener(
 
   "visibilitychange",
@@ -1226,7 +835,21 @@ document.addEventListener(
 
 );
 
-//button binding
+
+window.openPushOverlay =
+function(){
+
+  window.open(
+
+    `https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`,
+
+    "BEGAN_PUSH",
+
+    "width=420,height=620"
+
+  );
+
+};
 window.addEventListener(
 
   "load",
@@ -1240,25 +863,98 @@ window.addEventListener(
 
     if(!pushBtn) return;
 
-    pushBtn.addEventListener(
+    pushBtn.onclick =
+    window.openPushOverlay;
 
-      "click",
+  }
 
-      ()=>{
+);
+window.addEventListener(
 
-        if(
-          typeof
-          window.openPushOverlay ===
-          "function"
-        ){
+  "message",
 
-          window.openPushOverlay();
+  (event)=>{
 
-        }
+    if(
 
-      }
+      event.origin !==
+      "https://pwa.barkahgarment.com"
+
+    ) return;
+
+    const pushBtn =
+    document.getElementById(
+      "push-btn"
+    );
+
+    const partnerId =
+partnerData.id || "";
+    if(
+
+      event.data.type ===
+      "BEGAN_PUSH_SUCCESS"
+
+    ){
+
+      localStorage.setItem(
+
+        `push_confirmed_${partnerId}`,
+
+        "yes"
+
+      );
+
+      if(pushBtn){
+
+  pushBtn.innerHTML =
+    "🔥 ALERT ACTIVE";
+
+  pushBtn.disabled =
+    true;
+
+  setTimeout(()=>{
+
+    pushBtn.style.display =
+      "none";
+
+  },1200);
+
+}
+    }
+    }
+
+
+);
+window.addEventListener(
+
+  "load",
+
+  ()=>{
+
+    const pushBtn =
+    document.getElementById(
+      "push-btn"
+    );
+
+    if(!pushBtn) return;
+
+    const partnerId =
+partnerData.id || "";
+
+    const confirmed =
+
+    localStorage.getItem(
+
+      `push_confirmed_${partnerId}`
 
     );
+
+    if(confirmed){
+
+      pushBtn.style.display =
+        "none";
+
+    }
 
   }
 
