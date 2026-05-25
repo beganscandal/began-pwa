@@ -321,8 +321,14 @@ await OneSignal.Notifications.requestPermission();
 }
 }
 
-document
-.getElementById(
+const enableBtn =
+document.getElementById(
   "enableNotif"
-)
-.onclick = initPush;
+);
+
+if(enableBtn){
+
+  enableBtn.onclick =
+    initPush;
+
+}
