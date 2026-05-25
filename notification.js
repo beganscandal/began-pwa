@@ -835,13 +835,43 @@ document.addEventListener(
 
 );
 
-
 window.openPushOverlay =
 function(){
 
+  const url =
+
+`https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`;
+
+  // =========================
+  // IOS DETECTION
+  // =========================
+
+  const isIOS =
+
+  /iPad|iPhone|iPod/.test(
+    navigator.userAgent
+  );
+
+  // =========================
+  // IPHONE SAFARI
+  // =========================
+
+  if(isIOS){
+
+    window.location.href =
+      url;
+
+    return;
+
+  }
+
+  // =========================
+  // ANDROID / DESKTOP
+  // =========================
+
   window.open(
 
-    `https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`,
+    url,
 
     "BEGAN_PUSH",
 
@@ -850,6 +880,7 @@ function(){
   );
 
 };
+
 window.addEventListener(
 
   "load",
