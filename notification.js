@@ -91,35 +91,56 @@ newDropSound.volume = 0.8;
 // AUDIO UNLOCK
 // =========================
 
+let AUDIO_UNLOCKED = false;
+
 function unlockNotifAudio(){
 
-  newDropSound.muted = true;
+  if(AUDIO_UNLOCKED) return;
 
-  newDropSound.play()
+  AUDIO_UNLOCKED = true;
 
-  .then(()=>{
+  try{
 
-    newDropSound.pause();
+    newDropSound.muted = true;
 
-    newDropSound.currentTime = 0;
+    const p =
+    newDropSound.play();
 
-    newDropSound.muted = false;
+    if(p){
 
-  })
+      p.then(()=>{
 
-  .catch(()=>{});
+        newDropSound.pause();
+
+        newDropSound.currentTime = 0;
+
+        newDropSound.muted = false;
+
+      })
+
+      .catch(()=>{});
+
+    }
+
+  }catch(err){
+
+    console.log(
+      "AUDIO UNLOCK FAILED",
+      err
+    );
+
+  }
+
 }
 
 document.addEventListener(
-  "click",
-  unlockNotifAudio,
-  { once:true }
-);
 
-document.addEventListener(
-  "touchstart",
+  "click",
+
   unlockNotifAudio,
+
   { once:true }
+
 );
 
 // =========================
@@ -229,11 +250,21 @@ sessionStorage.setItem(
 "true"
 );
 
-newDropSound.currentTime = 0;
+try{
 
-newDropSound.play()
-.catch(()=>{});
+  newDropSound.currentTime = 0;
 
+  newDropSound.play()
+  .catch(()=>{});
+
+}catch(err){
+
+  console.log(
+    "PLAY SOUND FAILED",
+    err
+  );
+
+}
 }
   showNotificationBadge();
       if(data.drop_image){
