@@ -45,6 +45,29 @@ console.log(
 console.log(
   "BEGAN NOTIFICATION SYSTEM LOADED"
 );
+const partnerData =
+JSON.parse(
+  localStorage.getItem(
+    "began_partner"
+  ) || "{}"
+);
+
+const partnerId =
+partnerData.id || "";
+
+const toko =
+partnerData.toko || "";
+
+const PARTNER_ARTICLE_KEY =
+partnerId
+? `article_seen_${partnerId}`
+: "article_seen_guest";
+
+const PARTNER_PUSH_KEY =
+partnerId
+? `push_seen_${partnerId}`
+: "push_seen_guest";
+
 
 // =========================
 // CONFIG
@@ -781,28 +804,6 @@ document.body.classList.contains(
   });
 
 }
-const partnerData =
-JSON.parse(
-  localStorage.getItem(
-    "began_partner"
-  ) || "{}"
-);
-
-const partnerId =
-partnerData.id || "";
-
-const toko =
-partnerData.toko || "";
-
-const PARTNER_ARTICLE_KEY =
-partnerId
-? `article_seen_${partnerId}`
-: "article_seen_guest";
-
-const PARTNER_PUSH_KEY =
-partnerId
-? `push_seen_${partnerId}`
-: "push_seen_guest";
 
 // =========================
 // IOS REDIRECT RESULT
@@ -869,10 +870,16 @@ function(){
 
   const isIOS =
 
-  /iPad|iPhone|iPod/.test(
-    navigator.userAgent
-  );
+/iPad|iPhone|iPod/.test(
+  navigator.userAgent
+)
 
+||
+
+(
+  navigator.platform === "MacIntel" &&
+  navigator.maxTouchPoints > 1
+);
   // =========================
   // IPHONE SAFARI
   // =========================
@@ -901,26 +908,41 @@ function(){
   );
 
 };
-
 window.addEventListener(
 
   "load",
 
   ()=>{
 
-    const pushBtn =
-    document.getElementById(
-      "push-btn"
-    );
+    setTimeout(()=>{
 
-    if(!pushBtn) return;
+      const pushBtn =
+      document.getElementById(
+        "push-btn"
+      );
 
-    pushBtn.onclick =
-    window.openPushOverlay;
+      if(!pushBtn){
+
+        console.log(
+          "PUSH BTN NOT FOUND"
+        );
+
+        return;
+      }
+
+      console.log(
+        "PUSH BTN ATTACHED"
+      );
+
+      pushBtn.onclick =
+      window.openPushOverlay;
+
+    },1200);
 
   }
 
 );
+
 window.addEventListener(
 
   "message",
