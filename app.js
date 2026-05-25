@@ -11,6 +11,10 @@ params.get("toko") || "";
 
 async function initPush(){
 
+  console.log(
+    "INIT PUSH START"
+  );
+
   const btn =
   document.getElementById(
     "enableNotif"
@@ -72,7 +76,15 @@ async function initPush(){
 
       await new Promise((resolve,reject)=>{
 
-  sdk.onload = resolve;
+  sdk.onload = ()=>{
+
+  console.log(
+    "SDK LOADED"
+  );
+
+  resolve();
+
+};
 
   sdk.onerror = reject;
 
@@ -90,6 +102,9 @@ async function initPush(){
 
       OneSignalDeferred.push(
         async function(OneSignal){
+          console.log(
+  "ONESIGNAL INIT START"
+);
 
           await OneSignal.init({
 
@@ -105,7 +120,11 @@ async function initPush(){
 
           });
 
-          resolve();
+          console.log(
+  "ONESIGNAL INIT SUCCESS"
+);
+
+resolve();
 
         }
       );
@@ -199,9 +218,17 @@ OneSignal.User.PushSubscription.optedIn;
 
         }
 
-        const permission =
+       console.log(
+  "REQUEST PERMISSION START"
+);
+
+const permission =
 
 await OneSignal.Notifications.requestPermission();
+
+console.log(
+  permission
+);
 
         if(
 
