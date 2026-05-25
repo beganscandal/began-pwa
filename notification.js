@@ -804,6 +804,27 @@ partnerId
 ? `push_seen_${partnerId}`
 : "push_seen_guest";
 
+// =========================
+// IOS REDIRECT RESULT
+// =========================
+
+const pushResult =
+
+new URLSearchParams(
+  window.location.search
+).get("push");
+
+if(pushResult === "success"){
+
+  localStorage.setItem(
+
+    `push_confirmed_${partnerId}`,
+
+    "yes"
+
+  );
+
+}
 
 document.addEventListener(
 
