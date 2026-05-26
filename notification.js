@@ -38,13 +38,65 @@ console.log(
 
 })();
 
+// =========================
+// IOS SAFE DETECTION
+// =========================
 
+const IS_IOS =
 
+/iPad|iPhone|iPod/.test(
+  navigator.userAgent
+)
 
+||
+
+(
+  navigator.platform === "MacIntel"
+  &&
+  navigator.maxTouchPoints > 1
+);
+
+// =========================
+// DEBUG
+// =========================
 
 console.log(
   "BEGAN NOTIFICATION SYSTEM LOADED"
 );
+
+console.log({
+  IS_IOS,
+  userAgent:
+  navigator.userAgent
+});
+
+// =========================
+// GLOBAL ERROR DEBUG
+// =========================
+
+window.onerror =
+function(msg,url,line,col,error){
+
+  console.log({
+
+    msg,
+    url,
+    line,
+    col,
+    error
+
+  });
+
+};
+
+// =========================
+// CONFIG
+// =========================
+
+const NOTIFICATION_API =
+"https://script.google.com/macros/s/AKfycbza5dLHKWO8iizfjp_8CaT_QsNQ50e4zxf40mt_mfinlvhnMqCwpLxdrrBh7fEc79Fs/exec?action=notificationStatus";
+
+
 const partnerData =
 JSON.parse(
   localStorage.getItem(
@@ -55,27 +107,11 @@ JSON.parse(
 const partnerId =
 partnerData.id || "";
 
-const toko =
-partnerData.toko || "";
-
 const PARTNER_ARTICLE_KEY =
+
 partnerId
 ? `article_seen_${partnerId}`
 : "article_seen_guest";
-
-const PARTNER_PUSH_KEY =
-partnerId
-? `push_seen_${partnerId}`
-: "push_seen_guest";
-
-
-// =========================
-// CONFIG
-// =========================
-
-const NOTIFICATION_API =
-"https://script.google.com/macros/s/AKfycbza5dLHKWO8iizfjp_8CaT_QsNQ50e4zxf40mt_mfinlvhnMqCwpLxdrrBh7fEc79Fs/exec?action=notificationStatus";
-
 // =========================
 // SOUND
 // =========================
@@ -85,7 +121,7 @@ new Audio(
   "https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a07b03b3076e93739d1d7bb_new%20article%20drop.mp3"
 );
 
-newDropSound.volume = 0.8;
+newDropSound.volume = 0.5;
 
 // =========================
 // AUDIO UNLOCK
@@ -142,6 +178,276 @@ document.addEventListener(
   { once:true }
 
 );
+
+// =========================
+// PUSH OVERLAY
+// =========================
+
+console.log(
+  "BEFORE PUSH OVERLAY"
+);
+
+// =========================
+// PUSH OVERLAY
+// =========================
+
+window.openPushOverlay =
+function(){
+
+  console.log(
+    "OPEN PUSH OVERLAY"
+  );
+
+  try{
+
+    const partnerData =
+    JSON.parse(
+
+      localStorage.getItem(
+        "began_partner"
+      ) || "{}"
+
+    );
+
+    const partnerId =
+    partnerData.id || "";
+
+    const toko =
+    partnerData.toko || "";
+
+    const url =
+
+`https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`;
+
+    console.log({
+      partnerId,
+      toko,
+      url
+    });
+  // =========================
+  // IOS DETECTION
+  // =========================
+
+  const IS_IOS =
+
+/iPad|iPhone|iPod/.test(
+  navigator.userAgent
+)
+
+||
+
+(
+  navigator.platform === "MacIntel" &&
+  navigator.maxTouchPoints > 1
+);
+  // =========================
+  // IPHONE SAFARI
+  // =========================
+
+  if(IS_IOS){
+
+      // IOS < 16.4
+      const iosVersionMatch =
+
+      navigator.userAgent.match(
+        /OS (\d+)_/
+      );
+
+      const iosVersion =
+
+      iosVersionMatch
+      ?
+      parseInt(
+        iosVersionMatch[1]
+      )
+      :
+      0;
+
+      console.log({
+        iosVersion
+      });
+
+      if(iosVersion < 16){
+
+        alert(
+`iPhone ini belum support push notification Safari.
+
+Minimal iOS 16.4 untuk web push.`
+        );
+
+        return;
+
+      }
+
+      window.location.href =
+      url;
+
+      return;
+
+    }
+  // =========================
+  // ANDROID / DESKTOP
+  // =========================
+
+  window.open(
+
+    url,
+
+    "BEGAN_PUSH",
+
+    "width=420,height=620"
+
+  );
+
+ }catch(err){
+
+    console.log(
+      "PUSH OVERLAY ERROR",
+      err
+    );
+
+  }
+
+};
+window.addEventListener(
+
+  "load",
+
+  ()=>{
+
+    setTimeout(()=>{
+
+      const pushBtn =
+      document.getElementById(
+        "push-btn"
+      );
+
+      if(!pushBtn){
+
+        console.log(
+          "PUSH BTN NOT FOUND"
+        );
+
+        return;
+      }
+
+      console.log(
+        "PUSH BTN ATTACHED"
+      );
+
+      pushBtn.onclick =
+      window.openPushOverlay;
+
+    },1200);
+
+  }
+
+);
+
+window.addEventListener(
+
+  "message",
+
+  (event)=>{
+
+    if(
+
+      event.origin !==
+      "https://pwa.barkahgarment.com"
+
+    ) return;
+
+    const pushBtn =
+    document.getElementById(
+      "push-btn"
+    );
+
+   const partnerData =
+JSON.parse(
+  localStorage.getItem(
+    "began_partner"
+  ) || "{}"
+);
+
+const partnerId =
+partnerData.id || "";
+    if(
+
+      event.data.type ===
+      "BEGAN_PUSH_SUCCESS"
+
+    ){
+
+      localStorage.setItem(
+
+        `push_confirmed_${partnerId}`,
+
+        "yes"
+
+      );
+
+      if(pushBtn){
+
+  pushBtn.innerHTML =
+    "🔥 ALERT ACTIVE";
+
+  pushBtn.disabled =
+    true;
+
+  setTimeout(()=>{
+
+    pushBtn.style.display =
+      "none";
+
+  },1200);
+
+}
+    }
+    }
+
+
+);
+window.addEventListener(
+
+  "load",
+
+  ()=>{
+
+    const pushBtn =
+    document.getElementById(
+      "push-btn"
+    );
+
+    if(!pushBtn) return;
+
+    const partnerData =
+JSON.parse(
+  localStorage.getItem(
+    "began_partner"
+  ) || "{}"
+);
+    const partnerId =
+partnerData.id || "";
+
+    const confirmed =
+
+    localStorage.getItem(
+
+      `push_confirmed_${partnerId}`
+
+    );
+
+    if(confirmed){
+
+      pushBtn.style.display =
+        "none";
+
+    }
+
+  }
+
+);
+
 
 // =========================
 // LAST VERSION
@@ -327,7 +633,7 @@ function injectNewDropOverlay(){
 
   position:fixed;
 
-inset:0;
+  inset:0;
   
   padding:
 max(20px, env(safe-area-inset-top))
@@ -345,6 +651,13 @@ max(20px, env(safe-area-inset-bottom));
   align-items:center;
 
   backdrop-filter:blur(8px);
+
+}
+
+.a55-lite .new-drop-overlay{
+
+  backdrop-filter:none;
+
 }
 
 .new-drop-popup{
@@ -618,9 +931,16 @@ function updatePushButton(){
   if(!btn) return;
 
   if(
-    Notification.permission ===
-    "granted"
-  ){
+
+  typeof Notification !==
+  "undefined"
+
+  &&
+
+  Notification.permission ===
+  "granted"
+
+){
 
     btn.style.display =
       "none";
@@ -848,6 +1168,16 @@ new URLSearchParams(
 
 if(pushResult === "success"){
 
+  const partnerData =
+  JSON.parse(
+    localStorage.getItem(
+      "began_partner"
+    ) || "{}"
+  );
+
+  const partnerId =
+  partnerData.id || "";
+
   localStorage.setItem(
 
     `push_confirmed_${partnerId}`,
@@ -857,7 +1187,6 @@ if(pushResult === "success"){
   );
 
 }
-
 document.addEventListener(
 
   "visibilitychange",
@@ -888,179 +1217,3 @@ document.addEventListener(
 
 );
 
-window.openPushOverlay =
-function(){
-
-  const url =
-
-`https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`;
-
-  // =========================
-  // IOS DETECTION
-  // =========================
-
-  const isIOS =
-
-/iPad|iPhone|iPod/.test(
-  navigator.userAgent
-)
-
-||
-
-(
-  navigator.platform === "MacIntel" &&
-  navigator.maxTouchPoints > 1
-);
-  // =========================
-  // IPHONE SAFARI
-  // =========================
-
-  if(isIOS){
-
-    window.location.href =
-      url;
-
-    return;
-
-  }
-
-  // =========================
-  // ANDROID / DESKTOP
-  // =========================
-
-  window.open(
-
-    url,
-
-    "BEGAN_PUSH",
-
-    "width=420,height=620"
-
-  );
-
-};
-window.addEventListener(
-
-  "load",
-
-  ()=>{
-
-    setTimeout(()=>{
-
-      const pushBtn =
-      document.getElementById(
-        "push-btn"
-      );
-
-      if(!pushBtn){
-
-        console.log(
-          "PUSH BTN NOT FOUND"
-        );
-
-        return;
-      }
-
-      console.log(
-        "PUSH BTN ATTACHED"
-      );
-
-      pushBtn.onclick =
-      window.openPushOverlay;
-
-    },1200);
-
-  }
-
-);
-
-window.addEventListener(
-
-  "message",
-
-  (event)=>{
-
-    if(
-
-      event.origin !==
-      "https://pwa.barkahgarment.com"
-
-    ) return;
-
-    const pushBtn =
-    document.getElementById(
-      "push-btn"
-    );
-
-    const partnerId =
-partnerData.id || "";
-    if(
-
-      event.data.type ===
-      "BEGAN_PUSH_SUCCESS"
-
-    ){
-
-      localStorage.setItem(
-
-        `push_confirmed_${partnerId}`,
-
-        "yes"
-
-      );
-
-      if(pushBtn){
-
-  pushBtn.innerHTML =
-    "🔥 ALERT ACTIVE";
-
-  pushBtn.disabled =
-    true;
-
-  setTimeout(()=>{
-
-    pushBtn.style.display =
-      "none";
-
-  },1200);
-
-}
-    }
-    }
-
-
-);
-window.addEventListener(
-
-  "load",
-
-  ()=>{
-
-    const pushBtn =
-    document.getElementById(
-      "push-btn"
-    );
-
-    if(!pushBtn) return;
-
-    const partnerId =
-partnerData.id || "";
-
-    const confirmed =
-
-    localStorage.getItem(
-
-      `push_confirmed_${partnerId}`
-
-    );
-
-    if(confirmed){
-
-      pushBtn.style.display =
-        "none";
-
-    }
-
-  }
-
-);
