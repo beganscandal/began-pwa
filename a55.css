@@ -294,6 +294,45 @@ LOGIN OVERLAY GPU FIX
 
   will-change:auto !important;
 
-  
+  /* =========================
+A55 LOGIN BUTTON HARD FIX
+========================= */
+
+.a55-lite .login-btn{
+
+  animation:none !important;
+
+  transition:none !important;
+
+  transform:none !important;
+
+  box-shadow:none !important;
+
+  text-shadow:none !important;
+
+  filter:none !important;
+
+  will-change:auto !important;
+
+  background:#fff !important;
+
+  color:#000 !important;
+
+}
+
+.a55-lite .login-btn:hover,
+.a55-lite .login-btn:active{
+
+  animation:none !important;
+
+  transform:none !important;
+
+  box-shadow:none !important;
+
+  filter:none !important;
+
+  background:#39FF14 !important;
+
+}
 
 }
