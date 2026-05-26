@@ -26,10 +26,22 @@ IS_CHROME_148 &&
 IS_ANDROID_16
 ){
 
-document.body.classList.add(
-"a55-lite"
+document.documentElement
+.classList.add(
+  "a55-lite"
 );
 
+window.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    document.body
+    .classList.add(
+      "a55-lite"
+    );
+
+  }
+);
 console.log(
 "A55 ULTRA LITE ENABLED"
 );
@@ -558,10 +570,14 @@ sessionStorage.setItem(
 
 try{
 
-  newDropSound.currentTime = 0;
+  setTimeout(()=>{
 
-  newDropSound.play()
-  .catch(()=>{});
+    newDropSound.currentTime = 0;
+
+    newDropSound.play()
+    .catch(()=>{});
+
+  },900);
 
 }catch(err){
 
@@ -573,6 +589,12 @@ try{
 }
 }
   showNotificationBadge();
+      if("setAppBadge" in navigator){
+
+  navigator.setAppBadge(1)
+  .catch(()=>{});
+
+}
       if(data.drop_image){
 
   const preload =
@@ -949,10 +971,19 @@ function updatePushButton(){
 
 }
 
+if(!partnerId){
 
-checkArticleUpdate();
+  console.log(
+    "PARTNER NOT READY"
+  );
+
+}else{
+
+  checkArticleUpdate();
+
+}
+
 updatePushButton();
-
 const unread =
 localStorage.getItem(
   "articleUnread"
@@ -1076,6 +1107,14 @@ sub.innerText =
 
     overlay.style.display =
       "none";
+   
+
+if("clearAppBadge" in navigator){
+
+  navigator.clearAppBadge()
+  .catch(()=>{});
+
+}
 
     NEW_DROP_ACTIVE = false;
 
