@@ -181,6 +181,9 @@ function injectPWAInstallUI(){
     width:82px;
 
     margin-bottom:20px;
+    margin-left: auto;   /* Membantu mendorong dari kiri */
+    margin-right: auto;  /* Membantu mendorong dari kanan */
+    display: block;      /* WAJIB: Memastikan elemen dianggap sebagai block */
 
   }
 
@@ -287,7 +290,7 @@ function injectPWAInstallUI(){
 
       <img
         class="began-pwa-logo"
-        src="https://pwa.barkahgarment.com/assets/logo-icon-512.png"
+        src="https://pwa.barkahgarment.com/assets/logoFont-512.png"
       >
 
       <div class="began-pwa-title">
