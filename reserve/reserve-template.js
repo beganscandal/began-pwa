@@ -248,3 +248,88 @@ getUnitLabel: getUnitLabel,
     cloneFragment: cloneFragment
   };
 })(typeof window !== 'undefined' ? window : this);
+
+(function(){
+
+  if(
+    document.getElementById(
+      'reserve-card-template'
+    )
+  ){
+    return;
+  }
+
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `
+
+<!-- SEMUA TEMPLATE DARI reserve.html -->
+
+<template id="reserve-card-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-size-qty-row-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-gallery-thumb-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-partner-row-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-payment-option-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-drawer-item-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-drawer-size-line-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+<template id="reserve-drawer-payment-option-template">
+
+...
+FULL TEMPLATE
+...
+
+</template>
+
+`
+  );
+
+})();
