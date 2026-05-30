@@ -81,9 +81,12 @@
 
     container.innerHTML = '';
     var sizes =
-  Template.getSizesByGroup(
-    product.sizeGroup
-  );
+  (product.realtimeSizes || [])
+  .map(function(size){
+
+    return size.sizeLabel;
+
+  });
 
 sizes.forEach(function (size) {
       var fragment = Template.cloneFragment(Template.getTemplateIds().sizeQtyRow);
