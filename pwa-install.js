@@ -344,27 +344,23 @@ function injectPWAInstallUI(){
 
   // BUTTON
 
-  html
-  .querySelector(
-    ".began-pwa-btn"
-  )
-  .onclick = async ()=>{
-
-    if(deferredPrompt){
-
+ // BUTTON
+  html.querySelector(".began-pwa-btn").onclick = async () => {
+    if (deferredPrompt) {
+      // Eksekusi normal untuk sistem Android
       deferredPrompt.prompt();
-
       await deferredPrompt.userChoice;
-
       deferredPrompt = null;
-
-      html.style.display =
-        "none";
-
+      html.style.display = "none";
+    } else {
+      // Fallback khusus untuk iOS agar tombol tidak mati saat ditekan
+      const IS_IOS_FALLBACK = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      
+      if (IS_IOS_FALLBACK) {
+        alert("Sistem Apple tidak mendukung instalasi otomatis.\n\nSilakan tap icon 'Share' (kotak dengan panah ke atas) di menu bawah Safari, lalu pilih 'Add to Home Screen'.");
+      }
     }
-
   };
-
 }
 
 // =========================
