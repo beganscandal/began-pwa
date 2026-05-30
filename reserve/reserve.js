@@ -328,6 +328,9 @@
 
     sizeGroup:
       p.category,
+    
+    unitLabel:
+  p.unitLabel || 'pcs',
 
     gallery: [
       {
