@@ -9,12 +9,21 @@ window.BEGAN_RESERVE_API =
   'use strict';
 
   function getConfig() {
-    return global.BEGAN_RESERVE_CONFIG || {
-      appsScriptUrl: '',
-      useMockApi: true,
-      apiAction: 'confirmReserve'
-    };
-  }
+
+  return {
+
+    appsScriptUrl:
+      window.BEGAN_RESERVE_API || '',
+
+    useMockApi:
+      !window.BEGAN_RESERVE_API,
+
+    apiAction:
+      'createReserveOrder'
+
+  };
+
+}
 
   function shouldUseMock(config) {
     return config.useMockApi || !config.appsScriptUrl;
