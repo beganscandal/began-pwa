@@ -470,5 +470,6 @@ getUnitLabel: getUnitLabel,
       <span data-drawer-payment-label></span>
     </label>
   </template>
-
+`
+  );
 })();
