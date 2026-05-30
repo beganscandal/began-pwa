@@ -46,12 +46,13 @@
   products.forEach(function(product){
 
     var sizes =
-      global
-        .ReserveTemplate
-        .getSizesByGroup(
-          product.sizeGroup
-        );
+  (product.realtimeSizes || [])
+    .map(function(size){
 
+      return size.sizeLabel;
+
+    });
+    
     cardStates[
       product.id
     ] =
