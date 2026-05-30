@@ -389,12 +389,76 @@ function syncRealtimeAnalytics(
   }
 
 }  
+
+  function syncRealtimeSizes(
+  cardEl,
+  currentProduct,
+  latestProduct
+){
+
+  var oldSizes =
+    (currentProduct.realtimeSizes || [])
+    .map(function(size){
+
+      return size.sizeLabel;
+
+    });
+
+  var newSizes =
+    (latestProduct.realtimeSizes || [])
+    .map(function(size){
+
+      return size.sizeLabel;
+
+    });
+
+  if(
+    JSON.stringify(oldSizes)
+    ===
+    JSON.stringify(newSizes)
+  ){
+    return;
+  }
+
+  currentProduct.realtimeSizes =
+    latestProduct.realtimeSizes || [];
+
+  var state =
+    State.getState(
+      latestProduct.id
+    );
+
+  if(!state){
+    return;
+  }
+
+  newSizes.forEach(function(size){
+
+    if(
+      !(size in state.sizeQty)
+    ){
+
+      state.sizeQty[size] = 0;
+
+    }
+
+  });
+
+  buildSizeQtyRows(
+    cardEl,
+    latestProduct.id,
+    state,
+    latestProduct
+  );
+
+}
   global.ReserveRender = {
   renderProductGrid: renderProductGrid,
   syncCard: syncCard,
   findCard: findCard,
   setHeroImage: setHeroImage,
   buildPartnerSection: buildPartnerSection,
+    syncRealtimeSizes: syncRealtimeSizes,
   syncRealtimeAnalytics: syncRealtimeAnalytics
 };
 })(typeof window !== 'undefined' ? window : this);
