@@ -47,29 +47,43 @@
       (data.products || [])
         .map(normalizeReserveProduct);
 
-    window.BEGAN_PRODUCTS =
-      products;
-
+    
     products.forEach(function(product){
 
-      var card =
-        Render.findCard(
-          rootEl,
-          product.id
-        );
+  var existingProduct =
+    getProduct(product.id);
 
-      if(!card){
-        return;
-      }
+  var card =
+    Render.findCard(
+      rootEl,
+      product.id
+    );
 
-      Render.syncRealtimeAnalytics(
-        card,
-        product
-      );
+  if(
+    !card ||
+    !existingProduct
+  ){
+    return;
+  }
 
-    });
+  Render.syncRealtimeSizes(
+    card,
+    existingProduct,
+    product
+  );
 
-  }catch(err){
+  Render.syncRealtimeAnalytics(
+    card,
+    product
+  );
+
+  Object.assign(
+    existingProduct,
+    product
+  );
+
+});
+      }catch(err){
 
     console.error(
       '[Reserve] Analytics refresh failed',
