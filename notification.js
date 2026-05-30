@@ -141,136 +141,115 @@ document.addEventListener(
 );
 
 // =========================
-// PUSH OVERLAY
+// PUSH OVERLAY (BEGAN SYSTEM)
 // =========================
 
-console.log(
-  "BEFORE PUSH OVERLAY"
-);
+window.openPushOverlay = function(){
+  console.log("OPEN PUSH OVERLAY");
+  try {
+    const partnerData = JSON.parse(localStorage.getItem("began_partner") || "{}");
+    const partnerId = partnerData.id || "";
+    const toko = partnerData.toko || "";
+    const url = `https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`;
 
-// =========================
-// PUSH OVERLAY
-// =========================
+    // =========================
+    // IOS DETECTION
+    // =========================
+    const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-window.openPushOverlay =
-function(){
+    if (IS_IOS) {
+      // Cek apakah mode Standalone (Sudah Add to Home Screen)
+      const IS_STANDALONE = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
 
-  console.log(
-    "OPEN PUSH OVERLAY"
-  );
+      // Cek minimal iOS 16.4+
+      const iosVersionMatch = navigator.userAgent.match(/OS (\d+)_(\d+)_?/);
+      let major = 0, minor = 0;
+      if (iosVersionMatch) {
+        major = parseInt(iosVersionMatch[1]);
+        minor = parseInt(iosVersionMatch[2] || 0);
+      }
+      const isSupportedIOS = (major > 16) || (major === 16 && minor >= 4);
 
-  try{
-
-    const partnerData =
-    JSON.parse(
-
-      localStorage.getItem(
-        "began_partner"
-      ) || "{}"
-
-    );
-
-    const partnerId =
-    partnerData.id || "";
-
-    const toko =
-    partnerData.toko || "";
-
-    const url =
-
-`https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`;
-
-    console.log({
-      partnerId,
-      toko,
-      url
-    });
-  // =========================
-  // IOS DETECTION
-  // =========================
-
-  const IS_IOS =
-
-/iPad|iPhone|iPod/.test(
-  navigator.userAgent
-)
-
-||
-
-(
-  navigator.platform === "MacIntel" &&
-  navigator.maxTouchPoints > 1
-);
-  // =========================
-  // IPHONE SAFARI
-  // =========================
-
-  if(IS_IOS){
-
-      // IOS < 16.4
-      const iosVersionMatch =
-
-      navigator.userAgent.match(
-        /OS (\d+)_/
-      );
-
-      const iosVersion =
-
-      iosVersionMatch
-      ?
-      parseInt(
-        iosVersionMatch[1]
-      )
-      :
-      0;
-
-      console.log({
-        iosVersion
-      });
-
-      if(iosVersion < 16){
-
-        alert(
-`iPhone ini belum support push notification Safari.
-
-Minimal iOS 16.4 untuk web push.`
-        );
-
+      // Tolak jika iOS di bawah 16.4
+      if (!isSupportedIOS) {
+        alert("iPhone ini belum support web push notification.\\n\\nMinimal sistem operasi iOS 16.4.");
         return;
-
       }
 
-      window.location.href =
-      url;
+      // Jika support iOS 16.4+ TAPI belum di-install, panggil Popup dengan tombol close (BUKAN redirect)
+      if (!IS_STANDALONE) {
+        tampilkanOverlayInstallIOS();
+        return;
+      }
 
+      // Jika SUDAH di-install (Standalone mode), baru izinkan eksekusi URL
+      window.location.href = url;
       return;
-
     }
-  // =========================
-  // ANDROID / DESKTOP
-  // =========================
 
-  window.open(
+    // =========================
+    // ANDROID / DESKTOP
+    // =========================
+    window.open(url, "BEGAN_PUSH", "width=420,height=620");
 
-    url,
-
-    "BEGAN_PUSH",
-
-    "width=420,height=620"
-
-  );
-
- }catch(err){
-
-    console.log(
-      "PUSH OVERLAY ERROR",
-      err
-    );
-
+  } catch(err) {
+    console.log("PUSH OVERLAY ERROR", err);
   }
-
 };
-window.addEventListener(
+
+// =========================
+// POPUP INSTALL IOS (DENGAN CLOSE BUTTON)
+// =========================
+function tampilkanOverlayInstallIOS() {
+  // Cegah duplikasi popup jika diklik dua kali
+  if(document.getElementById("began-ios-popup")) return;
+
+  const overlay = document.createElement("div");
+  overlay.id = "began-ios-popup";
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.backgroundColor = "rgba(0,0,0,0.85)";
+  overlay.style.zIndex = "999999";
+  overlay.style.display = "flex";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.backdropFilter = "blur(8px)";
+  overlay.style.padding = "20px";
+  overlay.style.fontFamily = "sans-serif";
+
+  // Desain Brutalist dengan aksen Hijau Neon
+  overlay.innerHTML = `
+    <div style="background:#050505; border: 1px solid rgba(57,255,20,.2); border-radius:28px; padding:30px; text-align:center; position:relative; max-width:360px; width:100%; box-shadow: 0 0 50px rgba(57,255,20,.12);">
+      
+      <button id="close-ios-overlay" style="position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.06); color:white; border:none; cursor:pointer; font-size:16px; display:flex; justify-content:center; align-items:center;">✕</button>
+      
+      <div style="color:white; font-size:24px; font-weight:900; margin-bottom:16px; margin-top:10px; line-height:1.2; text-transform:uppercase;">
+        INSTALL UNTUK<br>NOTIFIKASI
+      </div>
+      
+      <div style="color:#aaa; font-size:14px; line-height:1.6; margin-bottom:20px;">
+        Sistem Apple memblokir notifikasi di Safari biasa. Silakan install dashboard ini.
+      </div>
+      
+      <div style="color:#39FF14; font-size:14px; line-height:1.6; padding:18px; background:rgba(57,255,20,0.05); border: 1px solid rgba(57,255,20,.1); border-radius:12px; text-align:left;">
+        1. Tap tombol <b>Share</b> (kotak dengan panah ke atas) di menu bawah.<br><br>
+        2. Pilih menu <b>"Add to Home Screen"</b>.<br><br>
+        3. Buka ikon BEGAN dari layar utama Anda.
+      </div>
+      
+      <div style="opacity:0.5; font-style:italic; font-size:11px; color:#aaa; margin-top:20px; letter-spacing:1px;">
+        until god says so.
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // Fungsi saat Tombol Close (✕) ditekan
+  document.getElementById("close-ios-overlay").onclick = function() {
+    overlay.remove();
+  };
+}window.addEventListener(
 
   "load",
 
