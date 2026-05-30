@@ -18,68 +18,76 @@
 
   function formatSizeLines(item) {
 
-  if(!Template){
-    return '';
-  }
-
   var product =
-    Template.getProductById(
-      item.productId
-    );
+    (window.BEGAN_PRODUCTS || [])
+      .find(function(product){
+
+        return (
+          product.id ===
+          item.productId
+        );
+
+      });
 
   if(!product){
     return '';
   }
 
   var sizes =
-    Template.getSizesByGroup(
-      product.sizeGroup
-    );
+    (product.realtimeSizes || [])
+      .map(function(size){
+
+        return size.sizeLabel;
+
+      });
 
   var lines =
     Checkout.getActiveSizeLines(
       item.sizeQty,
       sizes
     );
-var unitLabel =
-  getUnitLabel(item);
+
+  var unitLabel =
+    getUnitLabel(item);
 
   return lines
     .map(function(row){
 
       return (
-  row.size +
-  ' : ' +
-  row.qty +
-  ' ' +
-  unitLabel
-);
+        row.size +
+        ' : ' +
+        row.qty +
+        ' ' +
+        unitLabel
+      );
 
     })
     .join(lineBreak());
 
 }
-function getUnitLabel(item){
-
-  if(!Template){
-    return 'pcs';
-  }
+  function getUnitLabel(item){
 
   var product =
-    Template.getProductById(
-      item.productId
-    );
+    (window.BEGAN_PRODUCTS || [])
+      .find(function(product){
+
+        return (
+          product.id ===
+          item.productId
+        );
+
+      });
 
   if(!product){
     return 'pcs';
   }
 
-  return Template.getUnitLabel(
-    product.sizeGroup
+  return (
+    product.unitLabel ||
+    'pcs'
   );
 
 }
-
   function formatItemBlock(item) {
     var parts = [];
     parts.push(item.productName || item.productId);
