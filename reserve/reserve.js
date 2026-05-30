@@ -30,8 +30,18 @@
   }
 
   function getProduct(productId) {
-    return Template.getProductById(productId);
-  }
+
+  return (
+    window.BEGAN_PRODUCTS || []
+  ).find(function(product){
+
+    return (
+      product.id === productId
+    );
+
+  }) || null;
+
+}
 
   function syncProductCard(productId) {
     var product = getProduct(productId);
@@ -92,9 +102,12 @@
 
     State.resetAllocation(
   productId,
-  Template.getSizesByGroup(
-    product.sizeGroup
-  )
+  (product.realtimeSizes || [])
+    .map(function(size){
+
+      return size.sizeLabel;
+
+    })
 );
     syncProductCard(productId);
     CartRender.showDrawerStatus('Ditambahkan ke ringkasan reserve.', false);
@@ -288,6 +301,143 @@
     if (event.target === videoDialog) closeVideoModal();
   }
 
+  function normalizeReserveProduct(p){
+
+  return {
+
+    id:
+      p.productId,
+
+    name:
+      p.productName,
+
+    description:
+      p.shortDescription,
+
+    status:
+      p.reserveStatus,
+
+    image:
+      p.image,
+
+    imageFallback:
+      p.imageFallback,
+
+    unitPrice:
+      p.price,
+
+    sizeGroup:
+      p.category,
+
+    gallery: [
+      {
+        src: p.image,
+        label: 'Product'
+      }
+    ],
+
+    analytics: {
+      totalReservePcs:
+        p.totalReserveCache,
+
+      totalPartner:
+        p.totalPartnersCache,
+
+      topSize:
+        p.topSizeCache
+    },
+
+    progress: {
+      collected:
+        p.totalReserveCache,
+
+      target:
+        p.totalReserveCache
+    },
+
+    productionTimeline: {
+      start:
+        p.EstimasiTanggalProduksi,
+
+      finish:
+        p.EstimasiSelesaiProduksi
+    },
+
+    trackingBadge:
+      p.trackingBadge,
+
+    trackingNote:
+      p.trackingNote,
+
+    realtimeSizes:
+      p.sizes || [],
+
+    partnerReserves: [],
+    partnerReservesMore: [],
+    partnerReservesExtra: 0
+
+  };
+
+}
+
+  async function bootReserve(){
+
+  try {
+
+    const res = await fetch(
+      window.BEGAN_RESERVE_API +
+      '?action=getReserveProducts'
+    );
+
+    const data =
+      await res.json();
+
+    if(!data.success){
+
+  throw new Error(
+    data.message ||
+    'Reserve API failed'
+  );
+
+}
+
+    const products =
+  (data.products || [])
+    .map(
+      normalizeReserveProduct
+    );
+
+if(!products.length){
+
+  console.warn(
+    '[Reserve] No products found'
+  );
+
+}
+
+    window.BEGAN_PRODUCTS =
+      products;
+
+    State.initProductStates(
+      products
+    );
+
+    Render.renderProductGrid(
+      gridEl,
+      products
+    );
+
+  } catch(err){
+
+    console.error(
+      '[Reserve] Boot failed',
+      err
+    );
+
+  }
+
+}
+
   function init() {
     rootEl = document.getElementById('reserve-app');
     gridEl = document.getElementById('reserve-product-grid');
@@ -310,9 +460,10 @@
     }
 
     Cart.init();
-    State.initProductStates(Template.RESERVE_PRODUCTS);
-    Render.renderProductGrid(gridEl, Template.RESERVE_PRODUCTS);
-    CartRender.init();
+
+bootReserve();
+
+CartRender.init();
 
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('change', onDocumentChange);
