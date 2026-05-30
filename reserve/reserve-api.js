@@ -2,6 +2,8 @@
  * RESERVE SYSTEM — Apps Script API client
  * POST reserve first → receive orderId / reserveIds → then WhatsApp
  */
+window.BEGAN_RESERVE_API =
+'https://script.google.com/macros/s/AKfycbyvyLXPBD7X7JlWXdCaSlO9MSy6pW4AiavEtQd2scemwcLHUgNy67hSW26s4zUCB0Vpqw/exec';
 
 (function (global) {
   'use strict';
