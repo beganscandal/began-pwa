@@ -303,6 +303,9 @@ sizes.forEach(function (size) {
 
     cardEl.dataset.productId = product.id;
     var state = State.getState(product.id);
+    if(!state){
+  return null;
+}
 
     setText(cardEl, '[data-product-name]', product.name);
     setText(cardEl, '[data-product-desc]', product.description);
@@ -343,12 +346,44 @@ sizes.forEach(function (size) {
   function findCard(root, productId) {
     return root.querySelector('.reserve-card[data-product-id="' + productId + '"]');
   }
+  
+function syncRealtimeAnalytics(
+  cardEl,
+  product
+){
 
+  populateAnalytics(
+    cardEl,
+    product.analytics
+  );
+
+  populateProgress(
+    cardEl,
+    product.progress
+  );
+
+  var state =
+    State.getState(
+      product.id
+    );
+
+  if(state){
+
+    buildPartnerSection(
+      cardEl,
+      product,
+      state.partnersExpanded
+    );
+
+  }
+
+}  
   global.ReserveRender = {
-    renderProductGrid: renderProductGrid,
-    syncCard: syncCard,
-    findCard: findCard,
-    setHeroImage: setHeroImage,
-    buildPartnerSection: buildPartnerSection
-  };
+  renderProductGrid: renderProductGrid,
+  syncCard: syncCard,
+  findCard: findCard,
+  setHeroImage: setHeroImage,
+  buildPartnerSection: buildPartnerSection,
+  syncRealtimeAnalytics: syncRealtimeAnalytics
+};
 })(typeof window !== 'undefined' ? window : this);
