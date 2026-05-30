@@ -320,7 +320,18 @@ sizes.forEach(function (size) {
 
     populateAnalytics(cardEl, product.analytics);
     populateProgress(cardEl, product.progress);
-    populateTimeline(cardEl, product.productionTimeline);
+    populateTimeline(
+  cardEl,
+  product.productionTimeline || {
+
+    start:
+      product.EstimasiTanggalProduksi,
+
+    finish:
+      product.EstimasiSelesaiProduksi
+
+  }
+);
     populateTracking(cardEl, product);
     setupVideoButton(cardEl, product);
 
