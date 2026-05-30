@@ -212,24 +212,31 @@
 
   function buildConfirmPayload() {
     var partner = State.getPartnerContext();
+    
     function getItemSizes(item){
 
-  if(!Template){
-    return [];
-  }
-
   var product =
-    Template.getProductById(
-      item.productId
-    );
+    (window.BEGAN_PRODUCTS || [])
+      .find(function(product){
+
+        return (
+          product.id ===
+          item.productId
+        );
+
+      });
 
   if(!product){
     return [];
   }
 
-  return Template.getSizesByGroup(
-    product.sizeGroup
-  );
+  return (
+    product.realtimeSizes || []
+  ).map(function(size){
+
+    return size.sizeLabel;
+
+  });
 
 }
     var agg = getAggregateState();
