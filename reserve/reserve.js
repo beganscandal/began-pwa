@@ -5,6 +5,7 @@
 (function () {
   'use strict';
 
+  
   var Template = window.ReserveTemplate;
   var State = window.ReserveState;
   var Render = window.ReserveRender;
@@ -13,6 +14,7 @@
   var Whatsapp = window.ReserveWhatsapp;
   var CartRender = window.ReserveCartRender;
 
+  var reserveRealtimeTimer = null;
   var rootEl = null;
   var gridEl = null;
   var videoDialog = null;
@@ -24,6 +26,59 @@
   var videoTitle = null;
   var isConfirming = false;
 
+  async function refreshReserveAnalytics(){
+
+  try{
+
+    const res = await fetch(
+      window.BEGAN_RESERVE_API +
+      '?action=getReserveProducts&_=' +
+      Date.now()
+    );
+
+    const data =
+      await res.json();
+
+    if(!data.success){
+      return;
+    }
+
+    const products =
+      (data.products || [])
+        .map(normalizeReserveProduct);
+
+    window.BEGAN_PRODUCTS =
+      products;
+
+    products.forEach(function(product){
+
+      var card =
+        Render.findCard(
+          rootEl,
+          product.id
+        );
+
+      if(!card){
+        return;
+      }
+
+      Render.syncRealtimeAnalytics(
+        card,
+        product
+      );
+
+    });
+
+  }catch(err){
+
+    console.error(
+      '[Reserve] Analytics refresh failed',
+      err
+    );
+
+  }
+
+}
   function getProductIdFromTarget(target) {
     var node = target.closest('[data-product-id]');
     return node ? node.dataset.productId : null;
@@ -465,6 +520,16 @@ if(!products.length){
     Cart.init();
 
 bootReserve();
+    
+    reserveRealtimeTimer =
+  setInterval(
+
+    refreshReserveAnalytics,
+
+    5000
+
+  );
+
 
 CartRender.init();
 
@@ -484,3 +549,4 @@ CartRender.init();
     init();
   }
 })();
+
