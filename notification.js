@@ -141,7 +141,7 @@ document.addEventListener(
 );
 
 // =========================
-// PUSH OVERLAY (BEGAN SYSTEM)
+// PUSH OVERLAY (BEGAN SYSTEM FIX)
 // =========================
 
 window.openPushOverlay = function(){
@@ -158,10 +158,8 @@ window.openPushOverlay = function(){
     const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
     if (IS_IOS) {
-      // Cek apakah mode Standalone (Sudah Add to Home Screen)
       const IS_STANDALONE = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
 
-      // Cek minimal iOS 16.4+
       const iosVersionMatch = navigator.userAgent.match(/OS (\d+)_(\d+)_?/);
       let major = 0, minor = 0;
       if (iosVersionMatch) {
@@ -170,25 +168,45 @@ window.openPushOverlay = function(){
       }
       const isSupportedIOS = (major > 16) || (major === 16 && minor >= 4);
 
-      // Tolak jika iOS di bawah 16.4
+      // 1. JIKA PERANGKAT TIDAK SUPPORT (< 16.4)
       if (!isSupportedIOS) {
-        alert("iPhone ini belum support web push notification.\\n\\nMinimal sistem operasi iOS 16.4.");
+        // PERBAIKAN: \n\n sudah dihapus
+        alert("iPhone ini belum support web push notification. Minimal sistem operasi iOS 16.4.");
         return;
       }
 
-      // Jika support iOS 16.4+ TAPI belum di-install, panggil Popup dengan tombol close (BUKAN redirect)
+      // 2. JIKA BELUM ADD TO HOME SCREEN (MUNCULKAN POPUP INTRUKSI DENGAN TOMBOL X)
       if (!IS_STANDALONE) {
         tampilkanOverlayInstallIOS();
         return;
       }
 
-      // Jika SUDAH di-install (Standalone mode), baru izinkan eksekusi URL
-      window.location.href = url;
+      // 3. JIKA SUDAH DI DALAM PWA (STANDALONE - IOS 16.4+)
+      if (typeof OneSignal !== "undefined") {
+        OneSignal.push(function() {
+          OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
+            if (accepted) {
+              // PERBAIKAN: \n\n sudah dihapus
+              alert("Notifikasi BEGAN berhasil diaktifkan. until god says so.");
+            } else {
+              // PERBAIKAN: Teks disambung menjadi satu baris utuh agar tidak error
+              alert("Sistem Apple memblokir izin. Silakan aktifkan manual di Pengaturan > Pemberitahuan > Safari iPhone Anda.");
+            }
+          });
+        });
+      } else {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            // PERBAIKAN: \n\n sudah dihapus
+            alert("Notifikasi BEGAN berhasil diaktifkan. until god says so.");
+          }
+        });
+      }
       return;
     }
 
     // =========================
-    // ANDROID / DESKTOP
+    // ANDROID / DESKTOP (TETAP NORMAL)
     // =========================
     window.open(url, "BEGAN_PUSH", "width=420,height=620");
 
