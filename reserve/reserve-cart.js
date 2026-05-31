@@ -220,9 +220,9 @@
       .find(function(product){
 
         return (
-          product.id ===
-          item.productId
-        );
+  product.productId ===
+  item.productId
+);
 
       });
 
