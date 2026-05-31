@@ -40,22 +40,70 @@
     }, 0);
   }
 
-  function getActiveSizeLines(sizeQty, sizesOrder) {
-    var order = sizesOrder || Object.keys(sizeQty || {});
-    var lines = [];
-    order.forEach(function (size) {
-      var qty = sizeQty[size] || 0;
-      if (qty > 0) lines.push({ size: size, qty: qty });
-    });
-    return lines;
-  }
+  function getActiveSizeLines(
+  sizeQty,
+  sizes
+) {
 
-  function toAllocations(sizeQty, sizesOrder) {
-    return getActiveSizeLines(sizeQty, sizesOrder).map(function (line) {
-      return { size: line.size, qty: line.qty };
-    });
-  }
+  var safeSizes =
+    Array.isArray(sizes)
+      ? sizes
+      : [];
 
+  var lines = [];
+
+  safeSizes.forEach(function(size){
+
+    var label =
+      size.sizeLabel || '';
+
+    var qty =
+      Number(
+        sizeQty[label] || 0
+      );
+
+    if(qty > 0){
+
+      lines.push({
+
+        sizeId:
+          size.sizeId || '',
+
+        sizeLabel:
+          size.sizeLabel || '',
+
+        sizeGroup:
+          size.sizeGroup || '',
+
+        category:
+          size.category || '',
+
+        qty:
+          qty
+
+      });
+
+    }
+
+  });
+
+  return lines;
+
+}
+
+function toAllocations(
+  sizeQty,
+  sizes
+) {
+
+  return getActiveSizeLines(
+    sizeQty,
+    sizes
+  );
+
+}
+  
+ 
   function calculateProgress(collected, target) {
     var safeTarget = target > 0 ? target : 1;
     var pct = Math.min(100, Math.round((collected / safeTarget) * 100));
