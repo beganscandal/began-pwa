@@ -318,9 +318,14 @@ function ensureDrawerRoot(){
       'reserve-drawer-root'
     );
 
-  if(root){
-    return root;
-  }
+  if(
+  root &&
+  root.querySelector(
+    '[data-drawer-list]'
+  )
+){
+  return root;
+}
 
   root =
     document.createElement('div');
