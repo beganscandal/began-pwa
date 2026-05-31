@@ -68,11 +68,14 @@ window.BEGAN_RESERVE_API =
       return mockSubmit(payload);
     }
 
-    var body = {
-      action: config.apiAction || 'confirmReserve',
-      data: payload
-    };
-
+    var body = Object.assign(
+  {
+    action:
+      config.apiAction ||
+      'createReserveOrder'
+  },
+  payload
+);
     return fetch(config.appsScriptUrl, {
       method: 'POST',
       mode: 'cors',
@@ -89,7 +92,10 @@ window.BEGAN_RESERVE_API =
             err.data = data;
             throw err;
           }
-          if (data.ok === false) {
+          if (
+  data.ok === false ||
+  data.success === false
+) {
             var failErr = new Error(data.message || 'Reserve save rejected');
             failErr.data = data;
             throw failErr;
