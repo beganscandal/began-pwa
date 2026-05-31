@@ -76,14 +76,14 @@ window.BEGAN_RESERVE_API =
   },
   payload
 );
-    return fetch(config.appsScriptUrl, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
+   return fetch(config.appsScriptUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type':
+      'text/plain;charset=utf-8'
+  },
+  body: JSON.stringify(body)
+})
       .then(function (response) {
         return parseResponseBody(response).then(function (data) {
           if (!response.ok) {
