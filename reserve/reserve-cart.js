@@ -253,7 +253,7 @@
         remaining: agg.remaining,
         finalAmount: agg.finalAmount
       },
-      reserveItems: items.map(function (item) {
+      items: items.map(function (item) {
 
   return {
 
