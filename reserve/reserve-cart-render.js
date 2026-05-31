@@ -117,19 +117,27 @@
   container.innerHTML = '';
 
   var product =
-    Template.getProductById(
-      item.productId
-    );
+  (window.BEGAN_PRODUCTS || [])
+    .find(function(product){
+
+      return (
+        product.productId ===
+        item.productId
+      );
+
+    });
 
   if(!product){
     return;
   }
 
   var sizes =
-    Template.getSizesByGroup(
-      product.sizeGroup
-    );
+  (product.realtimeSizes || [])
+    .map(function(size){
 
+      return size.sizeLabel;
+
+    });
   sizes.forEach(function(size){
 
     var fragment =
