@@ -377,7 +377,7 @@ fab.addEventListener(
       return;
     }
 
-    drawer.classList.toggle(
+    drawer.classList.add(
       'is-open'
     );
 
@@ -416,7 +416,9 @@ function ensureDrawerRoot(){
 }
 
   root =
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
   root.id =
     'reserve-drawer-root';
@@ -567,6 +569,28 @@ function ensureDrawerRoot(){
     'reserve-app'
   )
   ?.appendChild(root);
+
+  
+root
+  .querySelectorAll(
+    '[data-action="close-drawer"]'
+  )
+  .forEach(function(btn){
+
+    btn.addEventListener(
+      'click',
+      function(){
+
+        root.classList.remove(
+          'is-open'
+        );
+
+      }
+    );
+
+  });
+
+
 
   return root;
 
