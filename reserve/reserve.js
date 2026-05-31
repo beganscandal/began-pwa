@@ -180,6 +180,7 @@
 );
     syncProductCard(productId);
     CartRender.showDrawerStatus('Ditambahkan ke ringkasan reserve.', false);
+    openDrawer();
 
     btn.classList.add('is-pressed');
     window.setTimeout(function () {
