@@ -363,20 +363,26 @@
 
   `;
 
-  fab.addEventListener(
-    'click',
-    function(){
+  
+fab.addEventListener(
+  'click',
+  function(){
 
-      document
-        .getElementById(
-          'reserve-drawer-root'
-        )
-        ?.classList.add(
-          'is-open'
-        );
+    const drawer =
+      document.getElementById(
+        'reserve-drawer-root'
+      );
 
+    if(!drawer){
+      return;
     }
-  );
+
+    drawer.classList.toggle(
+      'is-open'
+    );
+
+  }
+);
 
   document
     .getElementById(
@@ -389,6 +395,7 @@
   return fab;
 
 }
+  
 function ensureDrawerRoot(){
 
   let root =
@@ -403,6 +410,9 @@ function ensureDrawerRoot(){
   )
 ){
   return root;
+}
+  if(root){
+  root.remove();
 }
 
   root =
@@ -552,9 +562,11 @@ function ensureDrawerRoot(){
 
   `;
 
-  document.body.appendChild(
-    root
-  );
+ document
+  .getElementById(
+    'reserve-app'
+  )
+  ?.appendChild(root);
 
   return root;
 
@@ -576,12 +588,13 @@ function ensureDrawerRoot(){
     renderCart(Cart.getSnapshot());
   }
 
-  global.ReserveCartRender = {
-    init: init, renderCart: renderCart,
-    renderDrawerList: renderDrawerList, 
-    showDrawerStatus: showDrawerStatus,
-    ensureDrawerRoot: ensureDrawerRoot,
-    ensureFab: ensureFab
-  };
+ global.ReserveCartRender = {
+  init: init,
+  renderCart: renderCart,
+  renderDrawerList: renderDrawerList,
+  showDrawerStatus: showDrawerStatus,
+  ensureDrawerRoot: ensureDrawerRoot,
+  ensureFab: ensureFab
+};
 
 })(typeof window !== 'undefined' ? window : this);
