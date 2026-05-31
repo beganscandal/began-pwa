@@ -57,18 +57,38 @@
   }
 
   function buildCartItem(product, state) {
-    var item = {
-      reserveId: generateReserveId(),
-      productId: product.id,
-      productName: product.name,
-      unitPrice: product.unitPrice,
-      sizeQty: State.cloneSizeQty(state.sizeQty),
-      paymentMode: state.paymentMode,
-      addedAt: Date.now()
-    };
-    return recalculateItem(item);
-  }
 
+  var item = {
+
+    reserveId:
+      generateReserveId(),
+
+    productId:
+      product.productId || '',
+
+    productName:
+      product.productName || '',
+
+    unitPrice:
+      Number(product.price || 0),
+
+    sizeQty:
+      State.cloneSizeQty(
+        state.sizeQty
+      ),
+
+    paymentMode:
+      state.paymentMode ||
+      'NON_PRIORITY',
+
+    addedAt:
+      Date.now()
+
+  };
+
+  return recalculateItem(item);
+
+}
   function getAggregateState() {
     var agg = Checkout.calculateCartAggregate(items);
     return {
@@ -142,9 +162,13 @@
       return { ok: false, reason: 'empty_allocation' };
     }
 
-    var idx = findIndex(product.id);
-    var cartItem;
+    var idx =
+  findIndex(
+    product.productId
+  );
 
+var cartItem;
+    
     if (idx >= 0) {
       cartItem = items[idx];
       cartItem.sizeQty = State.cloneSizeQty(state.sizeQty);
@@ -210,19 +234,16 @@
     }
   }
 
-  function buildConfirmPayload() {
-    var partner = State.getPartnerContext();
-    
-    function getItemSizes(item){
+  function getItemSizes(item){
 
   var product =
     (window.BEGAN_PRODUCTS || [])
       .find(function(product){
 
         return (
-  product.productId ===
-  item.productId
-);
+          product.productId ===
+          item.productId
+        );
 
       });
 
@@ -231,86 +252,168 @@
   }
 
   return (
-    product.realtimeSizes || []
-  ).map(function(size){
-
-    return size.sizeLabel;
-
-  });
-
-}
-    var agg = getAggregateState();
-
-    return {
-      partnerId: partner.partnerId,
-      toko: partner.toko,
-      confirmedAt: new Date().toISOString(),
-      totals: {
-        totalQty: agg.totalQty,
-        subtotal: agg.subtotal,
-        discount: agg.discount,
-        paidNow: agg.paidNow,
-        remaining: agg.remaining,
-        finalAmount: agg.finalAmount
-      },
-      items: items.map(function (item) {
+  product.sizes || []
+).map(function(size){
 
   return {
 
-    reserveId: item.reserveId,
+    sizeId:
+      size.sizeId || '',
 
-    productId: item.productId,
+    sizeLabel:
+      size.sizeLabel || '',
 
-    productName: item.productName,
+    sizeGroup:
+      size.sizeGroup || '',
 
-    unitPrice: item.unitPrice,
-
-    totalPcs: item.totalPcs,
-
-    paymentMode: item.paymentMode,
-
-    paymentLabel: item.paymentLabel,
-
-    priority: item.priority,
-
-    priorityLabel: item.priorityLabel,
-
-    subtotal: item.subtotal,
-
-    discount: item.discount,
-
-    hasDiscount: item.hasDiscount,
-
-    paidNow: item.paidNow,
-
-    remaining: item.remaining,
-
-    finalAmount: item.finalAmount,
-
-    sizeQty:
-      State.cloneSizeQty(
-        item.sizeQty
-      ),
-
-   allocations:
-  Checkout.toAllocations(
-    item.sizeQty,
-    getItemSizes(item)
-  )
+    category:
+      size.category || ''
 
   };
 
-})
-    };
-  }
+});
+}
+
+function buildConfirmPayload() {
+
+  var partner =
+    State.getPartnerContext();
+
+  var agg =
+    getAggregateState();
+
+  var normalizedItems = [];
+
+  items.forEach(function(item){
+
+    var allocations =
+      Checkout.toAllocations(
+        item.sizeQty,
+        getItemSizes(item)
+      );
+
+    allocations.forEach(function(alloc){
+
+      normalizedItems.push({
+
+        reserveId:
+          item.reserveId,
+
+        productId:
+  item.productId,
+
+        reserveStatusSnapshot:
+          'RESERVE_OPEN',
+
+        sizeId:
+          alloc.sizeId,
+
+        qty:
+          alloc.qty,
+
+        priceSnapshot:
+          item.unitPrice,
+
+        subtotal:
+          alloc.qty *
+          item.unitPrice,
+
+        sizeLabelSnapshot:
+          alloc.sizeLabel,
+
+        sizeGroupSnapshot:
+          alloc.sizeGroup ||
+
+          '',
+
+        categorySnapshot:
+          alloc.category ||
+
+          ''
+
+      });
+
+    });
+
+  });
+
+  return {
+
+    partner: {
+
+      id:
+        partner.partnerId || '',
+
+      toko:
+        partner.toko || '',
+
+      name:
+        partner.name || '',
+
+      whatsapp:
+        partner.whatsapp || '',
+
+      tier:
+        partner.tier ||
+        'REGULAR'
+
+    },
+
+    paymentMode:
+      items[0]
+        ? items[0].paymentMode
+        : 'NON_PRIORITY',
+
+    topSizeSnapshot:
+      '',
+
+    sourceChannel:
+      'DASHBOARD',
+
+    confirmedAt:
+      new Date()
+        .toISOString(),
+
+    totals: {
+
+      totalQty:
+        agg.totalQty,
+
+      subtotal:
+        agg.subtotal,
+
+      discount:
+        agg.discount,
+
+      paidNow:
+        agg.paidNow,
+
+      remaining:
+        agg.remaining,
+
+      finalAmount:
+        agg.finalAmount
+
+    },
+
+    items:
+      normalizedItems
+
+  };
+
+}
+
 
   function mergeApiResponse(apiResponse) {
-    if (!apiResponse || !apiResponse.reserveItems) return;
-    apiResponse.reserveItems.forEach(function (row) {
-      var item = getItem(row.productId);
-      if (item && row.reserveId) item.reserveId = row.reserveId;
-    });
+
+  if(
+    !apiResponse ||
+    !apiResponse.orderId
+  ){
+    return;
   }
+
+}
 
   function init() {
     loadFromStorage();
