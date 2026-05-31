@@ -310,7 +310,85 @@
     updateDrawerTotals(snapshot);
   }
 
-  
+  function ensureFab(){
+
+  let fab =
+    document.getElementById(
+      'reserve-fab'
+    );
+
+  if(fab){
+    return fab;
+  }
+
+  fab =
+    document.createElement(
+      'button'
+    );
+
+  fab.type = 'button';
+
+  fab.id = 'reserve-fab';
+
+  fab.className =
+    'reserve-fab';
+
+  fab.hidden = true;
+
+  fab.setAttribute(
+    'data-action',
+    'open-drawer'
+  );
+
+  fab.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+  fab.innerHTML = `
+
+    <span class="reserve-fab__label">
+      RINGKASAN RESERVE
+    </span>
+
+    <span class="reserve-fab__count">
+
+      (
+        <span data-cart-count>
+          0
+        </span>
+      )
+
+    </span>
+
+  `;
+
+  fab.addEventListener(
+    'click',
+    function(){
+
+      document
+        .getElementById(
+          'reserve-drawer-root'
+        )
+        ?.classList.add(
+          'is-open'
+        );
+
+    }
+  );
+
+  document
+    .getElementById(
+      'reserve-app'
+    )
+    ?.appendChild(
+      fab
+    );
+
+  return fab;
+
+}
 function ensureDrawerRoot(){
 
   let root =
@@ -484,7 +562,7 @@ function ensureDrawerRoot(){
 
 
   function bindElements() { 
-    fabEl = document.getElementById( 'reserve-fab' );
+    fabEl = ensureFab();
     drawerRoot = ensureDrawerRoot(); 
     listEl = document.querySelector( '[data-drawer-list]' );
     countEl = document.querySelector( '[data-cart-count]' );
@@ -502,7 +580,8 @@ function ensureDrawerRoot(){
     init: init, renderCart: renderCart,
     renderDrawerList: renderDrawerList, 
     showDrawerStatus: showDrawerStatus,
-    ensureDrawerRoot: ensureDrawerRoot 
+    ensureDrawerRoot: ensureDrawerRoot,
+    ensureFab: ensureFab
   };
 
 })(typeof window !== 'undefined' ? window : this);
