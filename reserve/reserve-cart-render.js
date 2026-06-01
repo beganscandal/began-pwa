@@ -132,7 +132,7 @@
   }
 
   var sizes =
-  (product.realtimeSizes || [])
+  (product.sizes || [])
     .map(function(size){
 
       return size.sizeLabel;
