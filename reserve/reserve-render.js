@@ -81,13 +81,13 @@
 
     container.innerHTML = '';
     var sizes =
-  (product.realtimeSizes || [])
+  (product.sizes || [])
   .map(function(size){
 
     return size.sizeLabel;
 
   });
-
+    
 sizes.forEach(function (size) {
       var fragment = Template.cloneFragment(Template.getTemplateIds().sizeQtyRow);
       var row = fragment.querySelector('[data-size-qty-row]');
