@@ -116,93 +116,56 @@
 
   container.innerHTML = '';
 
-  var product =
-  (window.BEGAN_PRODUCTS || [])
-    .find(function(product){
+  var grouped = {};
 
-      return (
-        product.productId ===
-        item.productId
+  (item.sizes || [])
+    .forEach(function(size){
+
+      var label =
+        size.sizeLabel;
+
+      var group =
+        size.sizeGroup ||
+        'SIZE';
+
+      var qty =
+        Number(
+          item.sizeQty[label] || 0
+        );
+
+      if(qty <= 0){
+        return;
+      }
+
+      if(!grouped[group]){
+        grouped[group] = [];
+      }
+
+      grouped[group].push(
+        label + '×' + qty
       );
 
     });
 
-  if(!product){
-    return;
-  }
+  Object.keys(grouped)
+    .forEach(function(group){
 
-  var sizes =
-  (product.sizes || [])
-    .map(function(size){
+      var div =
+        document.createElement('div');
 
-      return size.sizeLabel;
+      div.className =
+        'reserve-drawer-size-summary';
 
-    });
-  sizes.forEach(function(size){
+      div.textContent =
+        group +
+        ' : ' +
+        grouped[group].join(' • ');
 
-    var fragment =
-      Template.cloneFragment(
-        Template
-          .getTemplateIds()
-          .drawerSizeLine
-      );
-
-    var row =
-      fragment.querySelector(
-        '[data-drawer-size-line]'
-      );
-
-    if(!row){
-      return;
-    }
-
-    var qty =
-      item.sizeQty[size] || 0;
-
-    setText(
-      row,
-      '[data-drawer-size-label]',
-      size + ' :'
-    );
-
-    setText(
-      row,
-      '[data-drawer-size-qty]',
-      String(qty)
-    );
-
-    row.querySelectorAll(
-      '[data-action="cart-size-minus"], [data-action="cart-size-plus"]'
-    ).forEach(function(btn){
-
-      btn.dataset.productId =
-        item.productId;
-
-      btn.dataset.size =
-        size;
+      container.appendChild(div);
 
     });
-
-    var minusBtn =
-      row.querySelector(
-        '[data-action="cart-size-minus"]'
-      );
-
-    if(minusBtn){
-
-      minusBtn.disabled =
-        qty <= State.MIN_QTY;
-
-    }
-
-    container.appendChild(
-      fragment
-    );
-
-  });
 
 }
-
   function buildDrawerPaymentOptions(container, item) {
     container.innerHTML = '';
     Template.PAYMENT_MODES.forEach(function (mode) {
