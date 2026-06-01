@@ -202,7 +202,16 @@ function toAllocations(
       productCount: (items || []).length
     };
 
-    (items || []).forEach(function (item) {
+    (items || [])
+
+.filter(function(item){
+
+  return item &&
+    Number(item.totalPcs || 0) > 0;
+
+})
+
+.forEach(function (item) {
       aggregate.totalQty += item.totalPcs || 0;
       aggregate.subtotal += item.subtotal || 0;
       aggregate.discount += item.discount || 0;
