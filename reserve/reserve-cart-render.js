@@ -117,19 +117,27 @@
   container.innerHTML = '';
 
   var product =
-    Template.getProductById(
-      item.productId
-    );
+  (window.BEGAN_PRODUCTS || [])
+    .find(function(product){
+
+      return (
+        product.productId ===
+        item.productId
+      );
+
+    });
 
   if(!product){
     return;
   }
 
   var sizes =
-    Template.getSizesByGroup(
-      product.sizeGroup
-    );
+  (product.realtimeSizes || [])
+    .map(function(size){
 
+      return size.sizeLabel;
+
+    });
   sizes.forEach(function(size){
 
     var fragment =
@@ -302,13 +310,300 @@
     updateDrawerTotals(snapshot);
   }
 
-  function bindElements() {
-    fabEl = document.getElementById('reserve-fab');
-    drawerRoot = document.getElementById('reserve-drawer-root');
-    listEl = document.querySelector('[data-drawer-list]');
-    countEl = document.querySelector('[data-cart-count]');
-    emptyEl = document.querySelector('[data-drawer-empty]');
-    discountRow = document.querySelector('[data-drawer-discount-row]');
+  function ensureFab(){
+
+  let fab =
+    document.getElementById(
+      'reserve-fab'
+    );
+
+  if(fab){
+    return fab;
+  }
+
+  fab =
+    document.createElement(
+      'button'
+    );
+
+  fab.type = 'button';
+
+  fab.id = 'reserve-fab';
+
+  fab.className =
+    'reserve-fab';
+
+  fab.hidden = true;
+
+  fab.setAttribute(
+    'data-action',
+    'open-drawer'
+  );
+
+  fab.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+  fab.innerHTML = `
+
+    <span class="reserve-fab__label">
+      RINGKASAN RESERVE
+    </span>
+
+    <span class="reserve-fab__count">
+
+      (
+        <span data-cart-count>
+          0
+        </span>
+      )
+
+    </span>
+
+  `;
+
+  
+fab.addEventListener(
+  'click',
+  function(){
+
+    const drawer =
+      document.getElementById(
+        'reserve-drawer-root'
+      );
+
+    if(!drawer){
+      return;
+    }
+
+    drawer.classList.add(
+      'is-open'
+    );
+
+  }
+);
+
+  document
+    .getElementById(
+      'reserve-app'
+    )
+    ?.appendChild(
+      fab
+    );
+
+  return fab;
+
+}
+  
+function ensureDrawerRoot(){
+
+  let root =
+    document.getElementById(
+      'reserve-drawer-root'
+    );
+
+  if(
+  root &&
+  root.querySelector(
+    '[data-drawer-list]'
+  )
+){
+  return root;
+}
+  if(root){
+  root.remove();
+}
+
+  root =
+    document.createElement(
+      'div'
+    );
+
+  root.id =
+    'reserve-drawer-root';
+
+  root.className =
+    'reserve-drawer-root';
+
+  root.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  root.innerHTML = `
+
+    <div
+      class="reserve-drawer-backdrop"
+      data-action="close-drawer"
+      aria-hidden="true">
+    </div>
+
+    <aside
+      id="reserve-drawer"
+      class="reserve-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reserve-drawer-title">
+
+      <header class="reserve-drawer__head">
+
+        <h2 id="reserve-drawer-title">
+          Ringkasan Reserve
+        </h2>
+
+        <button
+          type="button"
+          class="reserve-drawer__close"
+          data-action="close-drawer"
+          aria-label="Tutup ringkasan">
+
+          ×
+
+        </button>
+
+      </header>
+
+      <div class="reserve-drawer__body">
+
+        <p
+          class="reserve-drawer__empty"
+          data-drawer-empty
+          hidden>
+
+          Belum ada alokasi reserve.
+
+        </p>
+
+        <div
+          class="reserve-drawer__list"
+          data-drawer-list
+          role="list">
+        </div>
+
+      </div>
+
+      <footer class="reserve-drawer__foot">
+
+        <p
+          class="reserve-drawer__status"
+          data-drawer-status
+          hidden
+          role="alert">
+        </p>
+
+        <dl class="reserve-drawer__totals">
+
+          <div class="reserve-drawer__total-row">
+            <dt>Total Reserve</dt>
+            <dd data-drawer-total-qty>
+              0 PCS
+            </dd>
+          </div>
+
+          <div class="reserve-drawer__total-row">
+            <dt>Subtotal</dt>
+            <dd data-drawer-subtotal>
+              Rp0
+            </dd>
+          </div>
+
+          <div
+            class="reserve-drawer__total-row reserve-drawer__total-row--discount"
+            data-drawer-discount-row
+            hidden>
+
+            <dt>Total Diskon 5%</dt>
+
+            <dd data-drawer-discount>
+              −Rp0
+            </dd>
+
+          </div>
+
+          <div class="reserve-drawer__total-row reserve-drawer__total-row--highlight">
+            <dt>Total Dibayar Sekarang</dt>
+
+            <dd data-drawer-paid-now>
+              Rp0
+            </dd>
+          </div>
+
+          <div class="reserve-drawer__total-row">
+            <dt>Total Sisa Pelunasan</dt>
+
+            <dd data-drawer-remaining>
+              Rp0
+            </dd>
+          </div>
+
+          <div class="reserve-drawer__total-row reserve-drawer__total-row--final">
+            <dt>Total Nilai Reserve</dt>
+
+            <dd data-drawer-final>
+              Rp0
+            </dd>
+          </div>
+
+        </dl>
+
+        <button
+          type="button"
+          class="reserve-cta reserve-cta--confirm"
+          data-action="confirm-reserve">
+
+          <span data-confirm-label>
+            CONFIRM RESERVE
+          </span>
+
+        </button>
+
+      </footer>
+
+    </aside>
+
+  `;
+
+ document
+  .getElementById(
+    'reserve-app'
+  )
+  ?.appendChild(root);
+
+  
+root
+  .querySelectorAll(
+    '[data-action="close-drawer"]'
+  )
+  .forEach(function(btn){
+
+    btn.addEventListener(
+      'click',
+      function(){
+
+        root.classList.remove(
+          'is-open'
+        );
+
+      }
+    );
+
+  });
+
+
+
+  return root;
+
+}
+
+
+  function bindElements() { 
+    fabEl = ensureFab();
+    drawerRoot = ensureDrawerRoot(); 
+    listEl = document.querySelector( '[data-drawer-list]' );
+    countEl = document.querySelector( '[data-cart-count]' );
+    emptyEl = document.querySelector( '[data-drawer-empty]' );
+    discountRow = document.querySelector( '[data-drawer-discount-row]' ); 
   }
 
   function init() {
@@ -317,10 +612,13 @@
     renderCart(Cart.getSnapshot());
   }
 
-  global.ReserveCartRender = {
-    init: init,
-    renderCart: renderCart,
-    renderDrawerList: renderDrawerList,
-    showDrawerStatus: showDrawerStatus
-  };
+ global.ReserveCartRender = {
+  init: init,
+  renderCart: renderCart,
+  renderDrawerList: renderDrawerList,
+  showDrawerStatus: showDrawerStatus,
+  ensureDrawerRoot: ensureDrawerRoot,
+  ensureFab: ensureFab
+};
+
 })(typeof window !== 'undefined' ? window : this);
