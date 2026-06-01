@@ -3,7 +3,7 @@
  * POST reserve first → receive orderId / reserveIds → then WhatsApp
  */
 window.BEGAN_RESERVE_API =
-'https://script.google.com/macros/s/AKfycbzeLHaFG8Hd0kN8ipg331QmkpqVlza5JFPm2IWcC0lkXLRZ9CAyWlyTlmav55DLZdnPnQ/exec';
+'https://script.google.com/macros/s/AKfycbwsV82AL2-YB-u8gxo4Y7kzX0UIa3op2784piv0Rv-KWZNMB_zJbI59lKO5irLs1_Q5Rw/exec';
 
 (function (global) {
   'use strict';
