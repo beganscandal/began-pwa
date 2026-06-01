@@ -15,9 +15,8 @@ window.BEGAN_RESERVE_API =
     appsScriptUrl:
       window.BEGAN_RESERVE_API || '',
 
-    useMockApi:
-      !window.BEGAN_RESERVE_API,
-
+    useMockApi: false,
+      
     apiAction:
       'createReserveOrder'
 
@@ -36,7 +35,7 @@ window.BEGAN_RESERVE_API =
         resolve({
           ok: true,
           orderId: orderId,
-          reserveItems: (payload.reserveItems || []).map(function (item, index) {
+          items: (payload.items || []).map(function (item, index) {
             return {
               reserveId: item.reserveId || 'RSV-MOCK-' + (index + 1),
               productId: item.productId,
@@ -63,6 +62,14 @@ window.BEGAN_RESERVE_API =
   function submitReserve(payload) {
     var config = getConfig();
 
+    if(!config.appsScriptUrl){
+
+  throw new Error(
+    'Apps Script URL missing'
+  );
+
+}
+
     if (shouldUseMock(config)) {
       console.info('[Reserve API] Mock mode — simulating Apps Script save');
       return mockSubmit(payload);
@@ -76,16 +83,59 @@ window.BEGAN_RESERVE_API =
   },
   payload
 );
+    if(
+  !payload ||
+  !Array.isArray(payload.items)
+){
+  throw new Error(
+    'Invalid reserve payload'
+  );
+}
+
+if(!payload.items.length){
+  throw new Error(
+    'Reserve items empty'
+  );
+}
+
+if(
+  !payload.partner ||
+  !payload.partner.id
+){
+  throw new Error(
+    'Partner ID missing'
+  );
+}
+    var controller =
+  new AbortController();
+
+var timeout =
+  setTimeout(function(){
+
+    controller.abort();
+
+  }, 20000);
+    
    return fetch(config.appsScriptUrl, {
   method: 'POST',
   headers: {
     'Content-Type':
       'text/plain;charset=utf-8'
   },
-  body: JSON.stringify(body)
+  body: JSON.stringify(body),
+     signal: controller.signal
 })
       .then(function (response) {
         return parseResponseBody(response).then(function (data) {
+
+          if(
+  !data ||
+  typeof data !== 'object'
+){
+  throw new Error(
+    'Invalid API response'
+  );
+}
           if (!response.ok) {
             var err = new Error(data.message || 'Reserve save failed (' + response.status + ')');
             err.status = response.status;
@@ -94,21 +144,33 @@ window.BEGAN_RESERVE_API =
           }
           if (
   data.ok === false ||
-  data.success === false
-) {
-            var failErr = new Error(data.message || 'Reserve save rejected');
+  data.success === false            
+) {      
+            var failErr = 
+              new Error(data.message || 'Reserve save rejected'
+              );
+            
             failErr.data = data;
+            
             throw failErr;
           }
+
           return {
             ok: true,
             orderId: data.orderId,
-            reserveItems: data.reserveItems || [],
+            items: data.items || [],
             message: data.message || 'Reserve saved'
           };
         });
-      });
+      })
+    .finally(function(){
+
+  clearTimeout(timeout);
+
+});
   }
+  
+  
 
   global.ReserveApi = {
     getConfig: getConfig,
