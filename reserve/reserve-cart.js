@@ -404,6 +404,8 @@ var cartItem;
 
 });
     
+  }
+    
 function buildConfirmPayload() {
 
   var partner =
