@@ -397,7 +397,7 @@ function syncRealtimeAnalytics(
 ){
 
   var oldSizes =
-    (currentProduct.realtimeSizes || [])
+    (currentProduct.sizes || [])
     .map(function(size){
 
       return size.sizeLabel;
@@ -405,7 +405,7 @@ function syncRealtimeAnalytics(
     });
 
   var newSizes =
-    (latestProduct.realtimeSizes || [])
+    (latestProduct.sizes || [])
     .map(function(size){
 
       return size.sizeLabel;
@@ -420,8 +420,8 @@ function syncRealtimeAnalytics(
     return;
   }
 
-  currentProduct.realtimeSizes =
-    latestProduct.realtimeSizes || [];
+  currentProduct.sizes =
+    latestProduct.sizes || [];
 
   var state =
     State.getState(
