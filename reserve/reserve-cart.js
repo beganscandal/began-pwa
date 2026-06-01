@@ -383,10 +383,7 @@ var cartItem;
   }
 
   return (
-  product.realtimeSizes ||
-product.sizes ||
-[]
-    
+  product.sizes || []
 ).map(function(size){
 
   return {
@@ -406,8 +403,7 @@ product.sizes ||
   };
 
 });
-}
-
+    
 function buildConfirmPayload() {
 
   var partner =
