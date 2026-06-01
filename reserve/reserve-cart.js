@@ -57,67 +57,18 @@
   }
 
   function buildCartItem(product, state) {
+    var item = {
+      reserveId: generateReserveId(),
+      productId: product.id,
+      productName: product.name,
+      unitPrice: product.unitPrice,
+      sizeQty: State.cloneSizeQty(state.sizeQty),
+      paymentMode: state.paymentMode,
+      addedAt: Date.now()
+    };
+    return recalculateItem(item);
+  }
 
-  var item = {
-
-    cartId:
-  generateReserveId(),
-
-reserveId:
-  product.reserveId || '',
-
-    productId:
-      product.productId || '',
-
-    productName:
-      product.productName || '',
-
-sizes:
-  (product.sizes || [])
-    .map(function(size){
-
-      return {
-
-        sizeId:
-          size.sizeId || '',
-
-        sizeLabel:
-          size.sizeLabel || '',
-
-        sizeGroup:
-          size.sizeGroup || '',
-
-        category:
-          size.category || ''
-
-      };
-
-    }),    
-
-    unitPrice:
-      Number(product.price || 0),
-
-    sizeQty:
-      State.cloneSizeQty(
-        state.sizeQty
-      ),
-
-    paymentMode:
-      state.paymentMode ||
-      'NON_PRIORITY',
-    
-    reserveStatus:
-  product.reserveStatus ||
-  'RESERVE_OPEN',
-
-    addedAt:
-      Date.now()
-
-  };
-
-  return recalculateItem(item);
-
-}
   function getAggregateState() {
     var agg = Checkout.calculateCartAggregate(items);
     return {
@@ -141,34 +92,17 @@ sizes:
     return items.slice();
   }
 
-  function findIndex(
-  productId,
-  paymentMode
-){
-  return items.findIndex(function(item){
+  function findIndex(productId) {
+    return items.findIndex(function (item) {
+      return item.productId === productId;
+    });
+  }
 
-    return (
-      item.productId === productId &&
-      item.paymentMode === paymentMode
-    );
+  function getItem(productId) {
+    var idx = findIndex(productId);
+    return idx >= 0 ? items[idx] : null;
+  }
 
-  });
-}
-  
-  function getItem(
-  productId,
-  paymentMode
-){
-  var idx =
-    findIndex(
-      productId,
-      paymentMode
-    );
-
-  return idx >= 0
-    ? items[idx]
-    : null;
-}
   function persist() {
     try {
       localStorage.setItem(
@@ -190,64 +124,10 @@ sizes:
       if (!raw) return;
       var data = JSON.parse(raw);
       if (data && Array.isArray(data.items)) {
-        items = data.items
-.filter(function(item){
-
-  return (
-    item &&
-    item.productId &&
-    item.sizeQty
-  );
-
-})
-.map(function(item){
-
-  item.cartId =
-    item.cartId ||
-    generateReserveId();
-
-  item.reserveId =
-    item.reserveId || '';
-
-  item.paymentMode =
-    item.paymentMode ||
-    'NON_PRIORITY';
-
-  item.reserveStatus =
-  item.reserveStatus ||
-  'RESERVE_OPEN';
-
-/*
-=========================
-SIZE SNAPSHOT MIGRATION
-=========================
-*/
-
-if(
-  !Array.isArray(item.sizes)
-){
-
-  var product =
-    (window.BEGAN_PRODUCTS || [])
-      .find(function(product){
-
-        return (
-          product.productId ===
-          item.productId
-        );
-
-      });
-
-  item.sizes =
-    (
-      product &&
-      product.sizes
-    ) || [];
-
-}
-
-return recalculateItem(item);
-});      }
+        items = data.items.map(function (item) {
+          return recalculateItem(item);
+        });
+      }
     } catch (err) {
       console.warn('[Reserve] cart load failed', err);
       items = [];
@@ -262,14 +142,9 @@ return recalculateItem(item);
       return { ok: false, reason: 'empty_allocation' };
     }
 
-    var idx =
-  findIndex(
-  product.productId,
-  state.paymentMode
-)
+    var idx = findIndex(product.id);
+    var cartItem;
 
-var cartItem;
-    
     if (idx >= 0) {
       cartItem = items[idx];
       cartItem.sizeQty = State.cloneSizeQty(state.sizeQty);
@@ -284,25 +159,14 @@ var cartItem;
     return { ok: true, item: cartItem };
   }
 
-  function updateItemSizeQty(
-  productId,
-  paymentMode,
-  size,
-  qty
-) {
-    var item = getItem(
-  productId,
-  paymentMode
-);
+  function updateItemSizeQty(productId, size, qty) {
+    var item = getItem(productId);
     if (!item || !(size in item.sizeQty)) return null;
 
     item.sizeQty[size] = Math.max(State.MIN_QTY, Math.min(State.MAX_QTY, qty));
 
     if (Checkout.getTotalPcs(item.sizeQty) < 1) {
-      removeItem(
-  productId,
-  paymentMode
-);
+      removeItem(productId);
       return null;
     }
 
@@ -311,94 +175,25 @@ var cartItem;
     return item;
   }
 
-  function incrementItemSizeQty(
-  productId,
-  paymentMode,
-  size,
-  delta
-) {
-    var item = getItem(
-  productId,
-  paymentMode
-);
+  function incrementItemSizeQty(productId, size, delta) {
+    var item = getItem(productId);
     if (!item) return null;
-    return updateItemSizeQty(
-  productId,
-  paymentMode,
-  size,
-  (item.sizeQty[size] || 0) + delta
-);
+    return updateItemSizeQty(productId, size, (item.sizeQty[size] || 0) + delta);
   }
 
-  function updateItemPayment(
-  productId,
-  oldPaymentMode,
-  newPaymentMode
-){
-
-  var item =
-    getItem(
-      productId,
-      oldPaymentMode
-    );
-
-  if(!item){
-    return null;
-  }
-
-  var existing =
-    getItem(
-      productId,
-      newPaymentMode
-    );
-
-  if(existing){
-
-    Object.keys(
-      item.sizeQty || {}
-    ).forEach(function(size){
-
-      existing.sizeQty[size] =
-        (
-          existing.sizeQty[size] || 0
-        ) +
-        (
-          item.sizeQty[size] || 0
-        );
-
-    });
-
-    recalculateItem(existing);
-
-    removeItem(
-      productId,
-      oldPaymentMode
-    );
-
+  function updateItemPayment(productId, paymentMode) {
+    var item = getItem(productId);
+    if (!item) return null;
+    item.paymentMode = paymentMode;
+    recalculateItem(item);
     notify();
-
-    return existing;
+    return item;
   }
 
-  item.paymentMode =
-    newPaymentMode;
-
-  recalculateItem(item);
-
-  notify();
-
-  return item;
-}
-  function removeItem(
-  productId,
-  paymentMode
-) {
+  function removeItem(productId) {
     var before = items.length;
     items = items.filter(function (item) {
-      return !(
-  item.productId === productId &&
-  item.paymentMode === paymentMode
-);
+      return item.productId !== productId;
     });
     if (items.length !== before) notify();
   }
@@ -415,196 +210,100 @@ var cartItem;
     }
   }
 
-  function getItemSizes(item){
+  function buildConfirmPayload() {
+    var partner = State.getPartnerContext();
+    function getItemSizes(item){
 
-  return (
-    item.sizes || []
-  ).map(function(size){
+  if(!Template){
+    return [];
+  }
+
+  var product =
+    Template.getProductById(
+      item.productId
+    );
+
+  if(!product){
+    return [];
+  }
+
+  return Template.getSizesByGroup(
+    product.sizeGroup
+  );
+
+}
+    var agg = getAggregateState();
 
     return {
-
-      sizeId:
-        size.sizeId || '',
-
-      sizeLabel:
-        size.sizeLabel || '',
-
-      sizeGroup:
-        size.sizeGroup || '',
-
-      category:
-        size.category || ''
-
-    };
-
-  });
-
-}
-    
-function buildConfirmPayload() {
-
-  var partner =
-    State.getPartnerContext();
-
-  var agg =
-    getAggregateState();
-
-  var normalizedItems = [];
-
-  items.forEach(function(item){
-
-    var allocations =
-      Checkout.toAllocations(
-        item.sizeQty,
-        getItemSizes(item)
-      );
-
-    allocations.forEach(function(alloc){
-
-      normalizedItems.push({
-
-        reserveId:
-          item.reserveId,
-
-        productId:
-  item.productId,
-
-        reserveStatusSnapshot:
-  item.reserveStatus,
-        
-        sizeId:
-          alloc.sizeId,
-
-        qty:
-          alloc.qty,
-
-        paymentModeSnapshot:
-  item.paymentMode,
-
-        priceSnapshot:
-          item.unitPrice,
-
-        subtotal:
-          alloc.qty *
-          item.unitPrice,
-
-        sizeLabelSnapshot:
-          alloc.sizeLabel,
-
-        sizeGroupSnapshot:
-          alloc.sizeGroup ||
-
-          '',
-
-        categorySnapshot:
-          alloc.category ||
-
-          ''
-
-      });
-
-    });
-
-  });
-
-  if(!partner){
-  throw new Error(
-    'Partner context missing'
-  );
-}
-
-if(!partner.id){
-  throw new Error(
-    'Partner ID missing'
-  );
-}
-
-if(!partner.toko){
-  throw new Error(
-    'Partner toko missing'
-  );
-}
-
-if(!normalizedItems.length){
-  throw new Error(
-    'Reserve items empty'
-  );
-}
+      partnerId: partner.partnerId,
+      toko: partner.toko,
+      confirmedAt: new Date().toISOString(),
+      totals: {
+        totalQty: agg.totalQty,
+        subtotal: agg.subtotal,
+        discount: agg.discount,
+        paidNow: agg.paidNow,
+        remaining: agg.remaining,
+        finalAmount: agg.finalAmount
+      },
+      reserveItems: items.map(function (item) {
 
   return {
 
-    partner: {
-      
-id:
-  partner.id || '',
-      
-      toko:
-        partner.toko || '',
+    reserveId: item.reserveId,
 
-      name:
-        partner.name || '',
+    productId: item.productId,
 
-      whatsapp:
-        partner.whatsapp || '',
+    productName: item.productName,
 
-      tier:
-        partner.tier ||
-        'REGULAR'
+    unitPrice: item.unitPrice,
 
-    },
+    totalPcs: item.totalPcs,
 
-    
+    paymentMode: item.paymentMode,
 
-    topSizeSnapshot:
-      '',
+    paymentLabel: item.paymentLabel,
 
-    sourceChannel:
-      'DASHBOARD',
+    priority: item.priority,
 
-    confirmedAt:
-      new Date()
-        .toISOString(),
+    priorityLabel: item.priorityLabel,
 
-    totals: {
+    subtotal: item.subtotal,
 
-      totalQty:
-        agg.totalQty,
+    discount: item.discount,
 
-      subtotal:
-        agg.subtotal,
+    hasDiscount: item.hasDiscount,
 
-      discount:
-        agg.discount,
+    paidNow: item.paidNow,
 
-      paidNow:
-        agg.paidNow,
+    remaining: item.remaining,
 
-      remaining:
-        agg.remaining,
+    finalAmount: item.finalAmount,
 
-      finalAmount:
-        agg.finalAmount
+    sizeQty:
+      State.cloneSizeQty(
+        item.sizeQty
+      ),
 
-    },
-
-    items:
-      normalizedItems
+   allocations:
+  Checkout.toAllocations(
+    item.sizeQty,
+    getItemSizes(item)
+  )
 
   };
 
-}
-
-
-  function mergeApiResponse(apiResponse) {
-
-  if(
-    !apiResponse ||
-    !apiResponse.orderId
-  ){
-    return;
+})
+    };
   }
 
-}
+  function mergeApiResponse(apiResponse) {
+    if (!apiResponse || !apiResponse.reserveItems) return;
+    apiResponse.reserveItems.forEach(function (row) {
+      var item = getItem(row.productId);
+      if (item && row.reserveId) item.reserveId = row.reserveId;
+    });
+  }
 
   function init() {
     loadFromStorage();
