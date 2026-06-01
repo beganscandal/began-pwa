@@ -125,32 +125,37 @@
 
   try{
 
-    var raw =
+    const raw =
       localStorage.getItem(
         'began_partner'
       );
 
     if(!raw){
 
-      return {
-
-        partnerId: '',
-        toko: ''
-
-      };
-
+      return null;
     }
 
-    var partner =
+    const partner =
       JSON.parse(raw);
+
+    if(
+      !partner ||
+      !partner.id ||
+      !partner.toko
+    ){
+
+      return null;
+    }
 
     return {
 
-      partnerId:
-        partner.id || '',
+      id:
+        String(partner.id),
 
       toko:
-        partner.toko || ''
+        String(partner.toko),
+
+      raw: partner
 
     };
 
@@ -161,17 +166,9 @@
       err
     );
 
-    return {
-
-      partnerId: '',
-      toko: ''
-
-    };
-
+    return null;
   }
-
 }
-
 
   global.ReserveState = {
     MIN_QTY: MIN_QTY,
