@@ -81,8 +81,11 @@
 
     container.innerHTML = '';
     var sizes =
-  (product.sizes || [])
-  .map(function(size){
+  (
+    product.realtimeSizes ||
+    product.sizes ||
+    []
+  ).map(function(size){
 
     return size.sizeLabel;
 
@@ -397,21 +400,27 @@ function syncRealtimeAnalytics(
 ){
 
   var oldSizes =
-    (currentProduct.sizes || [])
-    .map(function(size){
+  (
+    currentProduct.realtimeSizes ||
+    currentProduct.sizes ||
+    []
+  ).map(function(size){
 
-      return size.sizeLabel;
+    return size.sizeLabel;
 
-    });
+  });
 
-  var newSizes =
-    (latestProduct.sizes || [])
-    .map(function(size){
+var newSizes =
+  (
+    latestProduct.realtimeSizes ||
+    latestProduct.sizes ||
+    []
+  ).map(function(size){
 
-      return size.sizeLabel;
+    return size.sizeLabel;
 
-    });
-
+  });
+    
   if(
     JSON.stringify(oldSizes)
     ===
@@ -420,9 +429,11 @@ function syncRealtimeAnalytics(
     return;
   }
 
-  currentProduct.sizes =
-    latestProduct.sizes || [];
-
+ currentProduct.realtimeSizes =
+  latestProduct.realtimeSizes ||
+  latestProduct.sizes ||
+  [];
+    
   var state =
     State.getState(
       latestProduct.id
