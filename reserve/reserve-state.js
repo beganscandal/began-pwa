@@ -125,17 +125,44 @@
 
   try{
 
-    const raw =
+    var raw =
       localStorage.getItem(
         'began_partner'
       );
 
-    if(!raw){
+    /*
+    =========================
+    DEV MODE BYPASS
+    =========================
+    */
 
-      return null;
+    if(
+      !raw &&
+      window.RESERVE_DEV_MODE
+    ){
+
+      console.warn(
+        'RESERVE DEV MODE ACTIVE'
+      );
+
+      return {
+
+        id: 'DEV001',
+
+        toko: 'DEV STORE'
+
+      };
+
     }
 
-    const partner =
+    if(!raw){
+
+      throw new Error(
+        'PARTNER_SESSION_MISSING'
+      );
+    }
+
+    var partner =
       JSON.parse(raw);
 
     if(
@@ -144,18 +171,18 @@
       !partner.toko
     ){
 
-      return null;
+      throw new Error(
+        'INVALID_PARTNER_SESSION'
+      );
     }
 
     return {
 
       id:
-        String(partner.id),
+        partner.id,
 
       toko:
-        String(partner.toko),
-
-      raw: partner
+        partner.toko
 
     };
 
@@ -166,10 +193,10 @@
       err
     );
 
-    return null;
+    throw err;
   }
-}
 
+}
   global.ReserveState = {
     MIN_QTY: MIN_QTY,
     MAX_QTY: MAX_QTY,
