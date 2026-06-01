@@ -72,6 +72,28 @@ reserveId:
     productName:
       product.productName || '',
 
+sizes:
+  (product.sizes || [])
+    .map(function(size){
+
+      return {
+
+        sizeId:
+          size.sizeId || '',
+
+        sizeLabel:
+          size.sizeLabel || '',
+
+        sizeGroup:
+          size.sizeGroup || '',
+
+        category:
+          size.category || ''
+
+      };
+
+    }),    
+
     unitPrice:
       Number(product.price || 0),
 
@@ -192,11 +214,39 @@ reserveId:
     'NON_PRIORITY';
 
   item.reserveStatus =
-    item.reserveStatus ||
-    'RESERVE_OPEN';
+  item.reserveStatus ||
+  'RESERVE_OPEN';
 
-  return recalculateItem(item);
+/*
+=========================
+SIZE SNAPSHOT MIGRATION
+=========================
+*/
 
+if(
+  !Array.isArray(item.sizes)
+){
+
+  var product =
+    (window.BEGAN_PRODUCTS || [])
+      .find(function(product){
+
+        return (
+          product.productId ===
+          item.productId
+        );
+
+      });
+
+  item.sizes =
+    (
+      product &&
+      product.sizes
+    ) || [];
+
+}
+
+return recalculateItem(item);
 });      }
     } catch (err) {
       console.warn('[Reserve] cart load failed', err);
@@ -367,44 +417,29 @@ var cartItem;
 
   function getItemSizes(item){
 
-  var product =
-    (window.BEGAN_PRODUCTS || [])
-      .find(function(product){
-
-        return (
-          product.productId ===
-          item.productId
-        );
-
-      });
-
-  if(!product){
-    return [];
-  }
-
   return (
-  product.sizes || []
-).map(function(size){
+    item.sizes || []
+  ).map(function(size){
 
-  return {
+    return {
 
-    sizeId:
-      size.sizeId || '',
+      sizeId:
+        size.sizeId || '',
 
-    sizeLabel:
-      size.sizeLabel || '',
+      sizeLabel:
+        size.sizeLabel || '',
 
-    sizeGroup:
-      size.sizeGroup || '',
+      sizeGroup:
+        size.sizeGroup || '',
 
-    category:
-      size.category || ''
+      category:
+        size.category || ''
 
-  };
+    };
 
-});
-    
-  }
+  });
+
+}
     
 function buildConfirmPayload() {
 
