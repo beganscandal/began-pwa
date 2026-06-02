@@ -997,29 +997,29 @@ PRIORITY 03
 /* Video dialog */
 .reserve-video-dialog {
 
-  position: fixed;
+  position:fixed;
 
-  inset: 0;
+  inset:0;
 
-  z-index: 999999;
+  z-index:999999;
 
-  display: flex;
+  display:none;
 
-  align-items: center;
+  align-items:center;
 
-  justify-content: center;
+  justify-content:center;
 
-  padding: 24px;
+  padding:24px;
 
-  width: 100%;
+  width:100%;
 
-  max-width: 100%;
+  max-width:100%;
 
-  max-height: 100vh;
+  max-height:100vh;
 
-  margin: 0;
+  margin:0;
 
-  border: 0;
+  border:0;
 
   background:
     rgba(0,0,0,.82);
@@ -1028,6 +1028,7 @@ PRIORITY 03
     blur(6px);
 
 }
+
 .reserve-video-dialog[open]{
 
   display:flex;
