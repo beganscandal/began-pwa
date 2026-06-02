@@ -70,23 +70,16 @@
     return;
   }
 
-  Render.syncRealtimeSizes(
-    card,
-    existingProduct,
-    product
-  );
+  Object.assign(
+  existingProduct,
+  product
+);
 
-  Render.syncRealtimeAnalytics(
-    card,
-    product
-  );
-
-  existingProduct.realtimeSizes =
-    product.realtimeSizes;
-
-  existingProduct.analytics =
-    product.analytics;
-
+Render.syncCard(
+  card,
+  productId,
+  existingProduct
+);
 });
       }catch(err){
 
@@ -429,27 +422,43 @@ price:
   }
 ],
 
-videoSample: p.videoUrl
-  ? {
+videoSample: (() => {
 
-      embedUrl:
-  p.videoUrl.includes('/shorts/')
-    ? p.videoUrl
-        .replace(
-          '/shorts/',
-          '/embed/'
-        )
-        
-    : p.videoUrl,
-      externalUrl:
-        p.videoUrl,
+  const rawUrl =
+    (p.videoUrl || '')
+    .toString()
+    .trim();
 
-      title:
-        p.productName ||
-        'Video Sample'
+  if (!rawUrl) return null;
 
-    }
-  : null,
+  const regExp =
+    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
+
+  const match =
+    rawUrl.match(regExp);
+
+  const videoId =
+    match?.[2];
+
+  if (!videoId) return null;
+
+  return {
+
+    videoId,
+
+    embedUrl:
+      `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&loop=1&playlist=${videoId}`,
+
+    externalUrl:
+      rawUrl,
+
+    title:
+      p.productName ||
+      'Video Sample'
+
+  };
+
+})(),
     
 analytics: {  
   totalReservePcs:
