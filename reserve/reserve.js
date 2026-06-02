@@ -280,26 +280,42 @@ Render.syncCard(
     if (videoIframe) videoIframe.src = '';
   }
 
-  function closeVideoModal() {
-    clearVideoEmbed();
-    if (videoDialog && videoDialog.open) videoDialog.close();
+ function closeVideoModal() {
+
+  clearVideoEmbed();
+
+  if (videoDialog) {
+    videoDialog.hidden = true;
   }
 
-  function openVideoModal(btn) {
-    var embedUrl = btn.dataset.videoEmbed;
-    if (!embedUrl || !videoDialog) return;
+}
+ function openVideoModal(btn) {
 
-    if (videoTitle) videoTitle.textContent = btn.dataset.videoTitle || 'Video Sample';
-    if (videoIframe) videoIframe.src = embedUrl;
-    if (videoExternal) videoExternal.href = btn.dataset.videoExternal || embedUrl;
+  var embedUrl =
+    btn.dataset.videoEmbed;
 
-    if (typeof videoDialog.showModal === 'function') {
-      videoDialog.showModal();
-    } else {
-      videoDialog.setAttribute('open', '');
-    }
+  if (!embedUrl || !videoDialog)
+    return;
+
+  if (videoTitle) {
+    videoTitle.textContent =
+      btn.dataset.videoTitle ||
+      'Video Sample';
   }
 
+  if (videoIframe) {
+    videoIframe.src = embedUrl;
+  }
+
+  if (videoExternal) {
+    videoExternal.href =
+      btn.dataset.videoExternal ||
+      embedUrl;
+  }
+
+  videoDialog.hidden = false;
+
+}
   function onDocumentClick(event) {
     var actionEl = event.target.closest('[data-action]');
     if (!actionEl) return;
@@ -584,10 +600,109 @@ if(!products.length){
       videoIframe = videoDialog.querySelector('[data-video-iframe]');
       videoExternal = videoDialog.querySelector('[data-video-external]');
       videoTitle = document.getElementById('reserve-video-title');
-      videoDialog.addEventListener('close', clearVideoEmbed);
-      videoDialog.addEventListener('click', onVideoDialogClick);
-    }
+      videoDialog.addEventListener(
+  'click',
+  onVideoDialogClick
+);
+     
+}
 
+  if (
+  !document.getElementById(
+    'reserve-video-dialog'
+  )
+) {
+
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `
+    <div
+      id="reserve-video-dialog"
+      class="reserve-video-dialog"
+      hidden>
+
+      <div class="reserve-video-dialog__inner">
+
+        <header class="reserve-video-dialog__head">
+
+          <h2
+            id="reserve-video-title"
+            class="reserve-video-dialog__title">
+
+            Video Sample
+
+          </h2>
+
+          <button
+            type="button"
+            class="reserve-video-dialog__close"
+            data-action="close-video">
+
+            ×
+
+          </button>
+
+        </header>
+
+        <div class="reserve-video-dialog__body">
+
+          <div class="reserve-video-dialog__embed-wrap">
+
+            <iframe
+              class="reserve-video-dialog__iframe"
+              data-video-iframe
+              src=""
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+
+          </div>
+
+          <a
+            class="reserve-video-dialog__external"
+            data-video-external
+            href="#"
+            target="_blank">
+
+            Buka di tab baru
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+    `
+  );
+
+  
+ videoDialog =
+  document.getElementById(
+    'reserve-video-dialog'
+  );
+
+videoIframe =
+  videoDialog.querySelector(
+    '[data-video-iframe]'
+  );
+
+videoExternal =
+  videoDialog.querySelector(
+    '[data-video-external]'
+  );
+
+videoTitle =
+  document.getElementById(
+    'reserve-video-title'
+  );
+
+videoDialog.addEventListener(
+  'click',
+  onVideoDialogClick
+);
+
+}
     Cart.init();
 
 bootReserve();
