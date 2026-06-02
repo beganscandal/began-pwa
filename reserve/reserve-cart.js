@@ -68,6 +68,10 @@ reserveId:
 
     productId:
       product.productId || '',
+    
+    productName:
+    product.productName ||
+    product.name,
 
     name:
   product.name ||
@@ -79,6 +83,12 @@ reserveId:
     product.price ||
     0
   ),
+    price:
+    Number(
+      product.price ||
+      product.unitPrice ||
+      0
+    ),
 
     sizeQty:
       State.cloneSizeQty(
@@ -214,11 +224,11 @@ reserveId:
 
     var totalPcs = Checkout.getTotalPcs(state.sizeQty);
     if (totalPcs < 1) {
-      return { ok: false, reason: 'empty_allocation' };
-      reserveId:
-  product.reserveId,
-    }
-
+  return {
+    ok: false,
+    reason: 'empty_allocation'
+  };
+}
     var idx =
   findIndex(
   product.productId,
@@ -270,23 +280,31 @@ var cartItem;
 
   function incrementItemSizeQty(
   productId,
-  paymentMode,
   size,
   delta
-) {
-    var item = getItem(
-  productId,
-  paymentMode
-);
-    if (!item) return null;
-    return updateItemSizeQty(
-  productId,
-  paymentMode,
-  size,
-  (item.sizeQty[size] || 0) + delta
-);
+){
+
+  var item =
+    items.find(function(item){
+
+      return (
+        item.productId === productId
+      );
+
+    });
+
+  if(!item){
+    return null;
   }
 
+  return updateItemSizeQty(
+    productId,
+    item.paymentMode,
+    size,
+    (item.sizeQty[size] || 0) + delta
+  );
+
+}
   function updateItemPayment(
   productId,
   oldPaymentMode,
