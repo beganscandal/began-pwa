@@ -29,7 +29,10 @@
 
   function createInitialState(product, sizes) {
     return {
-      productId: productId,
+      productId: 
+        product.productId ||
+        product.id,
+      
       unitPrice: product.unitPrice,
       sizeQty: createEmptySizeQty(sizes),
       paymentMode: DEFAULT_PAYMENT,
@@ -53,9 +56,11 @@
 
     });
     
-    cardStates[
-      productId
-    ] =
+   var productId =
+  product.productId ||
+  product.id;
+
+cardStates[productId] =
       createInitialState(
         product,
         sizes
