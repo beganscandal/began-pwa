@@ -1130,23 +1130,35 @@ PRIORITY 03
 
 }
 .reserve-video-dialog__body {
-  padding: 0.65rem 0.75rem 0.75rem;
-}
 
+  display:flex;
+
+  flex-direction:column;
+
+  flex:1;
+
+  padding:56px 14px 14px;
+
+  min-height:0;
+
+}
 .reserve-video-dialog__embed-wrap{
 
   position:relative;
 
   width:100%;
 
-  aspect-ratio:9/16;
+  flex:1;
+
+  min-height:0;
 
   background:#000;
+
+  border-radius:18px;
 
   overflow:hidden;
 
 }
-
 .reserve-video-dialog__iframe {
 
   position:absolute;
@@ -1158,6 +1170,12 @@ PRIORITY 03
   height:100%;
 
   border:0;
+
+}
+
+.reserve-video-dialog__iframe{
+
+  aspect-ratio:9/16;
 
 }
 .reserve-video-dialog__external{
