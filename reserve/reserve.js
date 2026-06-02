@@ -51,12 +51,12 @@
     products.forEach(function(product){
 
   var existingProduct =
-    getProduct(product.id);
+    getProduct(productId);
 
   var card =
     Render.findCard(
       rootEl,
-      product.id
+      productId
     );
 
   if(
@@ -105,7 +105,7 @@
   ).find(function(product){
 
     return (
-      product.id === productId
+      productId === productId
     );
 
   }) || null;
