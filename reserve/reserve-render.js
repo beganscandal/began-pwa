@@ -151,7 +151,7 @@ sizes.forEach(function (size) {
       if (!btn) return;
 
       btn.dataset.imageIndex = String(index);
-      btn.dataset.productId = product.id;
+      btn.dataset.productId = productId;
       btn.setAttribute('aria-label', item.label || 'Gambar produk');
 
       var img = btn.querySelector('[data-gallery-thumb-img]');
@@ -304,8 +304,8 @@ sizes.forEach(function (size) {
     var cardEl = fragment.querySelector('.reserve-card');
     if (!cardEl) return null;
 
-    cardEl.dataset.productId = product.id;
-    var state = State.getState(product.id);
+    cardEl.dataset.productId = productId;
+    var state = State.getState(productId);
     if(!state){
   return null;
 }
@@ -341,8 +341,8 @@ sizes.forEach(function (size) {
     buildGallery(cardEl, product, state);
     setHeroImage(cardEl, product, state.heroImageIndex);
     buildPartnerSection(cardEl, product, state.partnersExpanded);
-    buildSizeQtyRows(cardEl, product.id, state, product);
-    buildPaymentOptions(cardEl, product.id, state.paymentMode);
+    buildSizeQtyRows(cardEl, productId, state, product);
+    buildPaymentOptions(cardEl, productId, state.paymentMode);
     populateSummary(cardEl, state, product);
 
     return cardEl;
@@ -378,7 +378,7 @@ function syncRealtimeAnalytics(
 
   var state =
     State.getState(
-      product.id
+      productId
     );
 
   if(state){
@@ -436,7 +436,7 @@ var newSizes =
     
   var state =
     State.getState(
-      latestProduct.id
+      latestproductId
     );
 
   if(!state){
@@ -457,7 +457,7 @@ var newSizes =
 
   buildSizeQtyRows(
     cardEl,
-    latestProduct.id,
+    latestproductId,
     state,
     latestProduct
   );
