@@ -46,28 +46,27 @@
   cardStates =
     Object.create(null);
 
-  products.forEach(function(product){
+ products.forEach(function(product){
 
-    var sizes =
-  (product.realtimeSizes || [])
-    .map(function(size){
+  var productId =
+    product.productId ||
+    product.id;
 
-      return size.sizeLabel;
+  var sizes =
+    (product.realtimeSizes || [])
+      .map(function(size){
 
-    });
-    
-   var productId =
-  product.productId ||
-  product.id;
+        return size.sizeLabel;
 
-cardStates[productId] =
-      createInitialState(
-        product,
-        sizes
-      );
+      });
 
-  });
+  cardStates[productId] =
+    createInitialState(
+      product,
+      sizes
+    );
 
+});
   return cardStates;
 
 }
