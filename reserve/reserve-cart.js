@@ -69,11 +69,16 @@ reserveId:
     productId:
       product.productId || '',
 
-    productName:
-      product.productName || '',
-
+    name:
+  product.name ||
+  product.productName,
+    
     unitPrice:
-      Number(product.price || 0),
+  Number(
+    product.unitPrice ||
+    product.price ||
+    0
+  ),
 
     sizeQty:
       State.cloneSizeQty(
@@ -210,6 +215,8 @@ reserveId:
     var totalPcs = Checkout.getTotalPcs(state.sizeQty);
     if (totalPcs < 1) {
       return { ok: false, reason: 'empty_allocation' };
+      reserveId:
+  product.reserveId,
     }
 
     var idx =
@@ -519,7 +526,17 @@ id:
         'REGULAR'
 
     },
+    productId:
+  item.productId,
+    
+reserveId:
+  item.reserveId,
 
+    priceSnapshot:
+  item.unitPrice,
+
+productName:
+  item.name,
     
 
     topSizeSnapshot:
