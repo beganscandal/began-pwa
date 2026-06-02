@@ -281,6 +281,7 @@ sizes.forEach(function (size) {
       return;
     }
     btn.hidden = false;
+    btn.dataset.action = 'open-video';
     btn.dataset.videoEmbed = product.videoSample.embedUrl || '';
     btn.dataset.videoExternal = product.videoSample.externalUrl || '';
     btn.dataset.videoTitle = product.videoSample.title || 'Video Sample';
