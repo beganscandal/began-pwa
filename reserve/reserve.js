@@ -423,14 +423,28 @@ price:
   p.unitLabel || 'pcs',
 
     gallery: [
-      {
-        src: p.image,
-        label: 'Product'
-      }
-    ],
+  {
+    src: p.image,
+    label: 'Product'
+  }
+],
 
-    analytics: {
-      totalReservePcs:
+videoSample: p.videoUrl
+  ? {
+      embedUrl:
+        p.videoUrl,
+
+      externalUrl:
+        p.videoUrl,
+
+      title:
+        p.productName ||
+        'Video Sample'
+    }
+  : null,
+
+analytics: {  
+  totalReservePcs:
         p.totalReserveCache,
 
       totalPartner:
