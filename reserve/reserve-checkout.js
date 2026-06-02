@@ -15,20 +15,38 @@
   };
 
   var PAYMENT_LABELS = {
-    FULL_PAYMENT: 'FULL PAYMENT',
-    DP_50: 'DP 50%',
-    NON_PRIORITY: 'NON PRIORITY'
-  };
 
+  FULL_PAYMENT:
+    'LUNAS',
+
+  DP_50:
+    'DP 50%',
+
+  NON_PRIORITY:
+    'BELUM BAYAR'
+
+};
   function getPriority(paymentMode) {
     return PRIORITY_MAP[paymentMode] || PRIORITY_MAP.NON_PRIORITY;
   }
 
   function formatPriorityLabel(priorityCode) {
-    if (!priorityCode) return 'PRIORITY 03';
-    return String(priorityCode).replace(/_/g, ' ');
+
+  if(!priorityCode){
+    return 'PRIORITAS 3';
   }
 
+  if(priorityCode === 'PRIORITY_01'){
+    return 'PRIORITAS 1';
+  }
+
+  if(priorityCode === 'PRIORITY_02'){
+    return 'PRIORITAS 2';
+  }
+
+  return 'PRIORITAS 3';
+
+}
   function getPaymentModeLabel(paymentMode) {
     return PAYMENT_LABELS[paymentMode] || paymentMode;
   }
