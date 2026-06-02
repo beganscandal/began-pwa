@@ -67,7 +67,9 @@ reserveId:
   product.reserveId || '',
 
     productId:
-      product.productId || '',
+  product.productId ||
+  product.id ||
+  '',
     
     productName:
     product.productName ||
@@ -364,19 +366,26 @@ var cartItem;
 
   return item;
 }
-  function removeItem(
-  productId,
-  paymentMode
-) {
-    var before = items.length;
-    items = items.filter(function (item) {
-      return !(
-  item.productId === productId &&
-  item.paymentMode === paymentMode
-);
+  
+  function removeItem(productId){
+
+  var before =
+    items.length;
+
+  items =
+    items.filter(function(item){
+
+      return (
+        item.productId !== productId
+      );
+
     });
-    if (items.length !== before) notify();
+
+  if(items.length !== before){
+    notify();
   }
+
+}
 
   function clear() {
     if (items.length) {
@@ -397,9 +406,11 @@ var cartItem;
       .find(function(product){
 
         return (
-          product.productId ===
-          item.productId
-        );
+  (
+    product.productId ||
+    product.id
+  ) === item.productId
+);
 
       });
 
@@ -474,7 +485,11 @@ function buildConfirmPayload() {
   item.paymentMode,
 
         priceSnapshot:
-          item.unitPrice,
+  Number(
+    item.unitPrice ||
+    item.price ||
+    0
+  ),
 
         subtotal:
           alloc.qty *
@@ -544,18 +559,7 @@ id:
         'REGULAR'
 
     },
-    productId:
-  item.productId,
-    
-reserveId:
-  item.reserveId,
-
-    priceSnapshot:
-  item.unitPrice,
-
-productName:
-  item.name,
-    
+        
 
     topSizeSnapshot:
       '',
