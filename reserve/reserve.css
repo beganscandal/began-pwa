@@ -735,31 +735,97 @@
   color: var(--reserve-accent);
 }
 
-.reserve-priority {
-  display: inline-block;
-  padding: 0.15em 0.45em;
-  font-size: 0.625rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  border-radius: 4px;
-  background: var(--reserve-accent-dim);
-  color: var(--reserve-accent);
+.reserve-priority{
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:88px;
+
+  padding:4px 10px;
+
+  border-radius:999px;
+
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+
 }
 
-.reserve-priority[data-priority-level="PRIORITY_01"] {
-  color: var(--reserve-accent);
+/* =========================
+PRIORITY 01
+========================= */
+
+.reserve-priority[
+  data-priority-level="PRIORITY01"
+]{
+
+  color:#f6d365;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246,211,101,.18),
+      rgba(253,160,133,.10)
+    );
+
+  border-color:
+    rgba(246,211,101,.45);
+
+  box-shadow:
+    0 0 12px rgba(246,211,101,.18);
+
 }
 
-.reserve-priority[data-priority-level="PRIORITY_02"] {
-  color: #d4d4d4;
-  background: rgba(255, 255, 255, 0.08);
+/* =========================
+PRIORITY 02
+========================= */
+
+.reserve-priority[
+  data-priority-level="PRIORITY02"
+]{
+
+  color:#7dd3fc;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(125,211,252,.16),
+      rgba(59,130,246,.08)
+    );
+
+  border-color:
+    rgba(125,211,252,.35);
+
+  box-shadow:
+    0 0 10px rgba(125,211,252,.12);
+
 }
 
-.reserve-priority[data-priority-level="PRIORITY_03"] {
-  color: var(--reserve-text-muted);
-  background: rgba(255, 255, 255, 0.04);
-}
+/* =========================
+PRIORITY 03
+========================= */
 
+.reserve-priority[
+  data-priority-level="PRIORITY03"
+]{
+
+  color:#d1d5db;
+
+  background:
+    rgba(255,255,255,.06);
+
+  border-color:
+    rgba(255,255,255,.08);
+
+}
 /* Summary pcs label */
 .reserve-summary__pcs {
   margin-bottom: 0.25rem;
