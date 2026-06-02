@@ -431,8 +431,15 @@ price:
 
 videoSample: p.videoUrl
   ? {
+
       embedUrl:
-        p.videoUrl,
+        p.videoUrl.includes('/shorts/')
+          ? p.videoUrl
+              .replace(
+                'youtube.com/shorts/',
+                'youtube.com/embed/'
+              )
+          : p.videoUrl,
 
       externalUrl:
         p.videoUrl,
@@ -440,9 +447,10 @@ videoSample: p.videoUrl
       title:
         p.productName ||
         'Video Sample'
+
     }
   : null,
-
+    
 analytics: {  
   totalReservePcs:
         p.totalReserveCache,
