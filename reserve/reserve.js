@@ -465,9 +465,14 @@ price:
     realtimeSizes:
       p.sizes || [],
 
-    partnerReserves: [],
-    partnerReservesMore: [],
-    partnerReservesExtra: 0
+    partnerReserves:
+  p.partnerReserves || [],
+
+partnerReservesMore:
+  p.partnerReservesMore || [],
+
+partnerReservesExtra:
+  p.partnerReservesExtra || 0
 
   };
 
