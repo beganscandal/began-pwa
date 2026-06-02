@@ -181,7 +181,9 @@
 
   function getProductById(productId) {
     return RESERVE_PRODUCTS.find(function (p) {
-      return p.id === productId;
+      return (
+  (p.productId || p.id) === productId
+);
     }) || null;
   }
 
