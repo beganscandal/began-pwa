@@ -105,7 +105,10 @@
   ).find(function(product){
 
     return (
-      productId === productId
+      (
+        product.productId ||
+        product.id
+      ) === productId
     );
 
   }) || null;
