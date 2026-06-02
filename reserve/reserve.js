@@ -433,14 +433,14 @@ videoSample: p.videoUrl
   ? {
 
       embedUrl:
-        p.videoUrl.includes('/shorts/')
-          ? p.videoUrl
-              .replace(
-                'youtube.com/shorts/',
-                'youtube.com/embed/'
-              )
-          : p.videoUrl,
-
+  p.videoUrl.includes('/shorts/')
+    ? p.videoUrl
+        .replace(
+          '/shorts/',
+          '/embed/'
+        )
+        
+    : p.videoUrl,
       externalUrl:
         p.videoUrl,
 
