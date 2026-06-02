@@ -121,9 +121,11 @@
     .find(function(product){
 
       return (
-        product.productId ===
-        item.productId
-      );
+  (
+    product.productId ||
+    product.id
+  ) === item.productId
+);
 
     });
 
@@ -157,7 +159,9 @@
     }
 
     var qty =
-      item.sizeQty[size] || 0;
+  Number(
+    item.sizeQty?.[size] || 0
+  );
 
     setText(
       row,
@@ -232,8 +236,26 @@
     if (!block) return null;
 
     block.dataset.productId = item.productId;
-    setText(block, '[data-drawer-item-name]', item.productName);
-    setText(block, '[data-drawer-item-unit-price]', Checkout.formatUnitPrice(item.unitPrice));
+    setText(
+  block,
+  '[data-drawer-item-name]',
+  item.productName ||
+  item.name ||
+  '-'
+);
+    setText(
+  block,
+  '[data-drawer-item-unit-price]',
+  Checkout.formatUnitPrice(
+
+    Number(
+      item.unitPrice ||
+      item.price ||
+      0
+    )
+
+  )
+);
     setText(block, '[data-drawer-item-total-pcs]', String(item.totalPcs));
 
     var editor = block.querySelector('[data-drawer-size-editor]');
