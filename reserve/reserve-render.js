@@ -141,33 +141,86 @@ sizes.forEach(function (size) {
   }
 
   function buildGallery(cardEl, product, state) {
-    var container = cardEl.querySelector('[data-gallery]');
-    if (!container || !product.gallery || !product.gallery.length) return;
 
-    container.innerHTML = '';
-    product.gallery.forEach(function (item, index) {
-      var fragment = Template.cloneFragment(Template.getTemplateIds().galleryThumb);
-      var btn = fragment.querySelector('[data-action="select-gallery"]');
-      if (!btn) return;
+  var productId =
+    product.productId ||
+    product.id;
 
-      btn.dataset.imageIndex = String(index);
-      btn.dataset.productId = productId;
-      btn.setAttribute('aria-label', item.label || 'Gambar produk');
+  var container =
+    cardEl.querySelector('[data-gallery]');
 
-      var img = btn.querySelector('[data-gallery-thumb-img]');
-      if (img) {
-        img.src = item.src;
-        img.alt = product.name + ' — ' + (item.label || '');
-      }
-
-      var labelEl = btn.querySelector('[data-gallery-thumb-label]');
-      if (labelEl) labelEl.textContent = item.label || '';
-
-      if (index === state.heroImageIndex) btn.classList.add('is-active');
-      container.appendChild(fragment);
-    });
+  if(
+    !container ||
+    !product.gallery ||
+    !product.gallery.length
+  ){
+    return;
   }
 
+  container.innerHTML = '';
+
+  product.gallery.forEach(function(item, index){
+
+    var fragment =
+      Template.cloneFragment(
+        Template.getTemplateIds().galleryThumb
+      );
+
+    var btn =
+      fragment.querySelector(
+        '[data-action="select-gallery"]'
+      );
+
+    if(!btn) return;
+
+    btn.dataset.imageIndex =
+      String(index);
+
+    btn.dataset.productId =
+      productId;
+
+    btn.setAttribute(
+      'aria-label',
+      item.label || 'Gambar produk'
+    );
+
+    var img =
+      btn.querySelector(
+        '[data-gallery-thumb-img]'
+      );
+
+    if(img){
+
+      img.src = item.src;
+
+      img.alt =
+        product.name +
+        ' — ' +
+        (item.label || '');
+
+    }
+
+    var labelEl =
+      btn.querySelector(
+        '[data-gallery-thumb-label]'
+      );
+
+    if(labelEl){
+      labelEl.textContent =
+        item.label || '';
+    }
+
+    if(
+      index === state.heroImageIndex
+    ){
+      btn.classList.add('is-active');
+    }
+
+    container.appendChild(fragment);
+
+  });
+
+}
   function setHeroImage(cardEl, product, index) {
     var gallery = product.gallery && product.gallery.length ? product.gallery : [{ src: product.image }];
     var item = gallery[index] || gallery[0];
@@ -300,53 +353,147 @@ sizes.forEach(function (size) {
   }
 
   function createProductCard(product) {
-    var fragment = Template.cloneFragment(Template.getTemplateIds().card);
-    var cardEl = fragment.querySelector('.reserve-card');
-    if (!cardEl) return null;
 
-    cardEl.dataset.productId = productId;
-    var state = State.getState(productId);
-    if(!state){
-  return null;
-}
+  var productId =
+    product.productId ||
+    product.id;
 
-    setText(cardEl, '[data-product-name]', product.name);
-    setText(cardEl, '[data-product-desc]', product.description);
-    setText(cardEl, '[data-product-title]', product.name);
-    setText(cardEl, '[data-product-subtitle]', product.description);
+  var fragment =
+    Template.cloneFragment(
+      Template.getTemplateIds().card
+    );
 
-    var badge = cardEl.querySelector('[data-status-badge]');
-    if (badge) {
-      badge.textContent = Template.STATUS_LABELS[product.status] || product.status;
-      badge.dataset.status = product.status;
+  var cardEl =
+    fragment.querySelector(
+      '.reserve-card'
+    );
+
+  if(!cardEl){
+    return null;
+  }
+
+  cardEl.dataset.productId =
+    productId;
+
+  var state =
+    State.getState(productId);
+
+  if(!state){
+    return null;
+  }
+
+  setText(
+    cardEl,
+    '[data-product-name]',
+    product.name
+  );
+
+  setText(
+    cardEl,
+    '[data-product-desc]',
+    product.description
+  );
+
+  setText(
+    cardEl,
+    '[data-product-title]',
+    product.name
+  );
+
+  setText(
+    cardEl,
+    '[data-product-subtitle]',
+    product.description
+  );
+
+  var badge =
+    cardEl.querySelector(
+      '[data-status-badge]'
+    );
+
+  if(badge){
+
+    badge.textContent =
+      Template.STATUS_LABELS[
+        product.status
+      ] || product.status;
+
+    badge.dataset.status =
+      product.status;
+
+  }
+
+  populateAnalytics(
+    cardEl,
+    product.analytics
+  );
+
+  populateProgress(
+    cardEl,
+    product.progress
+  );
+
+  populateTimeline(
+    cardEl,
+    product.productionTimeline || {
+      start:
+        product.EstimasiTanggalProduksi,
+
+      finish:
+        product.EstimasiSelesaiProduksi
     }
+  );
 
-    populateAnalytics(cardEl, product.analytics);
-    populateProgress(cardEl, product.progress);
-    populateTimeline(
-  cardEl,
-  product.productionTimeline || {
+  populateTracking(
+    cardEl,
+    product
+  );
 
-    start:
-      product.EstimasiTanggalProduksi,
+  setupVideoButton(
+    cardEl,
+    product
+  );
 
-    finish:
-      product.EstimasiSelesaiProduksi
+  buildGallery(
+    cardEl,
+    product,
+    state
+  );
 
-  }
-);
-    populateTracking(cardEl, product);
-    setupVideoButton(cardEl, product);
+  setHeroImage(
+    cardEl,
+    product,
+    state.heroImageIndex
+  );
 
-    buildGallery(cardEl, product, state);
-    setHeroImage(cardEl, product, state.heroImageIndex);
-    buildPartnerSection(cardEl, product, state.partnersExpanded);
-    buildSizeQtyRows(cardEl, productId, state, product);
-    buildPaymentOptions(cardEl, productId, state.paymentMode);
-    populateSummary(cardEl, state, product);
+  buildPartnerSection(
+    cardEl,
+    product,
+    state.partnersExpanded
+  );
 
-    return cardEl;
-  }
+  buildSizeQtyRows(
+    cardEl,
+    productId,
+    state,
+    product
+  );
+
+  buildPaymentOptions(
+    cardEl,
+    productId,
+    state.paymentMode
+  );
+
+  populateSummary(
+    cardEl,
+    state,
+    product
+  );
+
+  return cardEl;
+
+}
 
   function renderProductGrid(container, products) {
     if (!container) return;
@@ -376,11 +523,15 @@ function syncRealtimeAnalytics(
     product.progress
   );
 
-  var state =
-    State.getState(
-      productId
-    );
+  var productId =
+  product.productId ||
+  product.id;
 
+var state =
+  State.getState(
+    productId
+  );
+  
   if(state){
 
     buildPartnerSection(
@@ -434,10 +585,14 @@ var newSizes =
   latestProduct.sizes ||
   [];
     
-  var state =
-    State.getState(
-      latestproductId
-    );
+ var productId =
+  latestProduct.productId ||
+  latestProduct.id;
+
+var state =
+  State.getState(
+    productId
+  );
 
   if(!state){
     return;
@@ -457,7 +612,7 @@ var newSizes =
 
   buildSizeQtyRows(
     cardEl,
-    latestproductId,
+    productId,
     state,
     latestProduct
   );
