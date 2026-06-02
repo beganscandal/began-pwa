@@ -48,7 +48,11 @@
         .map(normalizeReserveProduct);
 
     
-    products.forEach(function(product){
+  products.forEach(function(product){
+
+  var productId =
+    product.productId ||
+    product.id;
 
   var existingProduct =
     getProduct(productId);
@@ -77,10 +81,11 @@
     product
   );
 
-  Object.assign(
-    existingProduct,
-    product
-  );
+  existingProduct.realtimeSizes =
+    product.realtimeSizes;
+
+  existingProduct.analytics =
+    product.analytics;
 
 });
       }catch(err){
@@ -380,6 +385,9 @@
 
     id:
       p.productId,
+
+     productId:
+    p.productId,
 
     name:
       p.productName,
