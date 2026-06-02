@@ -389,6 +389,15 @@
      productId:
     p.productId,
 
+    reserveId:
+  p.reserveId,
+
+productName:
+  p.productName,
+
+price:
+  Number(p.price || 0),
+
     name:
       p.productName,
 
