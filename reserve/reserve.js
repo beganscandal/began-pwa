@@ -286,9 +286,12 @@ Render.syncCard(
 
   if (videoDialog) {
     videoDialog.hidden = true;
-  }
 
+videoDialog.removeAttribute(
+  'open'
+);
 }
+ }
  function openVideoModal(btn) {
 
   var embedUrl =
@@ -314,6 +317,11 @@ Render.syncCard(
   }
 
   videoDialog.hidden = false;
+
+videoDialog.setAttribute(
+  'open',
+  ''
+);
 
 }
   function onDocumentClick(event) {
@@ -463,7 +471,7 @@ videoSample: (() => {
     videoId,
 
     embedUrl:
-`https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0&modestbranding=1`,
+`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`,
 
     externalUrl:
       rawUrl,
