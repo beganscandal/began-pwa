@@ -439,12 +439,21 @@ price:
     unitLabel:
   p.unitLabel || 'pcs',
 
-    gallery: [
-  {
-    src: p.image,
-    label: 'Product'
-  }
-],
+    gallery: String(p.image || '')
+  .split('|')
+  .map(function(src, index){
+
+    return {
+      src: src.trim(),
+      label: '#' + (index + 1)
+    };
+
+  })
+  .filter(function(item){
+
+    return item.src;
+
+  }),
 
 videoSample: (() => {
 
