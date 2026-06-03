@@ -463,7 +463,7 @@ videoSample: (() => {
     videoId,
 
     embedUrl:
-      `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&loop=1&playlist=${videoId}`,
+`https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0&modestbranding=1`,
 
     externalUrl:
       rawUrl,
@@ -649,13 +649,13 @@ if(!products.length){
           <div class="reserve-video-dialog__embed-wrap">
 
             <iframe
-              class="reserve-video-dialog__iframe"
-              data-video-iframe
-              src=""
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
-
+  class="reserve-video-dialog__iframe"
+  data-video-iframe
+  src=""
+  allow="autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen
+  playsinline>
+</iframe>
           </div>
 
           <a
