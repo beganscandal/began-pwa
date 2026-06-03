@@ -1148,9 +1148,9 @@ PRIORITY 03
 
   width:100%;
 
-  flex:1;
+  aspect-ratio:9/16;
 
-  min-height:0;
+  max-height:78vh;
 
   background:#000;
 
