@@ -137,7 +137,10 @@
 
   function buildMessage(payload, apiResponse) {
     var partner = payload.toko || payload.partnerId || 'Partner';
-    var items = payload.reserveItems || [];
+    var items =
+  payload.reserveItems ||
+  payload.items ||
+  [];
     var agg = payload.totals || {};
     var orderId = apiResponse && apiResponse.orderId ? apiResponse.orderId : '';
 
