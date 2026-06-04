@@ -254,6 +254,15 @@ Render.syncCard(
     
     Api.submitReserve(payload)
       .then(function (apiResponse) {
+
+  Whatsapp.sendReserveConfirmation(
+    payload,
+    apiResponse
+  );
+
+  return;
+
+  // kode lama di bawah
         Cart.mergeApiResponse(apiResponse);
         var savedPayload = Cart.buildConfirmPayload();
         savedPayload.orderId = apiResponse.orderId;
