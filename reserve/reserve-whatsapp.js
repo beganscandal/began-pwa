@@ -33,14 +33,9 @@
     return '';
   }
 
-  var sizes =
-    (product.realtimeSizes || [])
-      .map(function(size){
-
-        return size.sizeLabel;
-
-      });
-
+ var sizes =
+  product.realtimeSizes || [];
+    
   var lines =
     Checkout.getActiveSizeLines(
       item.sizeQty,
@@ -136,11 +131,14 @@
   }
 
   function buildMessage(payload, apiResponse) {
-    var partner = payload.toko || payload.partnerId || 'Partner';
-    var items =
-  payload.reserveItems ||
-  payload.items ||
-  [];
+
+  var partner =
+    payload.toko ||
+    payload.partnerId ||
+    'Partner';
+
+  var items =
+    payload.reserveItems || [];
     var agg = payload.totals || {};
     var orderId = apiResponse && apiResponse.orderId ? apiResponse.orderId : '';
 
