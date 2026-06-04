@@ -154,10 +154,15 @@
     var snapshot =
     getReserveSnapshot();
 
-  var partner =
-    payload.toko ||
-    payload.partnerId ||
-    'Partner';
+  var partnerData =
+  payload.partner || {};
+
+var partner =
+  partnerData.toko ||
+  partnerData.id ||
+  payload.toko ||
+  payload.partnerId ||
+  'Partner';
 
   var items =
     payload.reserveItems ||
