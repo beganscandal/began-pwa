@@ -249,13 +249,31 @@ var partner =
     url
   );
 
-  var popup =
-    window.open(
-      url,
-      '_blank',
-      'noopener,noreferrer'
-    );
+    var existingTab =
+  payload.__waTab;
+    
+  if (
+  existingTab &&
+  !existingTab.closed
+) {
 
+  existingTab.location =
+    url;
+
+  console.log(
+    '[WA WINDOW]',
+    'REUSED_TAB'
+  );
+
+  return true;
+}
+
+var popup =
+  window.open(
+    url,
+    '_blank',
+    'noopener,noreferrer'
+  );
   console.log(
     '[WA WINDOW]',
     popup
