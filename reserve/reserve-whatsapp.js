@@ -226,34 +226,15 @@ var partner =
   }
 
   function openWhatsApp(message) {
-
-  var number =
-    String(getWhatsAppNumber())
-    .replace(/\D/g, '');
-
-  var url =
-    'https://wa.me/' +
-    number +
-    '?text=' +
-    encodeURIComponent(message);
-
-  var win = window.open(
-    url,
-    '_blank',
-    'noopener,noreferrer'
-  );
-
-  if (!win) {
-
-    console.warn(
-      '[WA BLOCKED] Popup blocked'
-    );
-
-    return false;
+    var number = String(getWhatsAppNumber()).replace(/\D/g, '');
+    if (!number) {
+      console.warn('[Reserve WhatsApp] No whatsappNumber configured');
+      return false;
+    }
+    var url = 'https://wa.me/' + number + '?text=' + encodeURIComponent(message);
+    window.open(url, '_blank', 'noopener,noreferrer');
+    return true;
   }
-
-  return true;
-}
   
   function sendReserveConfirmation(payload, apiResponse) {
     var message = buildMessage(payload, apiResponse);
