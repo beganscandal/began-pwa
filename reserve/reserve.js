@@ -247,6 +247,11 @@ Render.syncCard(
     setConfirmLoading(true);
     CartRender.showDrawerStatus('Menyimpan reserve ke sistem...', false);
 
+    console.log(
+  '[CLICK CONFIRM]',
+  Date.now()
+);
+    
     Api.submitReserve(payload)
       .then(function (apiResponse) {
         Cart.mergeApiResponse(apiResponse);
@@ -264,6 +269,11 @@ Render.syncCard(
   '[BEFORE WA OPEN]',
   savedPayload,
   apiResponse
+);
+
+        console.log(
+  '[WA OPEN]',
+  Date.now()
 );
 
 const waResult =
