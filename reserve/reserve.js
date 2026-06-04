@@ -258,7 +258,22 @@ Render.syncCard(
 
         CartRender.showDrawerStatus('Reserve tersimpan. Membuka WhatsApp...', false);
 
-        Whatsapp.sendReserveConfirmation(savedPayload, apiResponse);
+        console.log(
+  '[BEFORE WA OPEN]',
+  savedPayload,
+  apiResponse
+);
+
+const waResult =
+  Whatsapp.sendReserveConfirmation(
+    savedPayload,
+    apiResponse
+  );
+
+console.log(
+  '[WA RESULT]',
+  waResult
+);
 
         Cart.clear();
         closeDrawer();
