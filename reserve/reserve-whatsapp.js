@@ -225,10 +225,7 @@ var partner =
     return partner.whatsappNumber || config.whatsappNumber || '';
   }
 
-  function openWhatsApp(
-  message,
-  waTab
-) {
+  function openWhatsApp(message){
 
   var number =
     String(getWhatsAppNumber())
@@ -252,28 +249,12 @@ var partner =
     url
   );
 
-   if (
-  waTab &&
-  !waTab.closed
-) {
-
-  waTab.location =
-    url;
-
-  console.log(
-    '[WA WINDOW]',
-    'REUSED_TAB'
-  );
-
-  return true;
-}
+  
 var popup =
-  window.open(
-    url,
-    '_blank',
-    'noopener,noreferrer'
-  );
-  console.log(
+  window.open(url);
+    
+    
+    console.log(
     '[WA WINDOW]',
     popup
   );
@@ -298,9 +279,9 @@ function sendReserveConfirmation(
   );
 
   return openWhatsApp(
-    message,
-    payload.__waTab
-  );
+  message
+);
+  
 }
   global.ReserveWhatsapp = {
     buildMessage: buildMessage,
