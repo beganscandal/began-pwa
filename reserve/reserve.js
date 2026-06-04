@@ -240,6 +240,11 @@ Render.syncCard(
 
     var items = Cart.getItems();
     if (!items.length) return;
+    
+    var safariTab = window.open(
+  '',
+  '_blank'
+);
 
     var payload = Cart.buildConfirmPayload();
     setConfirmLoading(true);
@@ -263,6 +268,9 @@ Render.syncCard(
   savedPayload,
   apiResponse
 );
+
+        savedPayload.__waTab =
+  safariTab;
 
 const waResult =
   Whatsapp.sendReserveConfirmation(
