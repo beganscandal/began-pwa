@@ -437,8 +437,10 @@ price:
       p.category,
     
     unitLabel:
-  p.unitLabel || 'pcs',
-
+  Template.getUnitLabel(
+    p.category
+  ),
+    
     gallery: String(p.image || '')
   .split('|')
   .map(function(src, index){
