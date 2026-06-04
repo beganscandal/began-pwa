@@ -337,12 +337,28 @@ CartRender.showDrawerStatus(
 
   .catch(function(err){
 
-    console.error(
-      '[Reserve Save Failed]',
-      err
-    );
+  console.error(
+    '[Reserve Save Failed]',
+    err
+  );
 
-  });
+  console.error(
+    '[ERROR NAME]',
+    err?.name
+  );
+
+  console.error(
+    '[ERROR MESSAGE]',
+    err?.message
+  );
+
+  console.error(
+    '[ERROR STRING]',
+    String(err)
+  );
+
+});
+  
   }
     
     
