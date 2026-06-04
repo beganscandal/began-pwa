@@ -46,17 +46,18 @@
     getUnitLabel(item);
 
   return lines
-    .map(function(row){
+  .map(function(row){
 
-      return (
-        row.size +
-        ' : ' +
-        row.qty +
-        ' ' +
-        unitLabel
-      );
+    return (
+      row.sizeLabel +
+      ' : ' +
+      row.qty +
+      ' ' +
+      unitLabel
+    );
 
-    })
+  })
+    
     .join(lineBreak());
 
 }
