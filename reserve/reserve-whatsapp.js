@@ -249,17 +249,14 @@ var partner =
       '[WA BLOCKED] Popup blocked'
     );
 
-    alert(
-      'WhatsApp diblokir browser.\n\nKlik OK untuk membuka WhatsApp.'
-    );
-
     window.location.href = url;
 
-    return false;
+    return true;
   }
 
   return true;
 }
+  
   function sendReserveConfirmation(payload, apiResponse) {
     var message = buildMessage(payload, apiResponse);
     console.info('[Reserve WhatsApp] Message prepared', message);
