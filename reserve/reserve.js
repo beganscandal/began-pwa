@@ -235,6 +235,38 @@ Render.syncCard(
     }
   }
 
+  function generateOrderId(partner) {
+
+  var partnerId =
+    String(partner?.id || 'UNKNOWN')
+      .replace(/[^A-Z0-9]/gi, '')
+      .toUpperCase();
+
+  var tokoShort =
+    String(partner?.toko || 'TOKO')
+      .replace(/[^A-Z0-9]/gi, '')
+      .toUpperCase()
+      .substring(0, 10);
+
+  var now = new Date();
+
+  var timestamp =
+    now.getFullYear() +
+    String(now.getMonth() + 1).padStart(2, '0') +
+    String(now.getDate()).padStart(2, '0') +
+    String(now.getHours()).padStart(2, '0');
+    
+  return (
+    'RSV-' +
+    partnerId +
+    '-' +
+    tokoShort +
+    '-' +
+    timestamp
+  );
+
+}
+
   function handleConfirmReserve() {
     if (isConfirming) return;
 
@@ -243,7 +275,17 @@ Render.syncCard(
     
 
 
-    var payload = Cart.buildConfirmPayload();
+    var payload =
+  Cart.buildConfirmPayload();
+
+payload.orderId =
+  generateOrderId(
+    payload.partner
+  );
+    console.log(
+  '[FRONTEND ORDER ID]',
+  payload.orderId
+);
     setConfirmLoading(true);
     CartRender.showDrawerStatus('Menyimpan reserve ke sistem...', false);
 
@@ -254,18 +296,10 @@ Render.syncCard(
     
     Api.submitReserve(payload)
       .then(function (apiResponse) {
-
-  Whatsapp.sendReserveConfirmation(
-    payload,
-    apiResponse
-  );
-
-  return;
-
-  // kode lama di bawah
         Cart.mergeApiResponse(apiResponse);
         var savedPayload = Cart.buildConfirmPayload();
-        savedPayload.orderId = apiResponse.orderId;
+        savedPayload.orderId =
+  payload.orderId;
 
         console.log('[Reserve] CONFIRM RESERVE — saved', {
           payload: savedPayload,
