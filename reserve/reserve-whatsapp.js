@@ -175,10 +175,9 @@ var partner =
     {};
     
     var orderId =
-  apiResponse &&
-  apiResponse.orderId
-    ? apiResponse.orderId
-    : '';
+  payload.orderId || '';
+
+
     
     var parts = [];
     parts.push('RESERVE SYSTEM BEGAN');
