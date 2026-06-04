@@ -146,6 +146,11 @@
 
   function buildMessage(payload, apiResponse) {
 
+    console.log(
+    '[WA PAYLOAD]',
+    payload
+  );
+    
     var snapshot =
     getReserveSnapshot();
 
