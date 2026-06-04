@@ -293,28 +293,13 @@ payload.orderId =
   '[CLICK CONFIRM]',
   Date.now()
 );
-    
-    Api.submitReserve(payload)
-      .then(function (apiResponse) {
-        Cart.mergeApiResponse(apiResponse);
-        var savedPayload = Cart.buildConfirmPayload();
-        savedPayload.orderId =
+    var savedPayload =
+  Cart.buildConfirmPayload();
+
+savedPayload.orderId =
   payload.orderId;
 
-        console.log('[Reserve] CONFIRM RESERVE — saved', {
-          payload: savedPayload,
-          apiResponse: apiResponse
-        });
-
-        CartRender.showDrawerStatus('Reserve tersimpan. Membuka WhatsApp...', false);
-
-        console.log(
-  '[BEFORE WA OPEN]',
-  savedPayload,
-  apiResponse
-);
-
-        console.log(
+    console.log(
   '[WA OPEN]',
   Date.now()
 );
@@ -322,30 +307,45 @@ payload.orderId =
 const waResult =
   Whatsapp.sendReserveConfirmation(
     savedPayload,
-    apiResponse
+    {}
   );
 
 console.log(
   '[WA RESULT]',
   waResult
 );
+    Cart.clear();
 
-        Cart.clear();
-        closeDrawer();
-        CartRender.showDrawerStatus('', false);
-      })
-      .catch(function (err) {
-        console.error('[Reserve] CONFIRM failed', err);
-        CartRender.showDrawerStatus(
-          err.message || 'Gagal menyimpan reserve. WhatsApp tidak dibuka.',
-          true
-        );
-      })
-      .finally(function () {
-        setConfirmLoading(false);
-      });
+closeDrawer();
+
+CartRender.showDrawerStatus(
+  '',
+  false
+);
+    setConfirmLoading(false);
+
+    Api.submitReserve(payload)
+
+  .then(function(apiResponse){
+
+    console.log(
+      '[Reserve Saved]',
+      apiResponse
+    );
+
+  })
+
+  .catch(function(err){
+
+    console.error(
+      '[Reserve Save Failed]',
+      err
+    );
+
+  });
   }
-
+    
+    
   function clearVideoEmbed() {
     if (videoIframe) videoIframe.src = '';
   }
@@ -362,6 +362,7 @@ videoDialog.removeAttribute(
 );
 }
  }
+    
  function openVideoModal(btn) {
 
   var embedUrl =
