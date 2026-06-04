@@ -249,9 +249,7 @@ var partner =
       '[WA BLOCKED] Popup blocked'
     );
 
-    window.location.href = url;
-
-    return true;
+    return false;
   }
 
   return true;
