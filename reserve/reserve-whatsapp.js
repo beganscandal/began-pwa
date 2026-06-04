@@ -130,7 +130,23 @@
     return parts.join(lineBreak());
   }
 
+  function getReserveSnapshot(){
+
+  if(
+    !window.ReserveCart ||
+    !window.ReserveCart.getAggregateState
+  ){
+    return null;
+  }
+
+  return window.ReserveCart.getAggregateState();
+
+}
+
   function buildMessage(payload, apiResponse) {
+
+    var snapshot =
+    getReserveSnapshot();
 
   var partner =
     payload.toko ||
@@ -138,10 +154,21 @@
     'Partner';
 
   var items =
-    payload.reserveItems || [];
-    var agg = payload.totals || {};
-    var orderId = apiResponse && apiResponse.orderId ? apiResponse.orderId : '';
+    payload.reserveItems ||
+    (snapshot && snapshot.reserveItems) ||
+    [];
 
+    var agg =
+    payload.totals ||
+    snapshot ||
+    {};
+    
+    var orderId =
+  apiResponse &&
+  apiResponse.orderId
+    ? apiResponse.orderId
+    : '';
+    
     var parts = [];
     parts.push('RESERVE SYSTEM BEGAN');
     parts.push(lineBreak());
