@@ -333,6 +333,81 @@ sizes.forEach(function (size) {
   }
 
 }
+
+  function applyReserveStatus(
+  cardEl,
+  product
+){
+
+  const isOpen =
+    String(
+      product.reserveStatus || ''
+    ).toUpperCase() ===
+    'RESERVE_OPEN';
+
+  const closedPanel =
+    cardEl.querySelector(
+      '[data-reserve-closed-panel]'
+    );
+
+  const addBtn =
+    cardEl.querySelector(
+      '[data-action="add-to-reserve"]'
+    );
+
+  const sizeSection =
+    cardEl.querySelector(
+      '.reserve-allocation'
+    );
+
+  const paymentSection =
+    cardEl.querySelector(
+      '.reserve-card__payment'
+    );
+
+  const summarySection =
+    cardEl.querySelector(
+      '.reserve-card__summary'
+    );
+
+  if(isOpen){
+
+    if(closedPanel)
+      closedPanel.hidden = true;
+
+    if(addBtn)
+      addBtn.hidden = false;
+
+    if(sizeSection)
+      sizeSection.hidden = false;
+
+    if(paymentSection)
+      paymentSection.hidden = false;
+
+    if(summarySection)
+      summarySection.hidden = false;
+
+    return;
+
+  }
+
+  if(closedPanel)
+    closedPanel.hidden = false;
+
+  if(addBtn)
+    addBtn.hidden = true;
+
+  if(sizeSection)
+    sizeSection.hidden = true;
+
+  if(paymentSection)
+    paymentSection.hidden = true;
+
+  if(summarySection)
+    summarySection.hidden = true;
+
+}
+  
   function populateAnalytics(cardEl, analytics) {
     setText(
   cardEl,
@@ -485,11 +560,15 @@ sizes.forEach(function (size) {
 
   if(badge){
 
-    badge.textContent =
-      Template.STATUS_LABELS[
-        product.status
-      ] || product.status;
+    STATUS_LABELS = {
 
+  RESERVE_OPEN:
+    'PESANAN DIBUKA',
+
+  RESERVE_CLOSE:
+    'PESANAN DITUTUP'
+
+};
     badge.dataset.status =
       product.status;
 
@@ -521,6 +600,11 @@ sizes.forEach(function (size) {
     cardEl,
     product
   );
+
+    applyReserveStatus(
+  cardEl,
+  product
+);
 
   setupVideoButton(
     cardEl,
