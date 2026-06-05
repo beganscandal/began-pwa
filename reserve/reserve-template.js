@@ -479,7 +479,10 @@ getUnitLabel: getUnitLabel,
     <li class="reserve-partner-row" role="listitem">
       <span class="reserve-partner-row__name" data-partner-name></span>
       <span class="reserve-partner-row__priority" data-partner-priority></span>
-      <span class="reserve-partner-row__qty"><span data-partner-qty>0</span> PCS</span>
+      <span class="reserve-partner-row__qty">
+  <span data-partner-qty>0</span>
+  <span data-partner-unit>PCS</span>
+</span>
     </li>
   </template>
 
@@ -507,7 +510,8 @@ getUnitLabel: getUnitLabel,
       <div class="reserve-drawer-item__sizes" data-drawer-size-editor aria-label="Edit alokasi size"></div>
       <p class="reserve-drawer-item__total">
         <span class="reserve-drawer-item__total-label">TOTAL</span>
-        <span data-drawer-item-total-pcs>0</span> PCS
+        <span data-drawer-item-total-pcs>0</span>
+<span data-drawer-item-unit>PCS</span>
       </p>
       <div class="reserve-drawer-item__payment-wrap">
         <span class="reserve-block-title">Payment Mode</span>
@@ -526,7 +530,11 @@ getUnitLabel: getUnitLabel,
           <span class="reserve-qty__value" data-drawer-size-qty aria-live="polite">0</span>
           <button type="button" class="reserve-qty__btn" data-action="cart-size-plus" aria-label="Tambah">+</button>
         </div>
-        <span class="reserve-drawer-size-line__unit">PCS</span>
+        <span
+  class="reserve-drawer-size-line__unit"
+  data-drawer-size-unit>
+  PCS
+</span>
       </div>
     </div>
   </template>
