@@ -517,6 +517,7 @@ if(priceEl){
     </span>
   `;
   }
+ }
     var discountRow = cardEl.querySelector('[data-discount-row]');
     if (discountRow) discountRow.hidden = !summary.hasDiscount;
 
