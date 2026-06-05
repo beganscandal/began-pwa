@@ -249,10 +249,10 @@ sizes.forEach(function (size) {
 
   var STATUS_PROGRESS = {
 
-    'RESERVE OPEN': 10,
-    'IN PRODUCTION': 50,
-    'FINISHED': 90,
-    'DISTRIBUTED': 100
+    'PESANAN DIBUKA': 10,
+    'PROSES PRODUKSI': 50,
+    'SELESAI PRODUKSI': 90,
+    'PENGIRIMAN': 100
 
   };
 
@@ -560,20 +560,30 @@ sizes.forEach(function (size) {
 
   if(badge){
 
-    STATUS_LABELS = {
+  const reserveStatus =
+    String(
+      product.reserveStatus || ''
+    ).toUpperCase();
 
-  RESERVE_OPEN:
-    'PESANAN DIBUKA',
+  const STATUS_LABELS = {
 
-  RESERVE_CLOSE:
-    'PESANAN DITUTUP'
+    RESERVE_OPEN:
+      'PESANAN DIBUKA',
 
-};
-    badge.dataset.status =
-      product.status;
+    RESERVE_CLOSE:
+      'PESANAN DITUTUP'
 
-  }
+  };
 
+  badge.textContent =
+    STATUS_LABELS[
+      reserveStatus
+    ] || reserveStatus;
+
+  badge.dataset.status =
+    reserveStatus;
+
+}
   populateAnalytics(
     cardEl,
     product.analytics
