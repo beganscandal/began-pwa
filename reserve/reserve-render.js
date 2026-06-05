@@ -242,19 +242,60 @@ sizes.forEach(function (size) {
     });
   }
 
-  function populateProgress(cardEl, progress) {
-    if (!progress) return;
-    var stats = Checkout.calculateProgress(progress.collected, progress.target);
-    setText(cardEl, '[data-progress-pct]', stats.percent + '%');
-    setText(cardEl, '[data-progress-collected]', Checkout.formatNumber(stats.collected));
-    setText(cardEl, '[data-progress-target]', Checkout.formatNumber(stats.target));
-    var fill = cardEl.querySelector('[data-progress-fill]');
-    if (fill) fill.style.width = stats.percent + '%';
-    var track = cardEl.querySelector('.reserve-progress__track');
-    if (track) {
-      track.setAttribute('aria-valuenow', String(stats.percent));
-    }
+  function populateProgress(
+  cardEl,
+  trackingBadge
+){
+
+  var STATUS_PROGRESS = {
+
+    'RESERVE OPEN': 10,
+    'IN PRODUCTION': 50,
+    'FINISHED': 90,
+    'DISTRIBUTED': 100
+
+  };
+
+  var percent =
+    STATUS_PROGRESS[
+      String(trackingBadge || '')
+        .trim()
+        .toUpperCase()
+    ] || 10;
+
+  setText(
+    cardEl,
+    '[data-progress-pct]',
+    percent + '%'
+  );
+
+  var fill =
+    cardEl.querySelector(
+      '[data-progress-fill]'
+    );
+
+  if(fill){
+
+    fill.style.width =
+      percent + '%';
+
   }
+
+  var track =
+    cardEl.querySelector(
+      '.reserve-progress__track'
+    );
+
+  if(track){
+
+    track.setAttribute(
+      'aria-valuenow',
+      String(percent)
+    );
+
+  }
+
+}
 
   function populateTimeline(cardEl, timeline) {
     if (!timeline) return;
@@ -262,12 +303,36 @@ sizes.forEach(function (size) {
     setText(cardEl, '[data-timeline-finish]', timeline.finish || '—');
   }
 
-  function populateTracking(cardEl, product) {
-    setText(cardEl, '[data-tracking-badge]', product.trackingBadge || '');
-    var block = cardEl.querySelector('[data-tracking-block]');
-    if (block) block.hidden = !product.trackingBadge;
+  function populateTracking(
+  cardEl,
+  product
+){
+
+  setText(
+    cardEl,
+    '[data-tracking-badge]',
+    product.trackingBadge || ''
+  );
+
+  setText(
+    cardEl,
+    '[data-tracking-note]',
+    product.trackingNote || ''
+  );
+
+  var block =
+    cardEl.querySelector(
+      '[data-tracking-block]'
+    );
+
+  if(block){
+
+    block.hidden =
+      !product.trackingBadge;
+
   }
 
+}
   function populateAnalytics(cardEl, analytics) {
     setText(
   cardEl,
@@ -434,12 +499,13 @@ sizes.forEach(function (size) {
     cardEl,
     product.analytics
   );
+    
+    populateProgress(
+  cardEl,
+  product.trackingBadge
+);
 
-  populateProgress(
-    cardEl,
-    product.progress
-  );
-
+ 
   populateTimeline(
     cardEl,
     product.productionTimeline || {
@@ -525,10 +591,10 @@ function syncRealtimeAnalytics(
     product.analytics
   );
 
-  populateProgress(
-    cardEl,
-    product.progress
-  );
+ populateProgress(
+  cardEl,
+  product.trackingBadge
+);
 
   var productId =
   product.productId ||
