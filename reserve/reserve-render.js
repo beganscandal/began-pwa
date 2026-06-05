@@ -438,13 +438,30 @@ sizes.forEach(function (size) {
 
 }
   
-  function populateAnalytics(cardEl, analytics) {
+  function populateAnalytics(
+  cardEl,
+  analytics,
+  product
+) {
+
+  const unitLabel =
+  (
+    product.unitLabel ||
+    Template.getUnitLabel(
+      product.sizeGroup
+    ) ||
+    'pcs'
+  )
+  .toUpperCase();
+    
     setText(
   cardEl,
   '[data-analytics-pcs]',
   Checkout.formatNumber(
     analytics.totalReserveQty
-  )
+  ) +
+  ' ' +
+  unitLabel
 );
     setText(cardEl, '[data-analytics-partners]', Checkout.formatNumber(analytics.totalPartner));
     setText(cardEl, '[data-analytics-top-size]', analytics.topSize);
@@ -651,10 +668,10 @@ if(priceEl){
 
 }
   populateAnalytics(
-    cardEl,
-    product.analytics
-  );
-    
+  cardEl,
+  product.analytics,
+  product
+);    
     populateProgress(
   cardEl,
   product.trackingBadge
@@ -747,9 +764,10 @@ function syncRealtimeAnalytics(
 ){
 
   populateAnalytics(
-    cardEl,
-    product.analytics
-  );
+  cardEl,
+  product.analytics,
+  product
+);
 
  populateProgress(
   cardEl,
