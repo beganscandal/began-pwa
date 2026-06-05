@@ -583,16 +583,22 @@ videoSample: (() => {
 })(),
     
 analytics: {  
-  totalReservePcs:
-        p.totalReserveCache,
+  analytics: {
 
-      totalPartner:
-        p.totalPartnersCache,
+  totalReserveQty:
+    p.totalReserveCache,
 
-      topSize:
-        p.topSizeCache
-    },
+  totalPartner:
+    p.totalPartnersCache,
 
+  topSize:
+    p.topSizeCache,
+
+  unitLabel:
+    Template.getUnitLabel(
+      p.category
+    )
+},
     progress: {
       collected:
         p.totalReserveCache,
