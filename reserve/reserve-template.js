@@ -423,6 +423,32 @@ getUnitLabel: getUnitLabel,
         </section>
       </div>
 
+      <div
+  class="reserve-closed-panel"
+  data-reserve-closed-panel
+  hidden>
+
+  <div class="reserve-closed-panel__icon">
+    🔒
+  </div>
+
+  <div class="reserve-closed-panel__content">
+
+    <strong>
+      PESANAN DITUTUP
+    </strong>
+
+    <p>
+      Reserve telah berakhir.
+      Pantau progres produksi
+      pada bagian status produksi.
+    </p>
+
+  </div>
+
+</div>
+
+
       <div class="reserve-card__action-bar">
         <button type="button" class="reserve-cta reserve-cta--add" data-action="add-to-reserve">
           Tambah ke Reserve
