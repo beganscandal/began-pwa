@@ -286,10 +286,59 @@ getUnitLabel: getUnitLabel,
       </div>
 
       <div class="reserve-card__body">
-        <div class="reserve-trust" data-tracking-block>
-          <span class="reserve-trust__badge" data-tracking-badge></span>
-        </div>
+        <section
+  class="reserve-production-status"
+  data-tracking-block>
 
+  <div class="reserve-progress">
+
+    <div class="reserve-progress__head">
+
+      <span
+        class="reserve-progress__label">
+
+        Production Status
+
+      </span>
+
+      <span
+        class="reserve-progress__pct"
+        data-progress-pct>
+
+        0%
+
+      </span>
+
+    </div>
+
+    <div
+      class="reserve-progress__track">
+
+      <div
+        class="reserve-progress__fill"
+        data-progress-fill>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="reserve-tracking-row">
+
+    <span
+      class="reserve-trust__badge"
+      data-tracking-badge>
+    </span>
+
+    <span
+      class="reserve-tracking-note"
+      data-tracking-note>
+    </span>
+
+  </div>
+
+</section>
         <header class="reserve-card__product-meta">
           <h3 class="reserve-card__title" data-product-title></h3>
           <p class="reserve-card__subtitle" data-product-subtitle></p>
@@ -314,17 +363,7 @@ getUnitLabel: getUnitLabel,
           </li>
         </ul>
 
-        <section class="reserve-progress" aria-label="Progress reserve">
-          <div class="reserve-progress__head">
-            <span class="reserve-progress__label">Reserve Progress</span>
-            <span class="reserve-progress__pct" data-progress-pct>0%</span>
-          </div>
-          <div class="reserve-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div class="reserve-progress__fill" data-progress-fill style="width:0%"></div>
-          </div>
-          <p class="reserve-progress__meta"><span data-progress-collected>0</span> / <span data-progress-target>0</span> pcs</p>
-        </section>
-
+        
         <section class="reserve-timeline" aria-label="Estimasi produksi">
           <div class="reserve-timeline__row">
             <span class="reserve-timeline__label">Produksi Dimulai</span>
