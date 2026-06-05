@@ -75,6 +75,11 @@
   product
 );
 
+    Render.syncRealtimeAnalytics(
+  card,
+  existingProduct
+);
+
 Render.syncCard(
   card,
   productId,
