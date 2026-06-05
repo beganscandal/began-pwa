@@ -479,9 +479,41 @@ sizes.forEach(function (size) {
     setText(cardEl, '[data-summary-pcs]', String(summary.totalPcs) + ' pcs');
 
     if (product) {
-      setText(cardEl, '[data-product-unit-price]', Checkout.formatUnitPrice(product.unitPrice));
-    }
 
+  const orderPrice =
+    Number(product.unitPrice || 0);
+
+  const retailPrice =
+    orderPrice * 2;
+
+  const priceEl =
+    cardEl.querySelector(
+      '[data-product-unit-price]'
+    );
+
+  if(priceEl){
+
+    priceEl.innerHTML = `
+      <span class="reserve-price-retail">
+        RETAIL ${Checkout.formatUnitPrice(retailPrice)}
+      </span>
+
+      <span class="reserve-price-arrow">
+        →
+      </span>
+
+      <span class="reserve-price-order">
+        PESANAN ${Checkout.formatUnitPrice(orderPrice)}
+      </span>
+
+      <span class="reserve-price-discount">
+        (-50%)
+      </span>
+    `;
+
+  }
+
+}
     var discountRow = cardEl.querySelector('[data-discount-row]');
     if (discountRow) discountRow.hidden = !summary.hasDiscount;
 
