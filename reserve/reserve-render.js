@@ -338,12 +338,21 @@ sizes.forEach(function (size) {
   cardEl,
   product
 ){
+    
+    console.log(
+  'STATUS CHECK',
+  product.productName,
+  product.status,
+  product.reserveStatus
+);
 
   const isOpen =
-    String(
-      product.reserveStatus || ''
-    ).toUpperCase() ===
-    'RESERVE_OPEN';
+  String(
+    product.status || ''
+  )
+  .trim()
+  .toUpperCase() ===
+  'RESERVE_OPEN';
 
   const closedPanel =
     cardEl.querySelector(
