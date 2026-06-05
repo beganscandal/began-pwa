@@ -582,7 +582,6 @@ videoSample: (() => {
 
 })(),
     
-analytics: {  
   analytics: {
 
   totalReserveQty:
