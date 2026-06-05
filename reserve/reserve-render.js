@@ -560,10 +560,10 @@ sizes.forEach(function (size) {
 
   if(badge){
 
-  const reserveStatus =
-    String(
-      product.reserveStatus || ''
-    ).toUpperCase();
+ const reserveStatus =
+  String(
+    product.status || ''
+  ).toUpperCase();
 
   const STATUS_LABELS = {
 
