@@ -14,7 +14,11 @@
     if (el) el.textContent = text;
   }
 
-  function appendPartnerRow(listEl, partner) {
+  function appendPartnerRow(
+  listEl,
+  partner,
+  product
+) {
     var fragment = Template.cloneFragment(Template.getTemplateIds().partnerRow);
     var row = fragment.querySelector('.reserve-partner-row');
     if (!row) return;
@@ -22,6 +26,22 @@
     setText(row, '[data-partner-name]', partner.name);
     setText(row, '[data-partner-priority]', partner.priority);
     setText(row, '[data-partner-qty]', String(partner.qty));
+    const unit =
+  (
+    product.unitLabel ||
+    product.analytics?.unitLabel ||
+    Template.getUnitLabel(
+      product.sizeGroup
+    ) ||
+    'pcs'
+  )
+  .toUpperCase();
+
+setText(
+  row,
+  '[data-partner-unit]',
+  unit
+);
 
     var priorityEl = row.querySelector('[data-partner-priority]');
     if (priorityEl) {
@@ -48,11 +68,19 @@
     extraList.innerHTML = '';
 
     visible.forEach(function (p) {
-      appendPartnerRow(visibleList, p);
+      appendPartnerRow(
+  visibleList,
+  p,
+  product
+);
     });
 
     extra.forEach(function (p) {
-      appendPartnerRow(extraList, p);
+      appendPartnerRow(
+  extraList,
+  p,
+  product
+);
     });
 
     var section = cardEl.querySelector('[data-partner-section]');
