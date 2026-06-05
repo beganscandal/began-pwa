@@ -486,7 +486,23 @@ sizes.forEach(function (size) {
     setText(cardEl, '[data-summary-discount]', '−' + Checkout.formatCurrency(summary.discount));
     setText(cardEl, '[data-summary-final]', Checkout.formatCurrency(summary.finalAmount));
     setText(cardEl, '[data-summary-priority]', summary.priorityLabel);
-    setText(cardEl, '[data-summary-pcs]', String(summary.totalPcs) + ' pcs');
+   const summaryUnit =
+(
+  product?.unitLabel ||
+  Template.getUnitLabel(
+    product?.sizeGroup
+  ) ||
+  'pcs'
+)
+.toUpperCase();
+
+setText(
+  cardEl,
+  '[data-summary-pcs]',
+  String(summary.totalPcs) +
+  ' ' +
+  summaryUnit
+);
 
     if (product) {
 
