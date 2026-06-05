@@ -269,7 +269,13 @@ sizes.forEach(function (size) {
   }
 
   function populateAnalytics(cardEl, analytics) {
-    setText(cardEl, '[data-analytics-pcs]', Checkout.formatNumber(analytics.totalReservePcs));
+    setText(
+  cardEl,
+  '[data-analytics-pcs]',
+  Checkout.formatNumber(
+    analytics.totalReserveQty
+  )
+);
     setText(cardEl, '[data-analytics-partners]', Checkout.formatNumber(analytics.totalPartner));
     setText(cardEl, '[data-analytics-top-size]', analytics.topSize);
   }
