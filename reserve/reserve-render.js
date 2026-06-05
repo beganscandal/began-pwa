@@ -367,13 +367,6 @@ sizes.forEach(function (size) {
   product
 ){
     
-    console.log(
-  'STATUS CHECK',
-  product.productName,
-  product.status,
-  product.reserveStatus
-);
-
   const isOpen =
   String(
     product.status || ''
