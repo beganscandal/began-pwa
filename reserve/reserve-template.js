@@ -343,7 +343,9 @@ getUnitLabel: getUnitLabel,
           <h3 class="reserve-card__title" data-product-title></h3>
           <p class="reserve-card__subtitle" data-product-subtitle></p>
           <p class="reserve-card__unit-price">
-            <span class="reserve-card__unit-price-label">Harga Reserve</span>
+            <span class="reserve-card__unit-price-label">
+  Harga Retail & Pesanan
+</span>
             <span data-product-unit-price>Rp0 / pcs</span>
           </p>
         </header>
