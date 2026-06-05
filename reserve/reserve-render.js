@@ -487,16 +487,11 @@ const retailPrice =
   orderPrice * 2;
 
 const unitLabel =
-  (
-    product.unitLabel ||
-    product.analytics?.unitLabel ||
-    Template.getUnitLabel(
-      product.sizeGroup
-    ) ||
-    'pcs'
+  Template.getUnitLabel(
+    product.sizeGroup
   )
   .toUpperCase();
-
+      
 const priceEl =
   cardEl.querySelector(
     '[data-product-unit-price]'
@@ -521,8 +516,7 @@ if(priceEl){
       (-50%)
     </span>
   `;
-
-}
+  }
     var discountRow = cardEl.querySelector('[data-discount-row]');
     if (discountRow) discountRow.hidden = !summary.hasDiscount;
 
