@@ -481,37 +481,46 @@ sizes.forEach(function (size) {
     if (product) {
 
   const orderPrice =
-    Number(product.unitPrice || 0);
+  Number(product.unitPrice || 0);
 
-  const retailPrice =
-    orderPrice * 2;
+const retailPrice =
+  orderPrice * 2;
 
-  const priceEl =
-    cardEl.querySelector(
-      '[data-product-unit-price]'
-    );
+const unitLabel =
+  (
+    product.unitLabel ||
+    product.analytics?.unitLabel ||
+    Template.getUnitLabel(
+      product.sizeGroup
+    ) ||
+    'pcs'
+  )
+  .toUpperCase();
 
-  if(priceEl){
+const priceEl =
+  cardEl.querySelector(
+    '[data-product-unit-price]'
+  );
 
-    priceEl.innerHTML = `
-      <span class="reserve-price-retail">
-        RETAIL ${Checkout.formatUnitPrice(retailPrice)}
-      </span>
+if(priceEl){
 
-      <span class="reserve-price-arrow">
-        →
-      </span>
+  priceEl.innerHTML = `
+    <span class="reserve-price-retail">
+      RETAIL ${Checkout.formatCurrency(retailPrice)} / ${unitLabel}
+    </span>
 
-      <span class="reserve-price-order">
-        PESANAN ${Checkout.formatUnitPrice(orderPrice)}
-      </span>
+    <span class="reserve-price-arrow">
+      →
+    </span>
 
-      <span class="reserve-price-discount">
-        (-50%)
-      </span>
-    `;
+    <span class="reserve-price-order">
+      PESANAN ${Checkout.formatCurrency(orderPrice)} / ${unitLabel}
+    </span>
 
-  }
+    <span class="reserve-price-discount">
+      (-50%)
+    </span>
+  `;
 
 }
     var discountRow = cardEl.querySelector('[data-discount-row]');
