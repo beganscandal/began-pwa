@@ -548,94 +548,98 @@ getUnitLabel: getUnitLabel,
     <article class="reserve-drawer-item" data-drawer-item role="listitem">
       <header class="reserve-drawer-item__head">
 
-<div class="reserve-drawer-item__left">
+  <div class="reserve-drawer-item__left">
 
-<img
-class="reserve-drawer-item__thumb"
-data-drawer-item-thumb
-src=""
-alt="">
+    <img
+      class="reserve-drawer-item__thumb"
+      data-drawer-item-thumb
+      src=""
+      alt="">
 
-</div>
+  </div>
 
-<div class="reserve-drawer-item__center">
+  <div class="reserve-drawer-item__center">
 
-<h3
-class="reserve-drawer-item__name"
-data-drawer-item-name>
-</h3>
+    <h3
+      class="reserve-drawer-item__name"
+      data-drawer-item-name>
+    </h3>
 
-<div
-class="reserve-priority-badge"
-data-drawer-priority>
-PRIORITY 01
-</div>
+    <div
+      class="reserve-priority-badge"
+      data-drawer-priority>
+      PRIORITY 01
+    </div>
 
-<div
-class="reserve-drawer-item__retail">
+    <div class="reserve-drawer-item__retail">
 
-Retail
-<span data-drawer-item-retail>
-Rp0
-</span>
+      Retail
 
-</div>
+      <span
+        data-drawer-item-retail>
+        Rp0
+      </span>
 
-<div
-class="reserve-drawer-item__reserve">
+    </div>
 
-Reserve
-<span data-drawer-item-unit-price>
-Rp0
-</span>
+    <div class="reserve-drawer-item__reserve">
 
-</div>
+      Pesanan
 
-</div>
+      <span
+        data-drawer-item-unit-price>
+        Rp0
+      </span>
 
-<div
-class="reserve-drawer-item__right">
+    </div>
 
-<button
-type="button"
-class="reserve-drawer-item__remove"
-data-action="remove-cart-item">
+  </div>
 
-×
+  <div class="reserve-drawer-item__right">
 
-</button>
+    <button
+      type="button"
+      class="reserve-drawer-item__remove"
+      data-action="remove-cart-item">
 
-</div>
+      ×
+
+    </button>
+
+  </div>
 
 </header>
       <div class="reserve-drawer-item__sizes" data-drawer-size-editor aria-label="Edit alokasi size"></div>
-      <div
-class="reserve-drawer-item__footer">
+      <div class="reserve-drawer-item__footer">
 
-<div
-class="reserve-drawer-item__pcs">
+  <div class="reserve-drawer-item__pcs">
 
-<span
-data-drawer-item-total-pcs>
-0
-</span>
+    Qty
 
-PCS
+    <span
+      data-drawer-item-total-pcs>
+      0
+    </span>
+
+    PCS
+
+  </div>
+
+  <div
+    class="reserve-drawer-item__subtotal">
+
+    Total
+
+    <span
+      data-drawer-item-subtotal>
+      Rp0
+    </span>
+
+  </div>
 
 </div>
 
-<div
-class="reserve-drawer-item__subtotal">
-
-Rp
-<span
-data-drawer-item-subtotal>
-0
-</span>
-
-</div>
-
-</div>      <div class="reserve-drawer-item__payment-wrap">
+<div class="reserve-drawer-item__payment-wrap">
         <span class="reserve-block-title">Payment Mode</span>
         <div class="reserve-drawer-item__payment" data-drawer-payment-group role="radiogroup"></div>
       </div>
