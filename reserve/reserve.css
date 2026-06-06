@@ -1653,3 +1653,21 @@ label:focus-within,
   font-size:.9em;
   font-weight:400;
 }
+
+.reserve-partner-row__priority[data-priority-level="PRIORITY02"] {
+
+  color:#7dd3fc;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(125,211,252,.16),
+      rgba(59,130,246,.08)
+    );
+
+  border:1px solid rgba(125,211,252,.35);
+
+  box-shadow:
+    0 0 10px rgba(125,211,252,.12);
+
+}
