@@ -597,48 +597,43 @@ getUnitLabel: getUnitLabel,
 
   <div class="reserve-drawer-item__right">
 
-    <button
-      type="button"
-      class="reserve-drawer-item__remove"
-      data-action="remove-cart-item">
+  <div class="reserve-drawer-item__summary">
 
-      ×
+    <div class="reserve-drawer-item__qty">
 
-    </button>
+      <span
+        data-drawer-item-total-pcs>
+        0
+      </span>
 
-  </div>
+      PCS
 
-</header>
-      <div class="reserve-drawer-item__sizes" data-drawer-size-editor aria-label="Edit alokasi size"></div>
-      <div class="reserve-drawer-item__footer">
+    </div>
 
-  <div class="reserve-drawer-item__pcs">
+    <div class="reserve-drawer-item__total">
 
-    Qty
+      <span
+        data-drawer-item-subtotal>
+        Rp0
+      </span>
 
-    <span
-      data-drawer-item-total-pcs>
-      0
-    </span>
-
-    PCS
+    </div>
 
   </div>
 
-  <div
-    class="reserve-drawer-item__subtotal">
+  <button
+    type="button"
+    class="reserve-drawer-item__remove"
+    data-action="remove-cart-item">
 
-    Total
+    ×
 
-    <span
-      data-drawer-item-subtotal>
-      Rp0
-    </span>
-
-  </div>
+  </button>
 
 </div>
-
+</header>
+      <div class="reserve-drawer-item__sizes" data-drawer-size-editor aria-label="Edit alokasi size"></div>
+     
 <div class="reserve-drawer-item__payment-wrap">
         <span class="reserve-block-title">Payment Mode</span>
         <div class="reserve-drawer-item__payment" data-drawer-payment-group role="radiogroup"></div>
