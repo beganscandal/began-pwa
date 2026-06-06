@@ -1437,7 +1437,8 @@ scale(1);
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  padding: 0.75rem 0.85rem;
+  padding: 0.65rem 0.75rem;
+   background:#111111;
   border-bottom: 1px solid var(--reserve-border);
   flex-shrink: 0;
 }
@@ -1696,7 +1697,12 @@ padding:12px 16px;
 
 border-top:1px solid var(--reserve-border);
 
-background:var(--reserve-bg-elevated);
+background:
+linear-gradient(
+180deg,
+#0f0f0f 0%,
+#141414 100%
+);
 
 display:grid;
 
