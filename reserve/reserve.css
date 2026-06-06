@@ -1579,15 +1579,19 @@ scale(1);
 }
 
 .reserve-drawer-item__payment-wrap {
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.25rem;
 }
 
-.reserve-drawer-item__payment {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
+.reserve-drawer-item__payment{
 
+display:grid;
+
+grid-template-columns:
+repeat(3,minmax(0,1fr));
+
+gap:6px;
+
+}
 .reserve-drawer-pay {
   display: flex;
   align-items: center;
