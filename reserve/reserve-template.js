@@ -498,16 +498,42 @@ getUnitLabel: getUnitLabel,
   </template>
 
   <template id="reserve-partner-row-template">
-    <li class="reserve-partner-row" role="listitem">
-      <span class="reserve-partner-row__name" data-partner-name></span>
-      <span class="reserve-partner-row__priority" data-partner-priority></span>
-      <span class="reserve-partner-row__qty">
-  <span data-partner-qty>0</span>
-  <span data-partner-unit>PCS</span>
-</span>
-    </li>
-  </template>
 
+  <li
+    class="reserve-partner-row"
+    role="listitem">
+
+    <div
+      class="reserve-partner-row__header">
+
+      <span
+        class="reserve-partner-row__name"
+        data-partner-name>
+      </span>
+
+      <span
+        class="reserve-partner-row__qty">
+
+        <span data-partner-qty>
+          0
+        </span>
+
+        <span data-partner-unit>
+          PCS
+        </span>
+
+      </span>
+
+    </div>
+
+    <span
+      class="reserve-partner-row__priority"
+      data-partner-priority>
+    </span>
+
+  </li>
+
+</template>
   <template id="reserve-payment-option-template">
     <label class="reserve-payment-option">
       <input type="radio" class="reserve-payment-option__input" name="" value="">
