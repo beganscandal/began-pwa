@@ -1672,11 +1672,17 @@ scale(1);
   pointer-events: none;
 }
 
-.reserve-drawer__foot {
-  flex-shrink: 0;
-  padding: 0.65rem 0.75rem max(0.75rem, env(safe-area-inset-bottom));
-  border-top: 1px solid var(--reserve-border);
-  background: var(--reserve-bg-elevated);
+.reserve-drawer__foot{
+flex-shrink:0;
+
+padding:12px 16px;
+
+border-top:1px solid var(--reserve-border);
+
+background:var(--reserve-bg-elevated);
+
+display:grid;
+gap:10px;
 }
 
 .reserve-drawer__totals {
