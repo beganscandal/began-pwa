@@ -720,15 +720,7 @@ if(!products.length){
       </h1>
 
       <p class="reserve-header__subtitle">
-Produksi mengikuti kebutuhan size dan qty partner.
-</p>
-
-<p class="reserve-header__subtitle">
-Setiap produk telah tersedia dalam bentuk sampel produk real.
-</p>
-
-<p class="reserve-header__subtitle">
-Priority 01 memperoleh alokasi produksi lebih awal.
+Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia dalam bentuk sampel produk real. Priority 01 memperoleh alokasi produksi lebih awal.
 </p>
     </header>
     `
