@@ -25,6 +25,16 @@
   var videoExternal = null;
   var videoTitle = null;
   var isConfirming = false;
+  var reserveSound =
+new Audio(
+'https://pwa.barkahgarment.com/assets/checkout.mp3'
+);
+
+reserveSound.volume = 0.5;
+
+var LAST_RESERVE_ACTIVITY = '';
+
+var LAST_SOUND_TIME = 0;
 
   async function refreshReserveAnalytics(){
 
@@ -727,6 +737,92 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
   );
 
 }
+  function unlockReserveAudio(){
+
+  reserveSound.muted = true;
+
+  reserveSound.play()
+
+  .then(function(){
+
+    reserveSound.pause();
+
+    reserveSound.currentTime = 0;
+
+    reserveSound.muted = false;
+
+  })
+
+  .catch(function(){});
+
+}
+  function showReserveToast(message){
+
+  let toast =
+    document.getElementById(
+      'reserve-toast'
+    );
+
+  if(!toast){
+
+    toast =
+      document.createElement(
+        'div'
+      );
+
+    toast.id =
+      'reserve-toast';
+
+    document.body.appendChild(
+      toast
+    );
+
+  }
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    'show'
+  );
+
+  setTimeout(function(){
+
+    toast.classList.remove(
+      'show'
+    );
+
+  },3000);
+
+}
+  function playReserveNotification(
+  message
+){
+
+  const now =
+    Date.now();
+
+  if(
+    now -
+    LAST_SOUND_TIME <
+    3000
+  ){
+    return;
+  }
+
+  LAST_SOUND_TIME =
+    now;
+
+  reserveSound.currentTime = 0;
+
+  reserveSound.play()
+    .catch(function(){});
+
+  showReserveToast(
+    message
+  );
+
+}
 
   function init() {
     rootEl = document.getElementById('reserve-app');
@@ -741,6 +837,11 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
       return;
     }
 injectReserveHeader();
+    document.addEventListener(
+  'click',
+  unlockReserveAudio,
+  { once:true }
+);
     
     if (videoDialog) {
       videoIframe = videoDialog.querySelector('[data-video-iframe]');
