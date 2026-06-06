@@ -1659,7 +1659,8 @@ gap:6px;
 }
 
 .reserve-drawer__status {
-  margin: 0 0 0.5rem;
+  margin-bottom:8px;
+   grid-column:1 / -1;
   padding: 0.45rem 0.5rem;
   font-size: 0.6875rem;
   border-radius: var(--reserve-radius-sm);
@@ -1701,7 +1702,7 @@ display:grid;
 
 grid-template-columns:1fr auto;
 
-gap:12px;
+gap:10px;
 
 align-items:end;
 
