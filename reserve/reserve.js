@@ -823,6 +823,82 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
   );
 
 }
+  async function refreshReserveActivity(){
+
+  try{
+
+    const res =
+      await fetch(
+
+        window.BEGAN_DASHBOARD_API +
+
+        '?action=boot&_=' +
+
+        Date.now()
+
+      );
+
+    const data =
+      await res.json();
+
+    if(
+      !data.activities ||
+      !data.activities.length
+    ){
+      return;
+    }
+
+    const latest =
+  data.activities[0];
+
+console.log(
+  '[RESERVE POLL]',
+  latest
+);
+
+console.log(
+  '[LAST]',
+  LAST_RESERVE_ACTIVITY
+);
+    
+    if(
+      latest ===
+      LAST_RESERVE_ACTIVITY
+    ){
+      return;
+    }
+
+    LAST_RESERVE_ACTIVITY =
+      latest;
+    
+console.log(
+  '[IS RESERVE]',
+  latest.includes('RESERVE')
+);
+    
+    if(
+      latest.includes(
+        'RESERVE'
+      )
+    ){
+
+      playReserveNotification(
+        '🔥 ' + latest
+      );
+
+    }
+
+  }catch(err){
+
+    console.error(
+      '[RESERVE_ACTIVITY]',
+      err
+    );
+
+  }
+
+}
+
 
   function init() {
     rootEl = document.getElementById('reserve-app');
@@ -965,14 +1041,13 @@ videoDialog.addEventListener(
 
 bootReserve();
     
-    reserveRealtimeTimer =
-  setInterval(
+    setInterval(function(){
 
-    refreshReserveAnalytics,
+  refreshReserveAnalytics();
 
-    5000
+  refreshReserveActivity();
 
-  );
+},5000);
 
 
 CartRender.init();
