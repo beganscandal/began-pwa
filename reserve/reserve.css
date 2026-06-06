@@ -1839,3 +1839,11 @@ label:focus-within,
   transition:.25s;
 
 }
+#reserve-toast.show{
+
+  opacity:1;
+
+  transform:
+    translateY(0);
+
+}
