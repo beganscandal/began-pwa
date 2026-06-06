@@ -1736,32 +1736,42 @@ label:focus-within,
 
 .reserve-header{
 
-  margin:0 0 12px;
+  margin:0 0 10px;
 
-  padding:10px 12px;
+  padding:10px 14px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  text-align:left;
 
   border-left:3px solid
     var(--reserve-accent);
 
-  border-radius:8px;
-
   background:
     rgba(255,255,255,.02);
 
+  border-radius:8px;
+
 }
+
 .reserve-header__title{
 
-  margin:0 0 6px;
+  margin:0 0 4px;
 
-  font-size:15px;
+  font-size:13px;
 
   font-weight:800;
 
   letter-spacing:.08em;
 
-  text-transform:uppercase;
+  color:#fff;
 
 }
+
 .reserve-header__subtitle{
 
   margin:0;
@@ -1770,10 +1780,6 @@ label:focus-within,
 
   line-height:1.45;
 
-  color:
-    var(--reserve-text-muted);
+  color:var(--reserve-text-muted);
 
-}
-.reserve-header__subtitle{
-  margin:4px 0 0;
 }
