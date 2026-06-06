@@ -1807,3 +1807,35 @@ label:focus-within,
   color:var(--reserve-text-muted);
 
 }
+
+#reserve-toast{
+
+  position:fixed;
+
+  top:80px;
+
+  right:16px;
+
+  z-index:9999;
+
+  padding:12px 16px;
+
+  background:#111;
+
+  border:1px solid
+  #00ff66;
+
+  border-radius:10px;
+
+  color:#00ff66;
+
+  font-size:12px;
+
+  opacity:0;
+
+  transform:
+    translateY(-10px);
+
+  transition:.25s;
+
+}
