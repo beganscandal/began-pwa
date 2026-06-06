@@ -698,6 +698,43 @@ if(!products.length){
   }
 
 }
+  function injectReserveHeader(){
+
+  if(
+    document.querySelector(
+      '.reserve-header'
+    )
+  ){
+    return;
+  }
+
+  if(!rootEl) return;
+
+  rootEl.insertAdjacentHTML(
+    'afterbegin',
+    `
+    <header class="reserve-header">
+
+      <h1 class="reserve-header__title">
+        RESERVE SYSTEM
+      </h1>
+
+      <p class="reserve-header__subtitle">
+Produksi mengikuti kebutuhan size dan qty partner.
+</p>
+
+<p class="reserve-header__subtitle">
+Setiap produk telah tersedia dalam bentuk sampel produk real.
+</p>
+
+<p class="reserve-header__subtitle">
+Priority 01 memperoleh alokasi produksi lebih awal.
+</p>
+    </header>
+    `
+  );
+
+}
 
   function init() {
     rootEl = document.getElementById('reserve-app');
@@ -711,7 +748,8 @@ if(!products.length){
       console.error('[Reserve] Missing #reserve-app or #reserve-product-grid');
       return;
     }
-
+injectReserveHeader();
+    
     if (videoDialog) {
       videoIframe = videoDialog.querySelector('[data-video-iframe]');
       videoExternal = videoDialog.querySelector('[data-video-external]');
