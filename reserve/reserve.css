@@ -1847,3 +1847,56 @@ label:focus-within,
     translateY(0);
 
 }
+
+.reserve-drawer-item__head{
+display:grid;
+grid-template-columns:48px 1fr auto;
+gap:10px;
+align-items:flex-start;
+}
+
+.reserve-drawer-item__thumb{
+width:48px;
+height:48px;
+border-radius:8px;
+object-fit:cover;
+}
+
+.reserve-drawer-item__sizes{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px;
+margin-top:8px;
+}
+
+.reserve-drawer-size-line{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.reserve-drawer-item__footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:8px;
+font-weight:700;
+}
+
+.reserve-priority-badge{
+display:inline-flex;
+padding:2px 6px;
+border-radius:6px;
+font-size:10px;
+font-weight:700;
+background:#c9a962;
+color:#111;
+}
+
+@media (orientation:landscape){
+
+.reserve-drawer-item__sizes{
+grid-template-columns:repeat(6,1fr);
+}
+
+}
