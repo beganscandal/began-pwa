@@ -1634,3 +1634,22 @@ label:focus-within,
   font-weight:800;
   margin-left:4px;
 }
+
+.reserve-card__title{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:0;
+}
+
+.reserve-card__separator{
+  opacity:.45;
+  font-weight:400;
+}
+
+.reserve-card__subtitle-inline{
+  opacity:.75;
+  font-size:.9em;
+  font-weight:400;
+}
