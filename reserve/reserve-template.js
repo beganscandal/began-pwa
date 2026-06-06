@@ -547,21 +547,95 @@ getUnitLabel: getUnitLabel,
   <template id="reserve-drawer-item-template">
     <article class="reserve-drawer-item" data-drawer-item role="listitem">
       <header class="reserve-drawer-item__head">
-        <div>
-          <h3 class="reserve-drawer-item__name" data-drawer-item-name></h3>
-          <p class="reserve-drawer-item__unit-price">
-            Harga Reserve <span data-drawer-item-unit-price>Rp0 / pcs</span>
-          </p>
-        </div>
-        <button type="button" class="reserve-drawer-item__remove" data-action="remove-cart-item" aria-label="Hapus reserve">×</button>
-      </header>
+
+<div class="reserve-drawer-item__left">
+
+<img
+class="reserve-drawer-item__thumb"
+data-drawer-item-thumb
+src=""
+alt="">
+
+</div>
+
+<div class="reserve-drawer-item__center">
+
+<h3
+class="reserve-drawer-item__name"
+data-drawer-item-name>
+</h3>
+
+<div
+class="reserve-priority-badge"
+data-drawer-priority>
+PRIORITY 01
+</div>
+
+<div
+class="reserve-drawer-item__retail">
+
+Retail
+<span data-drawer-item-retail>
+Rp0
+</span>
+
+</div>
+
+<div
+class="reserve-drawer-item__reserve">
+
+Reserve
+<span data-drawer-item-unit-price>
+Rp0
+</span>
+
+</div>
+
+</div>
+
+<div
+class="reserve-drawer-item__right">
+
+<button
+type="button"
+class="reserve-drawer-item__remove"
+data-action="remove-cart-item">
+
+×
+
+</button>
+
+</div>
+
+</header>
       <div class="reserve-drawer-item__sizes" data-drawer-size-editor aria-label="Edit alokasi size"></div>
-      <p class="reserve-drawer-item__total">
-        <span class="reserve-drawer-item__total-label">TOTAL</span>
-        <span data-drawer-item-total-pcs>0</span>
-<span data-drawer-item-unit>PCS</span>
-      </p>
-      <div class="reserve-drawer-item__payment-wrap">
+      <div
+class="reserve-drawer-item__footer">
+
+<div
+class="reserve-drawer-item__pcs">
+
+<span
+data-drawer-item-total-pcs>
+0
+</span>
+
+PCS
+
+</div>
+
+<div
+class="reserve-drawer-item__subtotal">
+
+Rp
+<span
+data-drawer-item-subtotal>
+0
+</span>
+
+</div>
+
+</div>      <div class="reserve-drawer-item__payment-wrap">
         <span class="reserve-block-title">Payment Mode</span>
         <div class="reserve-drawer-item__payment" data-drawer-payment-group role="radiogroup"></div>
       </div>
