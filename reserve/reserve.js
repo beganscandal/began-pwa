@@ -851,15 +851,6 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
     const latest =
   data.activities[0];
 
-console.log(
-  '[RESERVE POLL]',
-  latest
-);
-
-console.log(
-  '[LAST]',
-  LAST_RESERVE_ACTIVITY
-);
     
     if(
       latest ===
@@ -871,10 +862,6 @@ console.log(
     LAST_RESERVE_ACTIVITY =
       latest;
     
-console.log(
-  '[IS RESERVE]',
-  latest.includes('RESERVE')
-);
     
     if(
       latest.includes(
