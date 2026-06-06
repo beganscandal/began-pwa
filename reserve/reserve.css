@@ -1439,6 +1439,7 @@ scale(1);
   gap: 0.5rem;
   padding: 0.65rem 0.75rem;
    background:#111111;
+   border-bottom:1px solid #8f7640;
   border-bottom: 1px solid var(--reserve-border);
   flex-shrink: 0;
 }
@@ -1703,7 +1704,7 @@ linear-gradient(
 #0f0f0f 0%,
 #141414 100%
 );
-
+border-top:1px solid rgba(216,185,104,.35);
 display:grid;
 
 grid-template-columns:1fr auto;
