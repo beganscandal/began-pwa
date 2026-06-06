@@ -17,3 +17,6 @@ window.RESERVE_DEV_MODE = true;
     apiAction: 'confirmReserve'
   };
 })(typeof window !== 'undefined' ? window : this);
+
+window.BEGAN_DASHBOARD_API =
+'https://script.google.com/macros/s/AKfycbzuIjJZWc_o6qaUUKgyZ8m4qYJLzvJax6Pil1sdEhvNCgL6EO7s74pZnjnPY3Z8f32Z/exec';
