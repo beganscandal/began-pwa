@@ -285,7 +285,37 @@ getUnitLabel: getUnitLabel,
         <div class="reserve-gallery" data-gallery role="list" aria-label="Galeri produk"></div>
       </div>
 
-      <div class="reserve-card__body">
+      <header class="reserve-card__product-meta">
+
+  <h3 class="reserve-card__title">
+
+    <span data-product-title></span>
+
+    <span class="reserve-card__separator">
+      •
+    </span>
+
+    <span
+      class="reserve-card__subtitle-inline"
+      data-product-subtitle>
+    </span>
+
+  </h3>
+
+  <p class="reserve-card__unit-price">
+
+    <span class="reserve-card__unit-price-label">
+      Harga Retail & Pesanan
+    </span>
+
+    <span data-product-unit-price>
+      Rp0 / pcs
+    </span>
+
+  </p>
+
+</header>
+        
         <section
   class="reserve-production-status"
   data-tracking-block>
@@ -339,17 +369,7 @@ getUnitLabel: getUnitLabel,
   </div>
 
 </section>
-        <header class="reserve-card__product-meta">
-          <h3 class="reserve-card__title" data-product-title></h3>
-          <p class="reserve-card__subtitle" data-product-subtitle></p>
-          <p class="reserve-card__unit-price">
-            <span class="reserve-card__unit-price-label">
-  Harga Retail & Pesanan
-</span>
-            <span data-product-unit-price>Rp0 / pcs</span>
-          </p>
-        </header>
-
+        
         <ul class="reserve-analytics" aria-label="Analytics">
           <li class="reserve-analytics__item">
             <span class="reserve-analytics__value"><span data-analytics-pcs>0</span></span>
