@@ -1,6 +1,6 @@
 /**
  * RESERVE SYSTEM — Runtime configuration (Apps Script + WhatsApp)
- * Set appsScriptUrl to your deployed Web App URL before production.
+ * Set appsScriptUrl to your deployed Web App URL before production..
  */
 window.RESERVE_DEV_MODE = true;
 window.BEGAN_DASHBOARD_API =
