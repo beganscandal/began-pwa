@@ -1066,10 +1066,21 @@ PRIORITY 03
   75% { transform: translateX(4px); }
 }
 
-.reserve-cta--confirm {
-  margin-top: 0.5rem;
-}
+.reserve-cta--confirm{
 
+margin:0;
+
+width:auto;
+
+min-width:180px;
+
+height:44px;
+
+padding:0 18px;
+
+align-self:end;
+
+}
 @media (max-width: 639px) {
   .reserve-card__action-bar {
     position: sticky;
@@ -1673,6 +1684,7 @@ scale(1);
 }
 
 .reserve-drawer__foot{
+
 flex-shrink:0;
 
 padding:12px 16px;
@@ -1682,13 +1694,21 @@ border-top:1px solid var(--reserve-border);
 background:var(--reserve-bg-elevated);
 
 display:grid;
-gap:10px;
-}
 
-.reserve-drawer__totals {
-  margin: 0 0 0.5rem;
-}
+grid-template-columns:1fr auto;
 
+gap:12px;
+
+align-items:end;
+
+}
+.reserve-drawer__totals{
+
+margin:0;
+
+min-width:0;
+
+}
 .reserve-drawer__total-row {
   display: flex;
   justify-content: space-between;
