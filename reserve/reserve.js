@@ -737,9 +737,9 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
   );
 
 }
-  function unlockReserveAudio(){
+ function unlockReserveAudio(){
 
-  reserveSound.muted = true;
+  reserveSound.volume = 0;
 
   reserveSound.play()
 
@@ -749,7 +749,7 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
 
     reserveSound.currentTime = 0;
 
-    reserveSound.muted = false;
+    reserveSound.volume = 0.5;
 
   })
 
@@ -837,6 +837,17 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
       return;
     }
 injectReserveHeader();
+
+    window.testReserveSound =
+function(){
+
+  playReserveNotification(
+
+    '🔥 DEV STORE RESERVE 10 PCS'
+
+  );
+
+};
     document.addEventListener(
   'click',
   unlockReserveAudio,
