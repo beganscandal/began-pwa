@@ -278,15 +278,6 @@
   (window.BEGAN_PRODUCTS || [])
     .find(function(product){
 
-      console.log(
-  '[DRAWER PRODUCT]',
-  {
-    itemProductId: item.productId,
-    found: !!product,
-    product: product
-  }
-);
-
       return (
         (
           product.productId ||
@@ -319,19 +310,20 @@ if(
   thumb &&
   product
 ){
-  console.log(
-  '[DRAWER IMAGE]',
-  {
-    productId: item.productId,
-    image: product?.image,
-    fallback: product?.imageFallback
-  }
-);
+  
+  var thumbImage =
+  String(product.image || '')
+    .split('|')
+    .map(function(url){
+      return url.trim();
+    })
+    .filter(Boolean)[0] || '';
 
-  thumb.src =
-    product.image ||
-    product.imageFallback ||
-    '';
+
+thumb.src =
+  thumbImage ||
+  product.imageFallback ||
+  '';
 
   thumb.alt =
     product.productName ||
