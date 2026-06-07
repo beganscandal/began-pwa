@@ -82,28 +82,26 @@
     return state;
   }
 
-  function incrementItemSizeQty(
+  function incrementSizeQty(
   productId,
-  paymentMode,
   size,
   delta
 ){
 
-  var item =
-    getItem(
-      productId,
-      paymentMode
-    );
+  var state =
+    cardStates[productId];
 
-  if(!item){
+  if(!state){
     return null;
   }
 
-  return updateItemSizeQty(
+  var current =
+    state.sizeQty[size] || 0;
+
+  return setSizeQty(
     productId,
-    paymentMode,
     size,
-    (item.sizeQty[size] || 0) + delta
+    current + delta
   );
 
 }
