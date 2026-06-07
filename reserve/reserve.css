@@ -2114,34 +2114,50 @@ height:min(88vh,700px);
 
 @media (max-width:900px) and (orientation:landscape){
 
-  .reserve-drawer-item{
+  .reserve-drawer{
 
-    display:grid;
+    width:min(96vw,950px);
+
+  }
+
+  .reserve-drawer-item__head{
 
     grid-template-columns:
-      minmax(0,1fr)
-      220px;
+      64px
+      1fr
+      180px;
 
-    gap:16px;
-
-    align-items:start;
-
-  }
-
-}
-@media (max-width:900px) and (orientation:landscape){
-
-  .reserve-drawer__total-pcs{
-
-    font-size:32px;
-    font-weight:900;
+    gap:12px;
 
   }
 
-  .reserve-drawer__grand-total{
+  .reserve-drawer-item__thumb{
+
+    width:64px;
+    height:64px;
+
+  }
+
+  .reserve-drawer-item__qty{
 
     font-size:28px;
     font-weight:900;
+    color:#f6d365;
+    line-height:1;
+
+  }
+
+  .reserve-drawer-item__total{
+
+    font-size:18px;
+    font-weight:800;
+
+  }
+
+  .reserve-drawer-item__right{
+
+    align-items:flex-end;
+    text-align:right;
 
   }
 
