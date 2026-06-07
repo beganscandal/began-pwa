@@ -1,1 +1,334 @@
+<!doctype html>
+<html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEGAN Partner Board</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ <script src="/_sdk/telemetry_sdk.js"></script></head>
+ <body data-template-id="__page-root" class="min-h-screen text-white" style="background: rgb(10, 10, 10);">
+  <header class="border-b border-gray-800">
+   <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex items-center gap-3 mb-2">
+     <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center"><span class="text-black font-bold text-lg">B</span>
+     </div>
+     <h1 data-template-id="header-title" class="canva-text text-2xl font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 30px;">BEGAN Partner Board</h1>
+    </div>
+    <p data-template-id="header-subtitle" class="canva-text text-gray-400 text-sm mt-2 max-w-3xl" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Ruang diskusi partner BEGAN untuk berbagi pengalaman, memberikan masukan, berdiskusi produk, dan mendapatkan informasi terbaru langsung dari tim BEGAN.</p>
+    <p data-template-id="header-desc" class="canva-text text-gray-500 text-xs mt-2 max-w-3xl" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 15px;">Forum ini dibuat untuk membantu partner saling terhubung, bertukar ide, berbagi strategi penjualan, memberikan saran, serta mendapatkan informasi resmi dari BEGAN.</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+     <div data-template-id="stat-1" class="canva-card rounded-xl p-4 text-center" style="background: rgb(26, 26, 26);">
+      <div class="text-2xl font-bold text-white">
+       847
+      </div>
+      <div data-template-id="stat-1-label" class="canva-text text-xs text-gray-400 mt-1" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Total Partner Aktif</div>
+     </div>
+     <div data-template-id="stat-2" class="canva-card rounded-xl p-4 text-center" style="background: rgb(26, 26, 26);">
+      <div class="text-2xl font-bold text-emerald-400">
+       23
+      </div>
+      <div data-template-id="stat-2-label" class="canva-text text-xs text-gray-400 mt-1" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Diskusi Hari Ini</div>
+     </div>
+     <div data-template-id="stat-3" class="canva-card rounded-xl p-4 text-center" style="background: rgb(26, 26, 26);">
+      <div class="text-2xl font-bold text-amber-400">
+       5
+      </div>
+      <div data-template-id="stat-3-label" class="canva-text text-xs text-gray-400 mt-1" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Pengumuman Aktif</div>
+     </div>
+     <div data-template-id="stat-4" class="canva-card rounded-xl p-4 text-center" style="background: rgb(26, 26, 26);">
+      <div class="text-2xl font-bold text-purple-400">
+       @rizki
+      </div>
+      <div data-template-id="stat-4-label" class="canva-text text-xs text-gray-400 mt-1" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Top Kontributor</div>
+     </div>
+    </div>
+   </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6"><!-- Main Content -->
+   <div class="flex-1 min-w-0"><!-- Composer -->
+    <div data-template-id="composer-card" class="canva-card rounded-xl p-4 mb-6" style="background: rgb(20, 20, 20);">
+     <div class="flex gap-3">
+      <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0"><i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+      </div>
+      <div class="flex-1"><textarea id="post-content" rows="2" class="w-full bg-transparent border border-gray-700 rounded-lg p-3 text-sm text-white placeholder-gray-500 resize-none focus:outline-none focus:border-gray-500" placeholder="Apa yang ingin Anda diskusikan hari ini?"></textarea>
+       <div class="flex items-center justify-between mt-3">
+        <div class="flex gap-2"><select id="post-category" class="bg-gray-800 border border-gray-700 text-xs text-gray-300 rounded-lg px-3 py-1.5 focus:outline-none"> <option value="Diskusi Umum">Diskusi Umum</option> <option value="Produk Baru">Produk Baru</option> <option value="Masukan &amp; Saran">Masukan &amp; Saran</option> <option value="Strategi Penjualan">Strategi Penjualan</option> <option value="Kendala Partner">Kendala Partner</option> <option value="Inspirasi Konten">Inspirasi Konten</option> <option value="Produksi &amp; Reserve">Produksi &amp; Reserve</option> </select> <button type="button" class="text-gray-500 hover:text-gray-300 p-1.5"><i data-lucide="image" class="w-4 h-4"></i></button> <button type="button" class="text-gray-500 hover:text-gray-300 p-1.5"><i data-lucide="video" class="w-4 h-4"></i></button>
+        </div><button id="post-btn" type="button" data-template-id="post-button" class="canva-button px-4 py-1.5 rounded-lg text-sm font-semibold" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0); font-weight: 600; font-style: normal; font-size: 15px;">Posting</button>
+       </div>
+      </div>
+     </div>
+    </div><!-- Announcements -->
+    <div class="mb-6">
+     <h2 data-template-id="announce-title" class="canva-text text-sm font-semibold uppercase tracking-wider mb-3" style="color: rgb(251, 191, 36); font-weight: 600; font-style: normal; font-size: 23px;">📢 Pengumuman</h2>
+     <div data-template-id="announce-card-1" class="canva-card rounded-xl p-4 mb-3 border-l-4 border-amber-500" style="background: rgb(26, 26, 26);">
+      <div class="flex items-center gap-2 mb-2"><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded">PENGUMUMAN</span> <span class="bg-red-500/20 text-red-400 text-[10px] font-bold px-2 py-0.5 rounded">PINNED</span>
+      </div>
+      <h3 data-template-id="announce-1-title" class="canva-text font-semibold text-white" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 18px;">Update Produksi: Koleksi Q3 2026 Sudah Masuk Tahap Sampling</h3>
+      <p data-template-id="announce-1-content" class="canva-text text-gray-400 text-sm mt-1" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Hai partner! Koleksi baru Q3 sudah masuk tahap sampling. Preview akan dibagikan minggu depan. Siapkan slot reserve kalian.</p>
+      <div class="flex items-center gap-3 mt-3 text-xs text-gray-500"><span>Tim BEGAN</span><span>2 jam lalu</span>
+      </div>
+     </div>
+     <div data-template-id="announce-card-2" class="canva-card rounded-xl p-4 border-l-4 border-amber-500" style="background: rgb(26, 26, 26);">
+      <div class="flex items-center gap-2 mb-2"><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded">PENGUMUMAN</span>
+      </div>
+      <h3 data-template-id="announce-2-title" class="canva-text font-semibold text-white" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 18px;">Jadwal Pengiriman Batch 12 - Update Logistik</h3>
+      <p data-template-id="announce-2-content" class="canva-text text-gray-400 text-sm mt-1" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Batch 12 sedang dalam proses pengiriman. Estimasi tiba di partner dalam 3-5 hari kerja. Cek tracking di dashboard masing-masing.</p>
+      <div class="flex items-center gap-3 mt-3 text-xs text-gray-500"><span>Tim BEGAN</span><span>1 hari lalu</span>
+      </div>
+     </div>
+    </div><!-- Discussion Feed -->
+    <h2 data-template-id="feed-title" class="canva-text text-sm font-semibold uppercase tracking-wider mb-3" style="color: rgb(229, 231, 235); font-weight: 600; font-style: normal; font-size: 23px;">💬 Diskusi Terbaru</h2>
+    <div id="feed-container" class="space-y-3"><!-- Sample discussions -->
+     <div data-template-id="sample-post-1" class="canva-card rounded-xl p-4" style="background: rgb(20, 20, 20);">
+      <div class="flex gap-3">
+       <div class="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 text-xs font-bold">
+        R
+       </div>
+       <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-sm">Rizki Store</span> <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded">Gold Partner</span> <span class="text-xs text-gray-500">• 3 jam lalu</span>
+        </div><span class="text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded mt-1 inline-block">Strategi Penjualan</span>
+        <p data-template-id="sample-post-1-text" class="canva-text text-sm text-gray-300 mt-2" style="color: rgb(209, 213, 219); font-weight: 400; font-style: normal; font-size: 15px;">Sharing strategi yang works buat gue: konsisten posting behind-the-scenes proses unboxing BEGAN di TikTok. Conversion naik 40% dalam sebulan. Ada yang mau coba bareng?</p>
+        <div class="flex items-center gap-4 mt-3"><button class="flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="heart" class="w-3.5 h-3.5"></i> 12</button> <button class="flex items-center gap-1 text-gray-500 hover:text-blue-400 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 5</button> <button class="flex items-center gap-1 text-gray-500 hover:text-gray-300 text-xs"><i data-lucide="share" class="w-3.5 h-3.5"></i></button>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div data-template-id="sample-post-2" class="canva-card rounded-xl p-4" style="background: rgb(20, 20, 20);">
+      <div class="flex gap-3">
+       <div class="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0 text-xs font-bold">
+        A
+       </div>
+       <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-sm">Andi Streetwear</span> <span class="text-[10px] bg-gray-500/20 text-gray-400 px-1.5 py-0.5 rounded">Silver Partner</span> <span class="text-xs text-gray-500">• 5 jam lalu</span>
+        </div><span class="text-[10px] bg-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded mt-1 inline-block">Kendala Partner</span>
+        <p data-template-id="sample-post-2-text" class="canva-text text-sm text-gray-300 mt-2" style="color: rgb(209, 213, 219); font-weight: 400; font-style: normal; font-size: 15px;">Ada yang pernah ngalamin customer minta size exchange tapi stok kosong? Biasanya kalian handle gimana? Butuh saran nih.</p>
+        <div class="flex items-center gap-4 mt-3"><button class="flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="heart" class="w-3.5 h-3.5"></i> 8</button> <button class="flex items-center gap-1 text-gray-500 hover:text-blue-400 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 3</button> <button class="flex items-center gap-1 text-gray-500 hover:text-gray-300 text-xs"><i data-lucide="share" class="w-3.5 h-3.5"></i></button>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div data-template-id="sample-post-3" class="canva-card rounded-xl p-4" style="background: rgb(20, 20, 20);">
+      <div class="flex gap-3">
+       <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500 to-red-500 flex items-center justify-center flex-shrink-0 text-xs font-bold">
+        D
+       </div>
+       <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-sm">Dika Fashion</span> <span class="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded">Gold Partner</span> <span class="text-xs text-gray-500">• 8 jam lalu</span>
+        </div><span class="text-[10px] bg-green-500/20 text-green-400 px-1.5 py-0.5 rounded mt-1 inline-block">Produk Baru</span>
+        <p data-template-id="sample-post-3-text" class="canva-text text-sm text-gray-300 mt-2" style="color: rgb(209, 213, 219); font-weight: 400; font-style: normal; font-size: 15px;">Baru liat preview hoodie baru dari Tim BEGAN. Design-nya gila sih, pasti laris. Ada yang udah reserve? Menurut kalian warna mana yang paling potential?</p>
+        <div class="flex items-center gap-4 mt-3"><button class="flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="heart" class="w-3.5 h-3.5"></i> 21</button> <button class="flex items-center gap-1 text-gray-500 hover:text-blue-400 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 9</button> <button class="flex items-center gap-1 text-gray-500 hover:text-gray-300 text-xs"><i data-lucide="share" class="w-3.5 h-3.5"></i></button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Dynamic posts from SDK -->
+    <div id="dynamic-feed" class="space-y-3 mt-3"></div>
+   </div><!-- Sidebar -->
+   <aside class="w-full lg:w-80 flex-shrink-0 space-y-4"><!-- Search -->
+    <div class="relative"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i> <input type="text" placeholder="Cari diskusi..." class="w-full bg-gray-900 border border-gray-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-600">
+    </div><!-- Categories -->
+    <div data-template-id="categories-card" class="canva-card rounded-xl p-4" style="background: rgb(20, 20, 20);">
+     <h3 data-template-id="categories-title" class="canva-text font-semibold text-sm mb-3" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 18px;">Kategori</h3>
+     <div class="space-y-1.5" id="category-list"><button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">🗣️ Diskusi Umum</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">🆕 Produk Baru</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">💡 Masukan &amp; Saran</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">📈 Strategi Penjualan</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">⚠️ Kendala Partner</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">🎨 Inspirasi Konten</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">🏭 Produksi &amp; Reserve</button> <button class="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 transition">📢 Pengumuman Resmi</button>
+     </div>
+    </div><!-- Active Members -->
+    <div data-template-id="members-card" class="canva-card rounded-xl p-4" style="background: rgb(20, 20, 20);">
+     <h3 data-template-id="members-title" class="canva-text font-semibold text-sm mb-3" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 18px;">Partner Teraktif</h3>
+     <div class="space-y-3">
+      <div class="flex items-center gap-3">
+       <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-[10px] font-bold">
+        R
+       </div>
+       <div>
+        <div class="text-xs font-medium">
+         Rizki Store
+        </div>
+        <div class="text-[10px] text-gray-500">
+         32 posts
+        </div>
+       </div>
+      </div>
+      <div class="flex items-center gap-3">
+       <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-red-500 flex items-center justify-center text-[10px] font-bold">
+        D
+       </div>
+       <div>
+        <div class="text-xs font-medium">
+         Dika Fashion
+        </div>
+        <div class="text-[10px] text-gray-500">
+         28 posts
+        </div>
+       </div>
+      </div>
+      <div class="flex items-center gap-3">
+       <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-[10px] font-bold">
+        A
+       </div>
+       <div>
+        <div class="text-xs font-medium">
+         Andi Streetwear
+        </div>
+        <div class="text-[10px] text-gray-500">
+         19 posts
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Welcome -->
+    <div data-template-id="welcome-card" class="canva-card rounded-xl p-4" style="background: rgb(20, 20, 20);">
+     <h3 data-template-id="welcome-title" class="canva-text font-semibold text-sm mb-2" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 18px;">Selamat Datang! 👋</h3>
+     <p data-template-id="welcome-text" class="canva-text text-xs text-gray-400 leading-relaxed" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 15px;">Forum ini adalah tempat partner BEGAN saling terhubung, berdiskusi, bertukar pengalaman, memberikan masukan, dan membantu satu sama lain. Mari membangun ekosistem partner yang aktif, positif, dan bertumbuh bersama.</p>
+    </div>
+   </aside>
+  </main>
+  <template id="post-template">
+   <div data-template-id="user-post" class="canva-card rounded-xl p-4">
+    <div class="flex gap-3">
+     <div class="w-9 h-9 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black post-avatar">
+      Y
+     </div>
+     <div class="flex-1 min-w-0">
+      <div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-sm post-author">You</span> <span class="text-xs text-gray-500 post-time"></span>
+      </div><span class="text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded mt-1 inline-block post-category"></span>
+      <p class="text-sm text-gray-300 mt-2 post-content"></p>
+      <div class="flex items-center gap-4 mt-3"><button class="like-btn flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-count">0</span></button> <button class="flex items-center gap-1 text-gray-500 hover:text-blue-400 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 0</button> <button class="delete-btn flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </template>
+  <div id="loading-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+   <div class="bg-gray-900 rounded-xl p-6 text-center">
+    <div class="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full mx-auto"></div>
+    <p class="text-sm text-gray-400 mt-3">Memproses...</p>
+   </div>
+  </div>
+  <div id="limit-warning" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-red-900/90 border border-red-700 rounded-xl p-4 z-50">
+   <p class="text-sm text-red-200">Batas maksimum 999 diskusi telah tercapai. Hapus beberapa diskusi terlebih dahulu.</p>
+  </div>
+  <script src="/_sdk/editing_sdk.js"></script>
+  <script>
+    let allPosts = [];
+    const dynamicFeed = document.getElementById('dynamic-feed');
+    const loading = document.getElementById('loading-overlay');
 
+    function showLoading() { loading.classList.remove('hidden'); }
+    function hideLoading() { loading.classList.add('hidden'); }
+
+    function timeAgo(iso) {
+        const diff = Date.now() - new Date(iso).getTime();
+        const mins = Math.floor(diff / 60000);
+        if (mins < 60) return `${mins} menit lalu`;
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return `${hrs} jam lalu`;
+        return `${Math.floor(hrs / 24)} hari lalu`;
+    }
+
+    function renderPosts(data) {
+        const existing = new Map([...dynamicFeed.children].map(el => [el.dataset.postId, el]));
+        const sorted = [...data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+        sorted.forEach(post => {
+            if (existing.has(post.__backendId)) {
+                const el = existing.get(post.__backendId);
+                el.querySelector('.like-count').textContent = post.likes || 0;
+                existing.delete(post.__backendId);
+            } else {
+                const tpl = document.getElementById('post-template');
+                const node = tpl.content.cloneNode(true);
+                const wrapper = node.querySelector('[data-template-id="user-post"]');
+                wrapper.dataset.postId = post.__backendId;
+                node.querySelector('.post-avatar').textContent = (post.author_name || 'U')[0].toUpperCase();
+                node.querySelector('.post-author').textContent = post.author_name || 'Partner';
+                node.querySelector('.post-time').textContent = '• ' + timeAgo(post.created_at);
+                node.querySelector('.post-category').textContent = post.category || 'Diskusi Umum';
+                node.querySelector('.post-content').textContent = post.content || '';
+
+                const likeBtn = node.querySelector('.like-btn');
+                likeBtn.querySelector('.like-count').textContent = post.likes || 0;
+                likeBtn.addEventListener('click', () => likePost(post));
+
+                const delBtn = node.querySelector('.delete-btn');
+                delBtn.addEventListener('click', () => deletePost(post));
+
+                dynamicFeed.appendChild(node);
+                lucide.createIcons();
+            }
+        });
+
+        existing.forEach(el => el.remove());
+    }
+
+    async function likePost(post) {
+        const updated = { ...post, likes: (post.likes || 0) + 1 };
+        await window.dataSdk.update(updated);
+    }
+
+    async function deletePost(post) {
+        showLoading();
+        const result = await window.dataSdk.delete(post);
+        hideLoading();
+        if (!result.isOk) {
+            console.error('Delete failed');
+        }
+    }
+
+    const dataHandler = {
+        onDataChanged(data) {
+            allPosts = data;
+            renderPosts(data);
+        }
+    };
+
+    document.getElementById('post-btn').addEventListener('click', async () => {
+        const content = document.getElementById('post-content').value.trim();
+        if (!content) return;
+
+        if (allPosts.length >= 999) {
+            document.getElementById('limit-warning').classList.remove('hidden');
+            setTimeout(() => document.getElementById('limit-warning').classList.add('hidden'), 4000);
+            return;
+        }
+
+        const category = document.getElementById('post-category').value;
+        showLoading();
+        const result = await window.dataSdk.create({
+            type: 'discussion',
+            author_name: 'Partner Anda',
+            author_store: 'Toko Anda',
+            author_level: 'Partner',
+            category: category,
+            title: '',
+            content: content,
+            likes: 0,
+            replies_count: 0,
+            is_announcement: false,
+            is_pinned: false,
+            created_at: new Date().toISOString()
+        });
+        hideLoading();
+
+        if (result.isOk) {
+            document.getElementById('post-content').value = '';
+        }
+    });
+
+    (async () => {
+        const initResult = await window.dataSdk.init(dataHandler);
+        if (!initResult.isOk) {
+            console.error('SDK init failed');
+        }
+        lucide.createIcons();
+    })();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a080f94588179c9e',t:'MTc4MDg0OTExNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>
