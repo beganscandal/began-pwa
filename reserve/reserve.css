@@ -2005,3 +2005,29 @@ height:min(88vh,700px);
   }
 
 }
+@media (max-width:699px) and (orientation:portrait){
+
+  .reserve-drawer-item__head{
+
+    display:grid;
+
+    grid-template-columns:56px 1fr 40px;
+
+    grid-template-rows:auto auto;
+
+    align-items:start;
+
+  }
+
+  .reserve-drawer-item__thumb{
+    grid-column:1;
+    grid-row:1;
+  }
+
+  .reserve-drawer-item__remove{
+    grid-column:3;
+    grid-row:1;
+    align-self:start;
+  }
+
+}
