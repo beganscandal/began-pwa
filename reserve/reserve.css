@@ -2034,3 +2034,15 @@ height:min(88vh,700px);
   }
 
 }
+@media (min-width:700px){
+
+  .reserve-drawer-item__head{
+    grid-template-columns:64px 1fr auto;
+  }
+
+  .reserve-drawer-item__thumb{
+    width:64px;
+    height:64px;
+  }
+
+}
