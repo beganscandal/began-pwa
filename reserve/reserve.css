@@ -1486,11 +1486,17 @@ scale(1);
 
 .reserve-drawer__body {
   flex: 1;
-  overflow-y: auto;
-  padding: 0.65rem 0.75rem;
-  -webkit-overflow-scrolling: touch;
-}
 
+  min-height:0;
+
+  overflow-y:auto;
+
+  overscroll-behavior:contain;
+
+  padding:0.65rem 0.75rem;
+
+  -webkit-overflow-scrolling:touch;
+}
 .reserve-drawer__empty {
   margin: 0;
   padding: 1rem 0;
