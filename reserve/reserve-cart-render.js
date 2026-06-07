@@ -283,6 +283,39 @@ if(
     };
 
 }
+    const retailPrice =
+  Number(
+    product?.unitPrice || 0
+  ) * 2;
+
+setText(
+  block,
+  '[data-drawer-item-retail]',
+  Checkout.formatCurrency(
+    retailPrice
+  )
+);
+  
+    const itemSubtotal =
+  Number(
+    item.subtotal ||
+    (
+      Number(item.totalPcs || 0) *
+      Number(
+        item.unitPrice ||
+        item.price ||
+        0
+      )
+    )
+  );
+
+setText(
+  block,
+  '[data-drawer-item-subtotal]',
+  Checkout.formatCurrency(
+    itemSubtotal
+  )
+);
     setText(
   block,
   '[data-drawer-item-name]',
