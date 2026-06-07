@@ -204,16 +204,40 @@ Render.syncCard(
     }, 200);
   }
 
-  function handleCartSizeChange(productId, size, delta) {
-    Cart.incrementItemSizeQty(productId, size, delta);
-  }
+  function handleCartSizeChange(
+  productId,
+  paymentMode,
+  size,
+  delta
+){
 
+  Cart.incrementItemSizeQty(
+    productId,
+    paymentMode,
+    size,
+    delta
+  );
+
+}
   function handleCartPaymentChange(input) {
-    var productId = input.dataset.productId;
-    if (!productId) return;
-    Cart.updateItemPayment(productId, input.value);
+
+  var productId =
+    input.dataset.productId;
+
+  var oldPaymentMode =
+    input.dataset.oldPaymentMode;
+
+  if(!productId){
+    return;
   }
 
+  Cart.updateItemPayment(
+    productId,
+    oldPaymentMode,
+    input.value
+  );
+
+}
   function handleRemoveCartItem(productId) {
     if (!productId) return;
     Cart.removeItem(productId);
@@ -440,12 +464,24 @@ videoDialog.setAttribute(
       case 'size-qty-plus':
         handleSizeQtyChange(productId, actionEl.dataset.size, 1);
         break;
-      case 'cart-size-minus':
-        handleCartSizeChange(productId, actionEl.dataset.size, -1);
-        break;
-      case 'cart-size-plus':
-        handleCartSizeChange(productId, actionEl.dataset.size, 1);
-        break;
+     case 'cart-size-minus':
+  handleCartSizeChange(
+    productId,
+    actionEl.dataset.paymentMode,
+    actionEl.dataset.size,
+    -1
+  );
+  break;
+
+case 'cart-size-plus':
+  handleCartSizeChange(
+    productId,
+    actionEl.dataset.paymentMode,
+    actionEl.dataset.size,
+    1
+  );
+  break;
+      
       case 'select-gallery':
         event.preventDefault();
         handleGallerySelect(actionEl);
