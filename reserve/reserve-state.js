@@ -82,13 +82,31 @@
     return state;
   }
 
-  function incrementSizeQty(productId, size, delta) {
-    var state = cardStates[productId];
-    if (!state) return null;
-    var current = state.sizeQty[size] || 0;
-    return setSizeQty(productId, size, current + delta);
+  function incrementItemSizeQty(
+  productId,
+  paymentMode,
+  size,
+  delta
+){
+
+  var item =
+    getItem(
+      productId,
+      paymentMode
+    );
+
+  if(!item){
+    return null;
   }
 
+  return updateItemSizeQty(
+    productId,
+    paymentMode,
+    size,
+    (item.sizeQty[size] || 0) + delta
+  );
+
+}
   function setPaymentMode(productId, mode) {
     var state = cardStates[productId];
     if (!state) return null;
