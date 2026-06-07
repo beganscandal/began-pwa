@@ -2111,3 +2111,38 @@ height:min(88vh,700px);
   }
 
 }
+
+@media (max-width:900px) and (orientation:landscape){
+
+  .reserve-drawer-item{
+
+    display:grid;
+
+    grid-template-columns:
+      minmax(0,1fr)
+      220px;
+
+    gap:16px;
+
+    align-items:start;
+
+  }
+
+}
+@media (max-width:900px) and (orientation:landscape){
+
+  .reserve-drawer__total-pcs{
+
+    font-size:32px;
+    font-weight:900;
+
+  }
+
+  .reserve-drawer__grand-total{
+
+    font-size:28px;
+    font-weight:900;
+
+  }
+
+}
