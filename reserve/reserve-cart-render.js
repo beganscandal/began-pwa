@@ -278,6 +278,15 @@
   (window.BEGAN_PRODUCTS || [])
     .find(function(product){
 
+      console.log(
+  '[DRAWER PRODUCT]',
+  {
+    itemProductId: item.productId,
+    found: !!product,
+    product: product
+  }
+);
+
       return (
         (
           product.productId ||
@@ -310,6 +319,14 @@ if(
   thumb &&
   product
 ){
+  console.log(
+  '[DRAWER IMAGE]',
+  {
+    productId: item.productId,
+    image: product?.image,
+    fallback: product?.imageFallback
+  }
+);
 
   thumb.src =
     product.image ||
