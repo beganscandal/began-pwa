@@ -1990,3 +1990,18 @@ height:min(88vh,700px);
 }
 
 }
+
+.reserve-drawer-size-line__unit{
+  display:none;
+}
+
+@media (max-width:699px) and (orientation:portrait){
+
+  .reserve-drawer-size-line{
+    border:none;
+    background:transparent;
+    padding:4px 0;
+    border-radius:0;
+  }
+
+}
