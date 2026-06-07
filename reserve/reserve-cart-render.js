@@ -193,18 +193,20 @@
       String(qty)
     );
 
-    row.querySelectorAll(
-      '[data-action="cart-size-minus"], [data-action="cart-size-plus"]'
-    ).forEach(function(btn){
+   row.querySelectorAll(
+  '[data-action="cart-size-minus"], [data-action="cart-size-plus"]'
+).forEach(function(btn){
 
-      btn.dataset.productId =
-        item.productId;
+  btn.dataset.productId =
+    item.productId;
 
-      btn.dataset.size =
-        size;
+  btn.dataset.size =
+    size;
 
-    });
+  btn.dataset.paymentMode =
+    item.paymentMode;
 
+});
     var minusBtn =
       row.querySelector(
         '[data-action="cart-size-minus"]'
@@ -238,6 +240,8 @@
       input.name = 'drawer-payment-' + item.productId;
       input.value = mode.id;
       input.dataset.productId = item.productId;
+      input.dataset.oldPaymentMode =
+  item.paymentMode;
       input.checked = mode.id === item.paymentMode;
 
       setText(label, '[data-drawer-payment-label]', mode.label);
