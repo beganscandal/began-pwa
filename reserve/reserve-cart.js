@@ -282,18 +282,16 @@ var cartItem;
 
   function incrementItemSizeQty(
   productId,
+  paymentMode,
   size,
   delta
 ){
 
   var item =
-    items.find(function(item){
-
-      return (
-        item.productId === productId
-      );
-
-    });
+    getItem(
+      productId,
+      paymentMode
+    );
 
   if(!item){
     return null;
@@ -301,7 +299,7 @@ var cartItem;
 
   return updateItemSizeQty(
     productId,
-    item.paymentMode,
+    paymentMode,
     size,
     (item.sizeQty[size] || 0) + delta
   );
