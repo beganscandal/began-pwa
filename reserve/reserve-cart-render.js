@@ -24,11 +24,29 @@
 
   function buildPaymentMetaRows(item) {
     var rows = [
-      { label: 'Payment', value: item.paymentLabel, priority: false },
-      { label: 'Priority', value: item.priorityLabel, priority: true, level: item.priority },
-      { label: 'Subtotal', value: Checkout.formatCurrency(item.subtotal), priority: false }
-    ];
+  {
+    label: 'Payment',
+    value: item.paymentLabel,
+    priority: false
+  },
 
+  {
+    label: 'Priority',
+    value: formatPriority(
+      item.priority
+    ),
+    priority: true,
+    level: item.priority
+  },
+
+  {
+    label: 'Subtotal',
+    value: Checkout.formatCurrency(
+      item.subtotal
+    ),
+    priority: false
+  }
+];
     if (item.paymentMode === 'FULL_PAYMENT') {
       if (item.hasDiscount) {
         rows.push({
@@ -229,6 +247,22 @@
       container.appendChild(fragment);
     });
   }
+  function formatPriority(priority){
+
+  switch(priority){
+
+    case 'PRIORITY_01':
+      return 'PRIORITY 01';
+
+    case 'PRIORITY_02':
+      return 'PRIORITY 02';
+
+    default:
+      return 'PRIORITY 03';
+
+  }
+
+}
 
   function renderDrawerItem(item) {
     var fragment = Template.cloneFragment(Template.getTemplateIds().drawerItem);
@@ -248,6 +282,21 @@
       );
 
     });
+
+const priorityBadge =
+  block.querySelector(
+    '[data-drawer-priority]'
+  );
+
+if(priorityBadge){
+
+  priorityBadge.textContent =
+    formatPriority(
+      item.priority
+    );
+
+}    
+    
     const thumb =
   block.querySelector(
     '[data-drawer-item-thumb]'
