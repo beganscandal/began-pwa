@@ -308,6 +308,17 @@ setText(
       )
     )
   );
+    const beforeDiscount =
+  block.querySelector(
+    '[data-drawer-before-discount]'
+  );
+
+if(beforeDiscount){
+
+  beforeDiscount.hidden =
+    item.paymentMode !== 'FULL_PAYMENT'
+
+}
 
 setText(
   block,
