@@ -629,7 +629,7 @@ function ensureDrawerRoot(){
         </button>
 
       </header>
-
+<div class="reserve-drawer__content">
       <div class="reserve-drawer__body">
 
         <p
@@ -725,7 +725,7 @@ function ensureDrawerRoot(){
         </button>
 
       </footer>
-
+</div>
     </aside>
 
   `;
