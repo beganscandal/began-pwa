@@ -2071,3 +2071,43 @@ height:min(88vh,700px);
   letter-spacing:.04em;
 
 }
+
+@media (max-width:699px) and (orientation:portrait){
+
+  .reserve-payment-group{
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+
+    gap:6px;
+
+  }
+
+}
+@media (max-width:699px) and (orientation:portrait){
+
+  .reserve-payment-option{
+
+    min-height:60px;
+    padding:8px 6px;
+
+  }
+
+}
+@media (max-width:699px) and (orientation:portrait){
+
+  .reserve-payment-option__text{
+
+    font-size:11px;
+
+  }
+
+  .reserve-payment-option__hint{
+
+    font-size:9px;
+
+    line-height:1.15;
+
+  }
+
+}
