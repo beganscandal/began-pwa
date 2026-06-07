@@ -2162,3 +2162,46 @@ height:min(88vh,700px);
   }
 
 }
+@media (max-width:900px) and (orientation:landscape){
+
+  .reserve-drawer-item{
+
+    display:grid;
+
+    grid-template-columns:
+      minmax(0,1fr)
+      260px;
+
+    gap:16px;
+
+    align-items:start;
+
+  }
+
+  .reserve-drawer-item__head,
+  .reserve-drawer-item__sizes,
+  .reserve-drawer-item__payment-wrap{
+
+    grid-column:1;
+
+  }
+
+  .reserve-drawer-item__meta{
+
+    grid-column:2;
+
+    grid-row:2 / span 2;
+
+    margin-top:0;
+
+    padding-top:0;
+
+    border-top:none;
+
+    border-left:1px solid var(--reserve-border);
+
+    padding-left:16px;
+
+  }
+
+}
