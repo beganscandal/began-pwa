@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="id"><head>
   <meta charset="UTF-8">
@@ -11,9 +12,9 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-  <script src="/_sdk/data_sdk.js"></script>
-  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
- <script src="/_sdk/telemetry_sdk.js"></script></head>
+  
+  
+
  <body data-template-id="__page-root" class="min-h-screen text-white" style="background: rgb(10, 10, 10);">
   <header class="border-b border-gray-800">
    <div class="max-w-7xl mx-auto px-4 py-6">
@@ -215,7 +216,7 @@
   <div id="limit-warning" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-red-900/90 border border-red-700 rounded-xl p-4 z-50">
    <p class="text-sm text-red-200">Batas maksimum 999 diskusi telah tercapai. Hapus beberapa diskusi terlebih dahulu.</p>
   </div>
-  <script src="/_sdk/editing_sdk.js"></script>
+  
   <script>
     let allPosts = [];
     const dynamicFeed = document.getElementById('dynamic-feed');
@@ -253,12 +254,8 @@
                 node.querySelector('.post-category').textContent = post.category || 'Diskusi Umum';
                 node.querySelector('.post-content').textContent = post.content || '';
 
-                const likeBtn = node.querySelector('.like-btn');
-                likeBtn.querySelector('.like-count').textContent = post.likes || 0;
-                likeBtn.addEventListener('click', () => likePost(post));
-
-                const delBtn = node.querySelector('.delete-btn');
-                delBtn.addEventListener('click', () => deletePost(post));
+               const likeBtn = node.querySelector('.like-btn');
+likeBtn.querySelector('.like-count').textContent = post.likes || 0;
 
                 dynamicFeed.appendChild(node);
                 lucide.createIcons();
@@ -268,67 +265,10 @@
         existing.forEach(el => el.remove());
     }
 
-    async function likePost(post) {
-        const updated = { ...post, likes: (post.likes || 0) + 1 };
-        await window.dataSdk.update(updated);
-    }
-
-    async function deletePost(post) {
-        showLoading();
-        const result = await window.dataSdk.delete(post);
-        hideLoading();
-        if (!result.isOk) {
-            console.error('Delete failed');
-        }
-    }
-
-    const dataHandler = {
-        onDataChanged(data) {
-            allPosts = data;
-            renderPosts(data);
-        }
-    };
-
-    document.getElementById('post-btn').addEventListener('click', async () => {
-        const content = document.getElementById('post-content').value.trim();
-        if (!content) return;
-
-        if (allPosts.length >= 999) {
-            document.getElementById('limit-warning').classList.remove('hidden');
-            setTimeout(() => document.getElementById('limit-warning').classList.add('hidden'), 4000);
-            return;
-        }
-
-        const category = document.getElementById('post-category').value;
-        showLoading();
-        const result = await window.dataSdk.create({
-            type: 'discussion',
-            author_name: 'Partner Anda',
-            author_store: 'Toko Anda',
-            author_level: 'Partner',
-            category: category,
-            title: '',
-            content: content,
-            likes: 0,
-            replies_count: 0,
-            is_announcement: false,
-            is_pinned: false,
-            created_at: new Date().toISOString()
-        });
-        hideLoading();
-
-        if (result.isOk) {
-            document.getElementById('post-content').value = '';
-        }
-    });
-
-    (async () => {
-        const initResult = await window.dataSdk.init(dataHandler);
-        if (!initResult.isOk) {
-            console.error('SDK init failed');
-        }
-        lucide.createIcons();
-    })();
-</script>
+   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a080f94588179c9e',t:'MTc4MDg0OTExNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body></html>
+
+<script defer src="https://pwa.barkahgarment.com/forum/forum-api.js?v=1"></script> 
+<script defer src="https://pwa.barkahgarment.com/forum/forum-render.js?v=1"></script> 
+<script defer src="https://pwa.barkahgarment.com/forum/forum.js?v=1"></script> 
