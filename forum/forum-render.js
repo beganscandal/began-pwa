@@ -1,13 +1,12 @@
 function renderPosts(posts) {
 
   const feed =
-    document.getElementById('forum-feed');
+document.getElementById('dynamic-feed');
 
-  if (!feed) {
-    console.error('forum-feed not found');
-    return;
-  }
-
+if (!feed) {
+  console.error('dynamic-feed not found');
+  return;
+}
   feed.innerHTML = posts.map(post => `
     <div class="forum-post">
       <div class="forum-post-header">
