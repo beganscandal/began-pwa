@@ -236,6 +236,53 @@
     if (!block) return null;
 
     block.dataset.productId = item.productId;
+    const product =
+  (window.BEGAN_PRODUCTS || [])
+    .find(function(product){
+
+      return (
+        (
+          product.productId ||
+          product.id
+        ) === item.productId
+      );
+
+    });
+    const thumb =
+  block.querySelector(
+    '[data-drawer-item-thumb]'
+  );
+
+if(
+  thumb &&
+  product
+){
+
+  thumb.src =
+    product.image ||
+    product.imageFallback ||
+    '';
+
+  thumb.alt =
+    product.productName ||
+    product.name ||
+    '';
+
+  thumb.onerror =
+    function(){
+
+      if(
+        product.imageFallback &&
+        thumb.src !==
+        product.imageFallback
+      ){
+        thumb.src =
+          product.imageFallback;
+      }
+
+    };
+
+}
     setText(
   block,
   '[data-drawer-item-name]',
