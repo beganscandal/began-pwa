@@ -616,6 +616,14 @@ getUnitLabel: getUnitLabel,
         data-drawer-item-subtotal>
         Rp0
       </span>
+      <div
+  class="reserve-drawer-item__before-discount"
+  data-drawer-before-discount
+  hidden>
+
+  SEBELUM DISKON
+
+</div>
 
     </div>
 
