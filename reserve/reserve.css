@@ -2019,3 +2019,18 @@ height:min(88vh,700px);
   }
 
 }
+
+@media (min-width:700px){
+
+  .reserve-drawer-item__right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+  }
+
+  .reserve-drawer-item__remove{
+    order:-1;
+    margin-bottom:8px;
+  }
+
+}
