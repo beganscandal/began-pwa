@@ -198,13 +198,31 @@ function renderReplyComposer() {
       <div class="reply-composer-body">
 
         <textarea
-          id="reply-input"
-          class="reply-input"
-          placeholder="Write your reply..."
-        ></textarea>
+  id="reply-input"
+  class="reply-input"
+  placeholder="Write your reply..."
+></textarea>
 
-        <div class="reply-toolbar">
+<input
+  id="reply-image-input"
+  type="file"
+  accept="image/*"
+  hidden
+>
 
+<input
+  id="reply-video-input"
+  type="file"
+  accept="video/*"
+  hidden
+>
+
+<div
+  id="reply-media-preview"
+  class="reply-media-preview"
+></div>
+
+<div class="reply-toolbar">
           <div class="reply-toolbar-left">
 
             <button
