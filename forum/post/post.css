@@ -556,4 +556,93 @@ body {
     color:#6b7280;
     font-size:13px;
 }
+.reply-feed{
+    margin-top:16px;
+}
 
+.reply-feed-title{
+    margin-bottom:16px;
+    font-size:16px;
+    font-weight:700;
+}
+
+.reply-card{
+    background:#0d0d0d;
+    border:1px solid #1a1a1a;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:12px;
+}
+
+.reply-card-header{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.reply-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #4338ca
+        );
+
+    font-weight:700;
+    color:#fff;
+}
+
+.reply-info{
+    flex:1;
+}
+
+.reply-name{
+    font-size:14px;
+    font-weight:700;
+    color:#fff;
+}
+
+.reply-time{
+    margin-top:4px;
+    font-size:12px;
+    color:#6b7280;
+}
+
+.reply-text{
+    margin-top:12px;
+    color:#d1d5db;
+    line-height:1.7;
+}
+
+.reply-media{
+    margin-top:12px;
+}
+
+.reply-image{
+    width:100%;
+    border-radius:12px;
+    display:block;
+}
+
+.reply-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.reply-action-btn{
+    border:none;
+    background:#111827;
+    color:#fff;
+    border-radius:10px;
+    padding:8px 12px;
+    cursor:pointer;
+}
