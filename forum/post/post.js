@@ -24,17 +24,8 @@ document.addEventListener(
         'POST DATA:',
         data
       );
-
-    } catch(err) {
-
-      console.error(err);
-
-    }
-
-  }
-);
-
-const post =
+      
+      const post =
   data.post;
 
 document
@@ -61,3 +52,14 @@ document
     </div>
 
   `;
+
+
+    } catch(err) {
+
+      console.error(err);
+
+    }
+
+  }
+);
+
