@@ -2,7 +2,7 @@
 
 'use strict';
 
-async function init(){
+async function init(){ 
 
     const params =
         new URLSearchParams(location.search);
