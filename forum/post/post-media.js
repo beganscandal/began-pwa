@@ -1,6 +1,6 @@
 (function(window){
 
-'use strict';
+'use strict'; 
 
 function renderPostMedia(post){
 
