@@ -36,6 +36,28 @@ function renderPostMedia(post) {
         </div>
     `;
 }
+function renderReplyMedia(reply){
+
+    const mediaUrl =
+        reply.image ||
+        reply.imageUrl ||
+        reply.mediaUrl ||
+        '';
+
+    if(!mediaUrl){
+        return '';
+    }
+
+    return `
+        <div class="reply-media">
+            <img
+                class="reply-image"
+                src="${mediaUrl}"
+                alt=""
+            >
+        </div>
+    `;
+}
 function escapeHtml(str) {
 
     if (str == null) return '';
@@ -144,6 +166,54 @@ function renderPostCard(post) {
     </article>
   `;
 }
+function renderReplyCard(reply) {
+
+    return `
+        <article class="reply-card">
+
+            <div class="reply-card-header">
+
+                <div class="reply-avatar">
+                    ${getInitials(reply.toko)}
+                </div>
+
+                <div class="reply-info">
+
+                    <div class="reply-name">
+                        ${escapeHtml(reply.toko)}
+                    </div>
+
+                    <div class="reply-time">
+                        ${escapeHtml(
+                            reply.createdAt || ''
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="reply-text">
+                ${escapeHtml(reply.content)}
+            </div>
+
+            ${renderReplyMedia(reply)}
+
+            <div class="reply-actions">
+
+                <button class="reply-action-btn">
+                    ❤️ ${reply.likeCount || 0}
+                </button>
+
+                <button class="reply-action-btn">
+                    ↩ Reply
+                </button>
+
+            </div>
+
+        </article>
+    `;
+}
 function renderActionBar(post) {
 
   return `
@@ -228,17 +298,72 @@ function renderReplyComposer() {
   `;
 }
 
-function renderReplyFeed() {
+function renderReplyFeed(replies) {
 
-  return `
-    <section id="reply-list">
+    replies = replies || [];
 
-      <div class="reply-loading">
+    if (!replies.length) {
 
-        Loading replies...
+        return `
+            <section class="reply-feed">
 
-      </div>
+                <div class="reply-feed-title">
+                    Replies (0)
+                </div>
 
-    </section>
-  `;
+                ${renderEmptyState()}
+
+            </section>
+        `;
+    }
+
+    return `
+        <section class="reply-feed">
+
+            <div class="reply-feed-title">
+                Replies (${replies.length})
+            </div>
+
+            ${replies
+                .map(renderReplyCard)
+                .join('')}
+
+        </section>
+    `;
+}
+function renderEmptyState() {
+
+    return `
+        <section class="reply-empty">
+
+            <div class="reply-empty-icon">
+                💬
+            </div>
+
+            <div class="reply-empty-title">
+                No replies yet
+            </div>
+
+            <div class="reply-empty-subtitle">
+                Be the first partner to contribute
+            </div>
+
+        </section>
+    `;
+}
+function renderSkeleton() {
+
+    return `
+        <section class="post-skeleton">
+
+            <div class="skeleton skeleton-avatar"></div>
+
+            <div class="skeleton skeleton-line"></div>
+
+            <div class="skeleton skeleton-line"></div>
+
+            <div class="skeleton skeleton-image"></div>
+
+        </section>
+    `;
 }
