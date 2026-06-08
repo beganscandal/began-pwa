@@ -1,1 +1,51 @@
- 
+ .forum-card{
+  background:#121212;
+  border:1px solid #1f2937;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:16px;
+}
+
+.forum-card-header{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.forum-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#7c3aed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.forum-author{
+  font-weight:600;
+}
+
+.forum-meta{
+  font-size:12px;
+  opacity:.7;
+}
+
+.forum-tag{
+  display:inline-block;
+  margin-top:12px;
+  margin-bottom:12px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#1e3a8a;
+  font-size:12px;
+}
+
+.forum-title{
+  margin-bottom:8px;
+}
+
+.forum-content{
+  opacity:.9;
+}
