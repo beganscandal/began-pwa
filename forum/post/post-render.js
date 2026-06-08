@@ -14,6 +14,41 @@ function getInitials(name) {
 
 }
 
+function renderPostMedia(post) {
+
+    const mediaUrl =
+        post.image ||
+        post.imageUrl ||
+        post.mediaUrl ||
+        '';
+
+    if (!mediaUrl) {
+        return '';
+    }
+
+    return `
+        <div class="post-media">
+            <img
+                class="post-image"
+                src="${mediaUrl}"
+                alt=""
+            >
+        </div>
+    `;
+}
+function escapeHtml(str) {
+
+    if (str == null) return '';
+
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+}
+
 function renderPostPage(post) {
   return `
     ${renderHeader()}
@@ -24,9 +59,9 @@ function renderPostPage(post) {
 
       ${renderActionBar(post)}
 
-      <section id="reply-composer-root"></section>
+      ${renderReplyComposer()}
 
-      <section id="reply-feed-root"></section>
+      ${renderReplyFeed()}
 
     </main>
   `;
