@@ -33,3 +33,31 @@ document.addEventListener(
 
   }
 );
+
+const post =
+  data.post;
+
+document
+  .getElementById(
+    'post-detail'
+  )
+  .innerHTML = `
+
+    <h1>
+      ${post.title}
+    </h1>
+
+    <p>
+      ${post.toko}
+    </p>
+
+    <p>
+      ${post.content}
+    </p>
+
+    <div>
+      ❤️ ${post.likeCount}
+      💬 ${post.replyCount}
+    </div>
+
+  `;
