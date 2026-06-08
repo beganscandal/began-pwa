@@ -6,7 +6,8 @@ document.addEventListener(
 
       const data =
         await getBoard();
-
+      console.log('DATA', data);
+      
       renderPosts(data.posts);
 
     } catch(err) {
