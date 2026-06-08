@@ -202,40 +202,27 @@
         return `${Math.floor(hrs / 24)} hari lalu`;
     }
 
-    function renderPosts(data) {
-        const existing = new Map([...dynamicFeed.children].map(el => [el.dataset.postId, el]));
-        const sorted = [...data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-        sorted.forEach(post => {
-            if (existing.has(post.__backendId)) {
-                const el = existing.get(post.__backendId);
-                el.querySelector('.like-count').textContent = post.likes || 0;
-                existing.delete(post.__backendId);
-            } else {
-                const tpl = document.getElementById('post-template');
-                const node = tpl.content.cloneNode(true);
-                const wrapper = node.querySelector('[data-template-id="user-post"]');
-                wrapper.dataset.postId = post.__backendId;
-                node.querySelector('.post-avatar').textContent = (post.author_name || 'U')[0].toUpperCase();
-                node.querySelector('.post-author').textContent = post.author_name || 'Partner';
-                node.querySelector('.post-time').textContent = '• ' + timeAgo(post.created_at);
-                node.querySelector('.post-category').textContent = post.category || 'Diskusi Umum';
-                node.querySelector('.post-content').textContent = post.content || '';
-
-               const likeBtn = node.querySelector('.like-btn');
-likeBtn.querySelector('.like-count').textContent = post.likes || 0;
-
-                dynamicFeed.appendChild(node);
-                lucide.createIcons();
-            }
-        });
-
-        existing.forEach(el => el.remove());
-    }
-
    </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a080f94588179c9e',t:'MTc4MDg0OTExNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-</body></html>
+ <script>(function(){function c(){
+  var b=a.contentDocument||a.contentWindow.document;if(b){
+  var d=b.createElement('script');
+    d.innerHTML="window.__CF$cv$params={r:'a080f94588179c9e',t:'MTc4MDg0OTExNw=='};
+  var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';
+    document.getElementsByTagName('head')[0].appendChild(a);";
+      b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){
+  var a=document.createElement('iframe');
+  a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';
+  a.style.visibility='hidden';document.body.appendChild(a);
+  if('loading'!==document.readyState)c();
+  else 
+    if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
+    else{
+      var e=document.onreadystatechange||
+        function(){};document.onreadystatechange=function(b){e(b);
+      'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+ </script>
+</body>
+</html>
 
 <link rel="stylesheet"
 href="https://pwa.barkahgarment.com/forum/forum.css?v=1">
