@@ -19,4 +19,4 @@ function renderPostMedia(post){
 
 window.renderPostMedia = renderPostMedia;
 
-})(window);
+})(window); 
