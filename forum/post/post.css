@@ -198,3 +198,24 @@ body {
   padding: 10px 16px;
   cursor: pointer;
 }
+
+
+.post-card {
+    background: #0d0d0d;
+
+    border: 1px solid #1a1a1a;
+
+    border-radius: 20px;
+
+    padding: 16px;
+
+    margin-top: 16px;
+}
+
+
+.post-image {
+    width: 100%;
+    border-radius: 16px;
+    margin-top: 16px;
+}
+
