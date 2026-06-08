@@ -122,7 +122,7 @@ function renderPostCard(post) {
 }
 
 
-function renderPostMedia(post) {
+function renderPostMedia(post){
 
     const mediaUrl =
         post.image ||
@@ -130,17 +130,27 @@ function renderPostMedia(post) {
         post.mediaUrl ||
         '';
 
-    if (!mediaUrl) {
-        return '';
-    }
-
     return `
-        <div class="post-media">
-            <img
-                class="post-image"
-                src="${mediaUrl}"
-                alt=""
-            >
+        <div class="post-media-container">
+
+            ${
+                mediaUrl
+                ? `
+                <img
+                    class="post-image"
+                    src="${mediaUrl}"
+                    alt=""
+                >
+                `
+                : `
+                <div class="post-media-placeholder">
+
+                    No Media
+
+                </div>
+                `
+            }
+
         </div>
     `;
 }
