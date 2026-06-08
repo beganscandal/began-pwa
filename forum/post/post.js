@@ -30,8 +30,13 @@ async function init(){
             data.post || {};
 
         root.innerHTML =
-            renderPostPage(post);
-        await loadReplies(postId);
+    renderPostPage(post);
+
+await loadReplies(postId);
+
+bindImagePicker();
+
+bindVideoPicker();
 
 bindReplySubmit(postId);
 
