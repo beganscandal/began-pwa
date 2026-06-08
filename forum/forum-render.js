@@ -12,17 +12,17 @@ function renderPosts(posts) {
       <div class="forum-card-header">
 
         <div class="forum-avatar">
-          ${post.partnerName.charAt(0)}
+          ${(post.partnerName || '?').charAt(0)}
         </div>
 
         <div>
 
           <div class="forum-author">
-            ${post.partnerName}
+            ${post.partnerName || 'Partner'}
           </div>
 
           <div class="forum-meta">
-            ${post.toko}
+            ${post.toko || ''}
           </div>
 
         </div>
@@ -30,15 +30,15 @@ function renderPosts(posts) {
       </div>
 
       <div class="forum-tag">
-        ${post.category}
+        ${post.category || ''}
       </div>
 
       <h3 class="forum-title">
-        ${post.title}
+        ${post.title || ''}
       </h3>
 
       <p class="forum-content">
-        ${post.content}
+        ${post.content || ''}
       </p>
 
     </div>
