@@ -2,12 +2,12 @@
 
 'use strict';
 
-async function getPost(postId){
+window.PostAPI = {
 
+  getPost(postId) {
     return ForumAPI.getPost(postId);
+  }
 
-}
-
-window.getPost = getPost;
+};
 
 })(window);
