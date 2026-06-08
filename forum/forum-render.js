@@ -1,60 +1,48 @@
 function renderPosts(posts) {
-  
-   console.log('RENDER POSTS', posts);
-
-  const feed =
-document.getElementById('dynamic-feed');
-
-if (!feed) {
-  console.error('dynamic-feed not found');
-  return;
-}
-  feed.innerHTML = posts.map(post => `
-    <div class="forum-post">
-      <div class="forum-post-header">
-        <strong>${post.partnerName}</strong>
-      </div>
-
-      <h3>${post.title}</h3>
-
-      <p>${post.content}</p>
-
-      <small>${post.category}</small>
-    </div>
-  `).join('');
-
-}
-
-function renderBoardPosts(posts) {
 
   const feed =
     document.getElementById('dynamic-feed');
 
-  if (!feed) {
-    console.error('dynamic-feed not found');
-    return;
-  }
+  if (!feed) return;
 
   feed.innerHTML = posts.map(post => `
+
     <div class="forum-card">
 
-      <div class="forum-author">
-        ${post.partnerName}
+      <div class="forum-card-header">
+
+        <div class="forum-avatar">
+          ${post.partnerName.charAt(0)}
+        </div>
+
+        <div>
+
+          <div class="forum-author">
+            ${post.partnerName}
+          </div>
+
+          <div class="forum-meta">
+            ${post.toko}
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="forum-category">
+      <div class="forum-tag">
         ${post.category}
       </div>
 
-      <h3>
+      <h3 class="forum-title">
         ${post.title}
       </h3>
 
-      <p>
+      <p class="forum-content">
         ${post.content}
       </p>
 
     </div>
+
   `).join('');
 
 }
