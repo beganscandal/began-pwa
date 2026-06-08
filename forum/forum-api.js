@@ -1,32 +1,25 @@
 const API_URL =
   'https://script.google.com/macros/s/AKfycbxgrLYCtxbHDwRfozT4xBDVBq7JS7c847AkA_pYwNdOoxCNH-9_vnhJgcfLrE1DDAO0rQ/exec';
 
-window.ForumAPI = {
+window.getBoard = async function () {
 
-  async getBoard() {
+  const response = await fetch(
+    API_URL + '?action=getBoard'
+  );
 
-    const response =
-      await fetch(
-        API_URL +
-        '?action=getBoard'
-      );
+  return response.json();
 
-    return response.json();
+};
 
-  },
+window.getPost = async function (postId) {
 
-  async getPost(postId) {
+  const response = await fetch(
+    API_URL +
+    '?action=getPost' +
+    '&postId=' +
+    encodeURIComponent(postId)
+  );
 
-    const response =
-      await fetch(
-        API_URL +
-        '?action=getPost' +
-        '&postId=' +
-        encodeURIComponent(postId)
-      );
-
-    return response.json();
-
-  }
+  return response.json();
 
 };
