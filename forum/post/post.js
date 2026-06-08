@@ -31,6 +31,9 @@ async function init(){
 
         root.innerHTML =
             renderPostPage(post);
+        await loadReplies(postId);
+
+bindReplySubmit(postId);
 
     } catch(err){
 
