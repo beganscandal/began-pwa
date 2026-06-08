@@ -1,16 +1,35 @@
-(async function(){
+document.addEventListener(
+  'DOMContentLoaded',
+  async function() {
 
-  const params =
-    new URLSearchParams(
-      location.search
-    );
+    try {
 
-  const postId =
-    params.get('id');
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
 
-  console.log(
-    'POST ID:',
-    postId
-  );
+      const postId =
+        params.get('id');
 
-})(); 
+      console.log(
+        'POST ID:',
+        postId
+      );
+
+      const data =
+        await getPost(postId);
+
+      console.log(
+        'POST DATA:',
+        data
+      );
+
+    } catch(err) {
+
+      console.error(err);
+
+    }
+
+  }
+);
