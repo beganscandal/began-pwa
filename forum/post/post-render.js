@@ -71,6 +71,33 @@ function bindImagePicker(){
   );
 
 }
+function bindVideoPicker(){
+
+    const btn =
+        document.getElementById(
+            'reply-video-btn'
+        );
+
+    const input =
+        document.getElementById(
+            'reply-video-input'
+        );
+
+    if(!btn || !input){
+        return;
+    }
+
+    btn.addEventListener(
+        'click',
+        function(){
+
+            input.click();
+
+        }
+    );
+
+}
+
 function renderHeader() {
   return `
     <header class="post-header">
