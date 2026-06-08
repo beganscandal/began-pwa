@@ -44,6 +44,33 @@ function renderPostPage(post) {
     </main>
   `;
 }
+
+function bindImagePicker(){
+
+  const btn =
+    document.getElementById(
+      'reply-image-btn'
+    );
+
+  const input =
+    document.getElementById(
+      'reply-image-input'
+    );
+
+  if(!btn || !input){
+    return;
+  }
+
+  btn.addEventListener(
+    'click',
+    function(){
+
+      input.click();
+
+    }
+  );
+
+}
 function renderHeader() {
   return `
     <header class="post-header">
