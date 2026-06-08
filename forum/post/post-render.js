@@ -13,51 +13,6 @@ function getInitials(name) {
         .toUpperCase();
 
 }
-
-function renderPostMedia(post) {
-
-    const mediaUrl =
-        post.image ||
-        post.imageUrl ||
-        post.mediaUrl ||
-        '';
-
-    if (!mediaUrl) {
-        return '';
-    }
-
-    return `
-        <div class="post-media">
-            <img
-                class="post-image"
-                src="${mediaUrl}"
-                alt=""
-            >
-        </div>
-    `;
-}
-function renderReplyMedia(reply){
-
-    const mediaUrl =
-        reply.image ||
-        reply.imageUrl ||
-        reply.mediaUrl ||
-        '';
-
-    if(!mediaUrl){
-        return '';
-    }
-
-    return `
-        <div class="reply-media">
-            <img
-                class="reply-image"
-                src="${mediaUrl}"
-                alt=""
-            >
-        </div>
-    `;
-}
 function escapeHtml(str) {
 
     if (str == null) return '';
@@ -70,6 +25,7 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 
 }
+
 
 function renderPostPage(post) {
   return `
@@ -88,7 +44,6 @@ function renderPostPage(post) {
     </main>
   `;
 }
-
 function renderHeader() {
   return `
     <header class="post-header">
@@ -111,7 +66,6 @@ function renderHeader() {
     </header>
   `;
 }
-
 function renderPostCard(post) {
 
   return `
@@ -166,52 +120,28 @@ function renderPostCard(post) {
     </article>
   `;
 }
-function renderReplyCard(reply) {
+
+
+function renderPostMedia(post) {
+
+    const mediaUrl =
+        post.image ||
+        post.imageUrl ||
+        post.mediaUrl ||
+        '';
+
+    if (!mediaUrl) {
+        return '';
+    }
 
     return `
-        <article class="reply-card">
-
-            <div class="reply-card-header">
-
-                <div class="reply-avatar">
-                    ${getInitials(reply.toko)}
-                </div>
-
-                <div class="reply-info">
-
-                    <div class="reply-name">
-                        ${escapeHtml(reply.toko)}
-                    </div>
-
-                    <div class="reply-time">
-                        ${escapeHtml(
-                            reply.createdAt || ''
-                        )}
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="reply-text">
-                ${escapeHtml(reply.content)}
-            </div>
-
-            ${renderReplyMedia(reply)}
-
-            <div class="reply-actions">
-
-                <button class="reply-action-btn">
-                    ❤️ ${reply.likeCount || 0}
-                </button>
-
-                <button class="reply-action-btn">
-                    ↩ Reply
-                </button>
-
-            </div>
-
-        </article>
+        <div class="post-media">
+            <img
+                class="post-image"
+                src="${mediaUrl}"
+                alt=""
+            >
+        </div>
     `;
 }
 function renderActionBar(post) {
@@ -297,7 +227,6 @@ function renderReplyComposer() {
     </section>
   `;
 }
-
 function renderReplyFeed(replies) {
 
     replies = replies || [];
@@ -331,6 +260,78 @@ function renderReplyFeed(replies) {
         </section>
     `;
 }
+
+function renderReplyCard(reply) {
+
+    return `
+        <article class="reply-card">
+
+            <div class="reply-card-header">
+
+                <div class="reply-avatar">
+                    ${getInitials(reply.toko)}
+                </div>
+
+                <div class="reply-info">
+
+                    <div class="reply-name">
+                        ${escapeHtml(reply.toko)}
+                    </div>
+
+                    <div class="reply-time">
+                        ${escapeHtml(
+                            reply.createdAt || ''
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="reply-text">
+                ${escapeHtml(reply.content)}
+            </div>
+
+            ${renderReplyMedia(reply)}
+
+            <div class="reply-actions">
+
+                <button class="reply-action-btn">
+                    ❤️ ${reply.likeCount || 0}
+                </button>
+
+                <button class="reply-action-btn">
+                    ↩ Reply
+                </button>
+
+            </div>
+
+        </article>
+    `;
+}
+function renderReplyMedia(reply){
+
+    const mediaUrl =
+        reply.image ||
+        reply.imageUrl ||
+        reply.mediaUrl ||
+        '';
+
+    if(!mediaUrl){
+        return '';
+    }
+
+    return `
+        <div class="reply-media">
+            <img
+                class="reply-image"
+                src="${mediaUrl}"
+                alt=""
+            >
+        </div>
+    `;
+}
+
 function renderEmptyState() {
 
     return `
@@ -351,19 +352,72 @@ function renderEmptyState() {
         </section>
     `;
 }
-function renderSkeleton() {
+
+
+function renderPostSkeleton() {
 
     return `
         <section class="post-skeleton">
 
-            <div class="skeleton skeleton-avatar"></div>
+            <div class="post-skeleton-card">
 
-            <div class="skeleton skeleton-line"></div>
+                <div class="skeleton-row">
 
-            <div class="skeleton skeleton-line"></div>
+                    <div class="skeleton skeleton-avatar"></div>
 
-            <div class="skeleton skeleton-image"></div>
+                    <div class="skeleton-user">
+
+                        <div class="skeleton skeleton-name"></div>
+
+                        <div class="skeleton skeleton-badge"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="skeleton skeleton-title"></div>
+
+                <div class="skeleton skeleton-content"></div>
+
+                <div class="skeleton skeleton-content short"></div>
+
+                <div class="skeleton skeleton-image"></div>
+
+            </div>
 
         </section>
+    `;
+}
+
+function renderReplySkeleton() {
+
+    return `
+        <section class="reply-skeleton-list">
+
+            ${renderSingleReplySkeleton()}
+            ${renderSingleReplySkeleton()}
+            ${renderSingleReplySkeleton()}
+
+        </section>
+    `;
+}
+function renderSingleReplySkeleton() {
+
+    return `
+        <div class="reply-skeleton">
+
+            <div class="skeleton skeleton-avatar"></div>
+
+            <div class="reply-skeleton-body">
+
+                <div class="skeleton skeleton-name"></div>
+
+                <div class="skeleton skeleton-content"></div>
+
+                <div class="skeleton skeleton-content short"></div>
+
+            </div>
+
+        </div>
     `;
 }
