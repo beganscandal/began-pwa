@@ -11,7 +11,7 @@ function renderReplies(replies){
                 No replies yet
             </div>
         `;
-    }
+    } 
 
     return replies.map(function(reply){
 
