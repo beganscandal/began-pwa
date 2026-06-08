@@ -1,3 +1,19 @@
+function getInitials(name) {
+
+    if (!name) return '?';
+
+    return name
+        .trim()
+        .split(' ')
+        .map(function(word){
+            return word.charAt(0);
+        })
+        .join('')
+        .substring(0, 2)
+        .toUpperCase();
+
+}
+
 function renderPostPage(post) {
   return `
     ${renderHeader()}
