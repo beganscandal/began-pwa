@@ -73,3 +73,113 @@ window.uploadReplyImage =
     return response.json();
 
   };
+
+window.createPost =
+  async function(payload){
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:'POST',
+          body:JSON.stringify({
+            action:'createPost',
+            payload:payload
+          })
+        }
+      );
+
+    return response.json();
+
+  };
+
+function bindPostSubmit(){
+
+  const btn =
+    document.getElementById(
+      'post-btn'
+    );
+
+  if(!btn){
+    return;
+  }
+
+  btn.addEventListener(
+    'click',
+    async function(){
+
+      const content =
+        document
+          .getElementById(
+            'post-content'
+          )
+          .value
+          .trim();
+
+      const category =
+        document
+          .getElementById(
+            'post-category'
+          )
+          .value;
+
+      if(!content){
+        return;
+      }
+
+      const partner =
+        JSON.parse(
+          localStorage.getItem(
+            'began_partner'
+          ) || '{}'
+        );
+
+      if(
+        !partner.id ||
+        !partner.toko
+      ){
+        alert(
+          'Partner session tidak ditemukan'
+        );
+        return;
+      }
+
+      btn.disabled = true;
+
+      try{
+
+        await createPost({
+
+          partnerId:
+            partner.id,
+
+          toko:
+            partner.toko,
+
+          partnerName:
+            partner.toko,
+
+          category:
+            category,
+
+          content:
+            content
+
+        });
+
+        location.reload();
+
+      }catch(err){
+
+        console.error(err);
+
+      }finally{
+
+        btn.disabled = false;
+
+      }
+
+    }
+  );
+
+}
