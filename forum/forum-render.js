@@ -7,8 +7,9 @@ function renderPosts(posts) {
 
   feed.innerHTML = posts.map(post => `
 
-    <div class="forum-card">
-    data-post-id="${post.postId}"
+   <div
+  class="forum-card"
+  data-post-id="${post.postId}">
 
       <div class="forum-card-header">
 
