@@ -247,8 +247,8 @@ function renderReplyFeed(replies) {
             <section class="reply-feed">
 
                 <div class="reply-feed-title">
-                    Replies (0)
-                </div>
+    Replies (${replies.length})
+</div>
 
                 ${renderEmptyState()}
 
