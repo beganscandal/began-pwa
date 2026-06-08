@@ -42,13 +42,12 @@ function initPostNavigation() {
 
       if (!card) return;
 
-      const postId =
-        card.dataset.postId;
+     const postId =
+  card.dataset.postId;
 
-      window.location.href =
-  '/forum/post/?id=' +
-  postId;
-      
+window.location.href =
+  '/forum/post/?postId=' +
+  encodeURIComponent(postId);      
 
     }
   );
