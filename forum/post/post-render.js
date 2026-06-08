@@ -431,3 +431,15 @@ function renderSingleReplySkeleton() {
         </div>
     `;
 }
+
+window.renderPostPage =
+    renderPostPage;
+
+window.renderPostSkeleton =
+    renderPostSkeleton;
+
+window.renderReplyFeed =
+    renderReplyFeed;
+
+window.renderReplySkeleton =
+    renderReplySkeleton;
