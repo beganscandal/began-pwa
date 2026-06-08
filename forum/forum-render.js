@@ -1,4 +1,6 @@
 function renderPosts(posts) {
+  
+   console.log('RENDER POSTS', posts);
 
   const feed =
 document.getElementById('dynamic-feed');
