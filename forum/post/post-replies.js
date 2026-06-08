@@ -26,4 +26,4 @@ function renderReplies(replies){
 
 window.renderReplies = renderReplies;
 
-})(window);
+})(window); 
