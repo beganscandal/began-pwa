@@ -9,17 +9,17 @@ async function getBoard() {
 
   return response.json();
 
-} 
+}
 
 async function getPost(postId) {
 
-  const res = await fetch(
+  const response = await fetch(
     API_URL +
     '?action=getPost' +
     '&postId=' +
     encodeURIComponent(postId)
   );
 
-  return res.json();
+  return response.json();
 
 }
