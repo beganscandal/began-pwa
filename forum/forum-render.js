@@ -46,3 +46,29 @@ function renderPosts(posts) {
   `).join('');
 
 }
+<div class="forum-card-header">
+
+  <div class="forum-avatar">
+    ${(post.partnerName || '?').charAt(0)}
+  </div>
+
+  <div class="forum-user">
+
+    <div class="forum-author">
+      ${post.partnerName || 'Partner'}
+    </div>
+
+    <div class="forum-meta">
+      ${post.toko || ''}
+    </div>
+
+  </div>
+
+</div>
+<div class="forum-actions">
+
+  <span>❤️ ${post.likeCount || 0}</span>
+
+  <span>💬 ${post.replyCount || 0}</span>
+
+</div>
