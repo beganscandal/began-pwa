@@ -12,89 +12,141 @@ document.addEventListener(
       const postId =
         params.get('id');
 
-      console.log(
-        'POST ID:',
-        postId
-      );
-
       const data =
         await getPost(postId);
 
-      console.log(
-        'POST DATA:',
-        data
-      );
-      
-      const post = data.post;
+      const post =
+        data.post;
 
-document
-  .getElementById('post-detail')
-  .innerHTML = `
+      document
+      .getElementById('post-page')
+      .innerHTML = `
 
-<div class="post-page">
+      <div class="post-page">
 
-  <div class="post-header">
+        <header class="post-header">
 
-    <div class="post-avatar">
-      ${(post.partnerName || '?')
-        .charAt(0)}
-    </div>
+          <button id="back-btn">
+            ←
+          </button>
 
-    <div>
+          <h2>
+            Discussion
+          </h2>
 
-      <div class="post-author">
-        ${post.toko}
+          <button>
+            ⋮
+          </button>
+
+        </header>
+
+        <div class="post-body">
+
+          <div class="post-author">
+
+            <div class="post-avatar">
+              ${(post.toko || '?')
+                .charAt(0)}
+            </div>
+
+            <div class="post-meta">
+
+              <div class="post-toko">
+                ${post.toko || ''}
+              </div>
+
+              <div class="
+                post-category
+                showcase
+              ">
+                ${post.category || ''}
+              </div>
+
+            </div>
+
+          </div>
+
+          <h1 class="post-title">
+            ${post.title || ''}
+          </h1>
+
+          <p class="post-content">
+            ${post.content || ''}
+          </p>
+
+          <div class="post-stats">
+
+            ❤️ ${post.likeCount || 0}
+
+            💬 ${post.replyCount || 0}
+
+          </div>
+
+        </div>
+
+        <div class="post-actions">
+
+          <div
+            class="post-action-btn"
+            id="like-btn"
+            data-post-id="${post.postId}"
+          >
+            ❤️ Like
+          </div>
+
+          <div
+            class="post-action-btn"
+          >
+            💬 Reply
+          </div>
+
+        </div>
+
+        <div class="reply-section">
+
+          <div class="reply-title">
+
+            Balasan
+            (${post.replyCount || 0})
+
+          </div>
+
+          <div id="reply-list">
+
+            Belum ada balasan
+
+          </div>
+
+        </div>
+
+        <div class="reply-composer">
+
+          <textarea
+            class="reply-input"
+            placeholder="
+              Tulis balasan...
+            "
+          ></textarea>
+
+          <div class="reply-footer">
+
+            <div>
+              📷 🎥
+            </div>
+
+            <button
+              class="reply-send"
+            >
+              Kirim
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="post-category">
-        ${post.category}
-      </div>
-
-    </div>
-
-  </div>
-
-  <h1 class="post-title">
-    ${post.title}
-  </h1>
-
-  <div class="post-content">
-    ${post.content}
-  </div>
-
-  <div class="post-actions">
-
-    <button
-      id="like-btn"
-      data-post-id="${post.postId}">
-      ❤️ ${post.likeCount}
-    </button>
-
-    <span>
-      💬 ${post.replyCount}
-    </span>
-
-  </div>
-
-  <hr>
-
-  <div id="reply-composer">
-
-    Reply composer
-    (next step)
-
-  </div>
-
-  <div id="reply-list">
-
-    Reply list
-    (next step)
-
-  </div>
-
-</div>
-
-`; 
+      `;
 
     } catch(err) {
 
@@ -104,4 +156,3 @@ document
 
   }
 );
-
