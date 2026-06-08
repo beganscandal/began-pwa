@@ -60,16 +60,34 @@ function bindReplySubmit(postId){
 
             try{
 
-                await createReply({
+               const partner =
+    JSON.parse(
+        localStorage.getItem(
+            'began_partner'
+        ) || '{}'
+    );
 
-                    postId:
-                        postId,
+await createReply({
 
-                    content:
-                        content
+    postId:
+        postId,
 
-                });
+    parentReplyId:
+        '',
 
+    partnerId:
+        partner.id,
+
+    toko:
+        partner.toko,
+
+    partnerName:
+        partner.toko,
+
+    content:
+        content
+
+});
                 textarea.value = '';
 
                 await loadReplies(
