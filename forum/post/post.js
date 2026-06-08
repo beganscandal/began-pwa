@@ -2,25 +2,49 @@
 
 'use strict';
 
-async function init(){ 
-
-    const params =
-        new URLSearchParams(location.search);
-
-    const postId =
-        params.get('postId');
-
-    const post =
-        await getPost(postId);
+async function init(){
 
     const root =
-        document.getElementById('post-page');
+        document.getElementById(
+            'post-page'
+        );
 
+    // tampilkan skeleton dulu
     root.innerHTML =
-        renderPostPage(post);
+        renderPostSkeleton();
+
+    try {
+
+        const params =
+            new URLSearchParams(
+                location.search
+            );
+
+        const postId =
+            params.get('postId');
+
+        const data =
+            await getPost(postId);
+
+        const post =
+            data.post || {};
+
+        root.innerHTML =
+            renderPostPage(post);
+
+    } catch(err){
+
+        console.error(err);
+
+        root.innerHTML = `
+            <div class="post-error">
+                Failed to load discussion
+            </div>
+        `;
+
+    }
 
 }
-
 document.addEventListener(
     'DOMContentLoaded',
     init
