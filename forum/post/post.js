@@ -25,34 +25,76 @@ document.addEventListener(
         data
       );
       
-      const post =
-  data.post;
+      const post = data.post;
 
 document
-  .getElementById(
-    'post-detail'
-  )
+  .getElementById('post-detail')
   .innerHTML = `
 
-    <h1>
-      ${post.title}
-    </h1>
+<div class="post-page">
 
-    <p>
-      ${post.toko}
-    </p>
+  <div class="post-header">
 
-    <p>
-      ${post.content}
-    </p>
-
-    <div>
-      ❤️ ${post.likeCount}
-      💬 ${post.replyCount}
+    <div class="post-avatar">
+      ${(post.partnerName || '?')
+        .charAt(0)}
     </div>
 
-  `;
+    <div>
 
+      <div class="post-author">
+        ${post.toko}
+      </div>
+
+      <div class="post-category">
+        ${post.category}
+      </div>
+
+    </div>
+
+  </div>
+
+  <h1 class="post-title">
+    ${post.title}
+  </h1>
+
+  <div class="post-content">
+    ${post.content}
+  </div>
+
+  <div class="post-actions">
+
+    <button
+      id="like-btn"
+      data-post-id="${post.postId}">
+      ❤️ ${post.likeCount}
+    </button>
+
+    <span>
+      💬 ${post.replyCount}
+    </span>
+
+  </div>
+
+  <hr>
+
+  <div id="reply-composer">
+
+    Reply composer
+    (next step)
+
+  </div>
+
+  <div id="reply-list">
+
+    Reply list
+    (next step)
+
+  </div>
+
+</div>
+
+`;
 
     } catch(err) {
 
