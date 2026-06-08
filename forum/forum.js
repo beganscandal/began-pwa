@@ -45,10 +45,10 @@ function initPostNavigation() {
       const postId =
         card.dataset.postId;
 
-      console.log(
-        'POST ID:',
-        postId
-      );
+      window.location.href =
+  '/forum/post/?id=' +
+  postId;
+      
 
     }
   );
