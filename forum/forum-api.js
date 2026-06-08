@@ -52,3 +52,24 @@ window.createReply = async function(payload){
   return response.json();
 
 };
+
+window.uploadReplyImage =
+  async function(payload){
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:'POST',
+          body:JSON.stringify({
+            action:
+              'uploadReplyImage',
+            payload:
+              payload
+          })
+        }
+      );
+
+    return response.json();
+
+  };
