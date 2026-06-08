@@ -2,7 +2,7 @@ function getInitials(name) {
 
     if (!name) return '?';
 
-    return name
+   return name
         .trim()
         .split(' ')
         .map(function(word){
