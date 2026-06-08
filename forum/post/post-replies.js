@@ -56,53 +56,66 @@ function bindReplySubmit(postId){
                 return;
             }
 
-            btn.disabled = true;
+           btn.disabled = true;
 
-            try{
+        try{
 
-               const partner =
-    JSON.parse(
-        localStorage.getItem(
-            'began_partner'
-        ) || '{}'
-    );
-
-await createReply({
-
-    postId:
-        postId,
-
-    parentReplyId:
-        '',
-
-    partnerId:
-        partner.id,
-
-    toko:
-        partner.toko,
-
-    partnerName:
-        partner.toko,
-
-    content:
-        content
-
-});
-                textarea.value = '';
-
-                await loadReplies(
-                    postId
+            const partner =
+                JSON.parse(
+                    localStorage.getItem(
+                        'began_partner'
+                    ) || '{}'
                 );
 
-            }catch(err){
-
-                console.error(err);
-
+            if(
+                !partner.id ||
+                !partner.toko
+            ){
+                alert(
+                    'Partner session tidak ditemukan'
+                );
+                return;
             }
+
+            await createReply({
+
+                postId:
+                    postId,
+
+                parentReplyId:
+                    '',
+
+                partnerId:
+                    partner.id,
+
+                toko:
+                    partner.toko,
+
+                partnerName:
+                    partner.toko,
+
+                content:
+                    content
+
+            });
+
+            textarea.value = '';
+
+            await loadReplies(
+                postId
+            );
+
+        }catch(err){
+
+            console.error(err);
+
+        }finally{
 
             btn.disabled = false;
 
         }
-    );
 
+    }
+);
 }
+
