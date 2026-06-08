@@ -159,23 +159,7 @@
     </div>
    </aside>
   </main>
-  <template id="post-template">
-   <div data-template-id="user-post" class="canva-card rounded-xl p-4">
-    <div class="flex gap-3">
-     <div class="w-9 h-9 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black post-avatar">
-      Y
-     </div>
-     <div class="flex-1 min-w-0">
-      <div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-sm post-author">You</span> <span class="text-xs text-gray-500 post-time"></span>
-      </div><span class="text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded mt-1 inline-block post-category"></span>
-      <p class="text-sm text-gray-300 mt-2 post-content"></p>
-      <div class="flex items-center gap-4 mt-3"><button class="like-btn flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-count">0</span></button> <button class="flex items-center gap-1 text-gray-500 hover:text-blue-400 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 0</button> <button class="delete-btn flex items-center gap-1 text-gray-500 hover:text-red-400 text-xs"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-      </div>
-     </div>
-    </div>
-   </div>
-  </template>
-  <div id="loading-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div id="loading-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
    <div class="bg-gray-900 rounded-xl p-6 text-center">
     <div class="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full mx-auto"></div>
     <p class="text-sm text-gray-400 mt-3">Memproses...</p>
@@ -186,13 +170,9 @@
   </div>
   
   <script>
-    let allPosts = [];
-    const dynamicFeed = document.getElementById('dynamic-feed');
     const loading = document.getElementById('loading-overlay');
-
     function showLoading() { loading.classList.remove('hidden'); }
     function hideLoading() { loading.classList.add('hidden'); }
-
     function timeAgo(iso) {
         const diff = Date.now() - new Date(iso).getTime();
         const mins = Math.floor(diff / 60000);
