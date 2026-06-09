@@ -91,22 +91,35 @@ function bindPostSubmit(){
       }
 
       const partner =
-        JSON.parse(
-          localStorage.getItem(
-            'began_partner'
-          ) || '{}'
-        );
+  JSON.parse(
+    localStorage.getItem(
+      'began_partner'
+    ) || '{}'
+  );
 
-      if(
-        !partner.id ||
-        !partner.toko
-      ){
-        alert(
-          'Partner session tidak ditemukan'
-        );
-        return;
-      }
+if(
+  !partner.id ||
+  !partner.toko
+){
 
+  console.error(
+    'BEGAN PARTNER SESSION',
+    partner
+  );
+
+  console.error(
+    'RAW STORAGE',
+    localStorage.getItem(
+      'began_partner'
+    )
+  );
+
+  alert(
+    'Partner session tidak ditemukan'
+  );
+
+  return;
+}
       btn.disabled = true;
 
       try{
