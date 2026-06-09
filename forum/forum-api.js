@@ -94,60 +94,65 @@ window.createPost =
   };
 
 window.uploadPostImage =
-  async function(payload){
+async function(payload){
+
+  console.log(
+    'UPLOAD PAYLOAD',
+    payload
+  );
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':
+              'text/plain;charset=utf-8'
+          },
+
+          body:JSON.stringify({
+
+            action:
+              'uploadPostImage',
+
+            payload:
+              payload
+
+          })
+        }
+      );
 
     console.log(
-      'UPLOAD START'
+      'RESPONSE STATUS',
+      response.status
     );
 
-    try{
+    const text =
+      await response.text();
 
-      const response =
-        await fetch(
-          API_URL,
-          {
-            method:'POST',
+    console.log(
+      'RAW RESPONSE',
+      text
+    );
 
-            headers:{
-              'Content-Type':
-                'text/plain;charset=utf-8'
-            },
+    return JSON.parse(text);
 
-            body:JSON.stringify({
-              action:'uploadPostImage',
-              payload:payload
-            })
-          }
-        );
+  }catch(err){
 
-      console.log(
-        'STATUS',
-        response.status
-      );
+    console.error(
+      'UPLOAD FETCH FAILED',
+      err
+    );
 
-      const text =
-        await response.text();
+    throw err;
 
-      console.log(
-        'RAW RESPONSE',
-        text
-      );
+  }
 
-      return JSON.parse(text);
-
-    }catch(err){
-
-      console.error(
-        'FETCH FAILED',
-        err
-      );
-
-      throw err;
-
-    }
-
-  };
-window.uploadPostVideo =
+};window.uploadPostVideo =
   async function(payload){
 
     const response =
