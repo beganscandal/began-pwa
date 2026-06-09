@@ -174,7 +174,7 @@ if(
   );
 
 }
-ffunction bindPostImagePicker(){
+function bindPostImagePicker(){
 
   const btn =
     document.getElementById(
@@ -438,7 +438,7 @@ function renderPreview(
 
   document
     .getElementById(
-      'post-preview'
+      'post-media-preview'
     )
     .innerHTML = `
 
