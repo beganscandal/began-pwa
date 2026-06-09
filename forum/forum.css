@@ -57,3 +57,25 @@
 .forum-card:hover{
     transform:translateY(-2px);
 }
+
+.forum-media{
+  margin-top:12px;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.forum-media-image{
+  width:100%;
+  display:block;
+  border-radius:12px;
+  max-height:420px;
+  object-fit:cover;
+}
+
+.forum-media-video{
+  width:100%;
+  display:block;
+  border-radius:12px;
+  max-height:420px;
+  background:#000;
+}
