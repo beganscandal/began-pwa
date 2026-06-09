@@ -11,7 +11,9 @@ document.addEventListener(
 
       renderPosts(data.posts);
 
-      initPostNavigation();
+initPostNavigation();
+
+bindPostSubmit();
 
     } catch(err) {
 
