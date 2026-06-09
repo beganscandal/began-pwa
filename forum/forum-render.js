@@ -65,11 +65,10 @@ ${
     <video
       class="forum-media-video"
       controls
+      playsinline
       preload="metadata"
     >
-      <source
-        src="${post.videoUrl}"
-        type="video/mp4">
+      <source src="${post.videoUrl}">
     </video>
   </div>
   `
@@ -77,7 +76,7 @@ ${
 }
 
 <div class="forum-actions">
-      <div class="forum-actions">
+     
 
         <span>
           ❤️ ${post.likeCount || 0}
