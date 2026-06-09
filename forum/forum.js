@@ -1,6 +1,9 @@
 let selectedImageUrl = '';
 let selectedVideoUrl = '';
 
+let isUploadingImage = false;
+let isUploadingVideo = false;
+
 document.addEventListener(
   'DOMContentLoaded',
   async function() {
