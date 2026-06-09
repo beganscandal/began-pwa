@@ -93,4 +93,39 @@ window.createPost =
 
   };
 
+window.uploadPostImage =
+  async function(payload){
 
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:'POST',
+          body:JSON.stringify({
+            action:'uploadPostImage',
+            payload:payload
+          })
+        }
+      );
+
+    return response.json();
+
+  };
+window.uploadPostVideo =
+  async function(payload){
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:'POST',
+          body:JSON.stringify({
+            action:'uploadPostVideo',
+            payload:payload
+          })
+        }
+      );
+
+    return response.json();
+
+  };
