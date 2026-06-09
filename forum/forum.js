@@ -130,12 +130,29 @@ if(
 
   return;
 }
-      btn.disabled = true;
+      if(
+  isUploadingImage ||
+  isUploadingVideo
+){
+
+  alert(
+    'Tunggu proses upload selesai'
+  );
+
+  return;
+
+}
+      btn.innerText =
+  'Mengirim...';
+
+btn.disabled =
+  true;
+
 
       try{
 
        await createPost({
-
+         
   partnerId:
     partner.id,
 
@@ -167,6 +184,9 @@ if(
       }finally{
 
         btn.disabled = false;
+
+btn.innerText =
+  'Posting';
 
       }
 
@@ -212,13 +232,25 @@ function bindPostImagePicker(){
     'change',
     async function(){
 
-      const file =
-        input.files[0];
+     const file =
+  input.files[0];
 
-      if(!file){
-        return;
-      }
+if(!file){
+  return;
+}
 
+if(
+  file.size >
+  3 * 1024 * 1024
+){
+
+  alert(
+    'Ukuran gambar maksimal 3 MB'
+  );
+
+  return;
+
+}
       const previewUrl =
         URL.createObjectURL(
           file
@@ -361,10 +393,23 @@ function bindPostVideoPicker(){
 
       const file =
         input.files[0];
-
+    
       if(!file){
         return;
       }
+      if(
+        
+  file.size >
+  10 * 1024 * 1024
+){
+
+  alert(
+    'Ukuran video maksimal 10 MB'
+  );
+return;
+
+}
+
 
       const previewUrl =
         URL.createObjectURL(
