@@ -333,9 +333,15 @@ function bindPostVideoPicker(){
       'post-video-input'
     );
 
+  const postBtn =
+    document.getElementById(
+      'post-btn'
+    );
+
   if(
     !btn ||
-    !input
+    !input ||
+    !postBtn
   ){
     return;
   }
@@ -359,6 +365,33 @@ function bindPostVideoPicker(){
       if(!file){
         return;
       }
+
+      const previewUrl =
+        URL.createObjectURL(
+          file
+        );
+
+      isUploadingVideo = true;
+
+      postBtn.disabled =
+        true;
+
+      renderPreview(
+
+        `
+        <video
+          controls
+          muted
+          class="post-preview-video"
+          src="${previewUrl}">
+        </video>
+        `,
+
+        'Mengunggah video...',
+
+        'uploading'
+
+      );
 
       try{
 
@@ -384,12 +417,56 @@ function bindPostVideoPicker(){
         selectedVideoUrl =
           result.videoUrl;
 
+        isUploadingVideo =
+          false;
+
+        renderPreview(
+
+          `
+          <video
+            controls
+            class="post-preview-video"
+            src="${previewUrl}">
+          </video>
+          `,
+
+          '✓ Video siap diposting',
+
+          'success'
+
+        );
+
+        if(
+          !isUploadingImage
+        ){
+
+          postBtn.disabled =
+            false;
+
+        }
+
         console.log(
           'VIDEO URL',
           selectedVideoUrl
         );
 
       }catch(err){
+
+        isUploadingVideo =
+          false;
+
+        renderPreview(
+
+          '',
+
+          '✕ Upload video gagal',
+
+          'error'
+
+        );
+
+        postBtn.disabled =
+          false;
 
         console.error(
           'UPLOAD VIDEO',
@@ -401,8 +478,7 @@ function bindPostVideoPicker(){
     }
   );
 
-}
-function fileToBase64(file){
+}function fileToBase64(file){
 
   return new Promise(
     function(resolve,reject){
