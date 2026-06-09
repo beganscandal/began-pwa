@@ -96,19 +96,55 @@ window.createPost =
 window.uploadPostImage =
   async function(payload){
 
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:'POST',
-          body:JSON.stringify({
-            action:'uploadPostImage',
-            payload:payload
-          })
-        }
+    console.log(
+      'UPLOAD START'
+    );
+
+    try{
+
+      const response =
+        await fetch(
+          API_URL,
+          {
+            method:'POST',
+
+            headers:{
+              'Content-Type':
+                'text/plain;charset=utf-8'
+            },
+
+            body:JSON.stringify({
+              action:'uploadPostImage',
+              payload:payload
+            })
+          }
+        );
+
+      console.log(
+        'STATUS',
+        response.status
       );
 
-    return response.json();
+      const text =
+        await response.text();
+
+      console.log(
+        'RAW RESPONSE',
+        text
+      );
+
+      return JSON.parse(text);
+
+    }catch(err){
+
+      console.error(
+        'FETCH FAILED',
+        err
+      );
+
+      throw err;
+
+    }
 
   };
 window.uploadPostVideo =
