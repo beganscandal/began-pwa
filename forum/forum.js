@@ -130,25 +130,30 @@ if(
 
       try{
 
-        await createPost({
+       await createPost({
 
-          partnerId:
-            partner.id,
+  partnerId:
+    partner.id,
 
-          toko:
-            partner.toko,
+  toko:
+    partner.toko,
 
-          partnerName:
-            partner.toko,
+  partnerName:
+    partner.toko,
 
-          category:
-            category,
+  category:
+    category,
 
-          content:
-            content
+  content:
+    content,
 
-        });
+  imageUrl:
+    selectedImageUrl,
 
+  videoUrl:
+    selectedVideoUrl
+
+});
         location.reload();
 
       }catch(err){
