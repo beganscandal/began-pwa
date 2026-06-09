@@ -77,27 +77,30 @@ function bindReplySubmit(postId){
                 return;
             }
 
-            await createReply({
+           await createPost({
 
-                postId:
-                    postId,
+  partnerId:
+    partner.id,
 
-                parentReplyId:
-                    '',
+  toko:
+    partner.toko,
 
-                partnerId:
-                    partner.id,
+  partnerName:
+    partner.toko,
 
-                toko:
-                    partner.toko,
+  category:
+    category,
 
-                partnerName:
-                    partner.toko,
+  content:
+    content,
 
-                content:
-                    content
+  imageUrl:
+    selectedImageUrl,
 
-            });
+  videoUrl:
+    selectedVideoUrl
+
+});
 
             textarea.value = '';
 
