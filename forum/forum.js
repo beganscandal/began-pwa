@@ -174,7 +174,7 @@ if(
   );
 
 }
-function bindPostImagePicker(){
+ffunction bindPostImagePicker(){
 
   const btn =
     document.getElementById(
@@ -186,9 +186,15 @@ function bindPostImagePicker(){
       'post-image-input'
     );
 
+  const postBtn =
+    document.getElementById(
+      'post-btn'
+    );
+
   if(
     !btn ||
-    !input
+    !input ||
+    !postBtn
   ){
     return;
   }
@@ -201,57 +207,119 @@ function bindPostImagePicker(){
 
     }
   );
-input.addEventListener(
-  'change',
-  async function(){
 
-    const file =
-      input.files[0];
+  input.addEventListener(
+    'change',
+    async function(){
 
-    if(!file){
-      return;
-    }
+      const file =
+        input.files[0];
 
-    try{
+      if(!file){
+        return;
+      }
 
-      const base64 =
-        await fileToBase64(
+      const previewUrl =
+        URL.createObjectURL(
           file
         );
 
-      const result =
-        await uploadPostImage({
+      isUploadingImage = true;
 
-          fileName:
-            file.name,
+      postBtn.disabled = true;
 
-          mimeType:
-            file.type,
+      renderPreview(
 
-          base64:
-            base64
+        `
+        <img
+          src="${previewUrl}"
+          class="post-preview-image"
+        >
+        `,
 
-        });
+        'Mengunggah gambar...',
 
-      selectedImageUrl =
-        result.imageUrl;
+        'uploading'
 
-      console.log(
-        'IMAGE URL',
-        selectedImageUrl
       );
 
-    }catch(err){
+      try{
 
-      console.error(
-        'UPLOAD IMAGE',
-        err
-      );
+        const base64 =
+          await fileToBase64(
+            file
+          );
+
+        const result =
+          await uploadPostImage({
+
+            fileName:
+              file.name,
+
+            mimeType:
+              file.type,
+
+            base64:
+              base64
+
+          });
+
+        selectedImageUrl =
+          result.imageUrl;
+
+        isUploadingImage = false;
+
+        renderPreview(
+
+          `
+          <img
+            src="${previewUrl}"
+            class="post-preview-image"
+          >
+          `,
+
+          '✓ Gambar siap diposting',
+
+          'success'
+
+        );
+
+        if(
+          !isUploadingVideo
+        ){
+
+          postBtn.disabled =
+            false;
+
+        }
+
+      }catch(err){
+
+        isUploadingImage = false;
+
+        renderPreview(
+
+          '',
+
+          '✕ Upload gambar gagal',
+
+          'error'
+
+        );
+
+        postBtn.disabled =
+          false;
+
+        console.error(
+          'UPLOAD IMAGE',
+          err
+        );
+
+      }
 
     }
+  );
 
-  }
-);
 }
 function bindPostVideoPicker(){
 
