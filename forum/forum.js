@@ -19,6 +19,7 @@ document.addEventListener(
       initPostNavigation();
 
       bindPostImagePicker();
+      bindPostVideoPicker();
 
       bindPostSubmit();
 
@@ -248,6 +249,87 @@ input.addEventListener(
 
   }
 );
+}
+function bindPostVideoPicker(){
+
+  const btn =
+    document.getElementById(
+      'post-video-btn'
+    );
+
+  const input =
+    document.getElementById(
+      'post-video-input'
+    );
+
+  if(
+    !btn ||
+    !input
+  ){
+    return;
+  }
+
+  btn.addEventListener(
+    'click',
+    function(){
+
+      input.click();
+
+    }
+  );
+
+  input.addEventListener(
+    'change',
+    async function(){
+
+      const file =
+        input.files[0];
+
+      if(!file){
+        return;
+      }
+
+      try{
+
+        const base64 =
+          await fileToBase64(
+            file
+          );
+
+        const result =
+          await uploadPostVideo({
+
+            fileName:
+              file.name,
+
+            mimeType:
+              file.type,
+
+            base64:
+              base64
+
+          });
+
+        selectedVideoUrl =
+          result.videoUrl;
+
+        console.log(
+          'VIDEO URL',
+          selectedVideoUrl
+        );
+
+      }catch(err){
+
+        console.error(
+          'UPLOAD VIDEO',
+          err
+        );
+
+      }
+
+    }
+  );
+
 }
 function fileToBase64(file){
 
