@@ -13,7 +13,7 @@ document.addEventListener(
     }
 
     try {
-
+renderPostSkeleton();
       const data =
         await getBoard();
 
@@ -579,5 +579,101 @@ function renderPreview(
       </div>
 
     `;
+
+}
+function renderPostSkeleton(){
+
+  const feed =
+    document.getElementById(
+      'dynamic-feed'
+    );
+
+  if(!feed){
+    return;
+  }
+
+  feed.innerHTML = Array(5)
+    .fill('')
+    .map(() => `
+
+      <div class="forum-card skeleton-card">
+
+        <div class="forum-card-header">
+
+          <div
+            class="
+              skeleton-avatar
+              shimmer
+            ">
+          </div>
+
+          <div
+            class="
+              skeleton-user
+            "
+          >
+
+            <div
+              class="
+                skeleton-line
+                shimmer
+              "
+              style="
+                width:120px;
+              "
+            ></div>
+
+            <div
+              class="
+                skeleton-line
+                shimmer
+              "
+              style="
+                width:80px;
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+        <div
+          class="
+            skeleton-tag
+            shimmer
+          "
+        ></div>
+
+        <div
+          class="
+            skeleton-line
+            shimmer
+          "
+          style="
+            width:60%;
+          "
+        ></div>
+
+        <div
+          class="
+            skeleton-line
+            shimmer
+          "
+        ></div>
+
+        <div
+          class="
+            skeleton-line
+            shimmer
+          "
+          style="
+            width:85%;
+          "
+        ></div>
+
+      </div>
+
+    `)
+    .join('');
 
 }
