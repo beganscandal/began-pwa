@@ -40,9 +40,43 @@ function renderPosts(posts) {
       </h3>
 
       <p class="forum-content">
-        ${post.content || ''}
-      </p>
+  ${post.content || ''}
+</p>
 
+${
+  post.imageUrl
+  ? `
+  <div class="forum-media">
+    <img
+      src="${post.imageUrl}"
+      alt="Post Image"
+      class="forum-media-image"
+      loading="lazy"
+    >
+  </div>
+  `
+  : ''
+}
+
+${
+  post.videoUrl
+  ? `
+  <div class="forum-media">
+    <video
+      class="forum-media-video"
+      controls
+      preload="metadata"
+    >
+      <source
+        src="${post.videoUrl}"
+        type="video/mp4">
+    </video>
+  </div>
+  `
+  : ''
+}
+
+<div class="forum-actions">
       <div class="forum-actions">
 
         <span>
