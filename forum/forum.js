@@ -12,6 +12,8 @@ document.addEventListener(
       renderPosts(data.posts);
 
 initPostNavigation();
+      
+      bindPostImagePicker();
 
 bindPostSubmit();
 
@@ -154,6 +156,35 @@ if(
         btn.disabled = false;
 
       }
+
+    }
+  );
+
+}
+function bindPostImagePicker(){
+
+  const btn =
+    document.getElementById(
+      'post-image-btn'
+    );
+
+  const input =
+    document.getElementById(
+      'post-image-input'
+    );
+
+  if(
+    !btn ||
+    !input
+  ){
+    return;
+  }
+
+  btn.addEventListener(
+    'click',
+    function(){
+
+      input.click();
 
     }
   );
