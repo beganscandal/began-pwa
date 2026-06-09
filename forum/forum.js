@@ -2,20 +2,22 @@ document.addEventListener(
   'DOMContentLoaded',
   async function() {
 
+    if(window.lucide){
+      lucide.createIcons();
+    }
+
     try {
 
       const data =
         await getBoard();
 
-      console.log('DATA', data);
-
       renderPosts(data.posts);
 
-initPostNavigation();
-      
+      initPostNavigation();
+
       bindPostImagePicker();
 
-bindPostSubmit();
+      bindPostSubmit();
 
     } catch(err) {
 
@@ -25,7 +27,6 @@ bindPostSubmit();
 
   }
 );
-
 function initPostNavigation() {
 
   const feed =
