@@ -11,7 +11,7 @@ document.addEventListener(
     if(window.lucide){
       lucide.createIcons();
     }
-
+ 
     try {
 renderPostSkeleton();
       const data =
