@@ -361,3 +361,34 @@ function fileToBase64(file){
   );
 
 }
+
+function renderPreview(
+  html,
+  status,
+  statusClass
+){
+
+  document
+    .getElementById(
+      'post-preview'
+    )
+    .innerHTML = `
+
+      <div class="preview-card">
+
+        ${html}
+
+        <div
+          class="
+            preview-status
+            ${statusClass}
+          "
+        >
+          ${status}
+        </div>
+
+      </div>
+
+    `;
+
+}
