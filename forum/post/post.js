@@ -63,6 +63,7 @@ async function init(){
         bindReplySubmit(
             postId
         );
+        bindShareButton();
 
     }catch(err){
 
