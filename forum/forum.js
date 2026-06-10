@@ -677,3 +677,83 @@ function renderPostSkeleton(){
     .join('');
 
 }
+
+function bindLikeEvents(){
+
+  const feed =
+    document.getElementById(
+      'dynamic-feed'
+    );
+
+  if(!feed){
+    return;
+  }
+
+  feed.addEventListener(
+    'click',
+    async function(e){
+
+      const btn =
+        e.target.closest(
+          '.forum-like-btn'
+        );
+
+      if(!btn){
+        return;
+      }
+
+      e.stopPropagation();
+
+      const postId =
+        btn.dataset.postId;
+
+      const partner =
+        JSON.parse(
+          localStorage.getItem(
+            'began_partner'
+          ) || '{}'
+        );
+
+      if(!partner.id){
+        return;
+      }
+
+      btn.disabled = true;
+
+      try{
+
+        const result =
+          await togglePostLike({
+
+            postId:
+              postId,
+
+            partnerId:
+              partner.id
+
+          });
+
+        btn.querySelector(
+          '.forum-like-count'
+        ).textContent =
+          result.likeCount;
+
+        btn.classList.toggle(
+          'liked',
+          result.liked
+        );
+
+      }catch(err){
+
+        console.error(err);
+
+      }finally{
+
+        btn.disabled = false;
+
+      }
+
+    }
+  );
+
+}
