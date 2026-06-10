@@ -25,6 +25,7 @@ renderPostSkeleton();
       bindPostVideoPicker();
 
       bindPostSubmit();
+      bindLikeEvents();
 
     } catch(err) {
 
