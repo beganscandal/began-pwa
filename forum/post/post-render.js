@@ -39,7 +39,7 @@ function renderPostPage(post) {
 
       ${renderReplyComposer()}
 
-      ${renderReplyFeed()}
+     ${renderReplySkeleton()}
 
     </main>
   `;
@@ -99,28 +99,50 @@ function bindVideoPicker(){
 }
 
 function renderHeader() {
+
   return `
+
     <header class="post-header">
 
       <button
         class="post-back-btn"
-        onclick="history.back()"
+        onclick="
+          if(history.length > 1){
+
+            history.back();
+
+          }else{
+
+            location.href='/forum/';
+
+          }
+        "
       >
+
         <i class="fas fa-arrow-left"></i>
+
       </button>
 
       <h1 class="post-header-title">
+
         Partner Discussion
+
       </h1>
 
-      <button class="post-menu-btn">
-        <i class="fas fa-ellipsis-v"></i>
+      <button
+        class="post-menu-btn"
+        id="post-share-btn"
+      >
+
+        <i class="fas fa-share-alt"></i>
+
       </button>
 
     </header>
+
   `;
-}
-function renderPostCard(post) {
+
+}function renderPostCard(post) {
 
   return `
     <article class="post-card">
@@ -178,36 +200,86 @@ function renderPostCard(post) {
 
 function renderPostMedia(post){
 
-    const mediaUrl =
-        post.image ||
-        post.imageUrl ||
-        post.mediaUrl ||
-        '';
+  if(post.videoUrl){
+
+    const iframeUrl =
+      post.videoUrl.includes(
+        '/preview'
+      )
+      ? post.videoUrl
+      : post.videoUrl.replace(
+
+          'https://drive.google.com/uc?export=view&id=',
+
+          'https://drive.google.com/file/d/'
+
+        ) + '/preview';
 
     return `
-        <div class="post-media-container">
 
-            ${
-                mediaUrl
-                ? `
-                <img
-                    class="post-image"
-                    src="${mediaUrl}"
-                    alt=""
-                >
-                `
-                : `
-                <div class="post-media-placeholder">
+      <div
+        class="
+          post-media-container
+        "
+      >
 
-                    No Media
+        <iframe
 
-                </div>
-                `
-            }
+          class="
+            post-video
+          "
 
-        </div>
+          src="${iframeUrl}"
+
+          allowfullscreen
+
+          loading="lazy"
+
+        >
+        </iframe>
+
+      </div>
+
     `;
+
+  }
+
+  const imageUrl =
+    post.image ||
+    post.imageUrl ||
+    post.mediaUrl ||
+    '';
+
+  if(!imageUrl){
+
+    return '';
+
+  }
+
+  return `
+
+    <div
+      class="
+        post-media-container
+      "
+    >
+
+      <img
+
+        class="
+          post-image
+        "
+
+        src="${imageUrl}"
+
+      >
+
+    </div>
+
+  `;
+
 }
+
 function renderActionBar(post) {
 
   return `
@@ -245,12 +317,36 @@ function renderReplyComposer() {
   return `
     <section class="reply-composer">
 
-      <div class="reply-composer-avatar">
-        B
+      ${
+  (() => {
+
+    const partner =
+      JSON.parse(
+        localStorage.getItem(
+          'began_partner'
+        ) || '{}'
+      );
+
+    return `
+
+      <div
+        class="
+          reply-composer-avatar
+        "
+      >
+
+        ${
+          getInitials(
+            partner.toko
+          )
+        }
+
       </div>
 
-      <div class="reply-composer-body">
+    `;
 
+  })()
+}
         <textarea
   id="reply-input"
   class="reply-input"
@@ -502,6 +598,66 @@ function renderSingleReplySkeleton() {
 
         </div>
     `;
+}
+
+function bindShareButton(){
+
+  const btn =
+    document.getElementById(
+      'post-share-btn'
+    );
+
+  if(!btn){
+
+    return;
+
+  }
+
+  btn.addEventListener(
+    'click',
+    async function(){
+
+      try{
+
+        if(
+          navigator.share
+        ){
+
+          await navigator.share({
+
+            title:
+              'BEGAN Discussion',
+
+            url:
+              location.href
+
+          });
+
+        }else{
+
+          await navigator
+            .clipboard
+            .writeText(
+
+              location.href
+
+            );
+
+          alert(
+            'Link berhasil disalin'
+          );
+
+        }
+
+      }catch(err){
+
+        console.error(err);
+
+      }
+
+    }
+  );
+
 }
 
 window.renderPostPage =
