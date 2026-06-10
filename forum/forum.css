@@ -192,3 +192,26 @@
   }
 
 }
+.forum-media-iframe{
+
+  width:100%;
+
+  aspect-ratio:16/9;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#111;
+
+}
+
+.forum-media{
+
+  margin-top:16px;
+
+  overflow:hidden;
+
+  border-radius:16px;
+
+}
