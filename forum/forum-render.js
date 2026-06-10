@@ -96,17 +96,43 @@ ${
   `
   : ''
 }
+
 <div class="forum-actions">
-     
-        <span>
-          ❤️ ${post.likeCount || 0}
-        </span>
 
-        <span>
-          💬 ${post.replyCount || 0}
-        </span>
+  <button
+    class="forum-like-btn"
+    data-post-id="${post.postId}"
+  >
 
-      </div>
+    ❤️
+
+    <span class="forum-like-count">
+
+      ${post.likeCount || 0}
+
+    </span>
+
+  </button>
+
+  <button
+    class="
+      forum-open-post
+      forum-reply-btn
+    "
+    data-post-id="${post.postId}"
+  >
+
+    💬
+
+    <span>
+
+      ${post.replyCount || 0}
+
+    </span>
+
+  </button>
+
+  </div>
 
     
     <button
