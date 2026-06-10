@@ -98,7 +98,6 @@ ${
 }
 <div class="forum-actions">
      
-
         <span>
           ❤️ ${post.likeCount || 0}
         </span>
@@ -109,7 +108,25 @@ ${
 
       </div>
 
-    </div>
+    
+    <button
+  class="
+    forum-open-post
+    forum-reply-btn
+  "
+  data-post-id="
+    ${post.postId}
+  "
+>
+
+  Lihat Diskusi
+  (
+    ${post.replyCount || 0}
+  )
+
+</button>
+</div>
+
 
   `).join('');
 
