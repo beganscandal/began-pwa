@@ -215,3 +215,33 @@
   border-radius:16px;
 
 }
+
+.forum-like-btn{
+
+  border:none;
+
+  background:none;
+
+  color:#9ca3af;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  cursor:pointer;
+
+}
+
+.forum-like-btn.liked{
+
+  color:#ef4444;
+
+}
+
+.forum-like-btn:disabled{
+
+  opacity:.6;
+
+}
