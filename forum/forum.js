@@ -47,16 +47,16 @@ function initPostNavigation() {
     'click',
     function(e){
 
-      const card =
-        e.target.closest(
-          '.forum-card'
-        );
+      const trigger =
+  e.target.closest(
+    '.forum-open-post'
+  );
 
-      if (!card) return;
+      if (!trigger) return;
 
      const postId =
-  card.dataset.postId;
-
+  trigger.dataset.postId;
+      
 window.location.href =
   '/forum/post/?postId=' +
   encodeURIComponent(postId);      
