@@ -245,3 +245,61 @@
   opacity:.6;
 
 }
+
+.forum-actions{
+
+  display:flex;
+
+  gap:18px;
+
+  margin-top:16px;
+
+  margin-bottom:16px;
+
+}
+
+.forum-like-btn{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  padding:8px 12px;
+
+  border-radius:12px;
+
+}
+
+.forum-reply-btn{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  padding:8px 12px;
+
+  border-radius:12px;
+
+}
+
+.forum-discussion-btn{
+
+  width:100%;
+
+  margin-top:8px;
+
+  padding:12px;
+
+  border-radius:12px;
+
+}
+
+.forum-like-btn.liked{
+
+  color:#ff4d6d;
+
+}
