@@ -3,6 +3,9 @@ let selectedVideoUrl = '';
 
 let isUploadingImage = false;
 let isUploadingVideo = false;
+let allPosts = [];
+let searchTimer;
+let currentSearch = '';
 
 document.addEventListener(
   'DOMContentLoaded',
@@ -14,18 +17,24 @@ document.addEventListener(
  
     try {
 renderPostSkeleton();
-      const data =
-        await getBoard();
+     const data =
+  await getBoard();
 
-      renderPosts(data.posts);
+allPosts =
+  data.posts || [];
 
+renderPosts(
+  allPosts
+);
       initPostNavigation();
 
       bindPostImagePicker();
       bindPostVideoPicker();
+      bindSearch();
 
       bindPostSubmit();
       bindLikeEvents();
+      
 
     } catch(err) {
 
@@ -719,7 +728,11 @@ function bindLikeEvents(){
         return;
       }
 
-      btn.disabled = true;
+     if(btn.dataset.loading){
+  return;
+}
+
+btn.dataset.loading = 'true';
 
       try{
 
@@ -750,9 +763,100 @@ function bindLikeEvents(){
 
       }finally{
 
-        btn.disabled = false;
-
+       delete btn.dataset.loading;
       }
+
+    }
+  );
+
+}
+function bindSearch(){
+
+  const input =
+    document.getElementById(
+      'forum-search'
+    );
+
+  if(!input){
+    return;
+  }
+
+  input.addEventListener(
+    'input',
+    function(){
+
+      clearTimeout(
+        searchTimer
+      );
+
+      searchTimer =
+        setTimeout(
+          function(){
+
+           currentSearch =
+  input.value
+    .trim()
+    .toLowerCase();
+
+const keyword =
+  currentSearch;
+
+            if(!keyword){
+
+              renderPosts(
+                allPosts
+              );
+
+              return;
+
+            }
+
+            const filtered =
+              allPosts.filter(
+                function(post){
+
+                  return (
+
+                    (post.content || '')
+                      .toLowerCase()
+                      .includes(keyword)
+
+                    ||
+
+                    (post.partnerName || '')
+                      .toLowerCase()
+                      .includes(keyword)
+
+                    ||
+
+                    (post.toko || '')
+                      .toLowerCase()
+                      .includes(keyword)
+
+                    ||
+
+                    (post.category || '')
+                      .toLowerCase()
+                      .includes(keyword)
+
+                    ||
+
+                    (post.title || '')
+                      .toLowerCase()
+                      .includes(keyword)
+
+                  );
+
+                }
+              );
+
+            renderPosts(
+              filtered
+            );
+
+          },
+          200
+        );
 
     }
   );
