@@ -43,9 +43,8 @@ function renderPosts(posts) {
   class="
     forum-open-post
   "
-  data-post-id="
-    ${post.postId}
-  "
+ data-post-id="${post.postId}"
+  
 >
 
   <p class="forum-content">
@@ -140,9 +139,8 @@ ${
     forum-open-post
     forum-reply-btn
   "
-  data-post-id="
-    ${post.postId}
-  "
+ data-post-id="${post.postId}"
+  
 >
 
   Lihat Diskusi
