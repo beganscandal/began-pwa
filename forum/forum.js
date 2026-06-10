@@ -25,7 +25,7 @@ allPosts =
   data.posts || [];
 
 renderPosts(
-  allPosts
+  getFilteredPosts()
 );
       initPostNavigation();
 
@@ -198,8 +198,8 @@ if(
   );
 
   renderPosts(
-    allPosts
-  );
+  getFilteredPosts()
+);
   document.getElementById(
   'post-content'
 ).value = '';
@@ -344,25 +344,33 @@ if(
           });
 
         selectedImageUrl =
-          result.imageUrl;
+  result.imageUrl;
 
-        isUploadingImage = false;
+isUploadingImage = false;
 
-        renderPreview(
+renderPreview(
 
-          `
-          <img
-            src="${previewUrl}"
-            class="post-preview-image"
-          >
-          `,
+  `
+  <img
+    src="${previewUrl}"
+    class="post-preview-image"
+  >
+  `,
 
-          '✓ Gambar siap diposting',
+  '✓ Gambar siap diposting',
 
-          'success'
+  'success'
 
-        );
+);
 
+setTimeout(function(){
+
+  URL.revokeObjectURL(
+    previewUrl
+  );
+
+}, 3000);
+        
         if(
           !isUploadingVideo
         ){
@@ -373,6 +381,10 @@ if(
         }
 
       }catch(err){
+
+        URL.revokeObjectURL(
+  previewUrl
+);
 
         isUploadingImage = false;
 
@@ -462,6 +474,7 @@ return;
         URL.createObjectURL(
           file
         );
+      
 
       isUploadingVideo = true;
 
@@ -527,6 +540,13 @@ return;
           'success'
 
         );
+        setTimeout(function(){
+
+  URL.revokeObjectURL(
+    previewUrl
+  );
+
+}, 5000);
 
         if(
           !isUploadingImage
@@ -543,6 +563,9 @@ return;
         );
 
       }catch(err){
+        URL.revokeObjectURL(
+  previewUrl
+);
 
         isUploadingVideo =
           false;
@@ -570,7 +593,9 @@ return;
     }
   );
 
-}function fileToBase64(file){
+}
+
+function fileToBase64(file){
 
   return new Promise(
     function(resolve,reject){
@@ -835,65 +860,59 @@ function bindSearch(){
     .trim()
     .toLowerCase();
 
-const keyword =
-  currentSearch;
-
-            if(!keyword){
-
-              renderPosts(
-                allPosts
-              );
-
-              return;
-
-            }
-
-            const filtered =
-              allPosts.filter(
-                function(post){
-
-                  return (
-
-                    (post.content || '')
-                      .toLowerCase()
-                      .includes(keyword)
-
-                    ||
-
-                    (post.partnerName || '')
-                      .toLowerCase()
-                      .includes(keyword)
-
-                    ||
-
-                    (post.toko || '')
-                      .toLowerCase()
-                      .includes(keyword)
-
-                    ||
-
-                    (post.category || '')
-                      .toLowerCase()
-                      .includes(keyword)
-
-                    ||
-
-                    (post.title || '')
-                      .toLowerCase()
-                      .includes(keyword)
-
-                  );
-
-                }
-              );
-
-            renderPosts(
-              filtered
-            );
+renderPosts(
+  getFilteredPosts()
+);
 
           },
-          200
+          300
         );
+
+    }
+  );
+
+}
+
+function getFilteredPosts(){
+
+  if(!currentSearch){
+    return allPosts;
+  }
+
+  return allPosts.filter(
+    function(post){
+
+      return (
+
+        (post.content || '')
+          .toLowerCase()
+          .includes(currentSearch)
+
+        ||
+
+        (post.partnerName || '')
+          .toLowerCase()
+          .includes(currentSearch)
+
+        ||
+
+        (post.toko || '')
+          .toLowerCase()
+          .includes(currentSearch)
+
+        ||
+
+        (post.category || '')
+          .toLowerCase()
+          .includes(currentSearch)
+
+        ||
+
+        (post.title || '')
+          .toLowerCase()
+          .includes(currentSearch)
+
+      );
 
     }
   );
