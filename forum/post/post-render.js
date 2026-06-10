@@ -28,7 +28,9 @@ function escapeHtml(str) {
 
 
 function renderPostPage(post) {
+
   return `
+
     ${renderHeader()}
 
     <main class="post-page-content">
@@ -39,12 +41,17 @@ function renderPostPage(post) {
 
       ${renderReplyComposer()}
 
-     ${renderReplySkeleton()}
+      <div id="reply-feed-root">
+
+        ${renderReplySkeleton()}
+
+      </div>
 
     </main>
-  `;
-}
 
+  `;
+
+}
 function bindImagePicker(){
 
   const btn =
@@ -172,8 +179,15 @@ function renderHeader() {
       </h2>
 
       <div class="post-content">
-        ${escapeHtml(post.content)}
-      </div>
+  ${
+    escapeHtml(
+      post.content
+    ).replace(
+      /\n/g,
+      '<br>'
+    )
+  }
+</div>
 
       ${renderPostMedia(post)}
 
@@ -283,96 +297,126 @@ function renderPostMedia(post){
 function renderActionBar(post) {
 
   return `
+
     <section class="post-action-bar">
 
       <button
         class="action-btn"
-        data-action="like"
+        id="post-like-btn"
+        data-post-id="${post.postId}"
       >
+
         ❤️
-        <span>Like</span>
+
+        <span>
+
+          ${post.likeCount || 0}
+
+        </span>
+
       </button>
 
       <button
         class="action-btn"
-        data-action="reply"
+        id="post-reply-btn"
       >
+
         💬
-        <span>Reply</span>
+
+        <span>
+
+          Reply
+
+        </span>
+
       </button>
 
       <button
         class="action-btn"
-        data-action="share"
+        id="post-share-action-btn"
       >
+
         ↗
-        <span>Share</span>
+
+        <span>
+
+          Share
+
+        </span>
+
       </button>
 
     </section>
+
   `;
+
 }
+
 function renderReplyComposer() {
 
   return `
     <section class="reply-composer">
 
       ${
-  (() => {
+        (() => {
 
-    const partner =
-      JSON.parse(
-        localStorage.getItem(
-          'began_partner'
-        ) || '{}'
-      );
+          const partner =
+            JSON.parse(
+              localStorage.getItem(
+                'began_partner'
+              ) || '{}'
+            );
 
-    return `
+          return `
 
-      <div
-        class="
-          reply-composer-avatar
-        "
-      >
+            <div
+              class="
+                reply-composer-avatar
+              "
+            >
 
-        ${
-          getInitials(
-            partner.toko
-          )
-        }
+              ${
+                getInitials(
+                  partner.toko
+                )
+              }
 
-      </div>
+            </div>
 
-    `;
+          `;
 
-  })()
-}
+        })()
+      }
+
+      <div class="reply-composer-body">
+
         <textarea
-  id="reply-input"
-  class="reply-input"
-  placeholder="Write your reply..."
-></textarea>
+          id="reply-input"
+          class="reply-input"
+          placeholder="Write your reply..."
+        ></textarea>
 
-<input
-  id="reply-image-input"
-  type="file"
-  accept="image/*"
-  hidden
->
+        <input
+          id="reply-image-input"
+          type="file"
+          accept="image/*"
+          hidden
+        >
 
-<input
-  id="reply-video-input"
-  type="file"
-  accept="video/*"
-  hidden
->
+        <input
+          id="reply-video-input"
+          type="file"
+          accept="video/*"
+          hidden
+        >
 
-<div
-  id="reply-media-preview"
-  class="reply-media-preview"
-></div>
+        <div
+          id="reply-media-preview"
+          class="reply-media-preview"
+        ></div>
 
-<div class="reply-toolbar">
+        <div class="reply-toolbar">
+
           <div class="reply-toolbar-left">
 
             <button
@@ -405,6 +449,7 @@ function renderReplyComposer() {
     </section>
   `;
 }
+
 function renderReplyFeed(replies) {
 
     replies = replies || [];
@@ -467,9 +512,16 @@ function renderReplyCard(reply) {
             </div>
 
             <div class="reply-text">
-                ${escapeHtml(reply.content)}
-            </div>
-
+    ${
+      escapeHtml(
+        reply.content
+      ).replace(
+        /\n/g,
+        '<br>'
+      )
+    }
+           </div>
+           
             ${renderReplyMedia(reply)}
 
             <div class="reply-actions">
@@ -489,27 +541,82 @@ function renderReplyCard(reply) {
 }
 function renderReplyMedia(reply){
 
-    const mediaUrl =
+    if(reply.videoUrl){
+
+        const iframeUrl =
+
+            reply.videoUrl.includes(
+                '/preview'
+            )
+
+            ? reply.videoUrl
+
+            : reply.videoUrl.replace(
+
+                'https://drive.google.com/uc?export=view&id=',
+
+                'https://drive.google.com/file/d/'
+
+              ) + '/preview';
+
+        return `
+
+            <div class="reply-media">
+
+                <iframe
+
+                    class="reply-video"
+
+                    src="${iframeUrl}"
+
+                    loading="lazy"
+
+                    allowfullscreen
+
+                >
+                </iframe>
+
+            </div>
+
+        `;
+
+    }
+
+    const imageUrl =
+
         reply.image ||
+
         reply.imageUrl ||
+
         reply.mediaUrl ||
+
         '';
 
-    if(!mediaUrl){
+    if(!imageUrl){
+
         return '';
+
     }
 
     return `
-        <div class="reply-media">
-            <img
-                class="reply-image"
-                src="${mediaUrl}"
-                alt=""
-            >
-        </div>
-    `;
-}
 
+        <div class="reply-media">
+
+            <img
+
+                class="reply-image"
+
+                src="${imageUrl}"
+
+                loading="lazy"
+
+            >
+
+        </div>
+
+    `;
+
+}
 function renderEmptyState() {
 
     return `
@@ -535,7 +642,9 @@ function renderEmptyState() {
 function renderPostSkeleton() {
 
     return `
+        
         <section class="post-skeleton">
+        
 
             <div class="post-skeleton-card">
 
@@ -562,7 +671,7 @@ function renderPostSkeleton() {
                 <div class="skeleton skeleton-image"></div>
 
             </div>
-
+       
         </section>
     `;
 }
@@ -660,6 +769,128 @@ function bindShareButton(){
 
 }
 
+function bindActionBar(){
+
+    const replyBtn =
+
+        document.getElementById(
+            'post-reply-btn'
+        );
+
+    if(replyBtn){
+
+        replyBtn.addEventListener(
+            'click',
+            function(){
+
+                document
+                    .getElementById(
+                        'reply-input'
+                    )
+                    ?.focus();
+
+            }
+        );
+
+    }
+
+    const shareBtn =
+
+        document.getElementById(
+            'post-share-action-btn'
+        );
+
+    if(shareBtn){
+
+        shareBtn.addEventListener(
+            'click',
+            function(){
+
+                document
+                    .getElementById(
+                        'post-share-btn'
+                    )
+                    ?.click();
+
+            }
+        );
+
+    }
+
+}
+
+function bindPostLike(){
+
+    const btn =
+
+        document.getElementById(
+            'post-like-btn'
+        );
+
+    if(!btn){
+
+        return;
+
+    }
+
+    btn.addEventListener(
+        'click',
+        async function(){
+
+            if(btn.disabled){
+
+                return;
+
+            }
+
+            btn.disabled = true;
+
+            try{
+
+                const partner =
+
+                    JSON.parse(
+
+                        localStorage.getItem(
+                            'began_partner'
+                        ) || '{}'
+
+                    );
+
+                const result =
+
+                    await togglePostLike({
+
+                        postId:
+
+                            btn.dataset.postId,
+
+                        partnerId:
+
+                            partner.id
+
+                    });
+
+                btn.querySelector(
+                    'span'
+                ).textContent =
+
+                    result.likeCount;
+
+            }catch(err){
+
+                console.error(err);
+
+            }finally{
+
+                btn.disabled = false;
+
+            }
+
+        }
+    );
+
+}
 window.renderPostPage =
     renderPostPage;
 
@@ -671,3 +902,11 @@ window.renderReplyFeed =
 
 window.renderReplySkeleton =
     renderReplySkeleton;
+window.bindShareButton =
+    bindShareButton;
+
+window.bindActionBar =
+    bindActionBar;
+
+window.bindPostLike =
+    bindPostLike;
