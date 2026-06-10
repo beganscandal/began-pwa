@@ -4,11 +4,17 @@
 
 async function init(){
 
+    const root =
+        document.getElementById(
+            'post-page'
+        );
+
     if(!root){
 
-    return;
+        return;
 
-}
+    }
+
     root.innerHTML =
         renderPostSkeleton();
 
@@ -19,14 +25,19 @@ async function init(){
                 location.search
             );
 
+        const postId =
+            params.get(
+                'postId'
+            );
+
         if(!postId){
 
-    location.href =
-        '/forum/';
+            location.href =
+                '/forum/';
 
-    return;
+            return;
 
-}
+        }
 
         const data =
             await getPost(
@@ -53,19 +64,21 @@ async function init(){
             postId
         );
 
-    catch(err){
+    }catch(err){
 
-    console.error(err);
+        console.error(err);
 
-    root.innerHTML = `
-        <div class="post-error">
+        root.innerHTML = `
 
-            Gagal memuat diskusi.
+            <div class="post-error">
 
-        </div>
-    `;
+                Gagal memuat diskusi.
 
-}
+            </div>
+
+        `;
+
+    }
 
 }
 
