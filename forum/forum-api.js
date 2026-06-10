@@ -190,3 +190,31 @@ window.uploadPostImage =
     return response.json();
 
   };
+
+async function togglePostLike(
+  payload
+){
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+
+        method:'POST',
+
+        body:JSON.stringify({
+
+          action:
+            'togglePostLike',
+
+          payload:
+            payload
+
+        })
+
+      }
+    );
+
+  return response.json();
+
+}
