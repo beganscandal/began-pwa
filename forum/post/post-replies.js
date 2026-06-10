@@ -1,8 +1,12 @@
+let selectedReplyImageUrl = '';
+
+let selectedReplyVideoUrl = '';
+
 async function loadReplies(postId){
 
     const container =
-        document.querySelector(
-            '.reply-feed'
+        document.getElementById(
+            'reply-feed-root'
         );
 
     if(!container){
@@ -29,6 +33,7 @@ async function loadReplies(postId){
     }
 
 }
+
 function bindReplySubmit(postId){
 
     const btn =
@@ -56,69 +61,84 @@ function bindReplySubmit(postId){
                 return;
             }
 
-           btn.disabled = true;
+            btn.disabled = true;
 
-        try{
+            try{
 
-            const partner =
-                JSON.parse(
-                    localStorage.getItem(
-                        'began_partner'
-                    ) || '{}'
+                const partner =
+                    JSON.parse(
+                        localStorage.getItem(
+                            'began_partner'
+                        ) || '{}'
+                    );
+
+                if(
+                    !partner.id ||
+                    !partner.toko
+                ){
+                    alert(
+                        'Partner session tidak ditemukan'
+                    );
+
+                    return;
+                }
+
+                await createReply({
+
+                    postId:
+                        postId,
+
+                    partnerId:
+                        partner.id,
+
+                    toko:
+                        partner.toko,
+
+                    partnerName:
+                        partner.toko,
+
+                    content:
+                        content,
+
+                    imageUrl:
+                        selectedReplyImageUrl,
+
+                    videoUrl:
+                        selectedReplyVideoUrl
+
+                });
+
+                textarea.value = '';
+
+                selectedReplyImageUrl = '';
+
+                selectedReplyVideoUrl = '';
+
+                document.getElementById(
+                    'reply-media-preview'
+                ).innerHTML = '';
+
+                await loadReplies(
+                    postId
                 );
 
-            if(
-                !partner.id ||
-                !partner.toko
-            ){
-                alert(
-                    'Partner session tidak ditemukan'
-                );
-                return;
+            }catch(err){
+
+                console.error(err);
+
+            }finally{
+
+                btn.disabled = false;
+
             }
 
-           await createPost({
-
-  partnerId:
-    partner.id,
-
-  toko:
-    partner.toko,
-
-  partnerName:
-    partner.toko,
-
-  category:
-    category,
-
-  content:
-    content,
-
-  imageUrl:
-    selectedImageUrl,
-
-  videoUrl:
-    selectedVideoUrl
-
-});
-
-            textarea.value = '';
-
-            await loadReplies(
-                postId
-            );
-
-        }catch(err){
-
-            console.error(err);
-
-        }finally{
-
-            btn.disabled = false;
-
         }
+    );
 
-    }
-);
 }
 
+window.loadReplies =
+    loadReplies;
+
+window.bindReplySubmit =
+    bindReplySubmit;
