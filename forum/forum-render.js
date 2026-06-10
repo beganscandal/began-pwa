@@ -39,9 +39,22 @@ function renderPosts(posts) {
         ${post.title || ''}
       </h3>
 
-      <p class="forum-content">
-  ${post.content || ''}
-</p>
+      <div
+  class="
+    forum-open-post
+  "
+  data-post-id="
+    ${post.postId}
+  "
+>
+
+  <p class="forum-content">
+
+    ${post.content || ''}
+
+  </p>
+
+</div>
 
 ${
   post.imageUrl
