@@ -62,19 +62,27 @@ ${
   post.videoUrl
   ? `
   <div class="forum-media">
-    <video
-      class="forum-media-video"
-      controls
-      playsinline
-      preload="metadata"
+
+    <iframe
+      class="forum-media-iframe"
+      src="${
+        post.videoUrl.includes('/preview')
+        ? post.videoUrl
+        : post.videoUrl.replace(
+            'https://drive.google.com/uc?export=view&id=',
+            'https://drive.google.com/file/d/'
+          ) + '/preview'
+      }"
+      allow="autoplay"
+      allowfullscreen
+      loading="lazy"
     >
-      <source src="${post.videoUrl}">
-    </video>
+    </iframe>
+
   </div>
   `
   : ''
 }
-
 <div class="forum-actions">
      
 
