@@ -17,6 +17,7 @@ document.addEventListener(
  
     try {
 renderPostSkeleton();
+      
      const data =
   await getBoard();
 
@@ -161,32 +162,68 @@ btn.disabled =
 
       try{
 
-       await createPost({
-         
-  partnerId:
-    partner.id,
+      const result =
+  await createPost({
 
-  toko:
-    partner.toko,
+    partnerId:
+      partner.id,
 
-  partnerName:
-    partner.toko,
+    toko:
+      partner.toko,
 
-  category:
-    category,
+    partnerName:
+      partner.toko,
 
-  content:
-    content,
+    category:
+      category,
 
-  imageUrl:
-    selectedImageUrl,
+    content:
+      content,
 
-  videoUrl:
-    selectedVideoUrl
+    imageUrl:
+      selectedImageUrl,
 
-});
-        location.reload();
+    videoUrl:
+      selectedVideoUrl
 
+  });
+
+if(
+  result.success &&
+  result.post
+){
+
+  allPosts.unshift(
+    result.post
+  );
+
+  renderPosts(
+    allPosts
+  );
+  document.getElementById(
+  'post-content'
+).value = '';
+
+selectedImageUrl =
+  '';
+
+selectedVideoUrl =
+  '';
+
+document.getElementById(
+  'post-media-preview'
+).innerHTML =
+  '';
+
+document.getElementById(
+  'post-image-input'
+).value = '';
+
+document.getElementById(
+  'post-video-input'
+).value = '';
+
+}
       }catch(err){
 
         console.error(err);
