@@ -303,12 +303,50 @@
   color:#ff4d6d;
 
 }
-.post-back-btn{
+.post-back-btn,
+.post-menu-btn{
 
     position:absolute;
 
-    left:16px;
+    top:50%;
 
-    z-index:10;
+    transform:translateY(-50%);
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    background:#111;
+
+    color:#fff;
+
+    border-radius:12px;
+
+    z-index:20;
+
+}
+.post-back-btn{
+    left:16px;
+}
+.post-menu-btn{
+    right:16px;
+}
+
+
+.post-header{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:60px;
+
+    padding:0 60px;
 
 }
