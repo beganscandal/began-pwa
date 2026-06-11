@@ -716,7 +716,7 @@ function bindShareButton(){
 
   const btn =
     document.getElementById(
-      'post-share-btn'
+      'post-share-action-btn'
     );
 
   if(!btn){
@@ -798,27 +798,52 @@ function bindActionBar(){
     }
 
     const shareBtn =
+    document.getElementById(
+        'post-share-action-btn'
+    );
 
-        document.getElementById(
-            'post-share-action-btn'
-        );
+if(shareBtn){
 
-    if(shareBtn){
+    shareBtn.addEventListener(
+        'click',
+        async function(){
 
-        shareBtn.addEventListener(
-            'click',
-            function(){
+            try{
 
-                document
-                    .getElementById(
-                        'post-share-btn'
-                    )
-                    ?.click();
+                if(navigator.share){
+
+                    await navigator.share({
+
+                        title:
+                            'BEGAN Discussion',
+
+                        url:
+                            location.href
+
+                    });
+
+                }else{
+
+                    await navigator
+                        .clipboard
+                        .writeText(
+                            location.href
+                        );
+
+                    alert(
+                        'Link berhasil disalin'
+                    );
+
+                }
+
+            }catch(err){
+
+                console.error(err);
 
             }
-        );
 
-    }
+        }
+    );
 
 }
 
