@@ -712,68 +712,81 @@ function renderSingleReplySkeleton() {
     `;
 }
 
-function bindShareButton(){
+function bindActionBar(){
 
-  const btn =
-    document.getElementById(
-      'post-share-action-btn'
-    );
+    const replyBtn =
+        document.getElementById(
+            'post-reply-btn'
+        );
 
-  if(!btn){
+    if(replyBtn){
 
-    return;
+        replyBtn.addEventListener(
+            'click',
+            function(){
 
-  }
+                document
+                    .getElementById(
+                        'reply-input'
+                    )
+                    ?.focus();
 
-  btn.addEventListener(
-    'click',
-    async function(){
-
-      try{
-
-        if(
-          navigator.share
-        ){
-
-          await navigator.share({
-
-            title:
-              'BEGAN Discussion',
-
-            url:
-              location.href
-
-          });
-
-        }else{
-
-          await navigator
-            .clipboard
-            .writeText(
-
-              location.href
-
-            );
-
-          alert(
-            'Link berhasil disalin'
-          );
-
-        }
-
-      }catch(err){
-
-        console.error(err);
-
-      }
+            }
+        );
 
     }
-  );
+
+    const shareBtn =
+        document.getElementById(
+            'post-share-action-btn'
+        );
+
+    if(shareBtn){
+
+        shareBtn.addEventListener(
+            'click',
+            async function(){
+
+                try{
+
+                    if(navigator.share){
+
+                        await navigator.share({
+
+                            title:
+                                'BEGAN Discussion',
+
+                            url:
+                                location.href
+
+                        });
+
+                    }else{
+
+                        await navigator
+                            .clipboard
+                            .writeText(
+                                location.href
+                            );
+
+                        alert(
+                            'Link berhasil disalin'
+                        );
+
+                    }
+
+                }catch(err){
+
+                    console.error(err);
+
+                }
+
+            }
+        );
+
+    }
 
 }
-
-}
-
 function bindActionBar(){
 
     const replyBtn =
