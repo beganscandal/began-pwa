@@ -1,5 +1,5 @@
 let selectedReplyImageFile = null;
-
+ 
 function getInitials(name) {
 
     if (!name) return '?';
