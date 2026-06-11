@@ -858,7 +858,7 @@ function bindPostLike(){
         }
     );
 
-}
+} 
 window.renderPostPage =
     renderPostPage;
 
