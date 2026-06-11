@@ -303,3 +303,12 @@
   color:#ff4d6d;
 
 }
+.post-back-btn{
+
+    position:absolute;
+
+    left:16px;
+
+    z-index:10;
+
+}
