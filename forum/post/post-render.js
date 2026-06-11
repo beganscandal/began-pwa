@@ -870,8 +870,6 @@ window.renderReplyFeed =
 
 window.renderReplySkeleton =
     renderReplySkeleton;
-window.bindShareButton =
-    bindShareButton;
 
 window.bindActionBar =
     bindActionBar;
