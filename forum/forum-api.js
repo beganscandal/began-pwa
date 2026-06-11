@@ -53,26 +53,6 @@ window.createReply = async function(payload){
 
 };
 
-window.uploadReplyImage =
-  async function(payload){
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:'POST',
-          body:JSON.stringify({
-            action:
-              'uploadReplyImage',
-            payload:
-              payload
-          })
-        }
-      );
-
-    return response.json();
-
-  };
 
 window.createPost =
   async function(payload){
@@ -152,7 +132,55 @@ async function(payload){
 
   }
 
-};window.uploadPostVideo =
+};
+
+window.uploadReplyImage =
+async function(payload){
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':
+              'text/plain;charset=utf-8'
+          },
+
+          body:JSON.stringify({
+
+            action:
+              'uploadReplyImage',
+
+            payload:
+              payload
+
+          })
+        }
+      );
+
+    const text =
+      await response.text();
+
+    return JSON.parse(text);
+
+  }catch(err){
+
+    console.error(
+      'UPLOAD REPLY FAILED',
+      err
+    );
+
+    throw err;
+
+  }
+
+};
+
+window.uploadPostVideo =
   async function(payload){
 
     const response =
@@ -163,26 +191,6 @@ async function(payload){
           body:JSON.stringify({
             action:'uploadPostVideo',
             payload:payload
-          })
-        }
-      );
-
-    return response.json();
-
-  };
-window.uploadPostImage =
-  async function(payload){
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:'POST',
-          body:JSON.stringify({
-            action:
-              'uploadPostImage',
-            payload:
-              payload
           })
         }
       );
