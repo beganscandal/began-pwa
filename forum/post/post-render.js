@@ -105,51 +105,54 @@ function bindVideoPicker(){
 
 }
 
-function renderHeader() {
+function renderHeader(){
 
-  return `
+    return `
 
-    <header class="post-header">
+        <header class="post-header">
 
-      <button
-        class="post-back-btn"
-        onclick="
-          if(history.length > 1){
+            <button
+                class="post-back-btn"
+                onclick="
+                    if(history.length > 1){
 
-            history.back();
+                        history.back();
 
-          }else{
+                    }else{
 
-            location.href='/forum/';
+                        location.href='/forum/';
 
-          }
-        "
-      >
+                    }
+                "
+            >
 
-        <i class="fas fa-arrow-left"></i>
+                ←
 
-      </button>
+            </button>
 
-      <h1 class="post-header-title">
+            <h1 class="post-header-title">
 
-        Partner Discussion
+                Partner Discussion
 
-      </h1>
+            </h1>
 
-      <button
-        class="post-menu-btn"
-        id="post-share-btn"
-      >
+            <button
+                class="post-menu-btn"
+                onclick="
+                    togglePostMenu();
+                "
+            >
 
-        <i class="fas fa-share-alt"></i>
+                ☰
 
-      </button>
+            </button>
 
-    </header>
+        </header>
 
-  `;
+    `;
 
-}function renderPostCard(post) {
+}
+function renderPostCard(post) {
 
   return `
     <article class="post-card">
