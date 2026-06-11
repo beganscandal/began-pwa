@@ -130,7 +130,12 @@ function bindImagePicker(){
     </div>
 
 `;
-           function bindReplyPreviewActions(){
+                 }
+    );
+
+}
+          
+function bindReplyPreviewActions(){
 
     const preview =
         document.getElementById(
@@ -970,3 +975,12 @@ window.bindActionBar =
 
 window.bindPostLike =
     bindPostLike;
+
+window.bindImagePicker =
+    bindImagePicker;
+
+window.bindVideoPicker =
+    bindVideoPicker;
+
+window.bindReplyPreviewActions =
+    bindReplyPreviewActions;
