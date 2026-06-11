@@ -772,6 +772,8 @@ function bindShareButton(){
 
 }
 
+}
+
 function bindActionBar(){
 
     const replyBtn =
