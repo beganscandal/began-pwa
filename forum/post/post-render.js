@@ -111,62 +111,52 @@ function bindImagePicker(){
 
             preview.innerHTML = `
 
-                <div
-                    class="
-                        reply-preview-card
-                    "
-                >
+    <div class="reply-preview-card">
 
-                    <img
+        <img
+            class="reply-preview-image"
+            src="${url}"
+        >
 
-                        class="
-                            reply-preview-image
-                        "
+        <button
+            class="remove-reply-media"
+            type="button"
+        >
 
-                        src="${url}"
+            ✕
 
-                    >
+        </button>
 
-                    <button
+    </div>
 
-                        id="
-                            remove-reply-media
-                        "
+`;
+           function bindReplyPreviewActions(){
 
-                        type="button"
-
-                    >
-
-                        ✕
-
-                    </button>
-
-                </div>
-
-            `;
-
-            bindRemovePreview();
-
-        }
-    );
-
-}
-function bindRemovePreview(){
-
-    const btn =
+    const preview =
         document.getElementById(
-            'remove-reply-media'
+            'reply-media-preview'
         );
 
-    if(!btn){
+    if(!preview){
 
         return;
 
     }
 
-    btn.addEventListener(
+    preview.addEventListener(
         'click',
-        function(){
+        function(e){
+
+            const removeBtn =
+                e.target.closest(
+                    '.remove-reply-media'
+                );
+
+            if(!removeBtn){
+
+                return;
+
+            }
 
             selectedReplyImageFile =
                 null;
@@ -175,16 +165,12 @@ function bindRemovePreview(){
                 'reply-image-input'
             ).value = '';
 
-            document.getElementById(
-                'reply-media-preview'
-            ).innerHTML = '';
+            preview.innerHTML = '';
 
         }
     );
 
 }
-
-
 
 function bindVideoPicker(){
 
