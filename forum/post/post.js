@@ -68,7 +68,7 @@ async function init(){
 bindActionBar();
 
 bindPostLike();
-        bindShareButton();
+        
 
     }catch(err){
 
