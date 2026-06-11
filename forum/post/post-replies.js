@@ -77,51 +77,108 @@ function bindReplySubmit(postId){
                     );
 
                 if(
-                    !partner.id ||
-                    !partner.toko
-                ){
-                    alert(
-                        'Partner session tidak ditemukan'
-                    );
+    !partner.id ||
+    !partner.toko
+){
+    alert(
+        'Partner session tidak ditemukan'
+    );
 
-                    return;
-                }
+    return;
+}
 
-                await createReply({
+if(selectedReplyImageFile){
 
-                    postId:
-                        postId,
+    const base64 =
+        await fileToBase64(
+            selectedReplyImageFile
+        );
 
-                    partnerId:
-                        partner.id,
+    const upload =
+        await uploadReplyImage({
 
-                    toko:
-                        partner.toko,
+            fileName:
+                selectedReplyImageFile.name,
 
-                    partnerName:
-                        partner.toko,
+            mimeType:
+                selectedReplyImageFile.type,
 
-                    content:
-                        content,
+            base64:
+                base64.split(',')[1]
 
-                    imageUrl:
-                        selectedReplyImageUrl,
+        });
 
-                    videoUrl:
-                        selectedReplyVideoUrl
+    selectedReplyImageUrl =
+        upload.url;
 
-                });
+}
+
+await createReply({
+
+    postId:
+        postId,
+
+    partnerId:
+        partner.id,
+
+    toko:
+        partner.toko,
+
+    partnerName:
+        partner.toko,
+
+    content:
+        content,
+
+    imageUrl:
+        selectedReplyImageUrl,
+
+    videoUrl:
+        selectedReplyVideoUrl
+
+});
 
                 textarea.value = '';
 
-                selectedReplyImageUrl = '';
+selectedReplyImageUrl = '';
 
-                selectedReplyVideoUrl = '';
+selectedReplyVideoUrl = '';
 
-                document.getElementById(
-                    'reply-media-preview'
-                ).innerHTML = '';
+selectedReplyImageFile = null;
 
+selectedReplyVideoFile = null;
+
+const imageInput =
+    document.getElementById(
+        'reply-image-input'
+    );
+
+if(imageInput){
+
+    imageInput.value = '';
+
+}
+const preview =
+    document.getElementById(
+        'reply-media-preview'
+    );
+
+if(preview){
+
+    preview.innerHTML = '';
+
+}
+                
+const videoInput =
+    document.getElementById(
+        'reply-video-input'
+    );
+
+if(videoInput){
+
+    videoInput.value = '';
+
+}
                 await loadReplies(
                     postId
                 );
@@ -143,6 +200,7 @@ function bindReplySubmit(postId){
 function fileToBase64(file){
 
     return new Promise(
+
         function(resolve,reject){
 
             const reader =
@@ -153,7 +211,6 @@ function fileToBase64(file){
 
                     resolve(
                         reader.result
-                            .split(',')[1]
                     );
 
                 };
@@ -166,9 +223,11 @@ function fileToBase64(file){
             );
 
         }
+
     );
 
 }
+
 
 window.loadReplies =
     loadReplies;
