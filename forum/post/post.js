@@ -57,8 +57,10 @@ async function init(){
         );
 
         bindImagePicker();
-
+         
         bindVideoPicker();
+
+        bindReplyPreviewActions();
 
         bindReplySubmit(
             postId
@@ -68,6 +70,7 @@ async function init(){
 bindActionBar();
 
 bindPostLike();
+       
         
 
     }catch(err){
