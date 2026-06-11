@@ -303,6 +303,12 @@
   color:#ff4d6d;
 
 }
+.post-header{
+
+    position:relative;
+
+}
+
 .post-back-btn,
 .post-menu-btn{
 
@@ -316,37 +322,34 @@
 
     height:40px;
 
-    border:none;
-
-    background:#111;
-
-    color:#fff;
-
-    border-radius:12px;
-
-    z-index:20;
-
-}
-.post-back-btn{
-    left:16px;
-}
-.post-menu-btn{
-    right:16px;
-}
-
-
-.post-header{
-
-    position:relative;
-
     display:flex;
 
     align-items:center;
 
     justify-content:center;
 
-    min-height:60px;
+    border:none;
 
-    padding:0 60px;
+    background:transparent;
+
+    color:#fff;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    z-index:100;
+
+}
+
+.post-back-btn{
+
+    left:16px;
+
+}
+
+.post-menu-btn{
+
+    right:16px;
 
 }
