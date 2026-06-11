@@ -2,6 +2,10 @@ let selectedReplyImageUrl = '';
 
 let selectedReplyVideoUrl = '';
 
+let selectedReplyImageFile = null;
+
+let selectedReplyVideoFile = null;
+
 async function loadReplies(postId){
 
     const container =
@@ -131,6 +135,35 @@ function bindReplySubmit(postId){
                 btn.disabled = false;
 
             }
+
+        }
+    );
+
+}
+function fileToBase64(file){
+
+    return new Promise(
+        function(resolve,reject){
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                function(){
+
+                    resolve(
+                        reader.result
+                            .split(',')[1]
+                    );
+
+                };
+
+            reader.onerror =
+                reject;
+
+            reader.readAsDataURL(
+                file
+            );
 
         }
     );
