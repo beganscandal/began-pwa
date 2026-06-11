@@ -353,3 +353,14 @@
     right:16px;
 
 }
+
+.post-back-btn,
+.post-menu-btn{
+
+    position:fixed;
+
+    top:24px;
+
+    z-index:999;
+
+}
