@@ -1,3 +1,5 @@
+let selectedReplyImageFile = null;
+
 function getInitials(name) {
 
     if (!name) return '?';
@@ -52,32 +54,138 @@ function renderPostPage(post) {
   `;
 
 }
+
+
 function bindImagePicker(){
 
-  const btn =
-    document.getElementById(
-      'reply-image-btn'
-    );
+    const btn =
+        document.getElementById(
+            'reply-image-btn'
+        );
 
-  const input =
-    document.getElementById(
-      'reply-image-input'
-    );
+    const input =
+        document.getElementById(
+            'reply-image-input'
+        );
 
-  if(!btn || !input){
-    return;
-  }
+    const preview =
+        document.getElementById(
+            'reply-media-preview'
+        );
 
-  btn.addEventListener(
-    'click',
-    function(){
+    if(!btn || !input || !preview){
 
-      input.click();
+        return;
 
     }
-  );
+
+    btn.addEventListener(
+        'click',
+        function(){
+
+            input.click();
+
+        }
+    );
+
+    input.addEventListener(
+        'change',
+        function(e){
+
+            const file =
+                e.target.files[0];
+
+            if(!file){
+
+                return;
+
+            }
+
+            selectedReplyImageFile =
+                file;
+
+            const url =
+                URL.createObjectURL(
+                    file
+                );
+
+            preview.innerHTML = `
+
+                <div
+                    class="
+                        reply-preview-card
+                    "
+                >
+
+                    <img
+
+                        class="
+                            reply-preview-image
+                        "
+
+                        src="${url}"
+
+                    >
+
+                    <button
+
+                        id="
+                            remove-reply-media
+                        "
+
+                        type="button"
+
+                    >
+
+                        ✕
+
+                    </button>
+
+                </div>
+
+            `;
+
+            bindRemovePreview();
+
+        }
+    );
 
 }
+function bindRemovePreview(){
+
+    const btn =
+        document.getElementById(
+            'remove-reply-media'
+        );
+
+    if(!btn){
+
+        return;
+
+    }
+
+    btn.addEventListener(
+        'click',
+        function(){
+
+            selectedReplyImageFile =
+                null;
+
+            document.getElementById(
+                'reply-image-input'
+            ).value = '';
+
+            document.getElementById(
+                'reply-media-preview'
+            ).innerHTML = '';
+
+        }
+    );
+
+}
+
+
+
 function bindVideoPicker(){
 
     const btn =
