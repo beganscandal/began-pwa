@@ -341,6 +341,7 @@ selectedInlineVideoUrl = '';
 
                             );
                         bindInlineImagePicker();
+                        bindInlineVideoPicker();
 
                     };
 
@@ -441,6 +442,120 @@ function bindInlineImagePicker(){
 
                                 <button
                                     class="remove-inline-media"
+                                    type="button"
+                                >
+
+                                    ✕
+
+                                </button>
+
+                            </div>
+
+                        `;
+
+                    };
+
+            }
+
+        );
+
+}
+function bindInlineVideoPicker(){
+
+    document
+        .querySelectorAll(
+            '.reply-inline-video-btn'
+        )
+        .forEach(
+
+            function(btn){
+
+                btn.onclick =
+                    function(){
+
+                        const composer =
+                            btn.closest(
+                                '.reply-inline-composer'
+                            );
+
+                        if(!composer){
+
+                            return;
+
+                        }
+
+                        composer
+                            .querySelector(
+                                '.reply-inline-video-input'
+                            )
+                            ?.click();
+
+                    };
+
+            }
+
+        );
+
+    document
+        .querySelectorAll(
+            '.reply-inline-video-input'
+        )
+        .forEach(
+
+            function(input){
+
+                input.onchange =
+                    function(e){
+
+                        const file =
+                            e.target.files[0];
+
+                        if(!file){
+
+                            return;
+
+                        }
+
+                        selectedInlineVideoFile =
+                            file;
+
+                        const composer =
+                            input.closest(
+                                '.reply-inline-composer'
+                            );
+
+                        const preview =
+                            composer?.querySelector(
+                                '.reply-inline-preview'
+                            );
+
+                        if(!preview){
+
+                            return;
+
+                        }
+
+                        const url =
+                            URL.createObjectURL(
+                                file
+                            );
+
+                        preview.innerHTML = `
+
+                            <div class="reply-preview-card">
+
+                                <video
+                                    class="
+                                        reply-preview-video
+                                    "
+                                    controls
+                                    src="${url}"
+                                ></video>
+
+                                <button
+                                    class="
+                                        remove-inline-media
+                                    "
                                     type="button"
                                 >
 
