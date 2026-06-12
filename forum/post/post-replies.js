@@ -87,6 +87,11 @@ function bindReplySubmit(postId){
 
 }
             btn.disabled = true;
+            const originalText =
+    btn.textContent;
+
+btn.textContent =
+    'Sending...';
 
             try{
 
@@ -238,6 +243,9 @@ if(videoInput){
             }finally{
 
                 btn.disabled = false;
+                btn.textContent =
+        originalText;
+
 
             }
 
