@@ -26,6 +26,21 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 
 }
+function formatMentions(text){
+
+    return escapeHtml(
+
+        text || ''
+
+    ).replace(
+
+        /@(\S+)/g,
+
+        '<span class="mention-text">@$1</span>'
+
+    );
+
+}
 
 
 function renderPostPage(post) {
