@@ -761,7 +761,8 @@ function renderInlineComposer(
 
     `;
 
-}function renderReplyFeed(replies) {
+}
+function renderReplyFeed(replies) {
 
     replies = replies || [];
 
