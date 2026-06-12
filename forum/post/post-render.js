@@ -684,20 +684,13 @@ function renderReplyCard(reply) {
                 </button>
 
                <button
-
     class="
         reply-action-btn
         reply-mention-btn
     "
-
-    data-toko="
-        ${reply.toko}
-    "
-
+    data-toko="${escapeHtml(reply.toko)}"
 >
-
     ↩ Reply
-
 </button>
 
             </div>
