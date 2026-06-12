@@ -75,10 +75,17 @@ function bindReplySubmit(postId){
             const content =
                 textarea.value.trim();
 
-            if(!content){
-                return;
-            }
+            if(
 
+    !content &&
+    !selectedReplyImageFile &&
+    !selectedReplyVideoFile
+
+){
+
+    return;
+
+}
             btn.disabled = true;
 
             try{
@@ -698,11 +705,17 @@ function bindInlineReplySubmit(
             const content =
                 textarea?.value.trim();
 
-            if(!content){
+           if(
 
-                return;
+    !content &&
+    !selectedInlineImageFile &&
+    !selectedInlineVideoFile
 
-            }
+){
+
+    return;
+
+}
 
             btn.disabled = true;
 
@@ -735,6 +748,69 @@ function bindInlineReplySubmit(
                     return;
 
                 }
+        
+            if(selectedInlineImageFile){
+
+    const base64 =
+
+        await fileToBase64(
+
+            selectedInlineImageFile
+
+        );
+
+    const upload =
+
+        await uploadReplyImage({
+
+            fileName:
+                selectedInlineImageFile.name,
+
+            mimeType:
+                selectedInlineImageFile.type,
+
+            base64:
+                base64
+                    .split(',')[1]
+
+        });
+
+    selectedInlineImageUrl =
+
+        upload.fileUrl;
+}                    
+                
+    if(selectedInlineVideoFile){
+
+    const base64 =
+
+        await fileToBase64(
+
+            selectedInlineVideoFile
+
+        );
+
+    const upload =
+
+        await uploadReplyVideo({
+
+            fileName:
+                selectedInlineVideoFile.name,
+
+            mimeType:
+                selectedInlineVideoFile.type,
+
+            base64:
+                base64
+                    .split(',')[1]
+
+        });
+
+    selectedInlineVideoUrl =
+
+        upload.videoUrl;
+
+}
 
                 await createReply({
 
@@ -755,10 +831,28 @@ function bindInlineReplySubmit(
                         partner.toko,
 
                     content:
-                        content
+                        content,
+                  
+                    imageUrl: 
+                selectedInlineImageUrl,
+
+                    videoUrl:
+                selectedInlineVideoUrl
 
                 });
 
+                
+            selectedInlineImageFile =
+            null;
+
+            selectedInlineVideoFile =
+            null;
+
+            selectedInlineImageUrl =
+            '';
+
+            selectedInlineVideoUrl =
+            '';
                 await loadReplies(
 
                     new URLSearchParams(
