@@ -434,7 +434,11 @@ function bindInlineReplyComposer(){
             textarea.setSelectionRange(
                 textarea.value.length,
                 textarea.value.length
-            };
+          );
+
+                        }
+
+                    };
 
             }
 
