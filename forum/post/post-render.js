@@ -683,17 +683,22 @@ function renderReplyCard(reply) {
                     ❤️ ${reply.likeCount || 0}
                 </button>
 
-               <button
+              <button
     class="
         reply-action-btn
-        reply-mention-btn
+        reply-inline-btn
     "
     data-toko="${escapeHtml(reply.toko)}"
+    data-reply-id="${reply.replyId}"
 >
     ↩ Reply
 </button>
 
             </div>
+            <div
+    class="reply-inline-root"
+    id="reply-inline-${reply.replyId}"
+></div>
 
         </article>
     `;
