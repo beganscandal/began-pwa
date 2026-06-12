@@ -5,6 +5,15 @@ let selectedReplyVideoUrl = '';
 let selectedReplyImageFile = null;
 
 let selectedReplyVideoFile = null;
+
+let selectedInlineImageFile = null;
+
+let selectedInlineVideoFile = null;
+
+let selectedInlineImageUrl = '';
+
+let selectedInlineVideoUrl = '';
+
 let selectedMentionToko = '';
 
 async function loadReplies(postId){
@@ -286,6 +295,13 @@ function bindInlineReplyComposer(){
                             return;
 
                         }
+                        selectedInlineImageFile = null;
+
+selectedInlineVideoFile = null;
+
+selectedInlineImageUrl = '';
+
+selectedInlineVideoUrl = '';
 
                         document
                             .querySelectorAll(
@@ -309,7 +325,7 @@ function bindInlineReplyComposer(){
                                 replyId
 
                             );
-
+                        
                         if(!root){
 
                             return;
@@ -324,6 +340,117 @@ function bindInlineReplyComposer(){
                                 replyId
 
                             );
+                        bindInlineImagePicker();
+
+                    };
+
+            }
+
+        );
+
+}
+
+function bindInlineImagePicker(){
+
+    document
+        .querySelectorAll(
+            '.reply-inline-image-btn'
+        )
+        .forEach(
+
+            function(btn){
+
+                btn.onclick =
+                    function(){
+
+                        const composer =
+                            btn.closest(
+                                '.reply-inline-composer'
+                            );
+
+                        if(!composer){
+
+                            return;
+
+                        }
+
+                        composer
+                            .querySelector(
+                                '.reply-inline-image-input'
+                            )
+                            ?.click();
+
+                    };
+
+            }
+
+        );
+
+    document
+        .querySelectorAll(
+            '.reply-inline-image-input'
+        )
+        .forEach(
+
+            function(input){
+
+                input.onchange =
+                    function(e){
+
+                        const file =
+                            e.target.files[0];
+
+                        if(!file){
+
+                            return;
+
+                        }
+
+                        selectedInlineImageFile =
+                            file;
+
+                        const composer =
+                            input.closest(
+                                '.reply-inline-composer'
+                            );
+
+                        const preview =
+                            composer?.querySelector(
+                                '.reply-inline-preview'
+                            );
+
+                        if(!preview){
+
+                            return;
+
+                        }
+
+                        const url =
+                            URL.createObjectURL(
+                                file
+                            );
+
+                        preview.innerHTML = `
+
+                            <div class="reply-preview-card">
+
+                                <img
+                                    class="reply-preview-image"
+                                    src="${url}"
+                                >
+
+                                <button
+                                    class="remove-inline-media"
+                                    type="button"
+                                >
+
+                                    ✕
+
+                                </button>
+
+                            </div>
+
+                        `;
 
                     };
 
