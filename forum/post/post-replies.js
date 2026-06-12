@@ -340,6 +340,9 @@ selectedInlineVideoUrl = '';
                                 replyId
 
                             );
+                        bindInlineReplySubmit(
+                            root
+                        );
                         bindInlineImagePicker();
                         bindInlineVideoPicker();
 
@@ -649,6 +652,140 @@ if(videoInput){
             }
 
         );
+
+}
+
+function bindInlineReplySubmit(
+    root
+){
+
+    const btn =
+        root.querySelector(
+            '.reply-inline-submit-btn'
+        );
+
+    if(!btn){
+
+        return;
+
+    }
+
+    btn.onclick =
+        async function(){
+
+            if(btn.disabled){
+
+                return;
+
+            }
+
+            const composer =
+                btn.closest(
+                    '.reply-inline-composer'
+                );
+
+            if(!composer){
+
+                return;
+
+            }
+
+            const textarea =
+                composer.querySelector(
+                    '.reply-inline-input'
+                );
+
+            const content =
+                textarea?.value.trim();
+
+            if(!content){
+
+                return;
+
+            }
+
+            btn.disabled = true;
+
+            const originalText =
+                btn.textContent;
+
+            btn.textContent =
+                'Sending...';
+
+            try{
+
+                const partner =
+                    JSON.parse(
+
+                        localStorage.getItem(
+                            'began_partner'
+                        ) || '{}'
+
+                    );
+
+                if(
+                    !partner.id ||
+                    !partner.toko
+                ){
+
+                    alert(
+                        'Partner session tidak ditemukan'
+                    );
+
+                    return;
+
+                }
+
+                await createReply({
+
+                    postId:
+                        new URLSearchParams(
+                            location.search
+                        ).get(
+                            'postId'
+                        ),
+
+                    partnerId:
+                        partner.id,
+
+                    toko:
+                        partner.toko,
+
+                    partnerName:
+                        partner.toko,
+
+                    content:
+                        content
+
+                });
+
+                await loadReplies(
+
+                    new URLSearchParams(
+                        location.search
+                    ).get(
+                        'postId'
+                    )
+
+                );
+
+            }catch(err){
+
+                console.error(
+                    err
+                );
+
+            }finally{
+
+                btn.disabled =
+                    false;
+
+                btn.textContent =
+                    originalText;
+
+            }
+
+        };
 
 }
 window.loadReplies =
