@@ -757,3 +757,11 @@ body {
 
     cursor:pointer;
 }
+
+.replying-badge span{
+
+    color:#8b5cf6;
+
+    font-weight:600;
+
+}
