@@ -824,3 +824,13 @@ body {
     z-index:5;
 
 }
+
+.reply-mention-text{
+
+    color:
+        #7c5cff;
+
+    font-weight:
+        600;
+
+}
