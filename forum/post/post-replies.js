@@ -5,6 +5,7 @@ let selectedReplyVideoUrl = '';
 let selectedReplyImageFile = null;
 
 let selectedReplyVideoFile = null;
+let selectedMentionToko = '';
 
 async function loadReplies(postId){
 
