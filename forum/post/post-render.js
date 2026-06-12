@@ -1206,6 +1206,10 @@ function bindPostLike(){
     );
 
 } 
+
+window.formatMentions =
+    formatMentions;
+
 window.renderPostPage =
     renderPostPage;
 
