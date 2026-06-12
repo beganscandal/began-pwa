@@ -834,3 +834,73 @@ body {
         700;
 
 }
+
+@media (max-width:768px){
+
+    .post-page-content{
+
+        padding:12px;
+
+    }
+
+    .reply-composer{
+
+        padding:12px;
+
+    }
+
+    .reply-composer-avatar{
+
+        width:42px;
+        height:42px;
+
+        font-size:14px;
+
+    }
+
+    .reply-input{
+
+        min-height:72px;
+
+    }
+
+}
+@media
+screen
+and (max-height:430px)
+and (orientation:landscape){
+
+    .reply-composer{
+
+        padding:12px;
+
+    }
+
+    .reply-composer-avatar{
+
+        width:36px;
+        height:36px;
+
+        font-size:13px;
+
+    }
+
+    .reply-input{
+
+        min-height:48px;
+
+    }
+
+    .reply-toolbar{
+
+        margin-top:8px;
+
+    }
+
+    .reply-submit-btn{
+
+        padding:8px 14px;
+
+    }
+
+}
