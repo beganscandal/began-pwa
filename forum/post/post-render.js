@@ -1,7 +1,7 @@
 
 function getInitials(name) {
 
-    if (!name) return '?';
+    if (!name) return '?';  
 
    return name
         .trim()
