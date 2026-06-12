@@ -254,6 +254,56 @@ function fileToBase64(file){
     );
 
 }
+function bindReplyMention(){
+
+    document
+        .querySelectorAll(
+            '.reply-mention-btn'
+        )
+        .forEach(
+
+            function(btn){
+
+                btn.onclick =
+                    function(){
+
+                        const toko =
+                            btn.dataset.toko;
+
+                        if(!toko){
+
+                            return;
+
+                        }
+
+                        selectedMentionToko =
+                            toko;
+
+                        const textarea =
+                            document.getElementById(
+                                'reply-input'
+                            );
+
+                        if(!textarea){
+
+                            return;
+
+                        }
+
+                        textarea.value =
+                            '@' +
+                            toko +
+                            ' ';
+
+                        textarea.focus();
+
+                    };
+
+            }
+
+        );
+
+}
 
 
 window.loadReplies =
