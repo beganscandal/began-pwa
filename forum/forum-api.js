@@ -261,18 +261,28 @@ window.uploadReplyVideo =
 
   };
 
-async function incrementPostViewCount(
-    postId
-){
+window.incrementPostViewCount =
+    async function(postId){
 
-    return apiPost({
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method:'POST',
 
-        action:
-            'incrementPostViewCount',
+                    body:JSON.stringify({
 
-        postId:
-            postId
+                        action:
+                            'incrementPostViewCount',
 
-    });
+                        postId:
+                            postId
 
-}
+                    })
+
+                }
+            );
+
+        return response.json();
+
+    };
