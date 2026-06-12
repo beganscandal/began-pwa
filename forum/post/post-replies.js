@@ -209,6 +209,7 @@ if(videoInput){
                 await loadReplies(
                     postId
                 );
+                bindReplyMention();
 
             }catch(err){
 
