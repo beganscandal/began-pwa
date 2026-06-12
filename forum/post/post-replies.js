@@ -210,6 +210,7 @@ if(videoInput){
                     postId
                 );
                 bindReplyMention();
+                bindInlineReplyComposer();
 
             }catch(err){
 
@@ -304,6 +305,100 @@ function bindReplyMention(){
                             textarea.value.length,
                             textarea.value.length
                         );
+
+                    };
+
+            }
+
+        );
+
+}
+function renderInlineComposer(toko){
+
+    return `
+
+        <div class="reply-inline-composer">
+
+            <div class="reply-inline-header">
+
+                Membalas
+                <span class="reply-inline-mention">
+                    @${toko}
+                </span>
+
+                <button
+                    class="reply-inline-close"
+                    type="button"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+function bindInlineReplyComposer(){
+
+    document
+        .querySelectorAll(
+            '.reply-inline-btn'
+        )
+        .forEach(
+
+            function(btn){
+
+                btn.onclick =
+                    function(){
+
+                        const toko =
+                            btn.dataset.toko;
+
+                        const replyId =
+                            btn.dataset.replyId;
+
+                        if(
+                            !toko ||
+                            !replyId
+                        ){
+
+                            return;
+
+                        }
+
+                        document
+                            .querySelectorAll(
+                                '.reply-inline-root'
+                            )
+                            .forEach(
+
+                                function(root){
+
+                                    root.innerHTML =
+                                        '';
+
+                                }
+
+                            );
+
+                        const root =
+                            document.getElementById(
+                                'reply-inline-' +
+                                replyId
+                            );
+
+                        if(!root){
+
+                            return;
+
+                        }
+
+                        root.innerHTML =
+                            renderInlineComposer(
+                                toko
+                            );
 
                     };
 
