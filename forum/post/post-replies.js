@@ -351,63 +351,96 @@ function bindInlineReplyComposer(){
             function(btn){
 
                 btn.onclick =
-                    function(){
+    function(){
 
-                        const toko =
-                            btn.dataset.toko;
+        const toko =
+            btn.dataset.toko;
 
-                        const replyId =
-                            btn.dataset.replyId;
+        const replyId =
+            btn.dataset.replyId;
 
-                        if(
-                            !toko ||
-                            !replyId
-                        ){
+        if(
+            !toko ||
+            !replyId
+        ){
 
-                            return;
+            return;
 
-                        }
+        }
 
-                        document
-                            .querySelectorAll(
-                                '.reply-inline-root'
-                            )
-                            .forEach(
+        const composer =
+            document.getElementById(
+                'reply-composer-root'
+            );
 
-                                function(root){
+        if(!composer){
 
-                                    root.innerHTML =
-                                        '';
+            return;
 
-                                }
+        }
 
-                            );
+        document
+            .querySelectorAll(
+                '.reply-inline-root'
+            )
+            .forEach(
 
-                        const root =
-                            document.getElementById(
-                                'reply-inline-' +
-                                replyId
-                            );
+                function(root){
 
-                        if(!root){
-
-                            return;
-
-                        }
+                    if(
+                        root !==
+                        composer.parentNode
+                    ){
 
                         root.innerHTML =
-                            renderInlineComposer(
-                                toko
-                            );
+                            '';
 
-                    };
+                    }
+
+                }
+
+            );
+
+        const root =
+            document.getElementById(
+                'reply-inline-' +
+                replyId
+            );
+
+        if(!root){
+
+            return;
+
+        }
+
+        root.appendChild(
+            composer
+        );
+
+        const textarea =
+            document.getElementById(
+                'reply-input'
+            );
+
+        if(textarea){
+
+            textarea.value =
+                '@' +
+                toko +
+                ' ';
+
+            textarea.focus();
+
+            textarea.setSelectionRange(
+                textarea.value.length,
+                textarea.value.length
+            };
 
             }
 
         );
 
 }
-
 window.loadReplies =
     loadReplies;
 
