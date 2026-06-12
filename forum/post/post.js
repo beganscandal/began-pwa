@@ -25,56 +25,45 @@ async function init(){
                 location.search
             );
 
-        const postId =
-            params.get(
-                'postId'
-            );
+       const postId =
+    params.get(
+        'postId'
+    );
 
-        if(!postId){
+if(!postId){
 
-            location.href =
-                '/forum/';
+    location.href =
+        '/forum/';
 
-            return;
-            const viewedKey =
+    return;
 
+}
+
+const viewedKey =
     'forum_view_' +
-
     postId;
 
 if(
-
     !sessionStorage.getItem(
-
         viewedKey
-
     )
-
 ){
 
     await incrementPostViewCount(
-
         postId
-
     );
 
     sessionStorage.setItem(
-
         viewedKey,
-
         '1'
-
     );
 
 }
 
-        }
-
-        const data =
-            await getPost(
-                postId
-            );
-
+const data =
+    await getPost(
+        postId
+    );
         const post =
             data.post || {};
 
