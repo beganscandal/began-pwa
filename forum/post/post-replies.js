@@ -108,10 +108,36 @@ if(selectedReplyImageFile){
 
         });
 
-   selectedReplyImageUrl = upload.fileUrl;
+   selectedReplyImageUrl =
+    upload.fileUrl;
 
 }
 
+if(selectedReplyVideoFile){
+
+    const base64 =
+        await fileToBase64(
+            selectedReplyVideoFile
+        );
+
+    const upload =
+        await uploadReplyVideo({
+
+            fileName:
+                selectedReplyVideoFile.name,
+
+            mimeType:
+                selectedReplyVideoFile.type,
+
+            base64:
+                base64.split(',')[1]
+
+        });
+
+    selectedReplyVideoUrl =
+        upload.videoUrl;
+
+}
 await createReply({
 
     postId:
