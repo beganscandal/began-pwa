@@ -65,7 +65,6 @@ async function init(){
         bindReplySubmit(
             postId
         );
-        bindReplyMention();
        
 
 bindActionBar();
