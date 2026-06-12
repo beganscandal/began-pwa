@@ -683,15 +683,29 @@ function renderReplyCard(reply) {
                     ❤️ ${reply.likeCount || 0}
                 </button>
 
-                <button class="reply-action-btn">
-                    ↩ Reply
-                </button>
+               <button
+
+    class="
+        reply-action-btn
+        reply-mention-btn
+    "
+
+    data-toko="
+        ${reply.toko}
+    "
+
+>
+
+    ↩ Reply
+
+</button>
 
             </div>
 
         </article>
     `;
 }
+
 function renderReplyMedia(reply){
 
     if(reply.videoUrl){
