@@ -13,6 +13,7 @@ async function loadReplies(postId){
         document.getElementById(
             'reply-feed-root'
         );
+    
 
     if(!container){
         return;
@@ -30,6 +31,9 @@ async function loadReplies(postId){
             renderReplyFeed(
                 data.replies || []
             );
+        bindReplyMention();
+
+bindInlineReplyComposer();
 
     }catch(err){
 
