@@ -508,7 +508,10 @@ function renderActionBar(post) {
 function renderReplyComposer() {
 
   return `
-    <section class="reply-composer">
+    <section
+    class="reply-composer"
+    id="reply-composer-root"
+>
 
       ${
         (() => {
