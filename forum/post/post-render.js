@@ -825,14 +825,19 @@ function renderReplyCard(reply) {
 
             <div class="reply-text">
     ${
-      escapeHtml(
+      formatMentions(
+
         reply.content
+
       ).replace(
+
         /\n/g,
+
         '<br>'
+
       )
     }
-           </div>
+</div>
            
             ${renderReplyMedia(reply)}
 
