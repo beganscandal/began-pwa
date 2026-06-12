@@ -269,7 +269,9 @@ function bindReplyMention(){
                     function(){
 
                         const toko =
-                            btn.dataset.toko;
+                            String(
+                                btn.dataset.toko || ''
+                            ).trim();
 
                         if(!toko){
 
@@ -298,6 +300,11 @@ function bindReplyMention(){
 
                         textarea.focus();
 
+                        textarea.setSelectionRange(
+                            textarea.value.length,
+                            textarea.value.length
+                        );
+
                     };
 
             }
@@ -305,7 +312,6 @@ function bindReplyMention(){
         );
 
 }
-
 
 window.loadReplies =
     loadReplies;
