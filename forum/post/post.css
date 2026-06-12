@@ -837,35 +837,37 @@ body {
 
 @media (max-width:768px){
 
-    .post-page-content{
-
-        padding:12px;
-
-    }
-
     .reply-composer{
 
+        gap:10px;
+
         padding:12px;
 
     }
 
-    .reply-composer-avatar{
+    .reply-toolbar{
 
-        width:42px;
-        height:42px;
+        flex-wrap:wrap;
 
-        font-size:14px;
-
-    }
-
-    .reply-input{
-
-        min-height:72px;
+        gap:10px;
 
     }
 
-}
-@media
+    .reply-toolbar-left{
+
+        order:2;
+
+    }
+
+    .reply-submit-btn{
+
+        order:1;
+
+        margin-left:auto;
+
+    }
+
+}@media
 screen
 and (max-height:430px)
 and (orientation:landscape){
@@ -900,6 +902,30 @@ and (orientation:landscape){
     .reply-submit-btn{
 
         padding:8px 14px;
+
+    }
+
+}
+@media
+screen
+and (max-height:430px)
+and (orientation:landscape){
+
+    .reply-composer{
+
+        padding:12px;
+
+    }
+
+    .reply-input{
+
+        min-height:48px;
+
+    }
+
+    .reply-toolbar{
+
+        gap:8px;
 
     }
 
