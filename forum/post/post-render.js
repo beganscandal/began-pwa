@@ -606,7 +606,162 @@ function renderReplyComposer() {
   `;
 }
 
-function renderReplyFeed(replies) {
+function renderInlineComposer(
+    toko,
+    replyId
+){
+
+    return `
+
+        <section
+    class="
+        reply-composer
+        reply-inline-composer
+    "
+    data-reply-id="${replyId}"
+    data-toko="${escapeHtml(toko)}"
+>
+
+            <div
+                class="
+                    reply-composer-avatar
+                "
+            >
+
+                ${
+                    getInitials(
+                        JSON.parse(
+                            localStorage.getItem(
+                                'began_partner'
+                            ) || '{}'
+                        ).toko
+                    )
+                }
+
+            </div>
+
+            <div
+                class="
+                    reply-composer-body
+                "
+            >
+
+                <textarea
+
+                    class="
+                        reply-input
+                        reply-inline-input
+                    "
+
+                    placeholder="
+                        Write your reply...
+                    "
+
+                >@${escapeHtml(toko)} </textarea>
+
+                <input
+
+                    class="
+                        reply-inline-image-input
+                    "
+
+                    type="file"
+
+                    accept="image/*"
+
+                    hidden
+
+                >
+
+                <input
+
+                    class="
+                        reply-inline-video-input
+                    "
+
+                    type="file"
+
+                    accept="video/*"
+
+                    hidden
+
+                >
+
+                <div
+
+                    class="
+                        reply-media-preview
+                        reply-inline-preview
+                    "
+
+                ></div>
+
+                <div
+                    class="
+                        reply-toolbar
+                    "
+                >
+
+                    <div
+                        class="
+                            reply-toolbar-left
+                        "
+                    >
+
+                        <button
+
+                            class="
+                                reply-inline-image-btn
+                            "
+
+                            type="button"
+                        >
+
+                            🖼
+
+                        </button>
+
+                        <button
+
+                            class="
+                                reply-inline-video-btn
+                            "
+
+                            type="button"
+                        >
+
+                            🎥
+
+                        </button>
+
+                    </div>
+
+                    <button
+
+                        class="
+                            reply-submit-btn
+                            reply-inline-submit-btn
+                        "
+
+                        data-reply-id="${replyId}"
+
+                        data-toko="${escapeHtml(toko)}"
+
+                    >
+
+                        Send
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}function renderReplyFeed(replies) {
 
     replies = replies || [];
 
