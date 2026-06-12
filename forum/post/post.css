@@ -930,3 +930,104 @@ and (orientation:landscape){
     }
 
 }
+@media (max-width:768px){
+
+    .post-page-content{
+
+        padding:8px;
+
+    }
+
+    .post-card,
+    .reply-card{
+
+        padding:14px;
+
+        border-radius:16px;
+
+    }
+
+    .post-header{
+
+        padding:14px 12px;
+
+    }
+
+    .post-header-title{
+
+        font-size:22px;
+
+    }
+
+    .post-back-btn,
+    .post-menu-btn{
+
+        width:44px;
+        height:44px;
+
+        font-size:22px;
+
+    }
+
+    .post-title{
+
+        font-size:24px;
+
+    }
+
+    .post-content{
+
+        font-size:16px;
+
+        line-height:1.8;
+
+    }
+
+    .reply-name{
+
+        font-size:16px;
+
+    }
+
+    .reply-time{
+
+        font-size:13px;
+
+    }
+
+    .reply-text{
+
+        font-size:15px;
+
+        line-height:1.8;
+
+    }
+
+}
+@media
+screen
+and (orientation:landscape)
+and (max-height:430px){
+
+    .post-page-content{
+
+        padding:12px;
+
+    }
+
+    .post-card,
+    .reply-card{
+
+        padding:14px;
+
+    }
+
+    .post-media img{
+
+        max-height:280px;
+
+        object-fit:contain;
+
+    }
+
+}
