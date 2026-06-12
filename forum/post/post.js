@@ -36,6 +36,37 @@ async function init(){
                 '/forum/';
 
             return;
+            const viewedKey =
+
+    'forum_view_' +
+
+    postId;
+
+if(
+
+    !sessionStorage.getItem(
+
+        viewedKey
+
+    )
+
+){
+
+    await incrementPostViewCount(
+
+        postId
+
+    );
+
+    sessionStorage.setItem(
+
+        viewedKey,
+
+        '1'
+
+    );
+
+}
 
         }
 
