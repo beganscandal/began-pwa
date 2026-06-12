@@ -333,14 +333,20 @@ function renderPostCard(post) {
 
       <div class="post-content">
   ${
-    escapeHtml(
+    formatMentions(
+
       post.content
+
     ).replace(
+
       /\n/g,
+
       '<br>'
+
     )
   }
 </div>
+
 
       ${renderPostMedia(post)}
 
