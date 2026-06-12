@@ -260,3 +260,19 @@ window.uploadReplyVideo =
     return JSON.parse(text);
 
   };
+
+async function incrementPostViewCount(
+    postId
+){
+
+    return apiPost({
+
+        action:
+            'incrementPostViewCount',
+
+        postId:
+            postId
+
+    });
+
+}
