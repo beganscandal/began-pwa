@@ -623,17 +623,26 @@ function bindInlineRemoveMedia(){
                         selectedInlineVideoUrl =
                             '';
 
-                        composer
-                            .querySelector(
-                                '.reply-inline-image-input'
-                            )
-                            ?.value = '';
+                        const imageInput =
+    composer.querySelector(
+        '.reply-inline-image-input'
+    );
 
-                        composer
-                            .querySelector(
-                                '.reply-inline-video-input'
-                            )
-                            ?.value = '';
+if(imageInput){
+
+    imageInput.value = '';
+
+}
+                       const videoInput =
+    composer.querySelector(
+        '.reply-inline-video-input'
+    );
+
+if(videoInput){
+
+    videoInput.value = '';
+
+}
 
                     };
 
