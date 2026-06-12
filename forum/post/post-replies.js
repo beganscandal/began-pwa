@@ -31,7 +31,7 @@ async function loadReplies(postId){
             renderReplyFeed(
                 data.replies || []
             );
-        bindReplyMention();
+        
 
 bindInlineReplyComposer();
 
@@ -259,90 +259,6 @@ function fileToBase64(file){
     );
 
 }
-function bindReplyMention(){
-
-    document
-        .querySelectorAll(
-            '.reply-mention-btn'
-        )
-        .forEach(
-
-            function(btn){
-
-                btn.onclick =
-                    function(){
-
-                        const toko =
-                            String(
-                                btn.dataset.toko || ''
-                            ).trim();
-
-                        if(!toko){
-
-                            return;
-
-                        }
-
-                        selectedMentionToko =
-                            toko;
-
-                        const textarea =
-                            document.getElementById(
-                                'reply-input'
-                            );
-
-                        if(!textarea){
-
-                            return;
-
-                        }
-
-                        textarea.value =
-                            '@' +
-                            toko +
-                            ' ';
-
-                        textarea.focus();
-
-                        textarea.setSelectionRange(
-                            textarea.value.length,
-                            textarea.value.length
-                        );
-
-                    };
-
-            }
-
-        );
-
-}
-function renderInlineComposer(toko){
-
-    return `
-
-        <div class="reply-inline-composer">
-
-            <div class="reply-inline-header">
-
-                Membalas
-                <span class="reply-inline-mention">
-                    @${toko}
-                </span>
-
-                <button
-                    class="reply-inline-close"
-                    type="button"
-                >
-                    ✕
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
 function bindInlineReplyComposer(){
 
     document
@@ -354,92 +270,60 @@ function bindInlineReplyComposer(){
             function(btn){
 
                 btn.onclick =
-    function(){
+                    function(){
 
-        const toko =
-            btn.dataset.toko;
+                        const toko =
+                            btn.dataset.toko;
 
-        const replyId =
-            btn.dataset.replyId;
+                        const replyId =
+                            btn.dataset.replyId;
 
-        if(
-            !toko ||
-            !replyId
-        ){
+                        if(
+                            !toko ||
+                            !replyId
+                        ){
 
-            return;
-
-        }
-
-        const composer =
-            document.getElementById(
-                'reply-composer-root'
-            );
-
-        if(!composer){
-
-            return;
-
-        }
-
-        document
-            .querySelectorAll(
-                '.reply-inline-root'
-            )
-            .forEach(
-
-                function(root){
-
-                    if(
-                        root !==
-                        composer.parentNode
-                    ){
-
-                        root.innerHTML =
-                            '';
-
-                    }
-
-                }
-
-            );
-
-        const root =
-            document.getElementById(
-                'reply-inline-' +
-                replyId
-            );
-
-        if(!root){
-
-            return;
-
-        }
-
-        root.appendChild(
-            composer
-        );
-
-        const textarea =
-            document.getElementById(
-                'reply-input'
-            );
-
-        if(textarea){
-
-            textarea.value =
-                '@' +
-                toko +
-                ' ';
-
-            textarea.focus();
-
-            textarea.setSelectionRange(
-                textarea.value.length,
-                textarea.value.length
-          );
+                            return;
 
                         }
+
+                        document
+                            .querySelectorAll(
+                                '.reply-inline-root'
+                            )
+                            .forEach(
+
+                                function(root){
+
+                                    root.innerHTML =
+                                        '';
+
+                                }
+
+                            );
+
+                        const root =
+                            document.getElementById(
+
+                                'reply-inline-' +
+                                replyId
+
+                            );
+
+                        if(!root){
+
+                            return;
+
+                        }
+
+                        root.innerHTML =
+
+                            renderInlineComposer(
+
+                                toko,
+                                replyId
+
+                            );
 
                     };
 
