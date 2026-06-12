@@ -108,8 +108,7 @@ if(selectedReplyImageFile){
 
         });
 
-    selectedReplyImageUrl =
-        upload.url;
+   selectedReplyImageUrl = upload.fileUrl;
 
 }
 
@@ -132,6 +131,7 @@ await createReply({
 
     imageUrl:
         selectedReplyImageUrl,
+       
 
     videoUrl:
         selectedReplyVideoUrl
