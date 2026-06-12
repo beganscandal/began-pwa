@@ -188,7 +188,12 @@ function bindVideoPicker(){
             'reply-video-input'
         );
 
-    if(!btn || !input){
+    const preview =
+        document.getElementById(
+            'reply-media-preview'
+        );
+
+    if(!btn || !input || !preview){
         return;
     }
 
@@ -201,8 +206,55 @@ function bindVideoPicker(){
         }
     );
 
-}
+    input.addEventListener(
+        'change',
+        function(e){
 
+            const file =
+                e.target.files[0];
+
+            if(!file){
+
+                return;
+
+            }
+
+            selectedReplyVideoFile =
+                file;
+
+            const url =
+                URL.createObjectURL(
+                    file
+                );
+
+            preview.innerHTML = `
+
+                <div class="reply-preview-card">
+
+                    <video
+                        class="reply-preview-video"
+                        controls
+                        src="${url}"
+                    >
+                    </video>
+
+                    <button
+                        class="remove-reply-media"
+                        type="button"
+                    >
+
+                        ✕
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
 function renderHeader(){
 
     return `
