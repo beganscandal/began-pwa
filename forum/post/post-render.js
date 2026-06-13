@@ -276,24 +276,16 @@ function renderHeader(){
 
         <header class="post-header">
 
-            <button
-                class="post-back-btn"
-                onclick="
-                    if(history.length > 1){
+           <button
+    class="post-back-btn"
+    onclick="
+        location.href='/forum/';
+    "
+>
 
-                        history.back();
+    ←
 
-                    }else{
-
-                        location.href='/forum/';
-
-                    }
-                "
-            >
-
-                ←
-
-            </button>
+</button>
 
             <h1 class="post-header-title">
 
