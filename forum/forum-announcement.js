@@ -21,7 +21,7 @@ function renderAnnouncements(
   }
 
   /*
-   * tidak ada announcement
+   * kosong
    */
 
   if(
@@ -39,22 +39,22 @@ function renderAnnouncements(
   }
 
   /*
-   * hapus loading card
+   * hapus loading
    */
 
   container
+
     .querySelectorAll(
+
       '[data-announcement-loading]'
+
     )
+
     .forEach(function(el){
 
       el.remove();
 
     });
-
-  /*
-   * render announcement
-   */
 
   announcements.forEach(
 
@@ -162,7 +162,9 @@ function buildAnnouncementCard(
         ">
 
         ${escapeHtml(
+
           item.title || ''
+
         )}
 
       </h3>
@@ -176,7 +178,15 @@ function buildAnnouncementCard(
         ">
 
         ${escapeHtml(
+
           item.content || ''
+
+        ).replace(
+
+          /\n/g,
+
+          '<br>'
+
         )}
 
       </p>
@@ -194,14 +204,6 @@ function buildAnnouncementCard(
         <span>
 
           BEGAN OFFICIAL
-
-        </span>
-
-        <span>
-
-          ${formatRelativeTime(
-            item.createdAt
-          )}
 
         </span>
 
