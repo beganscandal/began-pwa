@@ -246,7 +246,9 @@ ${
 
     <button
       type="button"
-      data-announcement-video="${item.videoUrl}"
+      data-announcement-video="${extractYoutubeId(
+  item.videoUrl
+)}"
       class="
         w-full
         mt-3
@@ -305,62 +307,82 @@ function convertYoutubeEmbed(
 
   }
 
-  if(
+  try{
 
-    url.includes(
-      'youtube.com/embed/'
-    )
+    if(
+      url.includes(
+        '/embed/'
+      )
+    ){
 
-  ){
+      return url;
 
-    return url;
+    }
 
-  }
-
-  if(
-
-    url.includes(
-      'youtu.be/'
-    )
-
-  ){
-
-    const id =
-
-      url.split(
+    if(
+      url.includes(
         'youtu.be/'
-      )[1]
+      )
+    ){
 
-      ?.split('?')[0];
+      const id =
+        url
+          .split(
+            'youtu.be/'
+          )[1]
+          ?.split('?')[0];
 
-    return `https://www.youtube.com/embed/${id}`;
+      return id
+        ? `https://www.youtube.com/embed/${id}`
+        : '';
 
-  }
+    }
 
-  if(
+    if(
+      url.includes(
+        '/watch?v='
+      )
+    ){
 
-    url.includes(
-      'watch?v='
-    )
+      const id =
+        new URL(url)
+          .searchParams
+          .get('v');
 
-  ){
+      return id
+        ? `https://www.youtube.com/embed/${id}`
+        : '';
 
-    const id =
+    }
 
-      new URL(url)
+    if(
+      url.includes(
+        '/shorts/'
+      )
+    ){
 
-        .searchParams
+      const id =
+        url
+          .split(
+            '/shorts/'
+          )[1]
+          ?.split('?')[0];
 
-        .get('v');
+      return id
+        ? `https://www.youtube.com/embed/${id}`
+        : '';
 
-    return `https://www.youtube.com/embed/${id}`;
+    }
+
+  }catch(err){
+
+    console.error(err);
 
   }
 
   return '';
 
 }
-
 function initAnnouncementVideo(){
 
   document.addEventListener(
@@ -493,6 +515,20 @@ function initAnnouncementVideo(){
     );
 
   }
+
+}
+
+function extractYoutubeId(url){
+
+  if(!url) return '';
+
+  const regExp =
+    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
+
+  const match =
+    url.match(regExp);
+
+  return match?.[2] || '';
 
 }
 
