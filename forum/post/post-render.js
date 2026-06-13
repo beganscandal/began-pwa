@@ -519,11 +519,8 @@ function renderActionBar(post) {
         </span>
 
       </button>
-
     </section>
-
   `;
-
 }
 
 function renderReplyComposer() {
