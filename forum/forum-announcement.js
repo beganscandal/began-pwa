@@ -5,6 +5,30 @@
 global.renderAnnouncements =
   renderAnnouncements;
 
+  function updateAnnouncementCount(
+  announcements
+){
+
+  const stat =
+    document.querySelector(
+
+      '[data-template-id="stat-3-value"]'
+
+    );
+
+  if(!stat){
+
+    return;
+
+  }
+
+  stat.textContent =
+
+    announcements.length;
+
+}
+
+
 function renderAnnouncements(
   announcements
 ){
@@ -23,25 +47,29 @@ function renderAnnouncements(
   announcements || []
 );
 
-  if(
+if(
 
-    !announcements ||
+  !announcements ||
 
-    !announcements.length
+  !announcements.length
 
-  ){
+){
 
-    container.remove();
+  container.style.display =
+    'none';
 
-    return;
+  return;
 
-  }
+}
 
-  container
+container.style.display =
+  '';
 
-    .querySelectorAll(
-      'article'
-    )
+ container
+
+  .querySelectorAll(
+    '[data-announcement]'
+  )
 
     .forEach(function(el){
 
@@ -224,25 +252,3 @@ ${escapeAnnouncementHtml(
 
 })(window);
 
-function updateAnnouncementCount(
-  announcements
-){
-
-  const stat =
-    document.querySelector(
-
-      '[data-template-id="stat-3-value"]'
-
-    );
-
-  if(!stat){
-
-    return;
-
-  }
-
-  stat.textContent =
-
-    announcements.length;
-
-}
