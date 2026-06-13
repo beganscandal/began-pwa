@@ -216,6 +216,21 @@ ${escapeAnnouncementHtml(
           text-sm
           mt-1
         ">
+        ${
+  item.image
+  ? `
+    <div class="mt-3">
+
+      <img
+        src="${item.image}"
+        alt="Announcement"
+        class="w-full rounded-lg"
+        loading="lazy">
+
+    </div>
+  `
+  : ''
+}
 
 ${escapeAnnouncementHtml(
   item.content || ''
