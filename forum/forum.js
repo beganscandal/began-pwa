@@ -24,6 +24,10 @@ renderPostSkeleton();
 allPosts =
   data.posts || [];
 
+    renderAnnouncements(
+  data.announcements || []
+);
+
 renderPosts(
   getFilteredPosts()
 );
