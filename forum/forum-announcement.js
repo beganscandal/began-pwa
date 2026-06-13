@@ -258,6 +258,7 @@ ${
         text-red-400
         py-3
         font-semibold
+        cursor-pointer
       ">
 
       ▶ Lihat Video Promosi
