@@ -4,6 +4,8 @@
 
 global.renderAnnouncements =
   renderAnnouncements;
+  global.initAnnouncementVideo =
+  initAnnouncementVideo;
 
   function updateAnnouncementCount(
   announcements
@@ -355,6 +357,141 @@ function convertYoutubeEmbed(
   }
 
   return '';
+
+}
+
+function initAnnouncementVideo(){
+
+  document.addEventListener(
+
+    'click',
+
+    function(e){
+
+      const button =
+
+        e.target.closest(
+
+          '[data-announcement-video]'
+
+        );
+
+      if(!button){
+
+        return;
+
+      }
+
+      const modal =
+
+        document.getElementById(
+
+          'announcement-video-modal'
+
+        );
+
+      const frame =
+
+        document.getElementById(
+
+          'announcement-video-frame'
+
+        );
+
+      if(
+
+        !modal ||
+
+        !frame
+
+      ){
+
+        return;
+
+      }
+
+      const embedUrl =
+
+        convertYoutubeEmbed(
+
+          button.dataset
+            .announcementVideo
+
+        );
+
+      if(!embedUrl){
+
+        return;
+
+      }
+
+      frame.src =
+
+        embedUrl +
+
+        '?autoplay=1';
+
+      modal.classList.remove(
+
+        'hidden'
+
+      );
+
+    }
+
+  );
+
+  const closeButton =
+
+    document.getElementById(
+
+      'announcement-video-close'
+
+    );
+
+  const modal =
+
+    document.getElementById(
+
+      'announcement-video-modal'
+
+    );
+
+  const frame =
+
+    document.getElementById(
+
+      'announcement-video-frame'
+
+    );
+
+  if(
+
+    closeButton &&
+    modal &&
+    frame
+
+  ){
+
+    closeButton.addEventListener(
+
+      'click',
+
+      function(){
+
+        modal.classList.add(
+
+          'hidden'
+
+        );
+
+        frame.src = '';
+
+      }
+
+    );
+
+  }
 
 }
 
