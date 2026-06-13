@@ -297,92 +297,7 @@ ${
 
 })(window);
 
-function convertYoutubeEmbed(
-  url
-){
 
-  if(!url){
-
-    return '';
-
-  }
-
-  try{
-
-    if(
-      url.includes(
-        '/embed/'
-      )
-    ){
-
-      return url;
-
-    }
-
-    if(
-      url.includes(
-        'youtu.be/'
-      )
-    ){
-
-      const id =
-        url
-          .split(
-            'youtu.be/'
-          )[1]
-          ?.split('?')[0];
-
-      return id
-        ? `https://www.youtube.com/embed/${id}`
-        : '';
-
-    }
-
-    if(
-      url.includes(
-        '/watch?v='
-      )
-    ){
-
-      const id =
-        new URL(url)
-          .searchParams
-          .get('v');
-
-      return id
-        ? `https://www.youtube.com/embed/${id}`
-        : '';
-
-    }
-
-    if(
-      url.includes(
-        '/shorts/'
-      )
-    ){
-
-      const id =
-        url
-          .split(
-            '/shorts/'
-          )[1]
-          ?.split('?')[0];
-
-      return id
-        ? `https://www.youtube.com/embed/${id}`
-        : '';
-
-    }
-
-  }catch(err){
-
-    console.error(err);
-
-  }
-
-  return '';
-
-}
 function initAnnouncementVideo(){
 
   document.addEventListener(
@@ -433,27 +348,21 @@ function initAnnouncementVideo(){
 
       }
 
-      const embedUrl =
+     const videoId =
 
-        convertYoutubeEmbed(
+  button.dataset
+    .announcementVideo;
 
-          button.dataset
-            .announcementVideo
+if(!videoId){
 
-        );
+  return;
 
-      if(!embedUrl){
+}
 
-        return;
+frame.src =
 
-      }
-
-      frame.src =
-
-        embedUrl +
-
-        '?autoplay=1';
-
+  `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+     
       modal.classList.remove(
 
         'hidden'
