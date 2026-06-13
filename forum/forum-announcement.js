@@ -19,6 +19,9 @@ function renderAnnouncements(
     return;
 
   }
+  updateAnnouncementCount(
+  announcements || []
+);
 
   if(
 
@@ -220,3 +223,26 @@ ${escapeAnnouncementHtml(
 }
 
 })(window);
+
+function updateAnnouncementCount(
+  announcements
+){
+
+  const stat =
+    document.querySelector(
+
+      '[data-template-id="stat-3-value"]'
+
+    );
+
+  if(!stat){
+
+    return;
+
+  }
+
+  stat.textContent =
+
+    announcements.length;
+
+}
