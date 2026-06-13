@@ -241,36 +241,33 @@ ${escapeAnnouncementHtml(
   : ''        
 }
 ${
-  item.videoUrl
-  ? `
+item.videoUrl
+? `
 
-    <button
-      type="button"
-      data-announcement-video="${extractYoutubeId(
-  item.videoUrl
-)}"
-      class="
-        w-full
-        mt-3
-        mb-3
-        rounded-lg
-        border
-        border-red-500/30
-        bg-red-500/10
-        text-red-400
-        py-3
-        font-semibold
-        cursor-pointer
-      ">
+<button
+  type="button"
+  data-announcement-video="${item.videoUrl}"
+  class="
+    w-full
+    mt-3
+    mb-3
+    rounded-lg
+    border
+    border-red-500/30
+    bg-red-500/10
+    text-red-400
+    py-3
+    font-semibold
+    cursor-pointer
+  ">
 
-      ▶ Lihat Video Promosi
+  ▶ Lihat Video Promosi
 
-    </button>
+</button>
 
-  `
-  : ''
+`
+: ''
 }
-
       <div
         class="
           flex
@@ -309,9 +306,7 @@ function initAnnouncementVideo(){
       const button =
 
         e.target.closest(
-
           '[data-announcement-video]'
-
         );
 
       if(!button){
@@ -320,124 +315,87 @@ function initAnnouncementVideo(){
 
       }
 
-      const modal =
+      const rawUrl =
 
-        document.getElementById(
+        button.dataset
+          .announcementVideo;
 
-          'announcement-video-modal'
+      const regExp =
+        /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
 
-        );
+      const match =
+        rawUrl.match(regExp);
 
-      const frame =
+      const videoId =
+        match?.[2];
 
-        document.getElementById(
-
-          'announcement-video-frame'
-
-        );
-
-      if(
-
-        !modal ||
-
-        !frame
-
-      ){
+      if(!videoId){
 
         return;
 
       }
 
-     const videoId =
-
-  button.dataset
-    .announcementVideo;
-
-if(!videoId){
-
-  return;
-
-}
-
-frame.src =
-
-  `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-     
-      modal.classList.remove(
-
-        'hidden'
-
+      openAnnouncementVideo(
+        videoId
       );
 
     }
 
   );
 
-  const closeButton =
+}
 
-    document.getElementById(
-
-      'announcement-video-close'
-
-    );
+function openAnnouncementVideo(id){
 
   const modal =
-
     document.getElementById(
-
       'announcement-video-modal'
-
     );
 
   const frame =
-
     document.getElementById(
-
       'announcement-video-frame'
-
     );
 
-  if(
+  if(!modal || !frame){
 
-    closeButton &&
-    modal &&
-    frame
-
-  ){
-
-    closeButton.addEventListener(
-
-      'click',
-
-      function(){
-
-        modal.classList.add(
-
-          'hidden'
-
-        );
-
-        frame.src = '';
-
-      }
-
-    );
+    return;
 
   }
 
-}
+  frame.src =
 
-function extractYoutubeId(url){
+    `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&loop=1&playlist=${id}`;
 
-  if(!url) return '';
+  modal.classList.remove(
+    'hidden'
+  );
 
-  const regExp =
-    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
-
-  const match =
-    url.match(regExp);
-
-  return match?.[2] || '';
+  document.body.style.overflow =
+    'hidden';
 
 }
+function closeAnnouncementVideo(){
+
+  const modal =
+    document.getElementById(
+      'announcement-video-modal'
+    );
+
+  const frame =
+    document.getElementById(
+      'announcement-video-frame'
+    );
+
+  modal.classList.add(
+    'hidden'
+  );
+
+  frame.src = '';
+
+  document.body.style.overflow =
+    '';
+
+}
+
 
