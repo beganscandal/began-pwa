@@ -773,15 +773,10 @@ function renderInlineComposer(
                         Send
 
                     </button>
-
                 </div>
-
             </div>
-
         </section>
-
     `;
-
 }
 function renderReplyFeed(replies) {
 
