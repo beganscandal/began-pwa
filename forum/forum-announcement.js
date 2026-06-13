@@ -124,21 +124,21 @@ function buildAnnouncementCard(
   item
 ){
 
-  return `
+    return `
 
-    <article
-      class="
-        canva-card
-        rounded-xl
-        p-4
-        mb-3
-        border-l-4
-        border-amber-500
-      "
-      style="
-        background:rgb(26,26,26);
-      ">
-
+  <article
+    data-announcement
+    class="
+      canva-card
+      rounded-xl
+      p-4
+      mb-3
+      border-l-4
+      border-amber-500
+    "
+    style="
+      background:rgb(26,26,26);
+    ">
       <div
         class="
           flex
@@ -216,7 +216,14 @@ ${escapeAnnouncementHtml(
           text-sm
           mt-1
         ">
-        ${
+ ${escapeAnnouncementHtml(
+  item.content || ''
+).replace(
+  /\n/g,
+  '<br>'
+)}
+      </p>
+             ${
   item.image
   ? `
     <div class="mt-3">
@@ -229,17 +236,35 @@ ${escapeAnnouncementHtml(
 
     </div>
   `
+  : ''        
+}
+${
+  item.videoUrl
+  ? `
+
+    <button
+      type="button"
+      data-announcement-video="${item.videoUrl}"
+      class="
+        w-full
+        mt-3
+        mb-3
+        rounded-lg
+        border
+        border-red-500/30
+        bg-red-500/10
+        text-red-400
+        py-3
+        font-semibold
+      ">
+
+      ▶ Lihat Video Promosi
+
+    </button>
+
+  `
   : ''
 }
-
-${escapeAnnouncementHtml(
-  item.content || ''
-).replace(
-  /\n/g,
-  '<br>'
-)}
-
-      </p>
 
       <div
         class="
