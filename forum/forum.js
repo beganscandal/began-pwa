@@ -27,7 +27,7 @@ allPosts =
     renderAnnouncements(
   data.announcements || []
 );
-
+initAnnouncementVideo();
 renderPosts(
   getFilteredPosts()
 );
