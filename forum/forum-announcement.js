@@ -20,10 +20,6 @@ function renderAnnouncements(
 
   }
 
-  /*
-   * kosong
-   */
-
   if(
 
     !announcements ||
@@ -38,16 +34,10 @@ function renderAnnouncements(
 
   }
 
-  /*
-   * hapus loading
-   */
-
   container
 
     .querySelectorAll(
-
-      '[data-announcement-loading]'
-
+      'article'
     )
 
     .forEach(function(el){
@@ -75,7 +65,30 @@ function renderAnnouncements(
   );
 
 }
+  
+  function escapeAnnouncementHtml(
+  str
+){
 
+  if(str == null){
+
+    return '';
+
+  }
+
+  return String(str)
+
+    .replace(/&/g,'&amp;')
+
+    .replace(/</g,'&lt;')
+
+    .replace(/>/g,'&gt;')
+
+    .replace(/"/g,'&quot;')
+
+    .replace(/'/g,'&#39;');
+
+}
 function buildAnnouncementCard(
   item
 ){
@@ -160,13 +173,9 @@ function buildAnnouncementCard(
         style="
           font-size:18px;
         ">
-
-        ${escapeHtml(
-
-          item.title || ''
-
-        )}
-
+${escapeAnnouncementHtml(
+  item.title || ''
+)}
       </h3>
 
       <p
@@ -177,17 +186,12 @@ function buildAnnouncementCard(
           mt-1
         ">
 
-        ${escapeHtml(
-
-          item.content || ''
-
-        ).replace(
-
-          /\n/g,
-
-          '<br>'
-
-        )}
+${escapeAnnouncementHtml(
+  item.content || ''
+).replace(
+  /\n/g,
+  '<br>'
+)}
 
       </p>
 
