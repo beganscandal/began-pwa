@@ -303,48 +303,79 @@ function initAnnouncementVideo(){
 
     function(e){
 
+      /*
+       * buka video
+       */
       const button =
 
         e.target.closest(
           '[data-announcement-video]'
         );
 
-      if(!button){
+      if(button){
+
+        const rawUrl =
+
+          button.dataset
+            .announcementVideo;
+
+        const regExp =
+          /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
+
+        const match =
+          rawUrl.match(regExp);
+
+        const videoId =
+          match?.[2];
+
+        if(videoId){
+
+          openAnnouncementVideo(
+            videoId
+          );
+
+        }
 
         return;
 
       }
 
-      const rawUrl =
+      /*
+       * tutup modal via tombol X
+       */
+      if(
 
-        button.dataset
-          .announcementVideo;
+        e.target.closest(
+          '#announcement-video-close'
+        )
 
-      const regExp =
-        /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
+      ){
 
-      const match =
-        rawUrl.match(regExp);
-
-      const videoId =
-        match?.[2];
-
-      if(!videoId){
+        closeAnnouncementVideo();
 
         return;
 
       }
 
-      openAnnouncementVideo(
-        videoId
-      );
+      /*
+       * tutup modal via backdrop
+       */
+      if(
+
+        e.target.id ===
+        'announcement-video-modal'
+
+      ){
+
+        closeAnnouncementVideo();
+
+      }
 
     }
 
   );
 
 }
-
 function openAnnouncementVideo(id){
 
   const modal =
