@@ -193,8 +193,28 @@ function renderMentionDropdown(
       })
       .join('');
 
-  textarea.parentElement.appendChild(
+ const container =
+
+    textarea.closest(
+        '.flex-1'
+    ) ||
+
+    textarea.closest(
+        '.reply-composer-body'
+    );
+
+if(!container){
+
+    return;
+
+}
+
+container.style.position =
+    'relative';
+
+container.appendChild(
     dropdown
+);
 );
 
     dropdown.addEventListener(
