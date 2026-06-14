@@ -8,9 +8,7 @@ async function loadMentionPartners(){
 
       await fetch(
 
-        FORUM_API_URL +
-
-        '?action=partners'
+       "https://script.google.com/macros/s/AKfycbwPDFvz4K19zuY2FY-IoeMF5WONSafuTTAwWW_cMJAn0L9TlHVpYtMUJzZlAMx1QRWw0Q/exec?action=partners"
 
       );
 
