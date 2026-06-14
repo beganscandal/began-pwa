@@ -6,6 +6,8 @@ global.renderAnnouncements =
   renderAnnouncements;
   global.initAnnouncementVideo =
   initAnnouncementVideo;
+  global.getTopPartners =
+  getTopPartners;
 
   function updateAnnouncementCount(
   announcements
@@ -426,6 +428,73 @@ function closeAnnouncementVideo(){
 
   document.body.style.overflow =
     '';
+
+}
+
+function renderTopPartner(data){
+
+  if(
+
+    !data ||
+
+    !data.success ||
+
+    !data.topPartners ||
+
+    !data.topPartners.length
+
+  ){
+
+    return;
+
+  }
+
+  const partner =
+
+    data.topPartners[0];
+
+  const value =
+
+    document.querySelector(
+
+      '[data-template-id="stat-4-value"]'
+
+    );
+
+  const label =
+
+    document.querySelector(
+
+      '[data-template-id="stat-4-label"]'
+
+    );
+
+  if(value){
+
+    value.textContent =
+
+      partner.toko
+        .replace(
+          /\s+STORE$/i,
+          ''
+        );
+    value.classList.remove(
+  'text-2xl'
+);
+
+value.classList.add(
+  'text-lg'
+);
+
+  }
+
+  if(label){
+
+    label.textContent =
+
+      'Top Partner';
+
+  }
 
 }
 
