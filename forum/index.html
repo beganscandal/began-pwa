@@ -396,6 +396,159 @@
 
 </div>
 
+   <!-- Voice Drawer -->
+
+  <div
+  id="voice-modal"
+  class="
+    hidden
+    fixed
+    inset-0
+    z-[9999]
+    bg-black/70
+    flex
+    items-end
+  ">
+
+  <div
+    data-template-id="drawer-container"
+    class="
+      canva-panel
+      relative
+      w-full
+      rounded-t-3xl
+      px-6
+      pt-4
+      pb-8
+      overscroll-contain
+    "
+    style="
+      max-height:85vh;
+      overflow-y:auto;
+      background:rgb(26,26,26);
+    ">
+  
+    <!-- Drag Handle -->
+   <div class="relative mb-5">
+
+  <div
+    class="
+      w-10
+      h-1
+      rounded-full
+      bg-gray-600
+      mx-auto
+    ">
+  </div>
+
+  <button
+    id="voice-close"
+    type="button"
+    class="
+      absolute
+      top-1/2
+      right-0
+      -translate-y-1/2
+      text-white
+      text-2xl
+    ">
+
+    ✕
+
+  </button>
+
+</div>
+   <!-- Title -->
+   <h1 data-template-id="drawer-title" class="canva-text mb-1" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 22px;">💡 Suara Partner</h1><!-- Subtitle -->
+   <p data-template-id="drawer-subtitle" class="canva-text mb-6" style="color: rgb(156, 163, 175); font-weight: 400; font-style: normal; font-size: 14px;">Bantu BEGAN menghadirkan produk yang sesuai dengan kebutuhan toko Anda.</p>
+   <form
+  id="voice-form"
+  onsubmit="event.preventDefault()">
+  <!-- Category Dropdown -->
+  <label data-template-id="category-label" for="voice-category" class="canva-text block mb-2" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 13px;">Kategori Produk</label> <select id="voice-category" class="w-full rounded-xl px-4 py-3 mb-5 text-white border border-gray-700 focus:border-amber-500 focus:outline-none appearance-none" style="background:#252525;"> <option value="">Pilih kategori...</option> <option>Kaos</option> <option>Polo</option> <option>Kemeja</option> <option>Jacket</option> <option>Footwear</option> <option>Celana</option> <option>Topi</option> <option>Sabuk</option> <option>Dompet</option> <option>Tas</option> <option>Fragrance</option> <option>Lainnya</option> </select> <!-- Textarea --> <label data-template-id="textarea-label" for="voice-suggestion" class="canva-text block mb-2" style="color: rgb(209, 213, 219); font-weight: 500; font-style: normal; font-size: 13px;">Masukan Anda</label> <textarea
+  id="voice-suggestion"
+  class="
+    canva-input
+    w-full
+    rounded-xl
+    px-4
+    py-3
+    mb-2
+    text-white
+    border
+    border-gray-700
+    focus:border-amber-500
+    focus:outline-none
+    resize-none
+  "
+  rows="4"
+  placeholder="Contoh: Kaos 16s oversize pigment dengan bordir kecil di dada."
+  style="
+    background:rgb(37,37,37);
+  "></textarea> 
+     <!-- Info text -->
+    <p data-template-id="info-text" class="canva-text mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 11px;">Masukan partner membantu BEGAN menghadirkan produk dan reserve yang lebih sesuai dengan kebutuhan toko.</p>
+     <!-- Submit Button --> 
+     <button id="voice-submit" type="button" class="canva-button w-full rounded-xl py-4 font-semibold text-center" style="background: linear-gradient(135deg, rgb(217, 119, 6), rgb(245, 158, 11)); color: rgb(0, 0, 0); font-weight: 600; font-style: normal; font-size: 16px;">Kirim Suara Partner</button>
+   </form>
+    <div
+  id="voice-success"
+  class="
+    hidden
+    text-center
+    py-10
+  ">
+
+  <div class="text-4xl mb-4">
+
+    ✅
+
+  </div>
+
+  <h3
+    class="
+      text-white
+      font-bold
+      text-xl
+    ">
+
+    Terima kasih
+
+  </h3>
+
+  <p
+    class="
+      text-gray-400
+      mt-2
+    ">
+
+    Suara Anda membantu menentukan produk dan reserve berikutnya.
+
+  </p>
+<button
+  id="voice-success-close"
+  type="button"
+  class="
+    mt-6
+    w-full
+    rounded-xl
+    py-3
+    bg-white
+    text-black
+    font-semibold
+  ">
+
+  Tutup
+
+</button>
+</div>
+    
+  </div>
+  </div>
+
+
+
+
   
   <script>
     const loading = document.getElementById('loading-overlay');
