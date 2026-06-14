@@ -300,3 +300,42 @@ async function getTopPartners(){
   return response.json();
 
 }
+
+async function submitVoice(
+  payload
+){
+
+  const response =
+
+    await fetch(
+
+      API_URL,
+
+      {
+
+        method:'POST',
+
+        headers:{
+
+          'Content-Type':
+            'application/json'
+
+        },
+
+        body:JSON.stringify({
+
+          action:
+            'submitVoice',
+
+          payload:
+            payload
+
+        })
+
+      }
+
+    );
+
+  return response.json();
+
+}
