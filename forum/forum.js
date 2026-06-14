@@ -27,6 +27,15 @@ allPosts =
     renderAnnouncements(
   data.announcements || []
 );
+      getTopPartners()
+
+  .then(
+    renderTopPartner
+  )
+
+  .catch(
+    console.error
+  );
 initAnnouncementVideo();
 renderPosts(
   getFilteredPosts()
