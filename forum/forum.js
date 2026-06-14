@@ -36,6 +36,7 @@ allPosts =
   .catch(
     console.error
   );
+      renderReserveStat([]);
 initAnnouncementVideo();
 renderPosts(
   getFilteredPosts()
