@@ -933,28 +933,3 @@ function getFilteredPosts(){
 
 }
 
-document.addEventListener(
-
-  'click',
-
-  async function(e){
-
-    const button =
-
-      e.target.closest(
-        '#voice-submit'
-      );
-
-    if(!button){
-
-      return;
-
-    }
-
-    await submitPartnerVoice(
-      button
-    );
-
-  }
-
-);
