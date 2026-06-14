@@ -445,10 +445,6 @@ function renderTopPartner(data){
 
   }
 
-  const partner =
-
-    data.topPartners[0];
-
   const card =
 
     document.querySelector(
@@ -477,29 +473,57 @@ function renderTopPartner(data){
 
   if(value){
 
-    value.textContent =
+    value.innerHTML =
 
-      partner.toko
-        .replace(
-          /\s+STORE$/i,
-          ''
-        );
-     value.classList.remove(
-    'text-2xl'
-  );
+      data.topPartners
 
-  value.classList.add(
-    'text-lg'
-  );
+        .slice(0,3)
+
+        .map(function(item){
+
+          const badge =
+
+            item.rank === 1
+              ? '🥇'
+              : item.rank === 2
+              ? '🥈'
+              : '🥉';
+
+          return (
+
+            badge +
+
+            ' ' +
+
+            item.toko
+
+              .replace(
+                /\s+STORE$/i,
+                ''
+              )
+
+          );
+
+        })
+
+        .join('<br>');
+
+    value.classList.remove(
+      'text-2xl'
+    );
+
+    value.classList.add(
+      'text-sm',
+      'leading-6'
+    );
 
   }
 
   if(label){
 
     label.textContent =
-      'Top Partner';
+      'Top Partners';
 
   }
 
 }
-
