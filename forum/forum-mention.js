@@ -193,32 +193,11 @@ function renderMentionDropdown(
       })
       .join('');
 
-  document.body.appendChild(
+  textarea.parentElement.appendChild(
     dropdown
-  );
+);
 
-  const rect =
-    textarea.getBoundingClientRect();
-
- dropdown.style.left =
-
-  window.scrollX +
-
-  rect.left +
-
-  'px';
-
-dropdown.style.top =
-
-  window.scrollY +
-
-  rect.bottom +
-
-  5 +
-
-  'px';
-
-  dropdown.addEventListener(
+    dropdown.addEventListener(
     'click',
     function(e){
 
