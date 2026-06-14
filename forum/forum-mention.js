@@ -1,4 +1,6 @@
-let PARTNER_MENTIONS = []; 
+let PARTNER_MENTIONS = [];
+
+let mentionBound = false;
 
 async function loadMentionPartners(){
 
@@ -8,7 +10,7 @@ async function loadMentionPartners(){
 
       await fetch(
 
-       "https://script.google.com/macros/s/AKfycbwPDFvz4K19zuY2FY-IoeMF5WONSafuTTAwWW_cMJAn0L9TlHVpYtMUJzZlAMx1QRWw0Q/exec?action=partners"
+        'https://script.google.com/macros/s/AKfycbwPDFvz4K19zuY2FY-IoeMF5WONSafuTTAwWW_cMJAn0L9TlHVpYtMUJzZlAMx1QRWw0Q/exec?action=partners'
 
       );
 
@@ -45,7 +47,20 @@ async function loadMentionPartners(){
   }
 
 }
+
 function bindMentionAutocomplete(){
+
+  if(
+
+    mentionBound
+
+  ){
+
+    return;
+
+  }
+
+  mentionBound = true;
 
   document.addEventListener(
 
@@ -61,7 +76,11 @@ function bindMentionAutocomplete(){
 
         );
 
-      if(!textarea){
+      if(
+
+        !textarea
+
+      ){
 
         return;
 
@@ -78,11 +97,23 @@ function bindMentionAutocomplete(){
   );
 
 }
+
+
 function handleMentionInput(
 
   textarea
 
 ){
+
+  if(
+
+    !PARTNER_MENTIONS.length
+
+  ){
+
+    return;
+
+  }
 
   const value =
 
@@ -146,16 +177,23 @@ function handleMentionInput(
   );
 
 }
+
 function renderMentionDropdown(
+
   partners,
+
   textarea,
-   match
+
+  match
+
 ){
 
   hideMentionDropdown();
 
   if(
+
     partners.length === 0
+
   ){
 
     return;
@@ -163,105 +201,139 @@ function renderMentionDropdown(
   }
 
   const dropdown =
+
     document.createElement(
+
       'div'
+
     );
 
   dropdown.id =
+
     'mention-dropdown';
 
   dropdown.className =
+
     'mention-dropdown';
 
   dropdown.innerHTML =
 
     partners
+
       .map(function(partner){
 
         return `
+
           <button
+
             type="button"
+
             class="mention-item"
+
             data-toko="${partner.toko}"
+
           >
 
             @${partner.toko}
 
           </button>
+
         `;
 
       })
+
       .join('');
 
- const container =
+  const container =
 
     textarea.closest(
-        '.flex-1'
-    ) ||
+
+      '.flex-1'
+
+    )
+
+    ||
 
     textarea.closest(
-        '.reply-composer-body'
+
+      '.reply-composer-body'
+
     );
 
-if(!container){
+  if(
+
+    !container
+
+  ){
 
     return;
 
-}
+  }
 
-container.style.position =
+  container.style.position =
+
     'relative';
 
-container.appendChild(
+  container.appendChild(
+
     dropdown
-);
-);
-
-    dropdown.addEventListener(
-    'click',
-    function(e){
-
-      const item =
-        e.target.closest(
-          '.mention-item'
-        );
-
-      if(!item){
-        return;
-      }
-
-      const toko =
-        item.dataset.toko;
-
-     const start =
-
-  match.index;
-
-const before =
-
-  textarea.value.substring(
-
-    0,
-
-    start
 
   );
 
-textarea.value =
+  dropdown.addEventListener(
 
-  before +
+    'click',
 
-  ' @' +
+    function(e){
 
-  toko +
+      const item =
 
-  ' ';
+        e.target.closest(
+
+          '.mention-item'
+
+        );
+
+      if(
+
+        !item
+
+      ){
+
+        return;
+
+      }
+
+      const toko =
+
+        item.dataset.toko;
+
+      const mentionText =
+
+        match[0];
+
+      textarea.value =
+
+        textarea.value.replace(
+
+          mentionText,
+
+          mentionText.replace(
+
+            /@([^\s@]*)$/,
+
+            '@' + toko + ' '
+
+          )
+
+        );
 
       hideMentionDropdown();
 
       textarea.focus();
 
     }
+
   );
 
 }
@@ -288,7 +360,7 @@ document.addEventListener(
 
     if(
 
-      !e.target.closest(
+      e.target.closest(
 
         '#mention-dropdown'
 
@@ -296,9 +368,105 @@ document.addEventListener(
 
     ){
 
-      hideMentionDropdown();
+      return;
 
     }
+
+    if(
+
+      e.target.closest(
+
+        '#post-content, .reply-input'
+
+      )
+
+    ){
+
+      return;
+
+    }
+
+    hideMentionDropdown();
+
+  }
+
+);
+
+document.addEventListener(
+
+  'click',
+
+  function(e){
+
+    if(
+
+      e.target.closest(
+
+        '#mention-dropdown'
+
+      )
+
+    ){
+
+      return;
+
+    }
+
+    if(
+
+      e.target.closest(
+
+        '#post-content, .reply-input'
+
+      )
+
+    ){
+
+      return;
+
+    }
+
+    hideMentionDropdown();
+
+  }
+
+);
+
+document.addEventListener(
+
+  'click',
+
+  function(e){
+
+    if(
+
+      e.target.closest(
+
+        '#mention-dropdown'
+
+      )
+
+    ){
+
+      return;
+
+    }
+
+    if(
+
+      e.target.closest(
+
+        '#post-content, .reply-input'
+
+      )
+
+    ){
+
+      return;
+
+    }
+
+    hideMentionDropdown();
 
   }
 
