@@ -17,7 +17,8 @@ document.addEventListener(
  
     try {
 renderPostSkeleton();
-      await loadMentionPartners();
+      await
+        loadMentionPartners();
       
      const data =
   await getBoard();
@@ -50,7 +51,7 @@ renderPosts(
 
       bindPostSubmit();
       bindLikeEvents();
-//bindMentionAutocomplete();
+bindMentionAutocomplete();
       
 
     } catch(err) {
