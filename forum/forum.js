@@ -51,7 +51,7 @@ renderPosts(
 
       bindPostSubmit();
       bindLikeEvents();
-//bindMentionAutocomplete();
+bindMentionAutocomplete();
       
 
     } catch(err) {
