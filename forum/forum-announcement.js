@@ -436,12 +436,8 @@ function renderTopPartner(data){
   if(
 
     !data ||
-
     !data.success ||
-
-    !data.topPartners ||
-
-    !data.topPartners.length
+    !data.topPartners?.length
 
   ){
 
@@ -453,17 +449,27 @@ function renderTopPartner(data){
 
     data.topPartners[0];
 
-  const value =
+  const card =
 
     document.querySelector(
 
-      '[data-template-id="stat-4-value"]'
+      '[data-template-id="stat-4"]'
 
     );
 
+  if(!card){
+
+    return;
+
+  }
+
+  const value =
+
+    card.firstElementChild;
+
   const label =
 
-    document.querySelector(
+    card.querySelector(
 
       '[data-template-id="stat-4-label"]'
 
@@ -478,24 +484,22 @@ function renderTopPartner(data){
           /\s+STORE$/i,
           ''
         );
-    value.classList.remove(
-  'text-2xl'
-);
+     value.classList.remove(
+    'text-2xl'
+  );
 
-value.classList.add(
-  'text-lg'
-);
+  value.classList.add(
+    'text-lg'
+  );
 
   }
 
   if(label){
 
     label.textContent =
-
       'Top Partner';
 
   }
 
 }
-
 
