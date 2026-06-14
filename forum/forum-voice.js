@@ -1,3 +1,45 @@
+document.addEventListener(
+
+  'DOMContentLoaded',
+
+  function(){
+
+    bindVoiceSubmit();
+
+  }
+
+);
+
+function bindVoiceSubmit(){
+
+  document.addEventListener(
+
+    'click',
+
+    async function(e){
+
+      const button =
+
+        e.target.closest(
+          '#voice-submit'
+        );
+
+      if(!button){
+
+        return;
+
+      }
+
+      await submitPartnerVoice(
+        button
+      );
+
+    }
+
+  );
+
+}
+
 async function submitPartnerVoice(
   button
 ){
