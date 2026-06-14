@@ -1,4 +1,5 @@
 let PARTNER_MENTIONS = [];
+
 async function loadMentionPartners(){
 
   try{
@@ -26,6 +27,14 @@ async function loadMentionPartners(){
       PARTNER_MENTIONS =
 
         result.partners || [];
+
+      console.log(
+
+        'PARTNER_MENTIONS',
+
+        PARTNER_MENTIONS
+
+      );
 
     }
 
