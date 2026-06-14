@@ -47,71 +47,109 @@ async function loadMentionPartners(){
 }
 function bindMentionAutocomplete(){
 
-  const textarea =
-    document.getElementById(
-      'post-content'
-    );
+  document.addEventListener(
 
-  if(!textarea){
-    return;
-  }
-
-  textarea.addEventListener(
     'input',
-    function(){
 
-      const value =
-        textarea.value;
+    function(e){
 
-      const match =
-        value.match(
-          /@([^\s@]*)$/
+      const textarea =
+
+        e.target.closest(
+
+          '#post-content, .reply-input'
+
         );
 
-      if(!match){
-
-        hideMentionDropdown();
+      if(!textarea){
 
         return;
+
       }
 
-      const keyword =
-        match[1]
-          .toLowerCase();
+      handleMentionInput(
 
-      const results =
-        PARTNER_MENTIONS.filter(
-          function(partner){
+        textarea
 
-            return (
-
-              partner.toko
-                .toLowerCase()
-                .includes(
-                  keyword
-                )
-
-            );
-
-          }
-        )
-        .slice(0,5);
-
-      renderMentionDropdown(
-        results,
-        textarea,
-        match[1]
       );
 
     }
+
   );
 
 }
+function handleMentionInput(
 
+  textarea
+
+){
+
+  const value =
+
+    textarea.value;
+
+  const match =
+
+    value.match(
+
+      /(?:^|\s)@([^\s@]*)$/
+
+    );
+
+  if(
+
+    !match
+
+  ){
+
+    hideMentionDropdown();
+
+    return;
+
+  }
+
+  const keyword =
+
+    match[1]
+      .toLowerCase();
+
+  const results =
+
+    PARTNER_MENTIONS
+
+      .filter(function(partner){
+
+        return (
+
+          partner.toko
+            .toLowerCase()
+            .includes(
+
+              keyword
+
+            )
+
+        );
+
+      })
+
+      .slice(0,5);
+
+  renderMentionDropdown(
+
+    results,
+
+    textarea,
+
+    match
+
+  );
+
+}
 function renderMentionDropdown(
   partners,
   textarea,
-  keyword
+   match
 ){
 
   hideMentionDropdown();
@@ -162,11 +200,23 @@ function renderMentionDropdown(
   const rect =
     textarea.getBoundingClientRect();
 
-  dropdown.style.left =
-    rect.left + 'px';
+ dropdown.style.left =
 
-  dropdown.style.top =
-    rect.bottom + 5 + 'px';
+  window.scrollX +
+
+  rect.left +
+
+  'px';
+
+dropdown.style.top =
+
+  window.scrollY +
+
+  rect.bottom +
+
+  5 +
+
+  'px';
 
   dropdown.addEventListener(
     'click',
@@ -184,16 +234,29 @@ function renderMentionDropdown(
       const toko =
         item.dataset.toko;
 
-      textarea.value =
-        textarea.value.replace(
+     const start =
 
-          new RegExp(
-            '@' + keyword + '$'
-          ),
+  match.index;
 
-          '@' + toko + ' '
+const before =
 
-        );
+  textarea.value.substring(
+
+    0,
+
+    start
+
+  );
+
+textarea.value =
+
+  before +
+
+  ' @' +
+
+  toko +
+
+  ' ';
 
       hideMentionDropdown();
 
@@ -217,3 +280,27 @@ function hideMentionDropdown(){
   }
 
 }
+
+document.addEventListener(
+
+  'click',
+
+  function(e){
+
+    if(
+
+      !e.target.closest(
+
+        '#mention-dropdown'
+
+      )
+
+    ){
+
+      hideMentionDropdown();
+
+    }
+
+  }
+
+);
