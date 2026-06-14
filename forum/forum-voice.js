@@ -10,6 +10,29 @@ document.addEventListener(
 
 );
 
+document.addEventListener(
+
+  'click',
+
+  function(e){
+
+    if(
+
+      e.target.closest(
+
+        '[data-template-id="stat-2"]'
+
+      )
+
+    ){
+
+      openVoiceDrawer();
+
+    }
+
+  }
+
+);
 function bindVoiceSubmit(){
 
   document.addEventListener(
@@ -170,7 +193,7 @@ async function submitPartnerVoice(
       );
 
     }
-
+   
     showVoiceSuccess();
 
   }
@@ -189,58 +212,166 @@ async function submitPartnerVoice(
 
   finally{
 
-    button.disabled =
-      false;
+    if(
 
-    button.textContent =
-      'Kirim Suara Partner';
+  document.body.contains(
+    button
+  )
 
-  }
+){
+
+  button.disabled =
+    false;
+
+  button.textContent =
+    'Kirim Suara Partner';
 
 }
+
+}
+}  
 
 function showVoiceSuccess(){
 
-  const container =
-
-    document.querySelector(
-
-      '[data-template-id="drawer-container"]'
-
+  document
+    .getElementById(
+      'voice-form'
+    )
+    ?.classList.add(
+      'hidden'
     );
 
-  if(!container){
+  document
+    .getElementById(
+      'voice-success'
+    )
+    ?.classList.remove(
+      'hidden'
+    );
 
-    return;
+}
+
+function openVoiceDrawer(){
+
+  document
+    .getElementById(
+      'voice-modal'
+    )
+    ?.classList.remove(
+      'hidden'
+    );
+
+  document
+    .getElementById(
+      'voice-form'
+    )
+    ?.classList.remove(
+      'hidden'
+    );
+
+  document
+    .getElementById(
+      'voice-success'
+    )
+    ?.classList.add(
+      'hidden'
+    );
+
+ const category =
+
+  document.getElementById(
+    'voice-category'
+  );
+
+if(category){
+
+  category.value = '';
+
+}
+
+ const suggestion =
+
+  document.getElementById(
+    'voice-suggestion'
+  );
+
+if(suggestion){
+
+  suggestion.value = '';
+
+}
+
+  document.body.style.overflow =
+    'hidden';
+
+}
+
+
+function closeVoiceDrawer(){
+
+  document
+    .getElementById(
+      'voice-modal'
+    )
+    ?.classList.add(
+      'hidden'
+    );
+
+  document.body.style.overflow =
+    '';
+
+}
+
+document.addEventListener(
+
+  'click',
+
+  function(e){
+
+    if(
+
+      e.target.closest(
+        '#voice-close'
+      )
+
+      ||
+
+      e.target.closest(
+        '#voice-success-close'
+      )
+
+    ){
+
+      closeVoiceDrawer();
+
+    }
 
   }
 
-  container.innerHTML = `
+);
 
-    <div class="text-center py-10">
+document.addEventListener(
 
-      <div class="text-4xl mb-4">
+  'click',
 
-        ✅
+  function(e){
 
-      </div>
+    const modal =
 
-      <h3
-        class="text-white font-bold text-xl">
+      document.getElementById(
+        'voice-modal'
+      );
 
-        Terima kasih
+    if(
 
-      </h3>
+      e.target === modal
 
-      <p
-        class="text-gray-400 mt-2">
+    ){
 
-        Suara Anda membantu menentukan produk dan reserve berikutnya.
+      closeVoiceDrawer();
 
-      </p>
+    }
 
-    </div>
+  }
 
-  `;
-
-}
+);
