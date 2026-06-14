@@ -527,3 +527,97 @@ function renderTopPartner(data){
   }
 
 }
+
+function renderReserveStat(
+  reserveProducts
+){
+
+  const card =
+
+    document.querySelector(
+
+      '[data-template-id="stat-1"]'
+
+    );
+
+  if(!card){
+
+    return;
+
+  }
+
+  const value =
+
+    card.firstElementChild;
+
+  const label =
+
+    card.querySelector(
+
+      '[data-template-id="stat-1-label"]'
+
+    );
+
+  if(
+
+    !value ||
+
+    !label
+
+  ){
+
+    return;
+
+  }
+
+  label.textContent =
+
+    'Reserve Aktif';
+
+  card.style.cursor =
+
+    'default';
+
+  card.onclick = null;
+
+  /*
+   * reserve belum tersedia
+   */
+
+  if(
+
+    !reserveProducts ||
+
+    !reserveProducts.length
+
+  ){
+
+    value.textContent =
+
+      'SOON';
+
+    return;
+
+  }
+
+  /*
+   * reserve tersedia
+   */
+
+  value.textContent =
+
+    reserveProducts.length;
+
+  card.style.cursor =
+
+    'pointer';
+
+  card.onclick = function(){
+
+    window.location.href =
+
+      'https://www.barkahgarment.com/reserve-system';
+
+  };
+
+}
