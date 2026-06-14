@@ -1032,3 +1032,8 @@ and (max-height:430px){
     }
 
 }
+.reply-composer-body{
+    position:relative;
+}
+
+
