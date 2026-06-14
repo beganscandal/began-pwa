@@ -1,5 +1,5 @@
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbzJcTW8YeAsY0v0X8hfiecztjxGT1x0Hza1IXuNS2YsAI9y-r_4lGDHMi6eXup0pYXgVQ/exec';
+  'https://script.google.com/macros/s/AKfycbyQejswGKL_dkCyxb_odpLq8Y1i1FNYpL-mRfAwGBv78wAbLrDowAmkJBRHvzrWveB3DA/exec';
 
 window.getBoard = async function () {
 
@@ -286,3 +286,17 @@ window.incrementPostViewCount =
         return response.json();
 
     };
+
+async function getTopPartners(){
+
+  const response =
+
+    await fetch(
+
+      `${API_URL}?action=getTopPartners`
+
+    );
+
+  return response.json();
+
+}
