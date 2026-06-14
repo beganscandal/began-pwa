@@ -343,3 +343,21 @@
   background:#222;
 
 }
+.mention-wrapper{
+    position:relative;
+}
+
+.mention-dropdown{
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    bottom:calc(100% + 8px);
+
+    max-height:220px;
+
+    overflow-y:auto;
+
+    z-index:9999;
+}
