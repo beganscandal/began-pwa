@@ -303,3 +303,43 @@
   color:#ff4d6d;
 
 }
+
+.mention-dropdown{
+
+  position:fixed;
+
+  background:#111;
+
+  border:1px solid #333;
+
+  border-radius:12px;
+
+  overflow:hidden;
+
+  z-index:9999;
+
+  width:250px;
+
+}
+
+.mention-item{
+
+  width:100%;
+
+  text-align:left;
+
+  padding:12px;
+
+  border:none;
+
+  background:none;
+
+  color:white;
+
+}
+
+.mention-item:hover{
+
+  background:#222;
+
+}
