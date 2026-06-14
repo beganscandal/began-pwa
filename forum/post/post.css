@@ -1032,8 +1032,68 @@ and (max-height:430px){
     }
 
 }
-.reply-composer-body{
-    position:relative;
+.mention-dropdown{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:calc(100% + 8px);
+
+    z-index:9999;
+
+    max-height:220px;
+
+    overflow-y:auto;
+
+    background:#111;
+
+    border:1px solid rgba(
+        255,
+        255,
+        255,
+        .08
+    );
+
+    border-radius:12px;
+
+    box-shadow:
+        0 12px 32px rgba(
+            0,
+            0,
+            0,
+            .45
+        );
+
 }
 
+.mention-item{
 
+    width:100%;
+
+    padding:12px 16px;
+
+    border:none;
+
+    background:none;
+
+    color:#fff;
+
+    text-align:left;
+
+    cursor:pointer;
+
+}
+
+.mention-item:hover{
+
+    background:rgba(
+        255,
+        255,
+        255,
+        .06
+    );
+
+}
