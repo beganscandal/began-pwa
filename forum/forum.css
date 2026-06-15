@@ -369,7 +369,8 @@
     );
 
 }
-.mention-text {
+
+.mention-text{
   margin-top: 6px;
   color: #d1d5db;
 }
