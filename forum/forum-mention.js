@@ -1,5 +1,5 @@
 let PARTNER_MENTIONS = [];
-
+ 
 let mentionBound = false;
 
 async function loadMentionPartners(){
