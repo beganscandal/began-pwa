@@ -28,20 +28,49 @@ function escapeHtml(str) {
 }
 function formatMentions(text){
 
-    return escapeHtml(
+    if(!text){
 
-        text || ''
+        return '';
 
-    ).replace(
+    }
 
-        /@(\S+)/g,
+    let html =
+        escapeHtml(text);
 
-        '<span class="mention-text">@$1</span>'
+    PARTNER_MENTIONS
+        .slice()
+        .sort(function(a,b){
 
-    );
+            return (
+                b.toko.length -
+                a.toko.length
+            );
+
+        })
+        .forEach(function(partner){
+
+            const escapedToko =
+                escapeHtml(
+                    partner.toko
+                );
+
+            const mention =
+                '@' + escapedToko;
+
+            html =
+                html.replaceAll(
+
+                    mention,
+
+                    `<span class="mention-text">${mention}</span>`
+
+                );
+
+        });
+
+    return html;
 
 }
-
 
 function renderPostPage(post) {
 
