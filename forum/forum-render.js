@@ -49,10 +49,16 @@ function renderPosts(posts) {
 
   <p class="forum-content">
 
-    ${post.content || ''}
+    ${
+      formatMentions(
+        post.content
+      ).replace(
+        /\n/g,
+        '<br>'
+      )
+    }
 
-  </p>
-
+</p>
 </div>
 
 ${
