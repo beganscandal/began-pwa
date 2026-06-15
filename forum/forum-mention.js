@@ -486,7 +486,7 @@ function formatMentions(text){
 
     );
 
-    PARTNER_MENTIONS
+    [...PARTNER_MENTIONS]
 
         .sort(function(a,b){
 
@@ -501,15 +501,31 @@ function formatMentions(text){
 
         .forEach(function(partner){
 
-            const mention =
+            const escaped =
 
-                '@' + partner.toko;
+                partner.toko.replace(
 
-            html = html.replaceAll(
+                    /[.*+?^${}()|[\]\\]/g,
 
-                mention,
+                    '\\$&'
 
-                `<span class="mention-text">${mention}</span>`
+                );
+
+            const regex =
+
+                new RegExp(
+
+                    `@${escaped}(?=\\s|$)`,
+
+                    'g'
+
+                );
+
+            html = html.replace(
+
+                regex,
+
+                `<span class="mention-text">@${partner.toko}</span>`
 
             );
 
@@ -524,7 +540,6 @@ function formatMentions(text){
     );
 
 }
-
 function safeFormatMentions(text){
 
     try{
