@@ -49,8 +49,11 @@ function renderPosts(posts) {
 
 <p class="forum-content">
 
-    ${post.content || ''}
-
+    ${
+        safeFormatMentions(
+            post.content
+        )
+    }
 </p>
 </div>
 
