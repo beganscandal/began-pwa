@@ -524,3 +524,38 @@ function formatMentions(text){
     );
 
 }
+
+function safeFormatMentions(text){
+
+    try{
+
+        if(
+            typeof formatMentions !== 'function'
+        ){
+
+            return escapeHtml(
+                text || ''
+            );
+
+        }
+
+        return formatMentions(
+            text || ''
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            'Mention formatter error:',
+            error
+        );
+
+        return escapeHtml(
+            text || ''
+        );
+
+    }
+
+}
