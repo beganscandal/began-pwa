@@ -471,3 +471,44 @@ document.addEventListener(
   }
 
 );
+
+function formatMentions(text){
+
+  if(!text){
+
+    return '';
+
+  }
+
+  let html = text;
+
+  PARTNER_MENTIONS
+    .sort(function(a,b){
+
+      return (
+        b.toko.length -
+        a.toko.length
+      );
+
+    })
+    .forEach(function(partner){
+
+      const mention =
+
+        '@' + partner.toko;
+
+      html =
+
+        html.replaceAll(
+
+          mention,
+
+          `<span class="mention-text">${mention}</span>`
+
+        );
+
+    });
+
+  return html;
+
+}
