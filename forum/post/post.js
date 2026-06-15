@@ -71,6 +71,10 @@ const data =
             renderPostPage(
                 post
             );
+        await loadMentionPartners();
+
+bindMentionAutocomplete();
+
 
         await loadReplies(
             postId
