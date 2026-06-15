@@ -474,41 +474,53 @@ document.addEventListener(
 
 function formatMentions(text){
 
-  if(!text){
+    if(!text){
 
-    return '';
+        return '';
 
-  }
+    }
 
-  let html = text;
+    let html = escapeHtml(
 
-  PARTNER_MENTIONS
-    .sort(function(a,b){
+        text
 
-      return (
-        b.toko.length -
-        a.toko.length
-      );
+    );
 
-    })
-    .forEach(function(partner){
+    PARTNER_MENTIONS
 
-      const mention =
+        .sort(function(a,b){
 
-        '@' + partner.toko;
+            return (
 
-      html =
+                b.toko.length -
+                a.toko.length
 
-        html.replaceAll(
+            );
 
-          mention,
+        })
 
-          `<span class="mention-text">${mention}</span>`
+        .forEach(function(partner){
 
-        );
+            const mention =
 
-    });
+                '@' + partner.toko;
 
-  return html;
+            html = html.replaceAll(
+
+                mention,
+
+                `<span class="mention-text">${mention}</span>`
+
+            );
+
+        });
+
+    return html.replace(
+
+        /\n/g,
+
+        '<br>'
+
+    );
 
 }
