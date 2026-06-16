@@ -585,9 +585,16 @@ function safeFormatMentions(text){
 
         }
 
-        return formatMentions(
+        let html = formatMentions(
             text || ''
         );
+
+        html = html.replace(
+            /@ALL\b/gi,
+            '<span class="mention-all">@ALL</span>'
+        );
+
+        return html;
 
     }
 
