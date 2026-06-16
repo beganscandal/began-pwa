@@ -1162,11 +1162,7 @@ function bindPostLike(){
 
 } 
 
-function formatMentions(text){
 
-    return safeFormatMentions(text);
-
-}
 window.renderPostPage =
     renderPostPage;
 
