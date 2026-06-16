@@ -107,13 +107,14 @@ function handleMentionInput(
 
   if(
 
-    !PARTNER_MENTIONS.length
+    !PARTNER_MENTIONS.length &&
+    textarea.value.indexOf('@') === -1
 
-  ){
+){
 
     return;
 
-  }
+}
 
   const value =
 
@@ -590,7 +591,17 @@ function safeFormatMentions(text){
 
 }
  }
-window.loadMentionPartners = loadMentionPartners;
-window.bindMentionAutocomplete = bindMentionAutocomplete;
-window.safeFormatMentions = safeFormatMentions;
-window.hideMentionDropdown = hideMentionDropdown;
+window.loadMentionPartners =
+    loadMentionPartners;
+
+window.bindMentionAutocomplete =
+    bindMentionAutocomplete;
+
+window.safeFormatMentions =
+    safeFormatMentions;
+
+window.formatMentions =
+    formatMentions;
+
+window.hideMentionDropdown =
+    hideMentionDropdown;
