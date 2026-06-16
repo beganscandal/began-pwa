@@ -480,11 +480,7 @@ function formatMentions(text){
 
     }
 
-    let html = escapeHtml(
-
-        text
-
-    );
+    let html = escapeHtml(text);
 
     [...PARTNER_MENTIONS]
 
@@ -493,6 +489,7 @@ function formatMentions(text){
             return (
 
                 b.toko.length -
+
                 a.toko.length
 
             );
@@ -531,6 +528,14 @@ function formatMentions(text){
 
         });
 
+    html = html.replace(
+
+        /@ALL\b/gi,
+
+        '<span class="mention-all">@ALL</span>'
+
+    );
+
     return html.replace(
 
         /\n/g,
@@ -540,6 +545,8 @@ function formatMentions(text){
     );
 
 }
+
+
 function safeFormatMentions(text){
 
     try{
