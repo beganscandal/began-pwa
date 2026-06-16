@@ -26,51 +26,9 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 
 }
-function formatMentions(text){
 
-    if(!text){
 
-        return '';
-
-    }
-
-    let html =
-        escapeHtml(text);
-
-    PARTNER_MENTIONS
-        .slice()
-        .sort(function(a,b){
-
-            return (
-                b.toko.length -
-                a.toko.length
-            );
-
-        })
-        .forEach(function(partner){
-
-            const escapedToko =
-                escapeHtml(
-                    partner.toko
-                );
-
-            const mention =
-                '@' + escapedToko;
-
-            html =
-                html.replaceAll(
-
-                    mention,
-
-                    `<span class="mention-text">${mention}</span>`
-
-                );
-
-        });
-
-    return html;
-
-}
+    
 
 function renderPostPage(post) {
 
@@ -369,17 +327,9 @@ function renderPostCard(post) {
 
       <div class="post-content">
   ${
-    formatMentions(
-
-      post.content
-
-    ).replace(
-
-      /\n/g,
-
-      '<br>'
-
-    )
+    safeFormatMentions(
+    post.content
+)
   }
 </div>
 
@@ -859,17 +809,9 @@ function renderReplyCard(reply) {
 
             <div class="reply-text">
     ${
-      formatMentions(
-
-        reply.content
-
-      ).replace(
-
-        /\n/g,
-
-        '<br>'
-
-      )
+     safeFormatMentions(
+    reply.content
+) 
     }
 </div>
            
