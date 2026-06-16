@@ -1097,3 +1097,8 @@ and (max-height:430px){
     );
 
 }
+
+.mention-all{
+    color:#ef4444;
+    font-weight:700;
+}
