@@ -1220,9 +1220,11 @@ function bindPostLike(){
 
 } 
 
-window.formatMentions =
-    formatMentions;
+function formatMentions(text){
 
+    return safeFormatMentions(text);
+
+}
 window.renderPostPage =
     renderPostPage;
 
