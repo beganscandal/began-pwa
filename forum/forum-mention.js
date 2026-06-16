@@ -144,29 +144,49 @@ function handleMentionInput(
     match[1]
       .toLowerCase();
 
-  const results =
+  let results =
 
     PARTNER_MENTIONS
 
-      .filter(function(partner){
+        .filter(function(partner){
 
-        return (
+            return (
 
-          partner.toko
-            .toLowerCase()
-            .includes(
+                partner.toko
+                    .toLowerCase()
+                    .includes(
 
-              keyword
+                        keyword
 
-            )
+                    )
 
-        );
+            );
 
-      })
+        })
 
-      .slice(0,5);
+        .slice(0,5);
 
-  renderMentionDropdown(
+if(
+
+    keyword &&
+    'all'.startsWith(
+        keyword
+    )
+
+){
+
+    results.unshift({
+
+        toko: 'ALL',
+
+        isAll: true
+
+    });
+
+}
+
+
+renderMentionDropdown(
 
     results,
 
@@ -174,8 +194,7 @@ function handleMentionInput(
 
     match
 
-  );
-
+);
 }
 
 function renderMentionDropdown(
@@ -221,6 +240,35 @@ function renderMentionDropdown(
     partners
 
       .map(function(partner){
+
+       if(
+
+    partner.isAll
+
+){
+
+    return `
+
+      <button
+
+        type="button"
+
+        class="
+          mention-item
+          mention-item-all
+        "
+
+        data-toko="ALL"
+
+      >
+
+        📢 @ALL
+
+      </button>
+
+    `;
+
+}
 
         return `
 
@@ -392,85 +440,6 @@ document.addEventListener(
 
 );
 
-document.addEventListener(
-
-  'click',
-
-  function(e){
-
-    if(
-
-      e.target.closest(
-
-        '#mention-dropdown'
-
-      )
-
-    ){
-
-      return;
-
-    }
-
-    if(
-
-      e.target.closest(
-
-        '#post-content, .reply-input'
-
-      )
-
-    ){
-
-      return;
-
-    }
-
-    hideMentionDropdown();
-
-  }
-
-);
-
-document.addEventListener(
-
-  'click',
-
-  function(e){
-
-    if(
-
-      e.target.closest(
-
-        '#mention-dropdown'
-
-      )
-
-    ){
-
-      return;
-
-    }
-
-    if(
-
-      e.target.closest(
-
-        '#post-content, .reply-input'
-
-      )
-
-    ){
-
-      return;
-
-    }
-
-    hideMentionDropdown();
-
-  }
-
-);
 function escapeHtml(text){
 
     return String(
