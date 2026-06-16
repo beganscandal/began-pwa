@@ -589,3 +589,8 @@ function safeFormatMentions(text){
     );
 
 }
+ }
+window.loadMentionPartners = loadMentionPartners;
+window.bindMentionAutocomplete = bindMentionAutocomplete;
+window.safeFormatMentions = safeFormatMentions;
+window.hideMentionDropdown = hideMentionDropdown;
