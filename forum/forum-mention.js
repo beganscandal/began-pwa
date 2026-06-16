@@ -484,12 +484,22 @@ function formatMentions(text){
 
     [...PARTNER_MENTIONS]
 
+        .filter(function(partner){
+
+            return (
+
+                partner &&
+                typeof partner.toko === 'string'
+
+            );
+
+        })
+
         .sort(function(a,b){
 
             return (
 
                 b.toko.length -
-
                 a.toko.length
 
             );
@@ -528,14 +538,6 @@ function formatMentions(text){
 
         });
 
-    html = html.replace(
-
-        /@ALL\b/gi,
-
-        '<span class="mention-all">@ALL</span>'
-
-    );
-
     return html.replace(
 
         /\n/g,
@@ -545,7 +547,6 @@ function formatMentions(text){
     );
 
 }
-
 
 function safeFormatMentions(text){
 
@@ -574,17 +575,17 @@ function safeFormatMentions(text){
 
     }
 
-    catch(error){
+ catch(error){
 
-        console.error(
-            'Mention formatter error:',
-            error
-        );
+    console.error(
+        'Mention formatter error:',
+        error,
+        PARTNER_MENTIONS,
+        text
+    );
 
-        return escapeHtml(
-            text || ''
-        );
-
-    }
+    return escapeHtml(
+        text || ''
+    );
 
 }
