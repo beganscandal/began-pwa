@@ -73,18 +73,29 @@ function renderNotifications(){
 
   list.innerHTML =
 
-    items.map(function(n){
+  items.map(function(n){
 
-  const url =
-    n.url ||
-    (
-      n.postId
-      ? '/forum/post/?postId=' + encodeURIComponent(n.postId)
-      : ''
-    );
+    const url =
+      n.url ||
+      (
+        n.postId
+        ? '/forum/post/?postId=' + encodeURIComponent(n.postId)
+        : ''
+      );
 
+    const unreadDot =
 
-      return `
+      !n.isRead
+
+        ? `
+          <span
+            class="inline-block w-2 h-2 rounded-full bg-accent badge-pulse mr-2 shrink-0"
+          ></span>
+        `
+
+        : '';
+
+    return `
 
       <div
         class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3"
@@ -100,9 +111,13 @@ function renderNotifications(){
 
         <div class="flex-1">
 
-          <p class="text-sm font-semibold">
+          <p class="text-sm font-semibold flex items-center">
 
-            ${n.message || ''}
+            ${unreadDot}
+
+            <span>
+              ${n.message || ''}
+            </span>
 
           </p>
 
@@ -116,9 +131,9 @@ function renderNotifications(){
 
       </div>
 
-      `;
+    `;
 
-    }).join('');
+  }).join('');
 
 }
 
@@ -166,7 +181,24 @@ function renderNotificationStats(){
   const reserveEl =
     document.querySelector(
       '[data-template-id="stat-3-value"]'
-    );
+    );const unreadChip =
+  document.querySelector(
+    '[data-filter="unread"]'
+  );
+
+if(unreadChip){
+
+  unreadChip.innerHTML =
+    unreadCount > 0
+      ? `
+        Unread
+        <span
+          class="inline-block w-2 h-2 rounded-full bg-accent badge-pulse ml-1"
+        ></span>
+      `
+      : 'Unread';
+
+}
 
  if(unreadEl){
 
@@ -221,6 +253,11 @@ function bindNotificationClicks(){
           await markNotificationRead(
             notificationId
           );
+          await loadNotifications();
+
+renderNotifications();
+renderNotificationStats();
+renderNotificationBadge();
 
         }catch(error){
 
