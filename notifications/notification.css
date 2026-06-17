@@ -24,11 +24,18 @@
 
 }
 
+
 @media (max-width:767px){
 
   #filter-container{
 
+    -webkit-overflow-scrolling: touch;
+
+    scroll-behavior: smooth;
+
     cursor: grab;
+
+    padding-right: 40px;
 
   }
 
