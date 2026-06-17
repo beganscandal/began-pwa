@@ -111,4 +111,64 @@ function renderNotifications(){
     }).join('');
 
 }
+
+function renderNotificationStats(){
+
+  const items =
+    NotificationState.notifications || [];
+
+  const unreadCount =
+
+    items.filter(
+      n => !n.isRead
+    ).length;
+
+  const announcementCount =
+
+    items.filter(
+      n =>
+      String(
+        n.type || ''
+      ).toLowerCase() ===
+      'announcement'
+    ).length;
+
+  const reserveCount =
+
+    items.filter(
+      n =>
+      String(
+        n.type || ''
+      ).toLowerCase() ===
+      'reserve'
+    ).length;
+
+  const unreadEl =
+    document.querySelector(
+      '[data-template-id="stat-1-value"]'
+    );
+
+  const announcementEl =
+    document.querySelector(
+      '[data-template-id="stat-2-value"]'
+    );
+
+  const reserveEl =
+    document.querySelector(
+      '[data-template-id="stat-3-value"]'
+    );
+
+  if(unreadEl)
+    unreadEl.textContent =
+      unreadCount;
+
+  if(announcementEl)
+    announcementEl.textContent =
+      announcementCount;
+
+  if(reserveEl)
+    reserveEl.textContent =
+      reserveCount;
+
+}
  
