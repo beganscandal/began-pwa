@@ -28,3 +28,31 @@ async function getNotifications(){
   return response.json();
 
 }
+
+async function markNotificationRead(notificationId){
+
+  const partner =
+    JSON.parse(
+      localStorage.getItem(
+        'began_partner'
+      ) || '{}'
+    );
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:'POST',
+        body:JSON.stringify({
+          action:'markNotificationRead',
+          payload:{
+            notificationId:notificationId,
+            partnerId:partner.id
+          }
+        })
+      }
+    );
+
+  return response.json();
+
+}
