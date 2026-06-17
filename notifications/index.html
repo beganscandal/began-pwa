@@ -77,6 +77,10 @@
   </main><!-- FAB --> <button id="fab" class="fixed bottom-24 right-5 z-30 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg shadow-white/10 active:scale-90 transition-transform"> <i data-lucide="bell-ring" class="w-5 h-5"></i> </button> <!-- Bottom Nav -->
   <nav data-template-id="bottom-nav" class="canva-menu fixed bottom-0 left-0 right-0 z-40 border-t border-white/5 px-6 py-2 grid grid-cols-4" style="background:#0a0a0a;"><a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="home" class="w-5 h-5"></i> <span class="text-[10px]">Home</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="message-circle" class="w-5 h-5"></i> <span class="text-[10px]">Forum</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white relative"> <i data-lucide="bell" class="w-5 h-5"></i> <span class="text-[10px] font-semibold">Notifications</span> <span id="nav-badge" class="absolute top-1 right-1/4 w-2 h-2 bg-red-500 rounded-full"></span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="user" class="w-5 h-5"></i> <span class="text-[10px]">Profile</span> </a>
   </nav>
+
+   <link rel="stylesheet"
+      href="notification.css">
+
   <script src="/_sdk/editing_sdk.js"></script>
   <script>
         lucide.createIcons();
@@ -95,6 +99,46 @@
         ];
 
         let currentFilter = 'all';
+
+    function setupMobileFilters(){
+
+  if(
+    window.innerWidth > 767
+  ) return;
+
+  const container =
+  document.getElementById(
+    "filter-container"
+  );
+
+  if(!container) return;
+
+  const exists =
+  container.querySelector(
+    '[data-filter="more"]'
+  );
+
+  if(exists) return;
+
+  const moreBtn =
+  document.createElement(
+    "button"
+  );
+
+  moreBtn.className =
+    "filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60";
+
+  moreBtn.dataset.filter =
+    "more";
+
+  moreBtn.textContent =
+    "More";
+
+  container.appendChild(
+    moreBtn
+  );
+
+}
 
         function renderNotifications() {
             const list = document.getElementById('notif-list');
@@ -127,6 +171,36 @@
         // Filter chips
         document.getElementById('filter-container').addEventListener('click', e => {
             const chip = e.target.closest('.filter-chip');
+          if(
+  chip &&
+  chip.dataset.filter ===
+  "more"
+){
+
+  document
+  .querySelectorAll(
+    '.filter-chip[data-filter="reserve"],' +
+    '.filter-chip[data-filter="article"],' +
+    '.filter-chip[data-filter="checkout"],' +
+    '.filter-chip[data-filter="production"],' +
+    '.filter-chip[data-filter="shipping"]'
+  )
+  .forEach(btn=>{
+
+    btn.style.display =
+
+      btn.style.display ===
+      "none"
+
+      ? "inline-flex"
+
+      : "none";
+
+  });
+
+  return;
+
+}
             if (!chip) return;
             document.querySelectorAll('.filter-chip').forEach(c => {
                 c.classList.remove('active', 'bg-white', 'text-black');
@@ -170,8 +244,17 @@
                 indicator.style.transform = 'translateY(-100%)';
             }, 1200);
         });
-
+    
+setupMobileFilters();
         renderNotifications();
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf45d845b77a21',t:'MTc4MTY3MDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf45d845b77a21',t:'MTc4MTY3MDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+   
+<script src="notification-state.js"></script>
+
+<script src="notification-api.js"></script>
+
+<script src="notification-render.js"></script>
+
+<script src="notification.js"></script>
 </body></html>
