@@ -1,1 +1,23 @@
 
+@media(max-width:767px){
+
+  #filter-container{
+
+    -webkit-overflow-scrolling:
+    touch;
+
+    scroll-behavior:
+    smooth;
+    
+    mask-image:  
+linear-gradient(
+  to right,
+  black 0%,
+  black 85%,
+  transparent 100%
+);
+
+  }
+  
+
+}
