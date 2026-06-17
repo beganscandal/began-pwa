@@ -1,2 +1,6 @@
+window.NotificationState = {
 
+  notifications : []
+
+};
  
