@@ -168,9 +168,19 @@ function renderNotificationStats(){
       '[data-template-id="stat-3-value"]'
     );
 
-  if(unreadEl)
-    unreadEl.textContent =
-      unreadCount;
+ if(unreadEl){
+
+  unreadEl.innerHTML =
+    unreadCount > 0
+      ? `
+        <span
+          class="inline-block w-2 h-2 rounded-full bg-accent badge-pulse mr-2"
+        ></span>
+        ${unreadCount}
+      `
+      : '0';
+
+}
 
   if(announcementEl)
     announcementEl.textContent =
@@ -230,5 +240,26 @@ function bindNotificationClicks(){
     }
 
   );
+
+}
+
+function renderNotificationBadge(){
+
+  const badge =
+    document.getElementById(
+      'nav-badge'
+    );
+
+  if(!badge) return;
+
+  const unreadCount =
+    NotificationState.notifications
+      .filter(n => !n.isRead)
+      .length;
+
+  badge.style.display =
+    unreadCount > 0
+      ? 'block'
+      : 'none';
 
 }
