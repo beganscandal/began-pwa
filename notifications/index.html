@@ -5,6 +5,8 @@
   <title>BEGAN Notification Center</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+      href="notification.css">
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
         * { font-family: 'DM Sans', sans-serif; }
@@ -77,9 +79,6 @@
   </main><!-- FAB --> <button id="fab" class="fixed bottom-24 right-5 z-30 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg shadow-white/10 active:scale-90 transition-transform"> <i data-lucide="bell-ring" class="w-5 h-5"></i> </button> <!-- Bottom Nav -->
   <nav data-template-id="bottom-nav" class="canva-menu fixed bottom-0 left-0 right-0 z-40 border-t border-white/5 px-6 py-2 grid grid-cols-4" style="background:#0a0a0a;"><a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="home" class="w-5 h-5"></i> <span class="text-[10px]">Home</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="message-circle" class="w-5 h-5"></i> <span class="text-[10px]">Forum</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white relative"> <i data-lucide="bell" class="w-5 h-5"></i> <span class="text-[10px] font-semibold">Notifications</span> <span id="nav-badge" class="absolute top-1 right-1/4 w-2 h-2 bg-red-500 rounded-full"></span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="user" class="w-5 h-5"></i> <span class="text-[10px]">Profile</span> </a>
   </nav>
-
-   <link rel="stylesheet"
-      href="notification.css">
 
   <script src="/_sdk/editing_sdk.js"></script>
   <script>
