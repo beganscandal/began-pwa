@@ -139,8 +139,7 @@
   );
 
 }
-
-        function renderNotifications() {
+           function renderNotifications() {
             const list = document.getElementById('notif-list');
             const filtered = currentFilter === 'all' ? notifications :
                 currentFilter === 'unread' ? notifications.filter(n => n.unread) :
