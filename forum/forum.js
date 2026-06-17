@@ -86,8 +86,7 @@ function initPostNavigation() {
   trigger.dataset.postId;
       
 window.location.href =
-  '/forum/post/?postId=' +
-  encodeURIComponent(postId);      
+  BeganDeepLink.forumPost(postId);     
 
     }
   );
