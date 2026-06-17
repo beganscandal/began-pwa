@@ -88,6 +88,7 @@ function renderNotifications(){
 
       <div
         class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3"
+        data-notification-id="${n.notificationId || ''}"
         data-url="${url}"
       >
 
@@ -187,7 +188,7 @@ function bindNotificationClicks(){
 
     'click',
 
-    function(e){
+    async function(e){
 
       const card =
 
@@ -200,9 +201,32 @@ function bindNotificationClicks(){
       const url =
         card.dataset.url;
 
+      const notificationId =
+        card.dataset.notificationId;
+
+      if(notificationId){
+
+        try{
+
+          await markNotificationRead(
+            notificationId
+          );
+
+        }catch(error){
+
+          console.error(
+            'MARK READ ERROR',
+            error
+          );
+
+        }
+
+      }
+
       if(!url) return;
 
-     BeganDeepLink.open(url);
+      BeganDeepLink.open(url);
+
     }
 
   );
