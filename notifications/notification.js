@@ -19,6 +19,7 @@ async function initNotifications(){
     );
 
     renderNotifications();
+    renderNotificationStats();
 
     lucide.createIcons();
 
