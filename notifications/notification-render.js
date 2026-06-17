@@ -171,4 +171,33 @@ function renderNotificationStats(){
       reserveCount;
 
 }
- 
+
+function bindNotificationClicks(){
+
+  document.addEventListener(
+
+    'click',
+
+    function(e){
+
+      const card =
+
+        e.target.closest(
+          '.notif-item'
+        );
+
+      if(!card) return;
+
+      const url =
+        card.dataset.url;
+
+      if(!url) return;
+
+      window.location.href =
+        url;
+
+    }
+
+  );
+
+}
