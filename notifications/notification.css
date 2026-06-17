@@ -1,1 +1,8 @@
+.notif-item{
+  cursor:pointer;
+  transition:.2s;
+}
 
+.notif-item:hover{
+  border-color:rgba(255,255,255,.15);
+}
