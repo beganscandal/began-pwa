@@ -75,11 +75,20 @@ function renderNotifications(){
 
     items.map(function(n){
 
+  const url =
+    n.url ||
+    (
+      n.postId
+      ? '/forum/post/?postId=' + encodeURIComponent(n.postId)
+      : ''
+    );
+
+
       return `
 
       <div
         class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3"
-        data-url="${n.url || ''}"
+        data-url="${url}"
       >
 
         <div
@@ -193,9 +202,7 @@ function bindNotificationClicks(){
 
       if(!url) return;
 
-      window.location.href =
-        url;
-
+     BeganDeepLink.open(url);
     }
 
   );
