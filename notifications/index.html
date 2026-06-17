@@ -1,12 +1,10 @@
-<!doctype html>  
+<!doctype html>
 <html lang="id"><head><script src="/_sdk/telemetry_sdk.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BEGAN Notification Center</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet"
-      href="https://www.pwa.barkahgarment.com/notifications/notification.css">
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
         * { font-family: 'DM Sans', sans-serif; }
@@ -44,8 +42,7 @@
      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
     </svg><span data-template-id="pull-text" class="canva-text" style="color: rgba(255, 255, 255, 0.5); font-weight: 400; font-style: normal; font-size: 15px;">Checking for updates...</span>
    </div>
-  </div>
-   <!-- Header -->
+  </div><!-- Header -->
   <header data-template-id="header-bg" class="canva-header sticky top-0 z-40 px-5 pt-5 pb-4 border-b border-white/5" style="background:#050505;">
    <div class="flex items-center justify-between mb-3"><button class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center"><i data-lucide="arrow-left" class="w-4 h-4"></i></button> <button id="mark-all-btn" data-template-id="mark-all-btn" class="canva-button text-xs font-medium px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/5 transition" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 15px;">Mark all as read</button>
    </div>
@@ -80,7 +77,6 @@
   </main><!-- FAB --> <button id="fab" class="fixed bottom-24 right-5 z-30 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg shadow-white/10 active:scale-90 transition-transform"> <i data-lucide="bell-ring" class="w-5 h-5"></i> </button> <!-- Bottom Nav -->
   <nav data-template-id="bottom-nav" class="canva-menu fixed bottom-0 left-0 right-0 z-40 border-t border-white/5 px-6 py-2 grid grid-cols-4" style="background:#0a0a0a;"><a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="home" class="w-5 h-5"></i> <span class="text-[10px]">Home</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="message-circle" class="w-5 h-5"></i> <span class="text-[10px]">Forum</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white relative"> <i data-lucide="bell" class="w-5 h-5"></i> <span class="text-[10px] font-semibold">Notifications</span> <span id="nav-badge" class="absolute top-1 right-1/4 w-2 h-2 bg-red-500 rounded-full"></span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="user" class="w-5 h-5"></i> <span class="text-[10px]">Profile</span> </a>
   </nav>
-
   <script src="/_sdk/editing_sdk.js"></script>
   <script>
         lucide.createIcons();
@@ -99,48 +95,8 @@
         ];
 
         let currentFilter = 'all';
-    let moreExpanded = false;
 
-    function setupMobileFilters(){
-
-  if(
-    window.innerWidth > 767
-  ) return;
-
-  const container =
-  document.getElementById(
-    "filter-container"
-  );
-
-  if(!container) return;
-
-  const exists =
-  container.querySelector(
-    '[data-filter="more"]'
-  );
-
-  if(exists) return;
-
-  const moreBtn =
-  document.createElement(
-    "button"
-  );
-
-  moreBtn.className =
-    "filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60";
-
-  moreBtn.dataset.filter =
-    "more";
-
-  moreBtn.textContent =
-    "More";
-
-  container.appendChild(
-    moreBtn
-  );
-
-}
-           function renderNotifications() {
+        function renderNotifications() {
             const list = document.getElementById('notif-list');
             const filtered = currentFilter === 'all' ? notifications :
                 currentFilter === 'unread' ? notifications.filter(n => n.unread) :
@@ -171,62 +127,6 @@
         // Filter chips
         document.getElementById('filter-container').addEventListener('click', e => {
             const chip = e.target.closest('.filter-chip');
-         if(
-  chip.dataset.filter ===
-  "more"
-){
-
-  moreExpanded =
-    !moreExpanded;
-
-  const hiddenFilters = [
-
-    "reserve",
-    "article",
-    "checkout",
-    "production",
-    "shipping"
-
-  ];
-
-  hiddenFilters.forEach(filter=>{
-
-    const btn =
-    container.querySelector(
-      `[data-filter="${filter}"]`
-    );
-
-    if(!btn) return;
-
-    btn.style.display =
-
-      moreExpanded
-
-      ? "inline-flex"
-
-      : "none";
-
-  });
-
-  container.style.flexWrap =
-
-    moreExpanded
-
-    ? "wrap"
-
-    : "nowrap";
-
-  chip.textContent =
-
-    moreExpanded
-
-    ? "More ▲"
-
-    : "More ▼";
-
-  return;
-
-}
             if (!chip) return;
             document.querySelectorAll('.filter-chip').forEach(c => {
                 c.classList.remove('active', 'bg-white', 'text-black');
@@ -270,17 +170,8 @@
                 indicator.style.transform = 'translateY(-100%)';
             }, 1200);
         });
-    
-setupMobileFilters();
+
         renderNotifications();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf45d845b77a21',t:'MTc4MTY3MDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-   
-<script src="notification-state.js"></script>
-
-<script src="notification-api.js"></script>
-
-<script src="notification-render.js"></script>
-
-<script src="notification.js"></script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf45d845b77a21',t:'MTc4MTY3MDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body></html>
