@@ -1,1 +1,177 @@
+<!doctype html>
+<html lang="id"><head><script src="/_sdk/telemetry_sdk.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEGAN Notification Center</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
+        * { font-family: 'DM Sans', sans-serif; }
+        body { background: #050505; color: #ffffff; -webkit-tap-highlight-color: transparent; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .notif-item { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+        .notif-item:active { transform: scale(0.97); box-shadow: 0 0 20px rgba(255,255,255,0.05); }
+        .badge-pulse { animation: pulse-glow 2s infinite; }
+        @keyframes pulse-glow { 0%,100%{ box-shadow: 0 0 0 0 rgba(57,255,20,0.4); } 50%{ box-shadow: 0 0 0 6px rgba(57,255,20,0); } }
+        @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .slide-up { animation: slideUp 0.4s ease forwards; opacity: 0; }
+        .pull-indicator { transition: transform 0.3s ease, opacity 0.3s ease; }
+    </style>
+  <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        surface: '#111111',
+                        accent: '#39FF14',
+                        dark: '#050505'
+                    }
+                }
+            }
+        }
+    </script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ </head>
+ <body data-template-id="__page-root" class="min-h-screen pb-24 relative" style="background: rgb(5, 5, 5);"><!-- Pull to refresh -->
+  <div id="pull-indicator" class="pull-indicator fixed top-0 left-0 right-0 z-50 flex items-center justify-center py-3 opacity-0 -translate-y-full">
+   <div class="flex items-center gap-2 text-white/50 text-xs">
+    <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+    </svg><span data-template-id="pull-text" class="canva-text" style="color: rgba(255, 255, 255, 0.5); font-weight: 400; font-style: normal; font-size: 15px;">Checking for updates...</span>
+   </div>
+  </div><!-- Header -->
+  <header data-template-id="header-bg" class="canva-header sticky top-0 z-40 px-5 pt-5 pb-4 border-b border-white/5" style="background:#050505;">
+   <div class="flex items-center justify-between mb-3"><button class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center"><i data-lucide="arrow-left" class="w-4 h-4"></i></button> <button id="mark-all-btn" data-template-id="mark-all-btn" class="canva-button text-xs font-medium px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/5 transition" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 15px;">Mark all as read</button>
+   </div>
+   <h1 data-template-id="page-title" class="canva-text font-extrabold text-2xl tracking-tight" style="color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 26px;">Notifications</h1>
+   <p data-template-id="page-subtitle" class="canva-text text-white/40 text-xs mt-0.5" style="color: rgba(255, 255, 255, 0.4); font-weight: 400; font-style: normal; font-size: 12px;">Stay updated with your partner activities</p>
+  </header>
+  <main class="px-5 pt-5"><!-- Stats -->
+   <section class="grid grid-cols-3 gap-3 mb-5">
+    <div data-template-id="stat-1" class="canva-card rounded-2xl p-3 border border-white/5 text-center" style="background: rgb(17, 17, 17);"><i data-lucide="bell" class="w-4 h-4 mx-auto mb-1 text-white/60"></i>
+     <p data-template-id="stat-1-label" class="canva-text text-[10px] text-white/40 uppercase tracking-wider" style="color: rgba(255, 255, 255, 0.4); font-weight: 400; font-style: normal; font-size: 15px;">Unread</p>
+     <p data-template-id="stat-1-value" class="canva-text text-lg font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 15px;">3</p>
+    </div>
+    <div data-template-id="stat-2" class="canva-card rounded-2xl p-3 border border-white/5 text-center" style="background: rgb(17, 17, 17);"><i data-lucide="megaphone" class="w-4 h-4 mx-auto mb-1 text-white/60"></i>
+     <p data-template-id="stat-2-label" class="canva-text text-[10px] text-white/40 uppercase tracking-wider" style="color: rgba(255, 255, 255, 0.4); font-weight: 400; font-style: normal; font-size: 15px;">Announcements</p>
+     <p data-template-id="stat-2-value" class="canva-text text-lg font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 15px;">12</p>
+    </div>
+    <div data-template-id="stat-3" class="canva-card rounded-2xl p-3 border border-white/5 text-center" style="background: rgb(17, 17, 17);"><i data-lucide="shopping-bag" class="w-4 h-4 mx-auto mb-1 text-white/60"></i>
+     <p data-template-id="stat-3-label" class="canva-text text-[10px] text-white/40 uppercase tracking-wider" style="color: rgba(255, 255, 255, 0.4); font-weight: 400; font-style: normal; font-size: 15px;">Reserve Updates</p>
+     <p data-template-id="stat-3-value" class="canva-text text-lg font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 15px;">5</p>
+    </div>
+   </section><!-- Filter Chips -->
+   <div class="hide-scrollbar flex gap-2 overflow-x-auto pb-4" id="filter-container"><button class="filter-chip active shrink-0 px-4 py-1.5 rounded-full text-xs font-medium bg-white text-black" data-filter="all">All</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="unread">Unread</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="forum">Forum</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="announcement">Announcement</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="reserve">Reserve</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="article">Article Drop</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="checkout">Checkout</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="production">Production</button> <button class="filter-chip shrink-0 px-4 py-1.5 rounded-full text-xs font-medium border border-white/15 text-white/60" data-filter="shipping">Shipping</button>
+   </div><!-- Notification List -->
+   <div id="notif-list" class="space-y-2"></div><!-- Empty State -->
+   <div id="empty-state" class="hidden text-center py-16">
+    <div class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="bell-off" class="w-7 h-7 text-white/20"></i>
+    </div>
+    <h3 data-template-id="empty-title" class="canva-text font-bold text-lg mb-1" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 18px;">No Notifications Yet</h3>
+    <p data-template-id="empty-desc" class="canva-text text-white/40 text-sm mb-5" style="color: rgba(255, 255, 255, 0.4); font-weight: 400; font-style: normal; font-size: 15px;">Important updates from BEGAN will appear here.</p><button data-template-id="empty-btn" class="canva-button px-5 py-2 rounded-full text-sm font-semibold border border-white/15 hover:bg-white/5 transition" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 15px;">Explore Forum</button>
+   </div><!-- Tagline -->
+   <p data-template-id="tagline" class="canva-text text-center text-[10px] text-white/20 uppercase tracking-[0.3em] mt-10 mb-6" style="color: rgba(255, 255, 255, 0.15); font-weight: 400; font-style: normal; font-size: 15px;">UNTIL GOD SAYS SO</p>
+  </main><!-- FAB --> <button id="fab" class="fixed bottom-24 right-5 z-30 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg shadow-white/10 active:scale-90 transition-transform"> <i data-lucide="bell-ring" class="w-5 h-5"></i> </button> <!-- Bottom Nav -->
+  <nav data-template-id="bottom-nav" class="canva-menu fixed bottom-0 left-0 right-0 z-40 border-t border-white/5 px-6 py-2 grid grid-cols-4" style="background:#0a0a0a;"><a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="home" class="w-5 h-5"></i> <span class="text-[10px]">Home</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="message-circle" class="w-5 h-5"></i> <span class="text-[10px]">Forum</span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white relative"> <i data-lucide="bell" class="w-5 h-5"></i> <span class="text-[10px] font-semibold">Notifications</span> <span id="nav-badge" class="absolute top-1 right-1/4 w-2 h-2 bg-red-500 rounded-full"></span> </a> <a href="#" class="flex flex-col items-center gap-0.5 py-2 text-white/40"> <i data-lucide="user" class="w-5 h-5"></i> <span class="text-[10px]">Profile</span> </a>
+  </nav>
+  <script src="/_sdk/editing_sdk.js"></script>
+  <script>
+        lucide.createIcons();
 
+        const notifications = [
+            { id:1, type:'forum', icon:'💬', title:'Akbar membalas postingan Anda', desc:'Klik untuk melihat detail lengkap.', time:'2m ago', unread:true },
+            { id:2, type:'announcement', icon:'📢', title:'BEGAN Community Update Q2', desc:'Pengumuman penting untuk seluruh partner.', time:'15m ago', unread:true },
+            { id:3, type:'reserve', icon:'📦', title:'Reserve Batch 06 telah dibuka', desc:'Segera lakukan reservasi sebelum kuota habis.', time:'1h ago', unread:true },
+            { id:4, type:'article', icon:'🔥', title:'Artikel terbaru: Behind The Drop', desc:'Baca cerita di balik koleksi terbaru.', time:'2h ago', unread:false },
+            { id:5, type:'production', icon:'🏭', title:'Produksi pesanan Anda dimulai', desc:'Order #BG-2847 sedang dalam proses produksi.', time:'3h ago', unread:false },
+            { id:6, type:'shipping', icon:'🚚', title:'Pesanan Anda sedang dikirim', desc:'Estimasi tiba dalam 2-3 hari kerja.', time:'5h ago', unread:false },
+            { id:7, type:'checkout', icon:'🛒', title:'Checkout berhasil dikonfirmasi', desc:'Pembayaran untuk Order #BG-2846 diterima.', time:'Yesterday', unread:false },
+            { id:8, type:'forum', icon:'💬', title:'Reza menyebut Anda di thread', desc:'Lihat diskusi terbaru di forum partner.', time:'Yesterday', unread:false },
+            { id:9, type:'announcement', icon:'📢', title:'Maintenance scheduled', desc:'Sistem akan maintenance 20 Jun 02:00 WIB.', time:'2d ago', unread:false },
+            { id:10, type:'reserve', icon:'📦', title:'Reserve Batch 05 sold out', desc:'Batch 05 telah habis terjual. Terima kasih!', time:'3d ago', unread:false },
+        ];
+
+        let currentFilter = 'all';
+
+        function renderNotifications() {
+            const list = document.getElementById('notif-list');
+            const filtered = currentFilter === 'all' ? notifications :
+                currentFilter === 'unread' ? notifications.filter(n => n.unread) :
+                notifications.filter(n => n.type === currentFilter);
+
+            if (filtered.length === 0) {
+                list.innerHTML = '';
+                document.getElementById('empty-state').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('empty-state').classList.add('hidden');
+
+            list.innerHTML = filtered.map((n, i) => `
+                <div class="notif-item slide-up rounded-2xl p-4 border border-white/5 flex gap-3 cursor-pointer ${n.unread ? 'bg-white/[0.03]' : ''}" style="animation-delay:${i * 60}ms" data-id="${n.id}">
+                    <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg shrink-0">${n.icon}</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold leading-tight ${n.unread ? 'text-white' : 'text-white/70'}">${n.title}</p>
+                        <p class="text-xs text-white/35 mt-0.5 line-clamp-2">${n.desc}</p>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 shrink-0">
+                        <span class="text-[10px] text-white/30">${n.time}</span>
+                        ${n.unread ? '<span class="w-2.5 h-2.5 rounded-full bg-accent badge-pulse"></span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter chips
+        document.getElementById('filter-container').addEventListener('click', e => {
+            const chip = e.target.closest('.filter-chip');
+            if (!chip) return;
+            document.querySelectorAll('.filter-chip').forEach(c => {
+                c.classList.remove('active', 'bg-white', 'text-black');
+                c.classList.add('border', 'border-white/15', 'text-white/60');
+            });
+            chip.classList.add('active', 'bg-white', 'text-black');
+            chip.classList.remove('border', 'border-white/15', 'text-white/60');
+            currentFilter = chip.dataset.filter;
+            renderNotifications();
+        });
+
+        // Mark all read
+        function markAllRead() {
+            notifications.forEach(n => n.unread = false);
+            document.getElementById('nav-badge').classList.add('hidden');
+            renderNotifications();
+            updateStats();
+        }
+
+        document.getElementById('mark-all-btn').addEventListener('click', markAllRead);
+        document.getElementById('fab').addEventListener('click', markAllRead);
+
+        function updateStats() {
+            const unread = notifications.filter(n => n.unread).length;
+            document.querySelector('[data-template-id="stat-1-value"]').textContent = unread;
+        }
+
+        // Pull to refresh simulation
+        let startY = 0;
+        const indicator = document.getElementById('pull-indicator');
+        document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
+        document.addEventListener('touchmove', e => {
+            if (window.scrollY === 0 && e.touches[0].clientY - startY > 60) {
+                indicator.style.opacity = '1';
+                indicator.style.transform = 'translateY(0)';
+            }
+        });
+        document.addEventListener('touchend', () => {
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+                indicator.style.transform = 'translateY(-100%)';
+            }, 1200);
+        });
+
+        renderNotifications();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf45d845b77a21',t:'MTc4MTY3MDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>
