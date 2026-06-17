@@ -1,23 +1,41 @@
-
-@media(max-width:767px){
+@media (max-width:767px){
 
   #filter-container{
 
-    -webkit-overflow-scrolling:
-    touch;
+    -webkit-overflow-scrolling: touch;
 
-    scroll-behavior:
-    smooth;
-    
-    mask-image:  
-linear-gradient(
-  to right,
-  black 0%,
-  black 85%,
-  transparent 100%
-);
+    scroll-behavior: smooth;
+
+    mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 88%,
+      transparent 100%
+    );
+
+    -webkit-mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 88%,
+      transparent 100%
+    );
 
   }
-  
+
+}
+
+@media (max-width:767px){
+
+  #filter-container{
+
+    cursor: grab;
+
+  }
+
+  #filter-container:active{
+
+    cursor: grabbing;
+
+  }
 
 }
