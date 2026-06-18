@@ -200,11 +200,18 @@ function renderNotifications(){
 
     return `
 
-      <div
-        class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3"
-        data-notification-id="${n.notificationId || ''}"
-        data-url="${url}"
-      >
+  <div
+    class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3 relative"
+    data-notification-id="${n.notificationId || ''}"
+    data-url="${url}"
+  >
+
+    <button
+      class="notif-delete-btn absolute top-3 right-3 text-white/35 hover:text-white"
+      data-notification-id="${n.notificationId || ''}"
+    >
+      ✕
+    </button>
 
         <div
           class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg shrink-0"
