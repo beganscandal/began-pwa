@@ -83,3 +83,15 @@ async function markAllNotificationsRead(){
   return response.json();
 
 }
+
+async function loadNotifications(){
+
+  const result =
+    await getNotifications();
+
+  NotificationState.notifications =
+    result.notifications || [];
+
+  return result;
+
+}
