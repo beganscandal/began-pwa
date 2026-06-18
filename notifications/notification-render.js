@@ -272,23 +272,35 @@ function renderNotificationStats(){
 
   const announcementCount =
 
-    items.filter(
-      n =>
+  items.filter(
+    n =>
+
       String(
         n.type || ''
       ).toLowerCase() ===
       'announcement'
-    ).length;
 
+      &&
+
+      !n.isRead
+
+  ).length;
+  
   const reserveCount =
 
-    items.filter(
-      n =>
+  items.filter(
+    n =>
+
       String(
         n.type || ''
       ).toLowerCase() ===
       'reserve'
-    ).length;
+
+      &&
+
+      !n.isRead
+
+  ).length;
 
   const unreadEl =
     document.querySelector(
