@@ -138,6 +138,41 @@ function bindMarkAllRead(){
   );
 
 }
+function bindNotificationStats(){
+
+  const announcementCard =
+
+    document.querySelector(
+      '[data-template-id="stat-2"]'
+    );
+
+  if(announcementCard){
+
+    announcementCard.addEventListener(
+
+      'click',
+
+      function(){
+
+        const chip =
+
+          document.querySelector(
+            '[data-filter="announcement"]'
+          );
+
+        if(chip){
+
+          chip.click();
+
+        }
+
+      }
+
+    );
+
+  }
+
+}
 
 function bindNotificationFilters(){
 
@@ -202,37 +237,4 @@ function bindNotificationFilters(){
 }
 
 
-function bindNotificationStats(){
 
-  const announcementCard =
-
-    document.querySelector(
-      '[data-template-id="stat-2"]'
-    );
-
-  if(!announcementCard)
-    return;
-
-  announcementCard.addEventListener(
-
-    'click',
-
-    function(){
-
-      const chip =
-
-        document.querySelector(
-          '[data-filter="announcement"]'
-        );
-
-      if(chip){
-
-        chip.click();
-
-      }
-
-    }
-
-  );
-
-}
