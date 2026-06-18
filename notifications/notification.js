@@ -11,6 +11,7 @@ async function initNotifications(){
     bindNotificationClicks();
     bindMarkAllRead();
     bindNotificationFilters();
+    bindNotificationStats();
 
     lucide.createIcons();
 
@@ -193,6 +194,42 @@ function bindNotificationFilters(){
       );
 
       renderNotifications();
+
+    }
+
+  );
+
+}
+
+
+function bindNotificationStats(){
+
+  const announcementCard =
+
+    document.querySelector(
+      '[data-template-id="stat-2"]'
+    );
+
+  if(!announcementCard)
+    return;
+
+  announcementCard.addEventListener(
+
+    'click',
+
+    function(){
+
+      const chip =
+
+        document.querySelector(
+          '[data-filter="announcement"]'
+        );
+
+      if(chip){
+
+        chip.click();
+
+      }
 
     }
 
