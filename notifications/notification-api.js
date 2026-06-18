@@ -1,5 +1,5 @@
 const API_URL =
-'https://script.google.com/macros/s/AKfycbybicJUG9ZM5hD7luUrY7F8l3qmpkDekpObh-ytNve8Qb-jcltLhAk0wVBCilpfavkdjg/exec';
+'https://script.google.com/macros/s/AKfycbybicJUG9ZM5hD7luUrY7F8l3qmpkDekpObh-ytNve8Qb-jcltLhAk0wVBCilpfavkdjg/exec'; 
 
 async function getNotifications(){
 
