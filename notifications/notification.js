@@ -12,6 +12,7 @@ async function initNotifications(){
     bindMarkAllRead();
     bindNotificationFilters();
     bindNotificationStats();
+    bindDeleteNotifications();
 
     lucide.createIcons();
 
@@ -236,5 +237,55 @@ function bindNotificationFilters(){
 
 }
 
+function bindDeleteNotifications(){
 
+  document.addEventListener(
+
+    'click',
+
+    async function(e){
+
+      const button =
+
+        e.target.closest(
+          '.notif-delete-btn'
+        );
+
+      if(!button)
+        return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const notificationId =
+
+        button.dataset.notificationId;
+
+      if(!notificationId)
+        return;
+
+      try{
+
+        await deleteNotification(
+          notificationId
+        );
+
+        await refreshNotificationCenter();
+
+      }
+
+      catch(error){
+
+        console.error(
+          'DELETE NOTIFICATION ERROR',
+          error
+        );
+
+      }
+
+    }
+
+  );
+
+}
 
