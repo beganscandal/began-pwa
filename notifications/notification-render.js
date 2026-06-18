@@ -253,6 +253,8 @@ function renderNotifications(){
     </div>
 
     <button
+      type="button"
+      aria-label="Delete notification"
       class="notif-delete-btn w-10 h-10 shrink-0 flex items-center justify-center text-white/35 hover:text-white"
       data-notification-id="${n.notificationId || ''}"
     >
