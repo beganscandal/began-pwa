@@ -102,7 +102,13 @@ async function deleteNotification(
 
   const partner =
 
-    getPartnerContext();
+    JSON.parse(
+
+      localStorage.getItem(
+        'began_partner'
+      ) || '{}'
+
+    );
 
   return ForumAPI.deleteNotification({
 
