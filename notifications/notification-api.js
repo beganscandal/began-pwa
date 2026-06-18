@@ -56,3 +56,30 @@ async function markNotificationRead(notificationId){
   return response.json();
 
 }
+
+async function markAllNotificationsRead(){
+
+  const partner =
+    JSON.parse(
+      localStorage.getItem(
+        'began_partner'
+      ) || '{}'
+    );
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:'POST',
+        body:JSON.stringify({
+          action:'markAllNotificationsRead',
+          payload:{
+            partnerId:partner.id
+          }
+        })
+      }
+    );
+
+  return response.json();
+
+}
