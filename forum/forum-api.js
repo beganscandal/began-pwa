@@ -1,5 +1,5 @@
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbyVKbJ1YrFgAKWbaZdrdGVzYbl1PgeAKt07McE0lmVRDxICFQFv1CeKUSpHr5KrpEfEHA/exec';
+  'https://script.google.com/macros/s/AKfycbyOrOoPCY8tHo5GMlGaW9eOyxA3O-7Q_-Y3NNGZAuxhe_In0ZwxBy2dHYySDNvsuIfyKg/exec';
 
 window.getBoard = async function () {
 
