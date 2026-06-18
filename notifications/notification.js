@@ -2,28 +2,14 @@ async function initNotifications(){
 
   try{
 
-    const result =
-      await getNotifications();
-
-    console.log(
-      'NOTIFICATION API',
-      result
-    );
-
-    NotificationState.notifications =
-      result.notifications || [];
-
-    console.log(
-      'STATE',
-      NotificationState.notifications
-    );
+    await loadNotifications();
 
     renderNotifications();
     renderNotificationStats();
     renderNotificationBadge();
+
     bindNotificationClicks();
     bindMarkAllRead();
-
 
     lucide.createIcons();
 
@@ -40,12 +26,77 @@ async function initNotifications(){
 
 }
 
+
 document.addEventListener(
 
   'DOMContentLoaded',
 
   initNotifications
 
+);
+
+let IS_REFRESHING = false;
+
+async function refreshNotificationCenter(){
+
+  if(IS_REFRESHING)
+    return;
+
+  IS_REFRESHING = true;
+
+  try{
+
+    await loadNotifications();
+
+    renderNotifications();
+    renderNotificationStats();
+    renderNotificationBadge();
+
+  }
+
+  catch(error){
+
+    console.error(
+      'REFRESH NOTIFICATION ERROR',
+      error
+    );
+
+  }
+
+  finally{
+
+    IS_REFRESHING = false;
+
+  }
+
+}
+document.addEventListener(
+
+  'visibilitychange',
+
+  async function(){
+
+    if(document.hidden)
+      return;
+
+    await refreshNotificationCenter();
+
+  }
+
+);
+
+setInterval(
+
+  async function(){
+
+    if(document.hidden)
+      return;
+
+    await refreshNotificationCenter();
+
+  },
+
+  30000
 );
 
 function bindMarkAllRead(){
@@ -66,14 +117,9 @@ function bindMarkAllRead(){
 
       try{
 
-        await markAllNotificationsRead();
+       await markAllNotificationsRead();
 
-        await loadNotifications();
-
-        renderNotifications();
-        renderNotificationStats();
-        renderNotificationBadge();
-
+       await refreshNotificationCenter();
       }
 
       catch(error){
@@ -90,3 +136,5 @@ function bindMarkAllRead(){
   );
 
 }
+
+
