@@ -94,6 +94,10 @@ function renderNotifications(){
         `
 
         : '';
+    const timeAgo =
+  formatTimeAgo(
+    n.createdAt
+  );
 
     return `
 
@@ -109,26 +113,45 @@ function renderNotifications(){
           ${getTypeIcon(n.type)}
         </div>
 
-        <div class="flex-1">
+        <div class="flex-1 min-w-0">
 
-          <p class="text-sm font-semibold flex items-center">
+  <div
+    class="flex items-start justify-between gap-2"
+  >
 
-            ${unreadDot}
+    <p
+      class="text-sm font-semibold flex items-center min-w-0"
+    >
 
-            <span>
-              ${n.message || ''}
-            </span>
+      ${unreadDot}
 
-          </p>
+      <span class="truncate">
 
-          <p class="text-xs text-white/35">
+        ${n.message || ''}
 
-            ${n.type || ''}
+      </span>
 
-          </p>
+    </p>
 
-        </div>
+    <span
+      class="text-[10px] text-white/35 shrink-0"
+    >
 
+      ${timeAgo}
+
+    </span>
+
+  </div>
+
+  <p
+    class="text-xs text-white/35"
+  >
+
+    ${n.type || ''}
+
+  </p>
+
+</div>
       </div>
 
     `;
@@ -299,4 +322,49 @@ function renderNotificationBadge(){
       ? 'block'
       : 'none';
 
+}
+
+function formatTimeAgo(dateString){
+
+  const now =
+    new Date();
+
+  const date =
+    new Date(dateString);
+
+  const diff =
+    Math.floor(
+      (now - date) / 1000
+    );
+
+  if(diff < 60)
+    return diff + 's ago';
+
+  if(diff < 3600)
+    return Math.floor(diff / 60) + 'm ago';
+
+  if(diff < 86400)
+    return Math.floor(diff / 3600) + 'h ago';
+
+  if(diff < 604800)
+    return Math.floor(diff / 86400) + 'd ago';
+
+  return date.toLocaleDateString(
+    'id-ID'
+  );
+
+}
+
+function formatTimeAgo(dateString){
+
+  if(!dateString)
+    return '';
+
+  const date =
+    new Date(dateString);
+
+  if(isNaN(date))
+    return '';
+
+  ...
 }
