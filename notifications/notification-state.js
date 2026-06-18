@@ -1,6 +1,7 @@
 window.NotificationState = {
 
-  notifications : []
+  notifications : [],
+
+  activeFilter : 'all'
 
 };
- 
