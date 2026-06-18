@@ -36,6 +36,90 @@ function getTypeIcon(type){
 
 }
 
+function getFilteredNotifications(){
+
+  const items =
+  getFilteredNotifications();;
+
+  const filter =
+    NotificationState.activeFilter || 'all';
+
+  switch(filter){
+
+    case 'unread':
+
+      return items.filter(
+        n => !n.isRead
+      );
+
+    case 'announcement':
+
+      return items.filter(
+        n =>
+          String(n.type || '')
+            .toLowerCase()
+          ===
+          'announcement'
+      );
+
+    case 'reserve':
+
+      return items.filter(
+        n =>
+          String(n.type || '')
+            .toLowerCase()
+          ===
+          'reserve'
+      );
+
+    case 'article':
+
+      return items.filter(
+        n =>
+          String(n.type || '')
+            .toLowerCase()
+          ===
+          'article'
+      );
+
+    case 'checkout':
+
+      return items.filter(
+        n =>
+          String(n.type || '')
+            .toLowerCase()
+          ===
+          'checkout'
+      );
+
+    case 'production':
+
+      return items.filter(
+        n =>
+          String(n.type || '')
+            .toLowerCase()
+          ===
+          'production'
+      );
+
+    case 'shipping':
+
+      return items.filter(
+        n =>
+          String(n.type || '')
+            .toLowerCase()
+          ===
+          'shipping'
+      );
+
+    default:
+
+      return items;
+
+  }
+
+}
+
 function renderNotifications(){
 
   const list =
