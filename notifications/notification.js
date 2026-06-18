@@ -22,6 +22,8 @@ async function initNotifications(){
     renderNotificationStats();
     renderNotificationBadge();
     bindNotificationClicks();
+    bindMarkAllRead();
+
 
     lucide.createIcons();
 
@@ -45,3 +47,46 @@ document.addEventListener(
   initNotifications
 
 );
+
+function bindMarkAllRead(){
+
+  const button =
+
+    document.getElementById(
+      'mark-all-btn'
+    );
+
+  if(!button) return;
+
+  button.addEventListener(
+
+    'click',
+
+    async function(){
+
+      try{
+
+        await markAllNotificationsRead();
+
+        await loadNotifications();
+
+        renderNotifications();
+        renderNotificationStats();
+        renderNotificationBadge();
+
+      }
+
+      catch(error){
+
+        console.error(
+          'MARK ALL READ ERROR',
+          error
+        );
+
+      }
+
+    }
+
+  );
+
+}
