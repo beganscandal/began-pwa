@@ -376,6 +376,14 @@ function bindNotificationClicks(){
 
     async function(e){
 
+      if(
+        e.target.closest(
+          '.notif-delete-btn'
+        )
+      ){
+        return;
+      }
+
       const card =
 
         e.target.closest(
@@ -422,7 +430,6 @@ renderNotificationBadge();
 
   );
 
-}
 
 function renderNotificationBadge(){
 
