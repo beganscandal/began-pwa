@@ -147,9 +147,9 @@ function renderNotifications(){
 
   const items =
 
-    NotificationState
-      .notifications || [];
-
+   const items =
+  getFilteredNotifications();
+  
   if(!items.length){
 
     list.innerHTML = '';
