@@ -95,3 +95,23 @@ async function loadNotifications(){
   return result;
 
 }
+
+async function deleteNotification(
+  notificationId
+){
+
+  const partner =
+
+    getPartnerContext();
+
+  return ForumAPI.deleteNotification({
+
+    notificationId :
+      notificationId,
+
+    partnerId :
+      partner.id
+
+  });
+
+}
