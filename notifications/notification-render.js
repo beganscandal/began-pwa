@@ -39,7 +39,7 @@ function getTypeIcon(type){
 function getFilteredNotifications(){
 
   const items =
-  getFilteredNotifications();;
+    NotificationState.notifications || [];
 
   const filter =
     NotificationState.activeFilter || 'all';
@@ -56,8 +56,9 @@ function getFilteredNotifications(){
 
       return items.filter(
         n =>
-          String(n.type || '')
-            .toLowerCase()
+          String(
+            n.type || ''
+          ).toLowerCase()
           ===
           'announcement'
       );
@@ -66,8 +67,9 @@ function getFilteredNotifications(){
 
       return items.filter(
         n =>
-          String(n.type || '')
-            .toLowerCase()
+          String(
+            n.type || ''
+          ).toLowerCase()
           ===
           'reserve'
       );
@@ -76,8 +78,9 @@ function getFilteredNotifications(){
 
       return items.filter(
         n =>
-          String(n.type || '')
-            .toLowerCase()
+          String(
+            n.type || ''
+          ).toLowerCase()
           ===
           'article'
       );
@@ -86,8 +89,9 @@ function getFilteredNotifications(){
 
       return items.filter(
         n =>
-          String(n.type || '')
-            .toLowerCase()
+          String(
+            n.type || ''
+          ).toLowerCase()
           ===
           'checkout'
       );
@@ -96,8 +100,9 @@ function getFilteredNotifications(){
 
       return items.filter(
         n =>
-          String(n.type || '')
-            .toLowerCase()
+          String(
+            n.type || ''
+          ).toLowerCase()
           ===
           'production'
       );
@@ -106,10 +111,23 @@ function getFilteredNotifications(){
 
       return items.filter(
         n =>
-          String(n.type || '')
-            .toLowerCase()
+          String(
+            n.type || ''
+          ).toLowerCase()
           ===
           'shipping'
+      );
+
+    case 'forum':
+
+      return items.filter(
+        n =>
+          ['reply','mention']
+          .includes(
+            String(
+              n.type || ''
+            ).toLowerCase()
+          )
       );
 
     default:
@@ -119,7 +137,6 @@ function getFilteredNotifications(){
   }
 
 }
-
 function renderNotifications(){
 
   const list =
