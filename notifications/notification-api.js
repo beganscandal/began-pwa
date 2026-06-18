@@ -110,6 +110,14 @@ async function deleteNotification(
 
     );
 
+  if(!partner.id){
+
+    throw new Error(
+      'PARTNER_NOT_FOUND'
+    );
+
+  }
+
   return ForumAPI.deleteNotification({
 
     notificationId :
