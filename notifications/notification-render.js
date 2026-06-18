@@ -326,11 +326,17 @@ function renderNotificationBadge(){
 
 function formatTimeAgo(dateString){
 
+  if(!dateString)
+    return '';
+
   const now =
     new Date();
 
   const date =
     new Date(dateString);
+
+  if(isNaN(date))
+    return '';
 
   const diff =
     Math.floor(
@@ -353,18 +359,4 @@ function formatTimeAgo(dateString){
     'id-ID'
   );
 
-}
-
-function formatTimeAgo(dateString){
-
-  if(!dateString)
-    return '';
-
-  const date =
-    new Date(dateString);
-
-  if(isNaN(date))
-    return '';
-
-  ...
 }
