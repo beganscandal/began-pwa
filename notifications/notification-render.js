@@ -430,6 +430,7 @@ renderNotificationBadge();
 
   );
 
+}
 
 function renderNotificationBadge(){
 
