@@ -201,66 +201,67 @@ function renderNotifications(){
     return `
 
   <div
-    class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3 relative"
+    class="notif-item rounded-2xl p-4 border border-white/5 flex gap-3 items-start"
     data-notification-id="${n.notificationId || ''}"
     data-url="${url}"
   >
 
+    <div
+      class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg shrink-0"
+    >
+      ${getTypeIcon(n.type)}
+    </div>
+
+    <div class="flex-1 min-w-0">
+
+      <div
+        class="flex items-start justify-between gap-2"
+      >
+
+        <p
+          class="text-sm font-semibold flex items-center min-w-0"
+        >
+
+          ${unreadDot}
+
+          <span class="truncate">
+
+            ${n.message || ''}
+
+          </span>
+
+        </p>
+
+        <span
+          class="text-[10px] text-white/35 shrink-0"
+        >
+
+          ${timeAgo}
+
+        </span>
+
+      </div>
+
+      <p
+        class="text-xs text-white/35"
+      >
+
+        ${n.type || ''}
+
+      </p>
+
+    </div>
+
     <button
-      class="notif-delete-btn absolute top-3 right-3 text-white/35 hover:text-white"
+      class="notif-delete-btn w-10 h-10 shrink-0 flex items-center justify-center text-white/35 hover:text-white"
       data-notification-id="${n.notificationId || ''}"
     >
       ✕
     </button>
 
-        <div
-          class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg shrink-0"
-        >
-          ${getTypeIcon(n.type)}
-        </div>
-
-        <div class="flex-1 min-w-0">
-
-  <div
-    class="flex items-start justify-between gap-2"
-  >
-
-    <p
-      class="text-sm font-semibold flex items-center min-w-0"
-    >
-
-      ${unreadDot}
-
-      <span class="truncate">
-
-        ${n.message || ''}
-
-      </span>
-
-    </p>
-
-    <span
-      class="text-[10px] text-white/35 shrink-0"
-    >
-
-      ${timeAgo}
-
-    </span>
-
   </div>
 
-  <p
-    class="text-xs text-white/35"
-  >
-
-    ${n.type || ''}
-
-  </p>
-
-</div>
-      </div>
-
-    `;
+`;
 
   }).join('');
 
