@@ -144,9 +144,7 @@ function renderNotifications(){
     document.getElementById(
       'notif-list'
     );
-
-  const items =
-
+  
    const items =
   getFilteredNotifications();
   
