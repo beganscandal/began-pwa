@@ -10,6 +10,7 @@ async function initNotifications(){
 
     bindNotificationClicks();
     bindMarkAllRead();
+    bindNotificationFilters();
 
     lucide.createIcons();
 
@@ -137,4 +138,64 @@ function bindMarkAllRead(){
 
 }
 
+function bindNotificationFilters(){
 
+  document.addEventListener(
+
+    'click',
+
+    function(e){
+
+      const chip =
+
+        e.target.closest(
+          '.filter-chip'
+        );
+
+      if(!chip) return;
+
+      const filter =
+        chip.dataset.filter;
+
+      NotificationState.activeFilter =
+        filter;
+
+      document
+        .querySelectorAll(
+          '.filter-chip'
+        )
+        .forEach(function(item){
+
+          item.classList.remove(
+            'active',
+            'bg-white',
+            'text-black'
+          );
+
+          item.classList.add(
+            'border',
+            'border-white/15',
+            'text-white/60'
+          );
+
+        });
+
+      chip.classList.add(
+        'active',
+        'bg-white',
+        'text-black'
+      );
+
+      chip.classList.remove(
+        'border',
+        'border-white/15',
+        'text-white/60'
+      );
+
+      renderNotifications();
+
+    }
+
+  );
+
+}
