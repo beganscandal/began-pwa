@@ -118,14 +118,36 @@ async function deleteNotification(
 
   }
 
-  return ForumAPI.deleteNotification({
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:'POST',
+        body:JSON.stringify({
+          action:'deleteNotification',
+          payload:{
+            notificationId :
+              notificationId,
 
-    notificationId :
-      notificationId,
+            partnerId :
+              partner.id
+          }
+        })
+      }
+    );
 
-    partnerId :
-      partner.id
+  const result =
+    await response.json();
 
-  });
+  if(!result.success){
+
+    throw new Error(
+      result.message ||
+      'DELETE_NOTIFICATION_FAILED'
+    );
+
+  }
+
+  return result;
 
 }
