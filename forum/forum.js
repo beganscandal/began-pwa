@@ -40,7 +40,8 @@ allPosts =
   .catch(
     console.error
   );
-      renderReserveStat([]);
+      bindReserveStat();
+      refreshReserveStat();
 initAnnouncementVideo();
 renderPosts(
   getFilteredPosts()
@@ -64,6 +65,120 @@ bindMentionAutocomplete();
 
   }
 );
+
+function openReserveSystem(){
+
+  try{
+
+    if(
+      window.top &&
+      window.top !== window
+    ){
+
+      window.top.location.href =
+        RESERVE_SYSTEM_URL;
+
+      return;
+
+    }
+
+  }catch(error){}
+
+  window.location.href =
+    RESERVE_SYSTEM_URL;
+
+}
+
+function bindReserveStat(){
+
+  const card =
+    document.querySelector(
+      '[data-template-id="stat-1"]'
+    );
+
+  if(!card || card.dataset.bound === 'true'){
+    return;
+  }
+
+  card.dataset.bound =
+    'true';
+
+  card.addEventListener(
+    'click',
+    openReserveSystem
+  );
+
+  card.addEventListener(
+    'keydown',
+    function(event){
+
+      if(
+        event.key !== 'Enter' &&
+        event.key !== ' '
+      ){
+        return;
+      }
+
+      event.preventDefault();
+      openReserveSystem();
+
+    }
+  );
+
+}
+
+function renderReserveStat(count){
+
+  const value =
+    document.querySelector(
+      '[data-template-id="stat-1-value"]'
+    );
+
+  if(!value){
+    return;
+  }
+
+  if(
+    count === '...' ||
+    count === null
+  ){
+
+    value.textContent =
+      '...';
+
+    return;
+
+  }
+
+  value.textContent =
+    Number(count || 0)
+      .toLocaleString('id-ID');
+
+}
+
+async function refreshReserveStat(){
+
+  try{
+
+    renderReserveStat('...');
+
+    const count =
+      await getActiveReserveProductsCount();
+
+    renderReserveStat(count);
+
+  }catch(error){
+
+    console.error(
+      'RESERVE STAT ERROR',
+      error
+    );
+
+    renderReserveStat(0);
+
+  }
+
+}
 function initPostNavigation() {
 
   const feed =
@@ -936,4 +1051,3 @@ function getFilteredPosts(){
   );
 
 }
-
