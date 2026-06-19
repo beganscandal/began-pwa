@@ -1,5 +1,111 @@
 const API_URL =
 'https://script.google.com/macros/s/AKfycbyOrOoPCY8tHo5GMlGaW9eOyxA3O-7Q_-Y3NNGZAuxhe_In0ZwxBy2dHYySDNvsuIfyKg/exec'; 
+function hydrateNotificationPartnerSession(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  let partner = null;
+
+  const rawPartner =
+    params.get('partner');
+
+  if(rawPartner){
+
+    try{
+
+      partner =
+        JSON.parse(
+          decodeURIComponent(rawPartner)
+        );
+
+    }catch(error){
+
+      try{
+
+        partner =
+          JSON.parse(
+            atob(rawPartner)
+          );
+
+      }catch(innerError){}
+
+    }
+
+  }
+
+  if(!partner){
+
+    const partnerId =
+      params.get('partnerId') ||
+      params.get('partner_id') ||
+      params.get('id');
+
+    const toko =
+      params.get('toko') ||
+      params.get('partnerName') ||
+      params.get('name');
+
+    if(partnerId && toko){
+
+      partner = {
+        id:partnerId,
+        toko:toko,
+        name:params.get('name') || toko,
+        whatsapp:params.get('whatsapp') || '',
+        tier:params.get('tier') || ''
+      };
+
+    }
+
+  }
+
+  if(
+    !partner ||
+    !partner.id ||
+    !partner.toko
+  ){
+    return;
+  }
+
+  localStorage.setItem(
+    'began_partner',
+    JSON.stringify(partner)
+  );
+
+  try{
+
+    const url =
+      new URL(window.location.href);
+
+    [
+      'partner',
+      'partnerId',
+      'partner_id',
+      'id',
+      'toko',
+      'partnerName',
+      'name',
+      'whatsapp',
+      'tier'
+    ].forEach(function(key){
+      url.searchParams.delete(key);
+    });
+
+    window.history.replaceState(
+      {},
+      document.title,
+      url.pathname + url.search + url.hash
+    );
+
+  }catch(error){}
+
+}
+
+hydrateNotificationPartnerSession();
+
 
 async function getNotifications(){
 
