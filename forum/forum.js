@@ -6,6 +6,8 @@ let isUploadingVideo = false;
 let allPosts = [];
 let searchTimer;
 let currentSearch = '';
+const RESERVE_SYSTEM_URL =
+  'https://www.barkahgarment.com/reserve-system';
 
 document.addEventListener(
   'DOMContentLoaded',
