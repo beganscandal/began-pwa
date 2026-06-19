@@ -140,8 +140,109 @@
     state.sizeQty = createEmptySizeQty(sizes);
     return state;
   }
+    var rawPartner =
+      params.get('partner');
 
-  function getPartnerContext(){
+    if(rawPartner){
+
+      try{
+
+        return JSON.parse(
+          decodeURIComponent(rawPartner)
+        );
+
+      }catch(error){
+
+        try{
+
+          return JSON.parse(
+            atob(rawPartner)
+          );
+
+        }catch(innerError){}
+
+      }
+
+    }
+
+    var partnerId =
+      params.get('partnerId') ||
+      params.get('partner_id') ||
+      params.get('id');
+
+    var toko =
+      params.get('toko') ||
+      params.get('partnerName') ||
+      params.get('name');
+
+    if(!partnerId || !toko){
+      return null;
+    }
+
+    return {
+      id:partnerId,
+      toko:toko,
+      name:params.get('name') || toko,
+      whatsapp:params.get('whatsapp') || '',
+      tier:params.get('tier') || ''
+    };
+
+  }
+
+  function hydratePartnerSessionFromUrl(){
+
+    var partner =
+      readPartnerFromUrl();
+
+    if(
+      !partner ||
+      !partner.id ||
+      !partner.toko
+    ){
+      return null;
+    }
+
+    localStorage.setItem(
+      'began_partner',
+      JSON.stringify(partner)
+    );
+
+    try{
+
+      var url =
+        new URL(window.location.href);
+
+      [
+        'partner',
+        'partnerId',
+        'partner_id',
+        'id',
+        'toko',
+        'partnerName',
+        'name',
+        'whatsapp',
+        'tier'
+      ].forEach(function(key){
+        url.searchParams.delete(key);
+      });
+
+      window.history.replaceState(
+        {},
+        document.title,
+        url.pathname + url.search + url.hash
+      );
+
+    }catch(error){}
+
+    return partner;
+
+  }
+
+  hydratePartnerSessionFromUrl();
+
+
+
+    function getPartnerContext(){
 
   try{
 
