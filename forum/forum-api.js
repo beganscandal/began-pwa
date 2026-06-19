@@ -1,6 +1,10 @@
 const API_URL =
   'https://script.google.com/macros/s/AKfycbyOrOoPCY8tHo5GMlGaW9eOyxA3O-7Q_-Y3NNGZAuxhe_In0ZwxBy2dHYySDNvsuIfyKg/exec';
 
+const RESERVE_API_URL =
+  window.BEGAN_RESERVE_API ||
+  'https://script.google.com/macros/s/AKfycbw4mu0uuhnprRIcM0Jeft4y8QlPqc6J79NlIoj-d6KD_glSEXrCACM9X6-387_0QO8Wcg/exec';
+
 window.getBoard = async function () {
 
   const response = await fetch(
@@ -301,6 +305,34 @@ async function getTopPartners(){
 
 }
 
+async function getActiveReserveProductsCount(){
+
+  const response =
+    await fetch(
+      RESERVE_API_URL +
+      '?action=getReserveProducts&_=' +
+      Date.now()
+    );
+
+  const result =
+    await response.json();
+
+  if(!result.success){
+
+    throw new Error(
+      result.message ||
+      'RESERVE_API_FAILED'
+    );
+
+  }
+
+  return (
+    result.products || []
+  ).length;
+
+}
+
+
 async function submitVoice(
   payload
 ){
@@ -339,3 +371,4 @@ async function submitVoice(
   return response.json();
 
 }
+
