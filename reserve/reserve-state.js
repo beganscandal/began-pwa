@@ -140,6 +140,12 @@
     state.sizeQty = createEmptySizeQty(sizes);
     return state;
   }
+    function readPartnerFromUrl(){
+var params =
+      new URLSearchParams(
+        window.location.search
+      );
+
     var rawPartner =
       params.get('partner');
 
@@ -240,8 +246,7 @@
 
   hydratePartnerSessionFromUrl();
 
-
-
+ 
     function getPartnerContext(){
 
   try{
