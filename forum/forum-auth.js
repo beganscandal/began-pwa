@@ -118,9 +118,6 @@ function hydratePartnerSessionFromUrl(){
 
 hydratePartnerSessionFromUrl();
 
-
-
-
 function getPartnerContext(){
 
     if(
