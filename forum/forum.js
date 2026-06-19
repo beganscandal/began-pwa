@@ -1,6 +1,5 @@
 let selectedImageUrl = '';
 let selectedVideoUrl = '';
-
 let isUploadingImage = false;
 let isUploadingVideo = false;
 let allPosts = [];
