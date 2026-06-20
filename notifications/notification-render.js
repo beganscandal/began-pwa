@@ -397,6 +397,18 @@ function bindNotificationClicks(){
 
       const notificationId =
         card.dataset.notificationId;
+      const notification =
+
+  NotificationState.notifications.find(
+    item =>
+      item.notificationId ===
+      notificationId
+  );
+
+const type =
+  String(
+    notification?.type || ''
+  ).toLowerCase();
 
       if(notificationId){
 
@@ -424,8 +436,28 @@ renderNotificationBadge();
 
       if(!url) return;
 
-      BeganDeepLink.open(url);
 
+if(
+  type === 'reserve' &&
+  window.BeganPwaBridge &&
+  typeof window.BeganPwaBridge.open === 'function'
+){
+
+  window.BeganPwaBridge.open(url);
+
+}else if(
+  window.BeganDeepLink &&
+  typeof window.BeganDeepLink.open === 'function'
+){
+
+  window.BeganDeepLink.open(url);
+
+}else{
+
+  window.location.href = url;
+
+} 
+    
     }
 
   );
