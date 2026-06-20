@@ -1,5 +1,4 @@
 function getTypeIcon(type){
-
   switch(
 
     String(type || '')
