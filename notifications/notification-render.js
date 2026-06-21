@@ -475,6 +475,11 @@ if(
   window.location.href = url;
 
 }
+          }   // penutup async function
+
+  );    // penutup addEventListener
+
+}       // penutup bindNotificationClicks
 
 function renderNotificationBadge(){
 
