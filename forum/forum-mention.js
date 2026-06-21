@@ -476,9 +476,7 @@ function escapeHtml(text){
 function formatMentions(text){
 
     if(!text){
-
         return '';
-
     }
 
     let html = escapeHtml(text);
@@ -521,29 +519,31 @@ function formatMentions(text){
 
             const regex =
 
-    new RegExp(
+                new RegExp(
 
-        `@${escaped}(?=\\s|$)`,
+                    `@${escaped}(?=\\s|$)`,
 
-        'gi'
+                    'gi'
 
-    );
+                );
 
-           html = html.replace(
+            html = html.replace(
 
-    regex,
+                regex,
 
-    function(match){
+                function(match){
 
-        return `
-            <span class="mention-text">
-                ${match}
-            </span>
-        `;
+                    return `
+                        <span class="mention-text">
+                            ${match}
+                        </span>
+                    `;
 
-    }
+                }
 
-);
+            );
+
+        });
 
     return html.replace(
 
