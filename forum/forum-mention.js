@@ -600,33 +600,55 @@ function extractMentions(text){
 
   const mentions = [];
 
-  const regex =
-    /@([^\s@]+)/g;
+  PARTNER_MENTIONS
+    .forEach(function(partner){
 
-  let match;
+      const toko =
+        String(
+          partner.toko || ''
+        ).trim();
 
-  while(
-    (match = regex.exec(text))
-      !== null
+      if(
+        !toko
+      ){
+        return;
+      }
+
+      const escaped =
+
+        toko.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          '\\$&'
+        );
+
+      const regex =
+
+        new RegExp(
+          `@${escaped}(?=\\s|$)`,
+          'i'
+        );
+
+      if(
+        regex.test(text)
+      ){
+
+        mentions.push(toko);
+
+      }
+
+    });
+
+  if(
+    /@ALL\b/i.test(text)
   ){
 
-    const toko =
-      match[1].trim();
-
-    if(
-      !mentions.includes(toko)
-    ){
-
-      mentions.push(toko);
-
-    }
+    mentions.push('ALL');
 
   }
 
-  return mentions;
+  return [...new Set(mentions)];
 
 }
-
 window.extractMentions =
   extractMentions;
 window.loadMentionPartners =
