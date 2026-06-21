@@ -404,6 +404,7 @@ function bindInlineImagePicker(){
 
         );
 
+    
     document
         .querySelectorAll(
             '.reply-inline-image-input'
