@@ -294,11 +294,7 @@ btn.disabled =
 
 
       try{
-        const mentions =
-  extractMentions(
-    content
-  );
-
+      
       const result =
   await createPost({
 
@@ -316,10 +312,7 @@ btn.disabled =
 
   content:
     content,
-
-  mentions:
-    mentions,
-
+  
   imageUrl:
     selectedImageUrl,
 
