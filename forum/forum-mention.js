@@ -591,6 +591,44 @@ function safeFormatMentions(text){
 
 }
  }
+
+function extractMentions(text){
+
+  if(!text){
+    return [];
+  }
+
+  const mentions = [];
+
+  const regex =
+    /@([^\s@]+)/g;
+
+  let match;
+
+  while(
+    (match = regex.exec(text))
+      !== null
+  ){
+
+    const toko =
+      match[1].trim();
+
+    if(
+      !mentions.includes(toko)
+    ){
+
+      mentions.push(toko);
+
+    }
+
+  }
+
+  return mentions;
+
+}
+
+window.extractMentions =
+  extractMentions;
 window.loadMentionPartners =
     loadMentionPartners;
 
