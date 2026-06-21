@@ -10,7 +10,7 @@ async function loadMentionPartners(){
 
       await fetch(
 
-        'https://script.google.com/macros/s/AKfycbwPDFvz4K19zuY2FY-IoeMF5WONSafuTTAwWW_cMJAn0L9TlHVpYtMUJzZlAMx1QRWw0Q/exec?action=partners'
+        'https://script.google.com/macros/s/AKfycbzuIjJZWc_o6qaUUKgyZ8m4qYJLzvJax6Pil1sdEhvNCgL6EO7s74pZnjnPY3Z8f32Z/exec?action=partners'
 
       );
 
