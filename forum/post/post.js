@@ -69,11 +69,11 @@ const data =
         const post =
             data.post || {};
 
-        root.innerHTML =
-            renderPostPage(post);
-       
         await loadMentionPartners();
 
+        root.innerHTML =
+            renderPostPage(post);
+              
         bindMentionAutocomplete();
         await loadReplies(
             postId
