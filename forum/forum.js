@@ -1,4 +1,3 @@
-
 let selectedImageUrl = '';
 let selectedVideoUrl = '';
 let isUploadingImage = false;
