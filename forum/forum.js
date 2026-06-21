@@ -294,32 +294,39 @@ btn.disabled =
 
 
       try{
+        const mentions =
+  extractMentions(
+    content
+  );
 
       const result =
   await createPost({
 
-    partnerId:
-      partner.id,
+  partnerId:
+    partner.id,
 
-    toko:
-      partner.toko,
+  toko:
+    partner.toko,
 
-    partnerName:
-      partner.toko,
+  partnerName:
+    partner.toko,
 
-    category:
-      category,
+  category:
+    category,
 
-    content:
-      content,
+  content:
+    content,
 
-    imageUrl:
-      selectedImageUrl,
+  mentions:
+    mentions,
 
-    videoUrl:
-      selectedVideoUrl
+  imageUrl:
+    selectedImageUrl,
 
-  });
+  videoUrl:
+    selectedVideoUrl
+
+});
 
 if(
   result.success &&
