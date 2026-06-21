@@ -521,23 +521,29 @@ function formatMentions(text){
 
             const regex =
 
-                new RegExp(
+    new RegExp(
 
-                    `@${escaped}(?=\\s|$)`,
+        `@${escaped}(?=\\s|$)`,
 
-                    'g'
+        'gi'
 
-                );
+    );
 
-            html = html.replace(
+           html = html.replace(
 
-                regex,
+    regex,
 
-                `<span class="mention-text">@${partner.toko}</span>`
+    function(match){
 
-            );
+        return `
+            <span class="mention-text">
+                ${match}
+            </span>
+        `;
 
-        });
+    }
+
+);
 
     return html.replace(
 
