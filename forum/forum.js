@@ -1,3 +1,4 @@
+
 let selectedImageUrl = '';
 let selectedVideoUrl = '';
 let isUploadingImage = false;
@@ -5,6 +6,7 @@ let isUploadingVideo = false;
 let allPosts = [];
 let searchTimer;
 let currentSearch = '';
+let currentCategory = '';
 const RESERVE_SYSTEM_URL =
   'https://www.barkahgarment.com/reserve-system';
 
@@ -50,7 +52,7 @@ renderPosts(
       bindPostImagePicker();
       bindPostVideoPicker();
       bindSearch();
-
+bindCategories();
       bindPostSubmit();
       bindLikeEvents();
 bindMentionAutocomplete();
@@ -1005,45 +1007,126 @@ renderPosts(
 
 }
 
-function getFilteredPosts(){
+function bindCategories(){
 
-  if(!currentSearch){
-    return allPosts;
+  const categoryList =
+    document.getElementById(
+      'category-list'
+    );
+
+  if(!categoryList){
+    return;
   }
+
+  categoryList.addEventListener(
+    'click',
+    function(e){
+
+      const btn =
+        e.target.closest('button');
+
+      if(!btn){
+        return;
+      }
+
+      const text =
+        btn.textContent
+          .trim()
+          .replace(
+            /^[^\w]+/,
+            ''
+          )
+          .trim();
+
+      currentCategory =
+        currentCategory === text
+          ? ''
+          : text;
+
+      categoryList
+        .querySelectorAll('button')
+        .forEach(function(item){
+
+          item.classList.remove(
+            'bg-gray-800',
+            'text-white'
+          );
+
+        });
+
+      if(currentCategory){
+
+        btn.classList.add(
+          'bg-gray-800',
+          'text-white'
+        );
+
+      }
+
+      renderPosts(
+        getFilteredPosts()
+      );
+
+    }
+  );
+
+}
+
+
+
+function getFilteredPosts(){
 
   return allPosts.filter(
     function(post){
 
-      return (
+      const matchSearch =
 
-        (post.content || '')
-          .toLowerCase()
-          .includes(currentSearch)
+        !currentSearch ||
 
-        ||
+        (
+          (post.content || '')
+            .toLowerCase()
+            .includes(currentSearch)
 
-        (post.partnerName || '')
-          .toLowerCase()
-          .includes(currentSearch)
+          ||
 
-        ||
+          (post.partnerName || '')
+            .toLowerCase()
+            .includes(currentSearch)
 
-        (post.toko || '')
-          .toLowerCase()
-          .includes(currentSearch)
+          ||
 
-        ||
+          (post.toko || '')
+            .toLowerCase()
+            .includes(currentSearch)
+
+          ||
+
+          (post.category || '')
+            .toLowerCase()
+            .includes(currentSearch)
+
+          ||
+
+          (post.title || '')
+            .toLowerCase()
+            .includes(currentSearch)
+        );
+
+      const matchCategory =
+
+        !currentCategory ||
 
         (post.category || '')
           .toLowerCase()
-          .includes(currentSearch)
-
-        ||
-
-        (post.title || '')
+          .trim() ===
+        currentCategory
           .toLowerCase()
-          .includes(currentSearch)
+          .trim();
 
+      return (
+        matchSearch &&
+        matchCategory
       );
 
     }
