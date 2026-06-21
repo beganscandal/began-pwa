@@ -438,16 +438,34 @@ renderNotificationBadge();
 
 
 if(
-  type === 'reserve' &&
-  window.BeganPwaBridge &&
-  typeof window.BeganPwaBridge.open === 'function'
+
+  ['reserve','checkout']
+    .includes(type)
+
+  &&
+
+  window.BeganPwaBridge
+
+  &&
+
+  typeof
+  window.BeganPwaBridge.open
+  === 'function'
+
 ){
 
   window.BeganPwaBridge.open(url);
 
 }else if(
-  window.BeganDeepLink &&
-  typeof window.BeganDeepLink.open === 'function'
+
+  window.BeganDeepLink
+
+  &&
+
+  typeof
+  window.BeganDeepLink.open
+  === 'function'
+
 ){
 
   window.BeganDeepLink.open(url);
@@ -455,12 +473,6 @@ if(
 }else{
 
   window.location.href = url;
-
-} 
-    
-    }
-
-  );
 
 }
 
