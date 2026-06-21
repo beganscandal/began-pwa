@@ -355,9 +355,8 @@ selectedInlineVideoUrl = '';
                                 replyId
 
                             );
-                        bindInlineReplySubmit(
-                            root
-                        );
+                        bindInlineReplySubmit(root);
+                        bindMentionAutocomplete();
                         bindInlineImagePicker();
                         bindInlineVideoPicker();
 
