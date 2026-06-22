@@ -3,7 +3,7 @@
 'use strict'; 
 
 async function init(){
-
+   
     const root =
         document.getElementById(
             'post-page'
@@ -32,13 +32,14 @@ async function init(){
 
 if(!postId){
 
-    location.href =
-        '/forum/';
+    BeganDeepLink.open(
+        '/forum/'
+    );
 
     return;
 
 }
-
+        
 const viewedKey =
     'forum_view_' +
     postId;
@@ -73,6 +74,10 @@ const data =
 
         root.innerHTML =
             renderPostPage(post);
+         if(window.lucide){
+  lucide.createIcons();
+}
+
               
         bindMentionAutocomplete();
         await loadReplies(
@@ -124,20 +129,26 @@ document.addEventListener(
 
 function bindGlobalNavigation(){
 
+  if(
+    document.body.dataset
+      .globalNavBound === 'true'
+  ){
+    return;
+  }
+
+  document.body.dataset
+    .globalNavBound = 'true';
+
   document.addEventListener(
-
     'click',
-
     function(event){
 
       const desktop =
-
         event.target.closest(
           '[data-global-nav]'
         );
 
       const mobile =
-
         event.target.closest(
           '[data-mobile-nav]'
         );
