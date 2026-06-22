@@ -491,3 +491,41 @@ function bindExploreForum(){
   );
 
 }
+
+function bindBackButton(){
+
+  const button =
+    document.getElementById(
+      'back-btn'
+    );
+
+  if(!button)
+    return;
+
+  button.addEventListener(
+
+    'click',
+
+    function(event){
+
+      event.preventDefault();
+
+      if(window.history.length > 1){
+
+        window.history.back();
+
+      }
+
+      else{
+
+        BeganPwaBridge.open(
+          'https://www.barkahgarment.com/began-partner-dashboard-dev'
+        );
+
+      }
+
+    }
+
+  );
+
+}
