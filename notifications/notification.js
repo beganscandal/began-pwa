@@ -3,7 +3,6 @@ async function initNotifications(){
   try{
 
     await loadNotifications();
-
     renderNotifications();
     renderNotificationStats();
     renderNotificationBadge();
