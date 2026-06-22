@@ -711,3 +711,59 @@
   }
 
 }
+
+#began-mobile-header{
+
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:9999;
+
+  height:82px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:6px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8,8,8,.98),
+      rgba(5,5,5,.94)
+    );
+
+  backdrop-filter:blur(18px);
+
+}
+
+/* garis merah signature BEGAN */
+
+#began-mobile-header::after{
+
+  content:'';
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:1px;
+
+  background:#ff1a1a;
+
+  box-shadow:
+    0 0 8px rgba(255,26,26,.7),
+    0 0 18px rgba(255,26,26,.5),
+    0 0 30px rgba(255,26,26,.3);
+
+}
