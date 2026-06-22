@@ -29,12 +29,9 @@ function escapeHtml(str) {
 
 function renderHeader(){
 
-    return `
-        <header class="post-header"></header>
-    `;
+    return '';
 
-}
-    
+}    
 
 function renderPostPage(post) {
 
