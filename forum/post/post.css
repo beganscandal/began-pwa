@@ -220,22 +220,6 @@ body {
     font-weight:700;
 }
 
-.post-back-btn,
-.post-menu-btn{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:12px;
-    background:transparent;
-    color:#fff;
-    cursor:pointer;
-    font-size:18px;
-}
-
-.post-back-btn:hover,
-.post-menu-btn:hover{
-    background:#111111;
-}
 
 .post-author-meta{
     display:flex;
@@ -637,82 +621,19 @@ body {
 }
 .post-header{
 
-    position:sticky;
-    top:0;
-    z-index:100;
-
     display:flex;
+
     align-items:center;
-    justify-content:center;
 
-    padding:16px;
+    padding:12px 16px;
 
-    border-bottom:1px solid #1f2937;
+    border-bottom:
+      1px solid #1f2937;
 
-    background:rgba(10,10,10,.95);
-
-    backdrop-filter:blur(12px);
-}
-
-.post-back-btn,
-.post-menu-btn{
-
-    position:absolute;
-
-    width:40px;
-    height:40px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:transparent;
-
-    color:#fff;
-
-    font-size:24px;
-
-    cursor:pointer;
-
-    z-index:101;
-}
-
-.post-back-btn{
-
-    left:16px;
+    background:#0a0a0a;
 
 }
 
-.post-menu-btn{
-
-    right:16px;
-
-}
-
-.post-back-btn:hover,
-.post-menu-btn:hover{
-
-    background:#111827;
-
-}
-
-.post-header-title{
-
-    margin:0;
-
-    font-size:18px;
-
-    font-weight:700;
-}
-.reply-media-preview{
-
-    margin-top:12px;
-
-}
 
 .reply-preview-card{
 
@@ -960,16 +881,7 @@ and (orientation:landscape){
 
     }
 
-    .post-back-btn,
-    .post-menu-btn{
-
-        width:44px;
-        height:44px;
-
-        font-size:22px;
-
-    }
-
+   
     .post-title{
 
         font-size:24px;
@@ -1471,29 +1383,30 @@ and (max-height:430px){
   }
 
 }
-.post-back-icon{
-
-  width:28px;
-
-  height:auto;
-
-}
 .post-back-btn{
 
-  width:44px;
+    width:44px;
 
-  height:44px;
+    height:44px;
 
-  display:flex;
+    display:flex;
 
-  align-items:center;
+    align-items:center;
 
-  justify-content:center;
+    justify-content:center;
 
-  border:none;
+    border:none;
 
-  background:none;
+    background:none;
 
-  padding:0;
+    cursor:pointer;
 
+    padding:0;
+}
+
+.post-back-icon{
+
+    width:29px;
+
+    display:block;
 }
