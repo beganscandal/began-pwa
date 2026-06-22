@@ -1,4 +1,4 @@
-let BOTTOM_NAV_BINDED = false;
+let BOTTOM_NAV_BINDED = false; 
 
 async function initNotifications(){
 
@@ -8,7 +8,6 @@ async function initNotifications(){
     renderNotifications();
     renderNotificationStats();
     renderNotificationBadge();
-
     bindNotificationClicks();
     bindMarkAllRead();
     bindNotificationFilters();
@@ -17,7 +16,7 @@ async function initNotifications(){
     bindBottomNavigation();
     bindFabRefresh();
     bindExploreForum();
-
+    bindBackButton();
 
     lucide.createIcons();
 
