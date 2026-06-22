@@ -51,7 +51,7 @@ renderPosts(
       bindPostImagePicker();
       bindPostVideoPicker();
       bindSearch();
-bindCategories();
+      bindCategories();
       bindPostSubmit();
       bindLikeEvents();
 bindMentionAutocomplete();
