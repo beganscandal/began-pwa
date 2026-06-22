@@ -1374,6 +1374,67 @@ and (max-height:430px){
 
   pointer-events:none;
 }
+  #began-mobile-header{
+
+    position:fixed;
+
+    overflow:visible;
+}
+
+/* tombol back */
+
+.began-mobile-back-btn{
+
+    position:absolute;
+
+    left:16px;
+
+    top:50%;
+
+    transform:
+      translateY(-50%);
+
+    width:44px;
+
+    height:44px;
+
+    border:none;
+
+    background:none;
+
+    padding:0;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:10001;
+
+}
+
+.began-mobile-back-icon{
+
+    width:24px;
+
+    height:auto;
+
+    display:block;
+
+    transition:.25s ease;
+
+}
+
+.began-mobile-back-btn:hover
+.began-mobile-back-icon{
+
+    transform:
+      translateX(-4px);
+
+}
  
  body{
 
