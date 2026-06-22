@@ -1471,3 +1471,29 @@ and (max-height:430px){
   }
 
 }
+.post-back-icon{
+
+  width:28px;
+
+  height:auto;
+
+}
+.post-back-btn{
+
+  width:44px;
+
+  height:44px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border:none;
+
+  background:none;
+
+  padding:0;
+
+}
