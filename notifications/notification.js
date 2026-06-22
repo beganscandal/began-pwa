@@ -510,7 +510,14 @@ function bindBackButton(){
       event.preventDefault();
       event.stopPropagation();
 
-      if(document.referrer){
+      const sameOriginReferrer =
+
+        document.referrer &&
+        document.referrer.includes(
+          location.origin
+        );
+
+      if(sameOriginReferrer){
 
         window.history.back();
 
