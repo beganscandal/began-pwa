@@ -1,3 +1,5 @@
+let BOTTOM_NAV_BINDED = false;
+
 async function initNotifications(){
 
   try{
@@ -12,6 +14,7 @@ async function initNotifications(){
     bindNotificationFilters();
     bindNotificationStats();
     bindDeleteNotifications();
+    bindBottomNavigation();
 
     lucide.createIcons();
 
@@ -53,7 +56,7 @@ async function refreshNotificationCenter(){
     renderNotifications();
     renderNotificationStats();
     renderNotificationBadge();
-    bindBottomNavigation();
+    
 
   }
 
@@ -293,55 +296,65 @@ function bindDeleteNotifications(){
 
 function bindBottomNavigation(){
 
-  document
-    .querySelectorAll('[data-nav]')
-    .forEach(item => {
+  if(BOTTOM_NAV_BINDED)
+    return;
 
-      item.addEventListener('click', event => {
+  BOTTOM_NAV_BINDED = true;
 
-        event.preventDefault();
+  document.addEventListener(
 
-        const nav =
-          item.dataset.nav;
+    'click',
 
-        switch(nav){
+    function(event){
 
-          case 'home':
+      const item =
+        event.target.closest(
+          '[data-nav]'
+        );
 
-            BeganPwaBridge.open(
-              'https://www.barkahgarment.com/began-partner-dashboard-dev'
-            );
+      if(!item)
+        return;
 
-            break;
+      event.preventDefault();
 
-          case 'forum':
+      switch(item.dataset.nav){
 
-            BeganDeepLink.open(
-              '/forum/'
-            );
+        case 'home':
 
-            break;
+          BeganPwaBridge.open(
+            'https://www.barkahgarment.com/began-partner-dashboard-dev'
+          );
 
-          case 'notifications':
+          break;
 
-            BeganDeepLink.open(
-              '/notifications/'
-            );
+        case 'forum':
 
-            break;
+          BeganDeepLink.open(
+            '/forum/'
+          );
 
-          case 'reserve':
+          break;
 
-            BeganPwaBridge.open(
-              'https://www.barkahgarment.com/reserve-system'
-            );
+        case 'notifications':
 
-            break;
+          BeganDeepLink.open(
+            '/notifications/'
+          );
 
-        }
+          break;
 
-      });
+        case 'reserve':
 
-    });
+          BeganPwaBridge.open(
+            'https://www.barkahgarment.com/reserve-system'
+          );
+
+          break;
+
+      }
+
+    }
+
+  );
 
 }
