@@ -506,21 +506,11 @@
   background:#00ff66;
 
 }
-
-@media(max-width:767px){
-
-  #began-global-nav{
-
-    display:none;
-
-  }
-
+/* hidden di desktop */
 #began-mobile-nav{
-
   display:none;
+}
 
-}
-}
 @media(max-width:767px){
 
   #began-mobile-nav{
