@@ -549,7 +549,7 @@ function formatMentions(text){
 
         /\n/g,
 
-        '<br>'
+        ' '
 
     );
 
