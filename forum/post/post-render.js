@@ -27,7 +27,13 @@ function escapeHtml(str) {
 
 }
 
+function renderHeader(){
 
+    return `
+        <header class="post-header"></header>
+    `;
+
+}
     
 
 function renderPostPage(post) {
@@ -257,36 +263,7 @@ function bindVideoPicker(){
     );
 
 }
-function renderHeader(){
 
-    return `
-
-        <header class="post-header">
-
-            <button
-                class="post-back-btn"
-                onclick="
-                    BeganDeepLink.open(
-                        '/forum/'
-                    );
-                "
-            >
-
-                <img
-                    src="
-https://pwa.barkahgarment.com/assets/arrow%20left%20(1000%20x%20692%20px)%20(1).png
-                    "
-                    class="post-back-icon"
-                    alt="Back"
-                >
-
-            </button>
-
-        </header>
-
-    `;
-
-}
 
 function renderPostCard(post) {
 
