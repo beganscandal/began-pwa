@@ -263,31 +263,22 @@ function renderHeader(){
 
         <header class="post-header">
 
-           <button
-    class="post-back-btn"
-    onclick="
-        location.href='/forum/';
-    "
->
-
-    ←
-
-</button>
-
-            <h1 class="post-header-title">
-
-                Partner Discussion
-
-            </h1>
-
             <button
-                class="post-menu-btn"
+                class="post-back-btn"
                 onclick="
-                    togglePostMenu();
+                    BeganDeepLink.open(
+                        '/forum/'
+                    );
                 "
             >
 
-                ☰
+                <img
+                    src="
+https://pwa.barkahgarment.com/assets/arrow%20left%20(1000%20x%20692%20px)%20(1).png
+                    "
+                    class="post-back-icon"
+                    alt="Back"
+                >
 
             </button>
 
@@ -296,6 +287,7 @@ function renderHeader(){
     `;
 
 }
+
 function renderPostCard(post) {
 
   return `
