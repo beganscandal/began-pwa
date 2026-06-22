@@ -508,20 +508,19 @@ function bindBackButton(){
     function(event){
 
       event.preventDefault();
+      event.stopPropagation();
 
-      if(window.history.length > 1){
+      if(document.referrer){
 
         window.history.back();
 
-      }
-
-      else{
-
-        BeganPwaBridge.open(
-          'https://www.barkahgarment.com/began-partner-dashboard-dev'
-        );
+        return;
 
       }
+
+      BeganPwaBridge.open(
+        'https://www.barkahgarment.com/began-partner-dashboard-dev'
+      );
 
     }
 
