@@ -54,6 +54,7 @@ async function refreshNotificationCenter(){
     renderNotifications();
     renderNotificationStats();
     renderNotificationBadge();
+    bindBottomNavigation();
 
   }
 
@@ -291,3 +292,57 @@ function bindDeleteNotifications(){
 
 }
 
+function bindBottomNavigation(){
+
+  document
+    .querySelectorAll('[data-nav]')
+    .forEach(item => {
+
+      item.addEventListener('click', event => {
+
+        event.preventDefault();
+
+        const nav =
+          item.dataset.nav;
+
+        switch(nav){
+
+          case 'home':
+
+            BeganPwaBridge.open(
+              'https://www.barkahgarment.com/began-partner-dashboard-dev'
+            );
+
+            break;
+
+          case 'forum':
+
+            BeganDeepLink.open(
+              '/forum/'
+            );
+
+            break;
+
+          case 'notifications':
+
+            BeganDeepLink.open(
+              '/notifications/'
+            );
+
+            break;
+
+          case 'reserve':
+
+            BeganPwaBridge.open(
+              'https://www.barkahgarment.com/reserve-system'
+            );
+
+            break;
+
+        }
+
+      });
+
+    });
+
+}
