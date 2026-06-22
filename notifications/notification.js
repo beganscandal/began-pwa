@@ -15,6 +15,9 @@ async function initNotifications(){
     bindNotificationStats();
     bindDeleteNotifications();
     bindBottomNavigation();
+    bindFabRefresh();
+    bindExploreForum();
+
 
     lucide.createIcons();
 
@@ -48,6 +51,8 @@ async function refreshNotificationCenter(){
     return;
 
   IS_REFRESHING = true;
+  togglePullIndicator(true);
+
 
   try{
 
@@ -71,6 +76,7 @@ async function refreshNotificationCenter(){
 
   finally{
 
+     togglePullIndicator(false);
     IS_REFRESHING = false;
 
   }
@@ -352,6 +358,133 @@ function bindBottomNavigation(){
           break;
 
       }
+
+    }
+
+  );
+
+}
+
+function bindFabRefresh(){
+
+  const fab =
+    document.getElementById('fab');
+
+  if(!fab)
+    return;
+
+  fab.addEventListener(
+
+    'click',
+
+    async function(event){
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const icon =
+        fab.querySelector('i');
+
+      fab.disabled = true;
+
+      if(icon){
+
+        icon.classList.add(
+          'animate-spin'
+        );
+
+      }
+
+      try{
+
+        await refreshNotificationCenter();
+
+      }
+
+      catch(error){
+
+        console.error(
+          'FAB REFRESH ERROR',
+          error
+        );
+
+      }
+
+      finally{
+
+        setTimeout(function(){
+
+          fab.disabled = false;
+
+          if(icon){
+
+            icon.classList.remove(
+              'animate-spin'
+            );
+
+          }
+
+        }, 500);
+
+      }
+
+    }
+
+  );
+
+}
+function togglePullIndicator(show){
+
+  const indicator =
+    document.getElementById(
+      'pull-indicator'
+    );
+
+  if(!indicator)
+    return;
+
+  if(show){
+
+    indicator.classList.remove(
+      'opacity-0',
+      '-translate-y-full'
+    );
+
+  }
+
+  else{
+
+    indicator.classList.add(
+      'opacity-0',
+      '-translate-y-full'
+    );
+
+  }
+
+}
+function bindExploreForum(){
+
+  const button =
+
+    document.querySelector(
+      '[data-template-id="empty-btn"]'
+    );
+
+  if(!button)
+    return;
+
+  button.addEventListener(
+
+    'click',
+
+    function(event){
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      BeganDeepLink.open(
+        '/forum/'
+      );
 
     }
 
