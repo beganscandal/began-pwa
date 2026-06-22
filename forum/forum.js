@@ -55,6 +55,7 @@ bindCategories();
       bindPostSubmit();
       bindLikeEvents();
 bindMentionAutocomplete();
+      bindGlobalNavigation();
       
 
     } catch(err) {
@@ -1129,6 +1130,78 @@ function getFilteredPosts(){
       );
 
     }
+  );
+
+}
+function bindGlobalNavigation(){
+
+  document.addEventListener(
+
+    'click',
+
+    function(event){
+
+      const desktop =
+
+        event.target.closest(
+          '[data-global-nav]'
+        );
+
+      const mobile =
+
+        event.target.closest(
+          '[data-mobile-nav]'
+        );
+
+      const item =
+        desktop || mobile;
+
+      if(!item)
+        return;
+
+      switch(
+
+        item.dataset.globalNav ||
+        item.dataset.mobileNav
+
+      ){
+
+        case 'dashboard':
+
+          BeganPwaBridge.open(
+            'https://www.barkahgarment.com/began-partner-dashboard-dev'
+          );
+
+          break;
+
+        case 'forum':
+
+          BeganDeepLink.open(
+            '/forum/'
+          );
+
+          break;
+
+        case 'updates':
+
+          BeganDeepLink.open(
+            '/notifications/'
+          );
+
+          break;
+
+        case 'reserve':
+
+          BeganPwaBridge.open(
+            'https://www.barkahgarment.com/reserve-system'
+          );
+
+          break;
+
+      }
+
+    }
+
   );
 
 }
