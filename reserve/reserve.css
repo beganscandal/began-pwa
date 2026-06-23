@@ -2580,13 +2580,19 @@ height:min(88vh,700px);
    MOBILE
 ===================================== */
 
-@media(max-width:767px){
+/* =====================================
+   HANYA MOBILE PORTRAIT
+===================================== */
+
+@media (max-width:767px)
+and (orientation:portrait){
 
   #began-global-nav{
     display:none;
   }
 
 }
+
 .began-nav-link{
 
   position:relative;
@@ -2790,5 +2796,17 @@ height:min(88vh,700px);
   text-transform:uppercase;
 
   overflow-wrap:anywhere;
+
+}
+/* =====================================
+   DESKTOP + TABLET + MOBILE LANDSCAPE
+===================================== */
+
+@media (min-width:768px),
+(max-width:767px) and (orientation:landscape){
+
+  #began-global-nav{
+    display:block;
+  }
 
 }
