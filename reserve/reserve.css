@@ -2309,17 +2309,6 @@ height:min(88vh,700px);
 
 }
 
-.began-nav-center{
-
-  display:flex;
-
-  gap:38px;
-
-  margin-top:28px;
-
-  margin-left:208px;
-
-}
 
 
 .began-nav-link:hover{
@@ -2487,12 +2476,18 @@ height:min(88vh,700px);
   display:flex;
 
   justify-content:center;
+
   align-items:center;
 
   gap:12px;
 
-}
+  width:fit-content;
 
+  margin-left:auto;
+
+  margin-right:auto;
+
+}
 .began-nav-link{
 
   display:flex;
