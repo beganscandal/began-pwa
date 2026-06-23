@@ -1434,13 +1434,6 @@ root.insertAdjacentHTML(
     <div
       class="began-reserve-overlay-card">
 
-      <button
-        class="began-reserve-close">
-
-        ✕
-
-      </button>
-
       <h3>
 
         TENTANG RESERVE
@@ -1646,34 +1639,29 @@ function bindMobileReserveOverlay(){
 
 );
 
-  overlay.addEventListener(
+ overlay.addEventListener(
 
-    'click',
+  'click',
 
-    function(event){
+  function(event){
 
-      if(
+    if(
 
-        event.target === overlay ||
+      event.target === overlay ||
 
-        event.target.closest(
-          '.began-reserve-close'
-        ) ||
+      event.target.closest(
+        '.began-reserve-close-btn'
+      )
 
-        event.target.closest(
-          '.began-reserve-close-btn'
-        )
+    ){
 
-      ){
-
-        closeOverlay();
-
-      }
+      closeOverlay();
 
     }
 
-  );
+  }
 
+);
   window.addEventListener(
 
     'scroll',
