@@ -2790,37 +2790,6 @@ and (orientation:landscape){
 
 }
 
-
-/* default */
-
-#began-mobile-header{
-  display:none;
-}
-#began-reserve-overlay{
-  display:none;
-}
-
-@media (min-width:768px),
-       (orientation:landscape){
-
-  #began-mobile-header{
-    display:none;
-  }
-
-  #began-reserve-overlay{
-    display:none;
-  }
-
-}
-
-@media (max-width:767px)
-and (orientation:portrait){
-
-  #began-mobile-header{
-    display:block;
-  }
-
-}
 /* =====================================
    MOBILE RESERVE OVERLAY
 ===================================== */
