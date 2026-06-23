@@ -2798,15 +2798,103 @@ and (orientation:portrait){
   overflow-wrap:anywhere;
 
 }
+
 /* =====================================
-   DESKTOP + TABLET + MOBILE LANDSCAPE
+   MOBILE LANDSCAPE
 ===================================== */
 
-@media (min-width:768px),
-(max-width:767px) and (orientation:landscape){
+@media (max-width:767px)
+and (orientation:landscape){
 
   #began-global-nav{
-    display:block;
+
+    position:relative;
+
+    top:auto;
+
+  }
+
+}
+@media (max-width:767px)
+and (orientation:landscape){
+
+  #began-global-nav{
+
+    position:relative;
+
+    top:auto;
+
+    padding:10px 18px;
+
+  }
+
+  .began-nav-top{
+
+    grid-template-columns:
+      120px
+      minmax(0,1fr)
+      120px;
+
+    gap:14px;
+
+  }
+
+  .began-nav-logo{
+
+    width:100px;
+
+  }
+
+  .began-nav-title{
+
+    font-size:18px;
+
+    margin-bottom:6px;
+
+  }
+
+  .began-nav-subtitle{
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    margin-bottom:10px;
+
+  }
+
+  .began-nav-center{
+
+    gap:6px;
+
+  }
+
+  .began-nav-link{
+
+    min-width:92px;
+
+    height:36px;
+
+    font-size:11px;
+
+    padding:0 12px;
+
+  }
+
+  .began-partner-info{
+
+    width:120px;
+
+    min-height:90px;
+
+    padding:12px;
+
+  }
+
+  #began-partner-name{
+
+    font-size:16px;
+
   }
 
 }
