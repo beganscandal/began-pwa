@@ -2769,3 +2769,141 @@ and (orientation:landscape){
   }
 
 }
+
+/* =====================================
+   COMPACT DESKTOP / LANDSCAPE
+===================================== */
+
+#began-global-nav{
+
+  overflow:visible;
+
+}
+
+.began-nav-brand{
+
+  align-items:center;
+
+  text-align:center;
+}
+
+.began-nav-eyebrow,
+.began-nav-title{
+
+  text-align:center;
+}
+
+.began-nav-subtitle{
+
+  max-width:900px;
+
+  margin-left:auto;
+  margin-right:auto;
+
+  margin-bottom:16px;
+
+  line-height:1.55;
+}
+@media (max-width:900px)
+and (orientation:landscape){
+
+  .began-nav-subtitle{
+
+    max-width:560px;
+
+    font-size:11px;
+
+    line-height:1.4;
+
+    margin-bottom:10px;
+  }
+
+}
+.began-nav-center{
+
+  margin-top:-6px;
+
+  margin-bottom:0;
+}
+.began-nav-center{
+
+  transform:translateY(-10px);
+
+}
+/* =====================================
+   FLOATING NAV ON SCROLL
+===================================== */
+
+#began-global-nav{
+
+  transition:
+    padding .3s ease;
+}
+
+#began-global-nav.is-collapsed{
+
+  background:transparent;
+
+  border-color:transparent;
+
+  box-shadow:none;
+
+  backdrop-filter:none;
+
+  padding:0;
+
+}
+
+#began-global-nav.is-collapsed
+.began-nav-left,
+
+#began-global-nav.is-collapsed
+.began-nav-brand,
+
+#began-global-nav.is-collapsed
+.began-partner-info{
+
+  display:none;
+
+}
+
+#began-global-nav.is-collapsed
+.began-nav-top{
+
+  display:block;
+
+}
+
+#began-global-nav.is-collapsed
+.began-nav-center{
+
+  position:fixed;
+
+  top:12px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  z-index:9999;
+
+  margin:0;
+
+  padding:8px;
+
+  border-radius:999px;
+
+  border:1px solid
+    rgba(216,185,104,.18);
+
+  background:
+    rgba(10,10,10,.92);
+
+  backdrop-filter:
+    blur(20px);
+
+  box-shadow:
+    0 12px 40px
+    rgba(0,0,0,.55);
+
+}
