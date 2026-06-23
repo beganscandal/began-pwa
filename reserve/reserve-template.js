@@ -473,7 +473,7 @@ getUnitLabel: getUnitLabel,
 
       <div class="reserve-card__action-bar">
         <button type="button" class="reserve-cta reserve-cta--add" data-action="add-to-reserve">
-          Tambah ke Reserve
+          Tambah Produk ke Reserve
         </button>
       </div>
     </article>
