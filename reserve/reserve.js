@@ -935,10 +935,12 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
       console.error('[Reserve] Missing #reserve-app or #reserve-product-grid');
       return;
     }
-injectReserveHeader();
+injectGlobalNav();
+    injectReserveHeader();
 syncPartnerInfo();
 
-bindGlobalNavigation();    
+bindGlobalNavigation(); 
+
 
     window.testReserveSound =
 function(){
@@ -1199,3 +1201,106 @@ function bindGlobalNavigation(){
 
 }
 
+function injectGlobalNav(){
+
+  const root =
+    document.getElementById(
+      'reserve-app'
+    );
+
+  if(
+    !root ||
+    document.getElementById(
+      'began-global-nav'
+    )
+  ){
+    return;
+  }
+
+  root.insertAdjacentHTML(
+
+    'afterbegin',
+
+    `
+    <div id="began-global-nav">
+
+      <div class="began-nav-left">
+
+        <div class="began-nav-brand">
+
+          <span class="began-nav-eyebrow">
+
+            BEGAN PARTNER
+
+          </span>
+
+          <span class="began-nav-title">
+
+            RESERVE SYSTEM
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="began-nav-center">
+
+        <button
+          class="began-nav-link"
+          data-page="dashboard">
+
+          Dashboard
+
+        </button>
+
+        <button
+          class="began-nav-link"
+          data-page="forum">
+
+          Forum
+
+        </button>
+
+        <button
+          class="began-nav-link active"
+          data-page="reserve">
+
+          Reserve
+
+        </button>
+
+        <button
+          class="began-nav-link"
+          data-page="notification">
+
+          Notification
+
+        </button>
+
+      </div>
+
+      <div
+        id="began-partner-info"
+        class="began-partner-info">
+
+        <span class="began-partner-label">
+
+          EXCLUSIVE PARTNER FOR
+
+        </span>
+
+        <span
+          id="began-partner-name">
+
+          GUEST
+
+        </span>
+
+      </div>
+
+    </div>
+    `
+  );
+
+}
