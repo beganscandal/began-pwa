@@ -2247,25 +2247,12 @@ height:min(88vh,700px);
 
 .began-nav-left{
 
-  display:flex;
+  display:grid;
 
-  align-items:flex-start;
-
-  gap:28px;
-
-  flex:1;
+  place-items:center;
 
 }
 
-.began-nav-logo{
-
-  width:180px;
-
-  height:auto;
-
-  flex-shrink:0;
-
-}
 
 .began-nav-brand{
 
@@ -2323,49 +2310,8 @@ height:min(88vh,700px);
 
 }
 
-.began-partner-info{
 
-  min-width:170px;
 
-  padding:18px 22px;
-
-  border-radius:18px;
-
-  background:
-    rgba(212,175,55,.04);
-
-  border:
-    1px solid rgba(212,175,55,.12);
-
-  text-align:right;
-
-}
-
-.began-partner-label{
-
-  display:block;
-
-  color:#8b8b8b;
-
-  font-size:10px;
-
-  letter-spacing:.20em;
-
-}
-
-#began-partner-name{
-
-  display:block;
-
-  margin-top:8px;
-
-  color:#d4af37;
-
-  
-
-  font-weight:900;
-
-}
 
 /* =====================================
    BEGAN GLOBAL NAV
@@ -2377,10 +2323,10 @@ height:min(88vh,700px);
   top:0;
   z-index:100;
 
- margin-bottom:18px;
-  padding:18px 24px;
+ margin-bottom:12px;
+  padding:12px 24px;
 
-  border:1px solid
+  border:1.5px solid
     rgba(201,169,98,.15);
 
   border-radius:28px;
@@ -2409,23 +2355,19 @@ height:min(88vh,700px);
 
 }
 
-.began-nav-left{
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-}
 
 .began-nav-logo{
 
-  width:180px;
+  width:160px;
   max-width:100%;
+
+  display:block;
+
+  margin:0 auto;
 
   object-fit:contain;
 
 }
-
 .began-nav-brand{
 
   display:flex;
@@ -2547,48 +2489,59 @@ height:min(88vh,700px);
 .began-partner-info{
 
   display:flex;
-
   flex-direction:column;
 
   justify-content:center;
   align-items:center;
 
-  height:110px;
-   
-  border:1px solid
-    rgba(216,185,104,.18);
+  width:170px;
+  height:170px;
 
-  border-radius:24px;
+  margin:auto;
+
+  padding:20px;
+
+  border:1px solid rgba(212,175,55,.15);
+  border-radius:28px;
 
   background:
-    rgba(255,255,255,.02);
+    linear-gradient(
+      180deg,
+      rgba(212,175,55,.05),
+      rgba(0,0,0,.4)
+    );
 
 }
-
 .began-partner-label{
 
-  margin-bottom:12px;
-
-  font-size:11px;
-  letter-spacing:.2em;
-
-  color:#9f9f9f;
+  display:block;
 
   text-align:center;
 
-}
+  font-size:11px;
+  letter-spacing:4px;
 
+  color:rgba(255,255,255,.55);
+
+  margin-bottom:14px;
+
+}
 #began-partner-name{
 
-  font-size:28px;
-  font-weight:900;
+  display:block;
 
-  color:#d8b968;
+  text-align:center;
+
+  font-size:28px;
+  font-weight:800;
+
+  line-height:1;
+
+  color:#d4af37;
 
   text-transform:uppercase;
 
 }
-
 /* =====================================
    TABLET
 ===================================== */
