@@ -2431,18 +2431,267 @@ height:min(88vh,700px);
   font-weight:900;
 
 }
+
 /* =====================================
-   MOBILE PORTRAIT
+   BEGAN GLOBAL NAV
 ===================================== */
 
-@media(max-width:767px)
-and (orientation:portrait){
+#began-global-nav{
 
-  #began-reserve-fomo,
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  margin-bottom:20px;
+  padding:24px 32px;
+
+  border:1px solid
+    rgba(201,169,98,.15);
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8,8,8,.98) 0%,
+      rgba(12,12,12,.96) 100%
+    );
+
+  backdrop-filter:blur(20px);
+
+}
+
+.began-nav-top{
+
+  display:grid;
+
+  grid-template-columns:
+    180px
+    minmax(0,1fr)
+    200px;
+
+  gap:28px;
+
+  align-items:center;
+
+}
+
+.began-nav-left{
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+}
+
+.began-nav-logo{
+
+  width:180px;
+  max-width:100%;
+
+  object-fit:contain;
+
+}
+
+.began-nav-brand{
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+
+}
+
+.began-nav-eyebrow{
+
+  margin-bottom:12px;
+
+  font-size:11px;
+  letter-spacing:.35em;
+
+  color:#8b8b8b;
+
+}
+
+.began-nav-title{
+
+  margin:0 0 14px;
+
+  font-size:56px;
+  font-weight:900;
+  letter-spacing:.08em;
+
+  color:#d8b968;
+
+}
+
+.began-nav-subtitle{
+
+  max-width:760px;
+
+  margin:0 0 28px;
+
+  font-size:16px;
+  line-height:1.8;
+
+  color:#d0d0d0;
+
+}
+
+.began-nav-center{
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.began-nav-link{
+
+  display:flex;
+
+  align-items:center;
+  gap:10px;
+
+  min-width:150px;
+
+  height:56px;
+
+  padding:0 22px;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#d8d8d8;
+
+  border:none;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.03);
+
+  cursor:pointer;
+
+  transition:.25s;
+
+}
+
+.began-nav-link:hover{
+
+  transform:translateY(-2px);
+
+  color:#d8b968;
+
+  background:
+    rgba(216,185,104,.08);
+
+}
+
+.began-nav-link.active{
+
+  color:#d8b968;
+
+  background:
+    rgba(216,185,104,.12);
+
+  box-shadow:
+    inset 0 -2px 0 #d8b968,
+    0 0 24px
+    rgba(216,185,104,.12);
+
+}
+
+.began-partner-info{
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+  align-items:center;
+
+  height:170px;
+
+  border:1px solid
+    rgba(216,185,104,.18);
+
+  border-radius:24px;
+
+  background:
+    rgba(255,255,255,.02);
+
+}
+
+.began-partner-label{
+
+  margin-bottom:12px;
+
+  font-size:11px;
+  letter-spacing:.2em;
+
+  color:#9f9f9f;
+
+  text-align:center;
+
+}
+
+#began-partner-name{
+
+  font-size:46px;
+  font-weight:900;
+
+  color:#d8b968;
+
+  text-transform:uppercase;
+
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media(max-width:991px){
+
+  .began-nav-top{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .began-nav-logo{
+
+    width:150px;
+
+  }
+
+  .began-nav-title{
+
+    font-size:42px;
+
+  }
+
+  .began-partner-info{
+
+    height:auto;
+
+    padding:24px;
+
+  }
+
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:767px){
+
   #began-global-nav{
-
     display:none;
-
   }
 
 }
