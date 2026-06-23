@@ -2745,7 +2745,7 @@ and (orientation:landscape){
 
     gap:10px;
 
-    margin-top:18px;
+    margin-top:10px;
   }
 
   .began-mobile-nav .began-nav-link{
@@ -2756,7 +2756,7 @@ and (orientation:landscape){
 
     justify-content:center;
 
-    padding:12px 8px;
+    padding:8px 8px;
 
     font-size:12px;
   }
