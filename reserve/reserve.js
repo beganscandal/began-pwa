@@ -1321,26 +1321,42 @@ function bindGlobalNavCollapse(){
   let isCollapsed =
     false;
 
+  const COLLAPSE_AT = 220;
+
+  const EXPAND_AT = 120;
+
   function updateNavState(){
 
-    const shouldCollapse =
-
-      window.scrollY > 180;
+    const scrollY =
+      window.scrollY;
 
     if(
-      shouldCollapse ===
-      isCollapsed
+      !isCollapsed &&
+      scrollY > COLLAPSE_AT
     ){
-      return;
+
+      isCollapsed = true;
+
+      nav.classList.add(
+        'is-collapsed'
+      );
+
     }
 
-    isCollapsed =
-      shouldCollapse;
+    else if(
 
-    nav.classList.toggle(
-      'is-collapsed',
-      shouldCollapse
-    );
+      isCollapsed &&
+      scrollY < EXPAND_AT
+
+    ){
+
+      isCollapsed = false;
+
+      nav.classList.remove(
+        'is-collapsed'
+      );
+
+    }
 
   }
 
