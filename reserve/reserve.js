@@ -771,7 +771,7 @@ if(!products.length){
 
         <img
           class="began-nav-logo"
-          src="LOGO_URL_ANDA"
+          src="https://pwa.barkahgarment.com/assets/logo%20font(1000%20x%20381%20px).png"
           alt="BEGAN">
 
         <div class="began-nav-brand">
