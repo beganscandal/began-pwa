@@ -2998,3 +2998,71 @@ and (orientation:portrait){
   }
 
 }
+@media (max-width:767px) and (orientation:portrait){
+
+  #began-reserve-info-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    width:100%;
+
+    min-height:56px;
+
+    padding:0 16px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(15,15,15,.96),
+        rgba(5,5,5,.96)
+      );
+
+    border:1px solid rgba(216,185,104,.18);
+
+    border-radius:18px;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+  }
+
+  #began-reserve-info-btn span{
+
+    display:block;
+
+    color:#ffffff;
+
+    font-size:14px;
+
+    line-height:1.4;
+
+  }
+
+  #began-reserve-info-btn span:first-child{
+
+    flex:1;
+
+    text-align:left;
+
+    font-weight:600;
+
+  }
+
+  #began-reserve-info-btn span:last-child{
+
+    flex-shrink:0;
+
+    font-size:18px;
+
+    color:#d8b968;
+
+  }
+
+}
