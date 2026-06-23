@@ -2281,7 +2281,7 @@ height:min(88vh,700px);
 
 .began-nav-logo{
 
-  width:160px;
+  
   max-width:100%;
 
   display:block;
@@ -2314,8 +2314,6 @@ height:min(88vh,700px);
 .began-nav-title{
 
   margin:0 0 14px;
-
-   font-size:28px;
   font-weight:900;
   letter-spacing:.08em;
 
@@ -2469,14 +2467,11 @@ height:min(88vh,700px);
    TABLET
 ===================================== */
 
-@media(max-width:991px){
-
-
-
+@media(max-width:991px)
 
   .began-nav-title{
 
-    font-size:42px;
+    font-size:20px;
 
   }
 
@@ -2537,43 +2532,11 @@ and (orientation:portrait){
 
 }
 
-#began-global-nav{
-
-  position:sticky;
-  top:0;
-  z-index:100;
-
-  margin-bottom:12px;
-
-  padding:14px 24px;
-
-  border:1.5px solid rgba(201,169,98,.15);
-  border-radius:28px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(8,8,8,.98) 0%,
-      rgba(12,12,12,.96) 100%
-    );
-
-  backdrop-filter:blur(20px);
-
-}
 .began-nav-top{
 
-  display:grid;
-
-  grid-template-columns:
-    180px
-    minmax(0,1fr)
-    180px;
-
   align-items:center;
-
-  gap:28px;
-
 }
+
 .began-nav-left{
 
   display:flex;
@@ -2687,7 +2650,7 @@ and (orientation:portrait){
 ===================================== */
 
 
-@media (max-width:767px)
+@media (max-width:900px)
 and (orientation:landscape){
 
   #began-global-nav{
