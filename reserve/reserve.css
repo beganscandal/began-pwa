@@ -2771,9 +2771,9 @@ and (orientation:landscape){
 
     justify-content:space-between;
 
-    margin-top:14px;
+    margin-top:8px;
 
-    padding:12px 14px;
+    padding:8px 10px;
 
     border-radius:14px;
   }
@@ -3012,9 +3012,9 @@ and (orientation:portrait){
 
     width:100%;
 
-    min-height:56px;
+    min-height:46px;
 
-    padding:0 16px;
+    padding:0 8px;
 
     background:
       linear-gradient(
@@ -3039,9 +3039,9 @@ and (orientation:portrait){
 
     color:#ffffff;
 
-    font-size:14px;
+    font-size:12px;
 
-    line-height:1.4;
+    line-height:1;
 
   }
 
@@ -3059,7 +3059,7 @@ and (orientation:portrait){
 
     flex-shrink:0;
 
-    font-size:18px;
+    font-size:12px;
 
     color:#d8b968;
 
