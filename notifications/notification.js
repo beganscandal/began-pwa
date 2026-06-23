@@ -33,7 +33,6 @@ async function initNotifications(){
 
 }
 
-
 document.addEventListener(
 
   'DOMContentLoaded',
