@@ -1321,31 +1321,76 @@ function injectGlobalNav(){
 
           <img
             class="began-nav-logo"
-            src="https://pwa.barkahgarment.com/assets/logo%20font(1000%20x%20381%20px).png"
+            src="https://pwa.barkahgarment.com/assets/began%20font%20tagline.png"
             alt="BEGAN">
 
-          <div class="began-nav-brand">
+        </div>
 
-            <span class="began-nav-eyebrow">
+        <div class="began-nav-brand">
 
-              EXCLUSIVE PARTNER ACCESS
+          <span class="began-nav-eyebrow">
 
-            </span>
+            EXCLUSIVE PARTNER ACCESS
 
-            <h1 class="began-nav-title">
+          </span>
 
-              RESERVE SYSTEM
+          <h1 class="began-nav-title">
 
-            </h1>
+            RESERVE SYSTEM
 
-            <p class="began-nav-subtitle">
+          </h1>
 
-              Produksi mengikuti kebutuhan size dan qty partner.
-              Setiap produk telah tersedia dalam bentuk sampel
-              produk real. Priority 01 memperoleh alokasi
-              produksi lebih awal.
+          <p class="began-nav-subtitle">
 
-            </p>
+            Produksi mengikuti kebutuhan
+            size dan quantity partner.
+            Setiap produk telah tersedia
+            dalam bentuk sample produk
+            real sehingga partner dapat
+            melakukan alokasi produksi
+            lebih awal dan mengamankan
+            stok sebelum produksi penuh
+            dimulai.
+
+          </p>
+
+          <div class="began-nav-center">
+
+            <button
+              class="began-nav-link"
+              data-page="dashboard">
+
+              <span>🏠</span>
+              Dashboard
+
+            </button>
+
+            <button
+              class="began-nav-link active"
+              data-page="reserve">
+
+              <span>📦</span>
+              Reserve
+
+            </button>
+
+            <button
+              class="began-nav-link"
+              data-page="forum">
+
+              <span>💬</span>
+              Forum
+
+            </button>
+
+            <button
+              class="began-nav-link"
+              data-page="notification">
+
+              <span>🔔</span>
+              Notification
+
+            </button>
 
           </div>
 
@@ -1355,55 +1400,21 @@ function injectGlobalNav(){
           id="began-partner-info"
           class="began-partner-info">
 
-          <span class="began-partner-label">
+          <span
+            class="began-partner-label">
 
             EXCLUSIVE PARTNER FOR
 
           </span>
 
-          <span id="began-partner-name">
+          <span
+            id="began-partner-name">
 
             GUEST
 
           </span>
 
         </div>
-
-      </div>
-
-      <div class="began-nav-center">
-
-        <button
-          class="began-nav-link"
-          data-page="dashboard">
-
-          Dashboard
-
-        </button>
-
-        <button
-          class="began-nav-link"
-          data-page="forum">
-
-          Forum
-
-        </button>
-
-        <button
-          class="began-nav-link active"
-          data-page="reserve">
-
-          Reserve
-
-        </button>
-
-        <button
-          class="began-nav-link"
-          data-page="notification">
-
-          Notification
-
-        </button>
 
       </div>
 
