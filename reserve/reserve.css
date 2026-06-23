@@ -2467,7 +2467,7 @@ height:min(88vh,700px);
    TABLET
 ===================================== */
 
-@media(max-width:991px)
+@media(max-width:991px){
 
   .began-nav-title{
 
@@ -2819,15 +2819,11 @@ and (orientation:landscape){
   }
 
 }
+
+#began-global-nav:not(.is-collapsed)
 .began-nav-center{
 
-  margin-top:-6px;
-
-  margin-bottom:0;
-}
-.began-nav-center{
-
-  transform:translateY(-10px);
+  margin-top:-10px;
 
 }
 /* =====================================
@@ -2836,21 +2832,28 @@ and (orientation:landscape){
 
 #began-global-nav{
 
+  overflow:visible;
+
   transition:
-    padding .3s ease;
+    padding .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+
 }
 
 #began-global-nav.is-collapsed{
 
-  background:transparent;
+  padding:0;
+
+  margin-bottom:0;
 
   border-color:transparent;
 
-  box-shadow:none;
+  background:transparent;
 
   backdrop-filter:none;
 
-  padding:0;
+  box-shadow:none;
 
 }
 
@@ -2863,25 +2866,7 @@ and (orientation:landscape){
 #began-global-nav.is-collapsed
 .began-partner-info{
 
-  opacity:0;
-
-  visibility:hidden;
-
-  height:0;
-
-  overflow:hidden;
-
-  pointer-events:none;
-
-  margin:0;
-
-  padding:0;
-
-}
-#began-global-nav.is-collapsed
-.began-nav-top{
-
-  display:block;
+  display:none;
 
 }
 
@@ -2894,9 +2879,9 @@ and (orientation:landscape){
 
   left:50%;
 
-  transform:translateX(-50%);
+  z-index:99999;
 
-  z-index:9999;
+  transform:translateX(-50%);
 
   margin:0;
 
@@ -2904,17 +2889,27 @@ and (orientation:landscape){
 
   border-radius:999px;
 
-  border:1px solid
-    rgba(216,185,104,.18);
-
   background:
     rgba(10,10,10,.92);
 
-  backdrop-filter:
-    blur(20px);
+  border:1px solid
+    rgba(216,185,104,.18);
+
+  backdrop-filter:blur(20px);
 
   box-shadow:
     0 12px 40px
     rgba(0,0,0,.55);
 
+  position:fixed;
+
+  top:12px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:max-content;
+
+  max-width:calc(100vw - 24px);
 }
