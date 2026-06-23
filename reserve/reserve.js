@@ -1308,31 +1308,41 @@ function injectGlobalNav(){
 }
 function bindGlobalNavCollapse(){
 
-  const nav =
-
-    document.getElementById(
-      'began-global-nav'
-    );
+  const nav = document.getElementById(
+    'began-global-nav'
+  );
 
   if(!nav){
     return;
   }
 
-  let isCollapsed =
-    false;
+  let isCollapsed = false;
 
   const COLLAPSE_AT = 220;
-
   const EXPAND_AT = 120;
+
+  function getScrollTop(){
+
+    return Math.max(
+
+      window.pageYOffset,
+
+      document.documentElement.scrollTop,
+
+      document.body.scrollTop
+
+    );
+
+  }
 
   function updateNavState(){
 
-    const scrollY =
-      window.scrollY;
+    const scrollTop =
+      getScrollTop();
 
     if(
       !isCollapsed &&
-      scrollY > COLLAPSE_AT
+      scrollTop > COLLAPSE_AT
     ){
 
       isCollapsed = true;
@@ -1344,10 +1354,8 @@ function bindGlobalNavCollapse(){
     }
 
     else if(
-
       isCollapsed &&
-      scrollY < EXPAND_AT
-
+      scrollTop < EXPAND_AT
     ){
 
       isCollapsed = false;
@@ -1363,15 +1371,9 @@ function bindGlobalNavCollapse(){
   updateNavState();
 
   window.addEventListener(
-
     'scroll',
-
     updateNavState,
-
-    {
-      passive:true
-    }
-
+    { passive:true }
   );
 
 }
