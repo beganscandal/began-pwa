@@ -912,6 +912,7 @@ injectGlobalNav();
 syncPartnerInfo();
 
 bindGlobalNavigation(); 
+    bindMobileReserveOverlay();
     
 
 
@@ -1073,15 +1074,17 @@ CartRender.init();
 
 function syncPartnerInfo(){
 
-  const el =
+  const desktopEl =
 
     document.getElementById(
       'began-partner-name'
     );
 
-  if(!el){
-    return;
-  }
+  const mobileEl =
+
+    document.getElementById(
+      'began-mobile-partner-name'
+    );
 
   try{
 
@@ -1095,16 +1098,41 @@ function syncPartnerInfo(){
 
       );
 
-    el.textContent =
+    const partnerName =
 
       partner.toko ||
 
       'GUEST';
 
+    if(desktopEl){
+
+      desktopEl.textContent =
+        partnerName;
+
+    }
+
+    if(mobileEl){
+
+      mobileEl.textContent =
+        partnerName;
+
+    }
+
   }catch(error){
 
-    el.textContent =
-      'GUEST';
+    if(desktopEl){
+
+      desktopEl.textContent =
+        'GUEST';
+
+    }
+
+    if(mobileEl){
+
+      mobileEl.textContent =
+        'GUEST';
+
+    }
 
   }
 
@@ -1183,13 +1211,16 @@ function injectGlobalNav(){
     );
 
   if(
-    !root ||
-    document.getElementById(
-      'began-global-nav'
-    )
-  ){
-    return;
-  }
+  !root ||
+  document.getElementById(
+    'began-global-nav'
+  ) ||
+  document.getElementById(
+    'began-mobile-header'
+  )
+){
+  return;
+}
 
   root.insertAdjacentHTML(
 
@@ -1303,6 +1334,356 @@ function injectGlobalNav(){
 
     </div>
     `
+  );
+
+root.insertAdjacentHTML(
+
+  'afterbegin',
+
+  `
+  <div id="began-mobile-header">
+
+    <div class="began-mobile-top">
+
+      <img
+        class="began-mobile-logo"
+        src="https://pwa.barkahgarment.com/assets/began%20font%20tagline.png"
+        alt="BEGAN">
+
+      <div class="began-mobile-user">
+
+        <span>
+
+          Welcome,
+
+          <strong
+            id="began-mobile-partner-name">
+
+            GUEST
+
+          </strong>
+
+        </span>
+
+        <button
+          class="began-nav-link 
+                  began-mobile-notification"
+          data-page="notification">
+
+          🔔
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="began-mobile-nav">
+
+      <button
+        class="began-nav-link"
+        data-page="dashboard">
+
+        <span>🏠</span>
+        Dashboard
+
+      </button>
+
+      <button
+        class="began-nav-link active"
+        data-page="reserve">
+
+        <span>📦</span>
+        Reserve
+
+      </button>
+
+      <button
+        class="began-nav-link"
+        data-page="forum">
+
+        <span>💬</span>
+        Forum
+
+      </button>
+
+    </div>
+
+    <button
+      id="began-reserve-info-btn">
+
+      <span>
+
+        ℹ️ Tentang Reserve
+
+      </span>
+
+      <span>
+
+        ▼
+
+      </span>
+
+    </button>
+
+  </div>
+
+  <div
+    id="began-reserve-overlay">
+
+    <div
+      class="began-reserve-overlay-card">
+
+      <button
+        class="began-reserve-close">
+
+        ✕
+
+      </button>
+
+      <h3>
+
+        TENTANG RESERVE
+
+      </h3>
+
+      <p>
+
+        Reserve memungkinkan partner
+        mengamankan slot produksi lebih
+        awal sebelum produksi penuh
+        dimulai.
+
+      </p>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          1. Pilih Produk
+
+        </strong>
+
+        <p>
+
+          Pilih produk yang ingin
+          di-reserve.
+
+        </p>
+
+      </div>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          2. Pilih Size
+
+        </strong>
+
+        <p>
+
+          Tentukan size sesuai kebutuhan.
+
+        </p>
+
+      </div>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          3. Tentukan Quantity
+
+        </strong>
+
+        <p>
+
+          Gunakan tombol plus dan minus
+          untuk menentukan jumlah reserve.
+
+        </p>
+
+      </div>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          4. Tambahkan Produk
+
+        </strong>
+
+        <p>
+
+          Klik tombol tambah untuk
+          memasukkan produk ke Ringkasan
+          Reserve.
+
+        </p>
+
+      </div>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          5. Tambahkan Produk Lain
+
+        </strong>
+
+        <p>
+
+          Ulangi proses pada produk lain
+          jika diperlukan.
+
+        </p>
+
+      </div>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          6. Buka Ringkasan Reserve
+
+        </strong>
+
+        <p>
+
+          Klik tombol Ringkasan Reserve
+          di kanan bawah untuk memeriksa
+          seluruh pesanan.
+
+        </p>
+
+      </div>
+
+      <div class="began-reserve-step">
+
+        <strong>
+
+          7. Checkout
+
+        </strong>
+
+        <p>
+
+          Jika seluruh data sudah sesuai,
+          lanjutkan checkout untuk
+          mengirim reserve.
+
+        </p>
+
+      </div>
+
+      <button
+        class="began-reserve-close-btn">
+
+        TUTUP
+
+      </button>
+
+    </div>
+
+  </div>
+  `
+);
+}
+
+function bindMobileReserveOverlay(){
+
+  const btn =
+
+    document.getElementById(
+      'began-reserve-info-btn'
+    );
+
+  const overlay =
+
+    document.getElementById(
+      'began-reserve-overlay'
+    );
+
+  if(
+    !btn ||
+    !overlay
+  ){
+    return;
+  }
+
+  function closeOverlay(){
+
+  overlay.classList.remove(
+    'is-open'
+  );
+
+  btn.querySelector(
+    'span:last-child'
+  ).textContent = '▼';
+
+}
+
+ btn.addEventListener(
+
+  'click',
+
+  function(){
+
+    const isOpen =
+
+      overlay.classList.toggle(
+        'is-open'
+      );
+
+    btn.querySelector(
+      'span:last-child'
+    ).textContent =
+
+      isOpen ? '▲' : '▼';
+
+  }
+
+);
+
+  overlay.addEventListener(
+
+    'click',
+
+    function(event){
+
+      if(
+
+        event.target === overlay ||
+
+        event.target.closest(
+          '.began-reserve-close'
+        ) ||
+
+        event.target.closest(
+          '.began-reserve-close-btn'
+        )
+
+      ){
+
+        closeOverlay();
+
+      }
+
+    }
+
+  );
+
+  window.addEventListener(
+
+    'scroll',
+
+    closeOverlay,
+
+    {
+      passive:true
+    }
+
   );
 
 }
