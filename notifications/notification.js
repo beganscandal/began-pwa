@@ -431,6 +431,7 @@ function bindFabRefresh(){
   );
 
 }
+
 function togglePullIndicator(show){
 
   const indicator =
