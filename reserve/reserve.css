@@ -2230,3 +2230,243 @@ height:min(88vh,700px);
   }
 
 }
+/* =====================================
+   BEGAN FOMO BAR
+===================================== */
+
+#began-reserve-fomo{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:1200;
+
+  height:40px;
+
+  overflow:hidden;
+
+  background:#000;
+
+  border-bottom:
+    1px solid rgba(57,255,20,.15);
+
+}
+
+.began-reserve-marquee{
+
+  display:inline-block;
+
+  min-width:100%;
+
+  padding-left:100%;
+
+  white-space:nowrap;
+
+  line-height:40px;
+
+  color:#39FF14;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  letter-spacing:.08em;
+
+  animation:
+    beganReserveMarquee
+    42s linear infinite;
+
+}
+
+@keyframes beganReserveMarquee{
+
+  from{
+
+    transform:translateX(0);
+
+  }
+
+  to{
+
+    transform:translateX(-100%);
+
+  }
+
+}
+
+/* =====================================
+   GLOBAL NAV
+===================================== */
+
+#began-global-nav{
+
+  position:sticky;
+
+  top:40px;
+
+  z-index:1190;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:32px;
+
+  padding:20px 32px;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #090909,
+      #121212
+    );
+
+  border-bottom:
+
+    1px solid
+    rgba(212,175,55,.12);
+
+}
+
+.began-nav-brand{
+
+  display:flex;
+
+  flex-direction:column;
+
+}
+
+.began-nav-eyebrow{
+
+  font-size:10px;
+
+  color:#777;
+
+  letter-spacing:.18em;
+
+}
+
+.began-nav-title{
+
+  color:#D4AF37;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  letter-spacing:.08em;
+
+}
+
+.began-nav-center{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:32px;
+
+}
+
+.began-nav-link{
+
+  background:none;
+
+  border:none;
+
+  padding:0;
+
+  color:#8b8b8b;
+
+  font-size:13px;
+
+  font-weight:700;
+
+  letter-spacing:.10em;
+
+  text-transform:uppercase;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+}
+
+.began-nav-link:hover{
+
+  color:#D4AF37;
+
+}
+
+.began-nav-link.active{
+
+  color:#D4AF37;
+
+}
+
+.began-partner-info{
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:flex-end;
+
+  padding:12px 18px;
+
+  border-radius:14px;
+
+  background:
+
+    rgba(212,175,55,.06);
+
+  border:
+
+    1px solid
+    rgba(212,175,55,.12);
+
+}
+
+.began-partner-label{
+
+  color:#999;
+
+  font-size:10px;
+
+  letter-spacing:.14em;
+
+}
+
+#began-partner-name{
+
+  margin-top:4px;
+
+  color:#D4AF37;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+}
+
+/* =====================================
+   MOBILE PORTRAIT
+===================================== */
+
+@media(max-width:767px)
+and (orientation:portrait){
+
+  #began-reserve-fomo,
+  #began-global-nav{
+
+    display:none;
+
+  }
+
+}
