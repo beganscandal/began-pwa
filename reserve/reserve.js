@@ -912,6 +912,8 @@ injectGlobalNav();
 syncPartnerInfo();
 
 bindGlobalNavigation(); 
+    
+bindGlobalNavCollapse();    
 
 
     window.testReserveSound =
@@ -1301,6 +1303,59 @@ function injectGlobalNav(){
 
     </div>
     `
+  );
+
+}
+function bindGlobalNavCollapse(){
+
+  const nav =
+
+    document.getElementById(
+      'began-global-nav'
+    );
+
+  if(!nav){
+    return;
+  }
+
+  let isCollapsed =
+    false;
+
+  function updateNavState(){
+
+    const shouldCollapse =
+
+      window.scrollY > 180;
+
+    if(
+      shouldCollapse ===
+      isCollapsed
+    ){
+      return;
+    }
+
+    isCollapsed =
+      shouldCollapse;
+
+    nav.classList.toggle(
+      'is-collapsed',
+      shouldCollapse
+    );
+
+  }
+
+  updateNavState();
+
+  window.addEventListener(
+
+    'scroll',
+
+    updateNavState,
+
+    {
+      passive:true
+    }
+
   );
 
 }
