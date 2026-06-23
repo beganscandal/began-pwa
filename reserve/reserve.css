@@ -2863,10 +2863,21 @@ and (orientation:landscape){
 #began-global-nav.is-collapsed
 .began-partner-info{
 
-  display:none;
+  opacity:0;
+
+  visibility:hidden;
+
+  height:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
+  margin:0;
+
+  padding:0;
 
 }
-
 #began-global-nav.is-collapsed
 .began-nav-top{
 
