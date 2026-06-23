@@ -913,7 +913,7 @@ syncPartnerInfo();
 
 bindGlobalNavigation(); 
     
-bindGlobalNavCollapse();    
+
 
 
     window.testReserveSound =
@@ -1303,77 +1303,6 @@ function injectGlobalNav(){
 
     </div>
     `
-  );
-
-}
-function bindGlobalNavCollapse(){
-
-  const nav = document.getElementById(
-    'began-global-nav'
-  );
-
-  if(!nav){
-    return;
-  }
-
-  let isCollapsed = false;
-
-  const COLLAPSE_AT = 220;
-  const EXPAND_AT = 120;
-
-  function getScrollTop(){
-
-    return Math.max(
-
-      window.pageYOffset,
-
-      document.documentElement.scrollTop,
-
-      document.body.scrollTop
-
-    );
-
-  }
-
-  function updateNavState(){
-
-    const scrollTop =
-      getScrollTop();
-
-    if(
-      !isCollapsed &&
-      scrollTop > COLLAPSE_AT
-    ){
-
-      isCollapsed = true;
-
-      nav.classList.add(
-        'is-collapsed'
-      );
-
-    }
-
-    else if(
-      isCollapsed &&
-      scrollTop < EXPAND_AT
-    ){
-
-      isCollapsed = false;
-
-      nav.classList.remove(
-        'is-collapsed'
-      );
-
-    }
-
-  }
-
-  updateNavState();
-
-  window.addEventListener(
-    'scroll',
-    updateNavState,
-    { passive:true }
   );
 
 }
