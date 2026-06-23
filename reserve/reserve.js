@@ -744,36 +744,127 @@ if(!products.length){
   }
 
 }
-  function injectReserveHeader(){
+  function injectGlobalNav(){
+
+  const root =
+    document.getElementById(
+      'reserve-app'
+    );
 
   if(
-    document.querySelector(
-      '.reserve-header'
+    !root ||
+    document.getElementById(
+      'began-global-nav'
     )
   ){
     return;
   }
 
-  if(!rootEl) return;
+  root.insertAdjacentHTML(
 
-  rootEl.insertAdjacentHTML(
     'afterbegin',
+
     `
-    <header class="reserve-header">
+    <div id="began-global-nav">
 
-      <h1 class="reserve-header__title">
-        RESERVE SYSTEM
-      </h1>
+      <div class="began-nav-left">
 
-      <p class="reserve-header__subtitle">
-Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia dalam bentuk sampel produk real. Priority 01 memperoleh alokasi produksi lebih awal.
-</p>
-    </header>
+        <img
+          class="began-nav-logo"
+          src="LOGO_URL_ANDA"
+          alt="BEGAN">
+
+        <div class="began-nav-brand">
+
+          <span class="began-nav-eyebrow">
+
+            EXCLUSIVE PARTNER ACCESS
+
+          </span>
+
+          <h1 class="began-nav-title">
+
+            RESERVE SYSTEM
+
+          </h1>
+
+          <p class="began-nav-subtitle">
+
+            Produksi mengikuti kebutuhan
+            size dan qty partner.
+            Setiap produk telah tersedia
+            dalam bentuk sampel produk real.
+            Priority 01 memperoleh alokasi
+            produksi lebih awal.
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="began-nav-center">
+
+        <button
+          class="began-nav-link"
+          data-page="dashboard">
+
+          Dashboard
+
+        </button>
+
+        <button
+          class="began-nav-link"
+          data-page="forum">
+
+          Forum
+
+        </button>
+
+        <button
+          class="began-nav-link active"
+          data-page="reserve">
+
+          Reserve
+
+        </button>
+
+        <button
+          class="began-nav-link"
+          data-page="notification">
+
+          Notification
+
+        </button>
+
+      </div>
+
+      <div
+        id="began-partner-info"
+        class="began-partner-info">
+
+        <span
+          class="began-partner-label">
+
+          EXCLUSIVE PARTNER FOR
+
+        </span>
+
+        <span
+          id="began-partner-name">
+
+          GUEST
+
+        </span>
+
+      </div>
+
+    </div>
     `
   );
 
-}
- function unlockReserveAudio(){
+} 
+  function unlockReserveAudio(){
 
   reserveSound.volume = 0;
 
@@ -936,7 +1027,7 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
       return;
     }
 injectGlobalNav();
-    injectReserveHeader();
+    
 syncPartnerInfo();
 
 bindGlobalNavigation(); 
