@@ -936,6 +936,9 @@ Produksi mengikuti kebutuhan size dan qty partner. Setiap produk telah tersedia 
       return;
     }
 injectReserveHeader();
+syncPartnerInfo();
+
+bindGlobalNavigation();    
 
     window.testReserveSound =
 function(){
@@ -1091,4 +1094,108 @@ CartRender.init();
     init();
   }
 })();
+
+function syncPartnerInfo(){
+
+  const el =
+
+    document.getElementById(
+      'began-partner-name'
+    );
+
+  if(!el){
+    return;
+  }
+
+  try{
+
+    const partner =
+
+      JSON.parse(
+
+        localStorage.getItem(
+          'began_partner'
+        ) || '{}'
+
+      );
+
+    el.textContent =
+
+      partner.toko ||
+
+      'GUEST';
+
+  }catch(error){
+
+    el.textContent =
+      'GUEST';
+
+  }
+
+}
+function bindGlobalNavigation(){
+
+  document.addEventListener(
+
+    'click',
+
+    function(event){
+
+      const btn =
+
+        event.target.closest(
+          '.began-nav-link'
+        );
+
+      if(!btn){
+        return;
+      }
+
+      switch(
+        btn.dataset.page
+      ){
+
+        case 'dashboard':
+
+          location.href =
+
+'https://www.barkahgarment.com/began-partner-dashboard-dev';
+
+        break;
+
+        case 'reserve':
+
+          location.href =
+
+'https://www.barkahgarment.com/reserve-system';
+
+        break;
+
+        case 'forum':
+
+          BeganPwaBridge.open(
+
+'https://pwa.barkahgarment.com/forum/'
+
+          );
+
+        break;
+
+        case 'notification':
+
+          BeganPwaBridge.open(
+
+'https://pwa.barkahgarment.com/notifications/'
+
+          );
+
+        break;
+
+      }
+
+    }
+
+  );
+
+}
 
