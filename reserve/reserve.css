@@ -2992,3 +2992,12 @@ and (orientation:landscape){
     );
 
 }
+@media(max-width:699px){
+
+  #began-reserve-info-content{
+
+    padding-bottom:90px;
+
+  }
+
+}
