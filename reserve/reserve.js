@@ -1315,19 +1315,55 @@ function injectGlobalNav(){
     `
     <div id="began-global-nav">
 
-      <div class="began-nav-left">
+      <div class="began-nav-top">
 
-        <div class="began-nav-brand">
+        <div class="began-nav-left">
 
-          <span class="began-nav-eyebrow">
+          <img
+            class="began-nav-logo"
+            src="https://pwa.barkahgarment.com/assets/logo%20font(1000%20x%20381%20px).png"
+            alt="BEGAN">
 
-            BEGAN PARTNER
+          <div class="began-nav-brand">
+
+            <span class="began-nav-eyebrow">
+
+              EXCLUSIVE PARTNER ACCESS
+
+            </span>
+
+            <h1 class="began-nav-title">
+
+              RESERVE SYSTEM
+
+            </h1>
+
+            <p class="began-nav-subtitle">
+
+              Produksi mengikuti kebutuhan size dan qty partner.
+              Setiap produk telah tersedia dalam bentuk sampel
+              produk real. Priority 01 memperoleh alokasi
+              produksi lebih awal.
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <div
+          id="began-partner-info"
+          class="began-partner-info">
+
+          <span class="began-partner-label">
+
+            EXCLUSIVE PARTNER FOR
 
           </span>
 
-          <span class="began-nav-title">
+          <span id="began-partner-name">
 
-            RESERVE SYSTEM
+            GUEST
 
           </span>
 
@@ -1368,25 +1404,6 @@ function injectGlobalNav(){
           Notification
 
         </button>
-
-      </div>
-
-      <div
-        id="began-partner-info"
-        class="began-partner-info">
-
-        <span class="began-partner-label">
-
-          EXCLUSIVE PARTNER FOR
-
-        </span>
-
-        <span
-          id="began-partner-name">
-
-          GUEST
-
-        </span>
 
       </div>
 
