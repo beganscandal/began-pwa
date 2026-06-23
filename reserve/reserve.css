@@ -2804,6 +2804,7 @@ and (orientation:landscape){
 
   line-height:1.55;
 }
+
 @media (max-width:900px)
 and (orientation:landscape){
 
@@ -2820,96 +2821,3 @@ and (orientation:landscape){
 
 }
 
-#began-global-nav:not(.is-collapsed)
-.began-nav-center{
-
-  margin-top:-10px;
-
-}
-/* =====================================
-   FLOATING NAV ON SCROLL
-===================================== */
-
-#began-global-nav{
-
-  overflow:visible;
-
-  transition:
-    padding .25s ease,
-    background .25s ease,
-    border-color .25s ease;
-
-}
-
-#began-global-nav.is-collapsed{
-
-  padding:0;
-
-  margin-bottom:0;
-
-  border-color:transparent;
-
-  background:transparent;
-
-  backdrop-filter:none;
-
-  box-shadow:none;
-
-}
-
-#began-global-nav.is-collapsed
-.began-nav-left,
-
-#began-global-nav.is-collapsed
-.began-nav-brand,
-
-#began-global-nav.is-collapsed
-.began-partner-info{
-
-  display:none;
-
-}
-
-#began-global-nav.is-collapsed
-.began-nav-center{
-
-  position:fixed;
-
-  top:12px;
-
-  left:50%;
-
-  z-index:99999;
-
-  transform:translateX(-50%);
-
-  margin:0;
-
-  padding:8px;
-
-  border-radius:999px;
-
-  background:
-    rgba(10,10,10,.92);
-
-  border:1px solid
-    rgba(216,185,104,.18);
-
-  backdrop-filter:blur(20px);
-
-  box-shadow:
-    0 12px 40px
-    rgba(0,0,0,.55);
-
-  position:fixed;
-
-  top:12px;
-
-  left:50%;
-
-  transform:translateX(-50%);
-
-  width:max-content;
-
-  max-width:calc(100vw - 24px);
-}
