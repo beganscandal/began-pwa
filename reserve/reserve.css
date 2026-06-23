@@ -2179,70 +2179,6 @@ height:min(88vh,700px);
   }
 
 }
-/* =====================================
-   BEGAN FOMO BAR
-===================================== */
-
-#began-reserve-fomo{
-
-  position:sticky;
-
-  top:0;
-
-  z-index:1200;
-
-  height:40px;
-
-  overflow:hidden;
-
-  background:#000;
-
-  border-bottom:
-    1px solid rgba(57,255,20,.15);
-
-}
-
-.began-reserve-marquee{
-
-  display:inline-block;
-
-  min-width:100%;
-
-  padding-left:100%;
-
-  white-space:nowrap;
-
-  line-height:40px;
-
-  color:#39FF14;
-
-  font-size:12px;
-
-  font-weight:800;
-
-  letter-spacing:.08em;
-
-  animation:
-    beganReserveMarquee
-    42s linear infinite;
-
-}
-
-@keyframes beganReserveMarquee{
-
-  from{
-
-    transform:translateX(0);
-
-  }
-
-  to{
-
-    transform:translateX(-100%);
-
-  }
-
-}
 
 
 .began-nav-left{
@@ -2254,19 +2190,6 @@ height:min(88vh,700px);
 }
 
 
-.began-nav-brand{
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
-
-  text-align:center;
-
-}
 
 .began-nav-eyebrow{
 
@@ -2548,17 +2471,8 @@ height:min(88vh,700px);
 
 @media(max-width:991px){
 
-  .began-nav-top{
 
-    grid-template-columns:1fr;
 
-  }
-
-  .began-nav-logo{
-
-    width:150px;
-
-  }
 
   .began-nav-title{
 
@@ -2576,9 +2490,6 @@ height:min(88vh,700px);
 
 }
 
-/* =====================================
-   MOBILE
-===================================== */
 
 /* =====================================
    HANYA MOBILE PORTRAIT
@@ -2681,17 +2592,6 @@ and (orientation:portrait){
   display:block;
 
 }
-.began-nav-brand{
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  text-align:center;
-
-}
 
 .began-nav-eyebrow{
 
@@ -2722,23 +2622,6 @@ and (orientation:portrait){
   font-size:13px;
 
   line-height:1.7;
-
-}
-.began-nav-center{
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  flex-wrap:wrap;
-
-  gap:10px;
-
-  width:100%;
-
-  margin:0 auto;
 
 }
 .began-nav-link{
@@ -2803,18 +2686,7 @@ and (orientation:portrait){
    MOBILE LANDSCAPE
 ===================================== */
 
-@media (max-width:767px)
-and (orientation:landscape){
 
-  #began-global-nav{
-
-    position:relative;
-
-    top:auto;
-
-  }
-
-}
 @media (max-width:767px)
 and (orientation:landscape){
 
