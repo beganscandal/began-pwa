@@ -913,6 +913,14 @@ syncPartnerInfo();
 
 bindGlobalNavigation(); 
     bindMobileReserveOverlay();
+
+    if(
+  window.BeganNotificationRealtime
+){
+
+  BeganNotificationRealtime.init();
+
+}
     
 
 
