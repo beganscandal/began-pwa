@@ -6,6 +6,13 @@ let allPosts = [];
 let searchTimer;
 let currentSearch = '';
 let currentCategory = '';
+let forumNotifications = [];
+
+let IS_NOTIFICATION_REFRESHING =
+  false;
+
+let NOTIFICATION_TIMER =
+  null;
 const RESERVE_SYSTEM_URL =
   'https://www.barkahgarment.com/reserve-system';
 
@@ -56,7 +63,8 @@ renderPosts(
       bindLikeEvents();
 bindMentionAutocomplete();
       bindGlobalNavigation();
-      renderForumNotificationBadge(5);
+      await loadForumNotifications();
+     
       
 
     } catch(err) {
@@ -1134,9 +1142,7 @@ function getFilteredPosts(){
   );
 
 }
-function renderForumNotificationBadge(
-  unreadCount
-){
+function renderForumNotificationBadge(){
 
   const desktopBadge =
     document.getElementById(
@@ -1147,6 +1153,16 @@ function renderForumNotificationBadge(
     document.getElementById(
       'forum-mobile-notification-badge'
     );
+
+  const unreadCount =
+
+    forumNotifications.filter(
+      function(notification){
+
+        return !notification.isRead;
+
+      }
+    ).length;
 
   const show =
     unreadCount > 0;
@@ -1166,6 +1182,63 @@ function renderForumNotificationBadge(
   }
 
 }
+async function loadForumNotifications(){
+
+  const partner =
+
+    JSON.parse(
+
+      localStorage.getItem(
+        'began_partner'
+      ) || '{}'
+
+    );
+
+  if(!partner.id){
+    return;
+  }
+
+  try{
+
+    const response =
+
+      await fetch(
+
+        API_URL +
+
+        '?action=getNotifications' +
+
+        '&partnerId=' +
+
+        encodeURIComponent(
+          partner.id
+        )
+
+      );
+
+    const data =
+      await response.json();
+
+    forumNotifications =
+
+      data.notifications || [];
+
+    renderForumNotificationBadge();
+
+  }catch(error){
+
+    console.error(
+
+      'FORUM NOTIFICATION ERROR',
+
+      error
+
+    );
+
+  }
+
+}
+
 
 function bindGlobalNavigation(){
 
