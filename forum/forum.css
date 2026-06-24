@@ -746,10 +746,12 @@
   }
 
 }
-#forum-notification-badge,
 #forum-mobile-notification-badge{
 
-  display:block;
+  position:absolute;
+
+  top:10px;
+  right:28px;
 
   width:8px;
   height:8px;
@@ -758,13 +760,38 @@
 
   background:#ef4444;
 
-  flex-shrink:0;
+  display:block;
 
 }
 
-#forum-notification-badge[hidden],
 #forum-mobile-notification-badge[hidden]{
-
   display:none;
+}
+.began-nav-link{
+  position:relative;
+}
 
+#forum-notification-badge{
+
+  position:absolute;
+
+  top:10px;
+  right:12px;
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#ef4444;
+
+  display:block;
+
+}
+
+#forum-notification-badge[hidden]{
+  display:none;
+}
+#began-mobile-nav button{
+  position:relative;
 }
