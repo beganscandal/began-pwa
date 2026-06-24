@@ -1141,62 +1141,67 @@ function bindGlobalNavigation(){
 
     function(event){
 
-      const desktop =
+      const btn =
 
         event.target.closest(
-          '[data-global-nav]'
+          '.began-nav-link'
         );
 
-      const mobile =
-
-        event.target.closest(
-          '[data-mobile-nav]'
-        );
-
-      const item =
-        desktop || mobile;
-
-      if(!item)
+      if(!btn){
         return;
+      }
 
       switch(
-
-        item.dataset.globalNav ||
-        item.dataset.mobileNav
-
+        btn.dataset.page
       ){
 
         case 'dashboard':
 
           BeganPwaBridge.open(
-            'https://www.barkahgarment.com/began-partner-dashboard-dev'
+
+            buildBeganPwaUrl(
+              'https://www.barkahgarment.com/began-partner-dashboard-dev'
+            )
+
           );
 
-          break;
-
-        case 'forum':
-
-          BeganDeepLink.open(
-            '/forum/'
-          );
-
-          break;
-
-        case 'updates':
-
-          BeganDeepLink.open(
-            '/notifications/'
-          );
-
-          break;
+        break;
 
         case 'reserve':
 
           BeganPwaBridge.open(
-            'https://www.barkahgarment.com/reserve-system'
+
+            buildBeganPwaUrl(
+              'https://www.barkahgarment.com/reserve-system'
+            )
+
           );
 
-          break;
+        break;
+
+        case 'forum':
+
+          BeganDeepLink.open(
+
+            buildBeganPwaUrl(
+              'https://pwa.barkahgarment.com/forum/'
+            )
+
+          );
+
+        break;
+
+        case 'notification':
+
+          BeganDeepLink.open(
+
+            buildBeganPwaUrl(
+              'https://pwa.barkahgarment.com/notifications/'
+            )
+
+          );
+
+        break;
 
       }
 
