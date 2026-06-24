@@ -63,7 +63,7 @@ renderPosts(
       bindLikeEvents();
 bindMentionAutocomplete();
       bindGlobalNavigation();
-      await loadForumNotifications();
+      startForumNotificationPolling();
      
       
 
@@ -1238,7 +1238,67 @@ async function loadForumNotifications(){
   }
 
 }
+async function refreshForumNotifications(){
 
+  if(
+    IS_NOTIFICATION_REFRESHING
+  ){
+    return;
+  }
+
+  IS_NOTIFICATION_REFRESHING =
+    true;
+
+  try{
+
+    await loadForumNotifications();
+
+  }finally{
+
+    IS_NOTIFICATION_REFRESHING =
+      false;
+
+  }
+
+}
+function startForumNotificationPolling(){
+
+  refreshForumNotifications();
+
+  if(
+    NOTIFICATION_TIMER
+  ){
+    return;
+  }
+
+  NOTIFICATION_TIMER =
+
+    setInterval(
+
+      refreshForumNotifications,
+
+      15000
+
+    );
+
+}
+document.addEventListener(
+
+  'visibilitychange',
+
+  function(){
+
+    if(
+      document.hidden
+    ){
+      return;
+    }
+
+    refreshForumNotifications();
+
+  }
+
+);
 
 function bindGlobalNavigation(){
 
