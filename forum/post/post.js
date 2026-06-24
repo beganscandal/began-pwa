@@ -99,6 +99,13 @@ bindActionBar();
 
 bindPostLike();
         bindGlobalNavigation();
+       if(
+  window.BeganNotificationRealtime
+){
+
+  BeganNotificationRealtime.init();
+
+}
        
         
 
