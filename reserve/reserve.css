@@ -3066,3 +3066,39 @@ and (orientation:portrait){
   }
 
 }
+/* =====================================
+   MOBILE HEADER DEFAULT
+===================================== */
+
+#began-mobile-header{
+  display:none;
+}
+/* =====================================
+   MOBILE PORTRAIT ONLY
+===================================== */
+
+@media (max-width:767px)
+and (orientation:portrait){
+
+  #began-mobile-header{
+    display:block;
+  }
+
+  #began-global-nav{
+    display:none;
+  }
+
+}
+
+/* =====================================
+   DESKTOP + TABLET + LANDSCAPE
+===================================== */
+
+@media (min-width:768px),
+       (orientation:landscape){
+
+  #began-mobile-header{
+    display:none;
+  }
+
+}
