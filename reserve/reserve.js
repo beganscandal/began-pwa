@@ -1351,8 +1351,16 @@ root.insertAdjacentHTML(
         alt="BEGAN">
 
       <div class="began-mobile-user">
+       
+        <button
+          class="began-nav-link 
+                  began-mobile-notification"
+          data-page="notification">
 
-        <span>
+          🔔
+
+        </button>
+         <span>
 
           Welcome,
 
@@ -1365,14 +1373,6 @@ root.insertAdjacentHTML(
 
         </span>
 
-        <button
-          class="began-nav-link 
-                  began-mobile-notification"
-          data-page="notification">
-
-          🔔
-
-        </button>
 
       </div>
 
