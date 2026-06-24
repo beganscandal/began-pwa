@@ -1298,14 +1298,19 @@ function injectGlobalNav(){
             </button>
 
             <button
-              class="began-nav-link"
-              data-page="notification">
+  class="began-nav-link"
+  data-page="notification">
 
-              <span>🔔</span>
-              Notification
+  <span>🔔</span>
+  Notification
 
-            </button>
+  <span
+    id="began-notification-badge"
+    hidden>
 
+  </span>
+
+</button>
           </div>
 
         </div>
@@ -1353,13 +1358,19 @@ root.insertAdjacentHTML(
       <div class="began-mobile-user">
        
         <button
-          class="began-nav-link 
-                  began-mobile-notification"
-          data-page="notification">
+  class="began-nav-link
+          began-mobile-notification"
+  data-page="notification">
 
-          🔔
+  🔔
 
-        </button>
+  <span
+    id="began-mobile-notification-badge"
+    hidden>
+
+  </span>
+
+</button>
          <span>
 
           Welcome,
