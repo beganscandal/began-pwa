@@ -1435,148 +1435,79 @@ root.insertAdjacentHTML(
       class="began-reserve-overlay-card">
 
       <h3>
-
-        TENTANG RESERVE
-
-      </h3>
-
-      <p>
-
-        Reserve memungkinkan partner
-        mengamankan slot produksi lebih
-        awal sebelum produksi penuh
-        dimulai.
-
-      </p>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          1. Pilih Produk
-
-        </strong>
-
-        <p>
-
-          Pilih produk yang ingin
-          di-reserve.
-
-        </p>
-
-      </div>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          2. Pilih Size
-
-        </strong>
-
-        <p>
-
-          Tentukan size sesuai kebutuhan.
-
-        </p>
-
-      </div>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          3. Tentukan Quantity
-
-        </strong>
-
-        <p>
-
-          Gunakan tombol plus dan minus
-          untuk menentukan jumlah reserve.
-
-        </p>
-
-      </div>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          4. Tambahkan Produk
-
-        </strong>
-
-        <p>
-
-          Klik tombol tambah untuk
-          memasukkan produk ke Ringkasan
-          Reserve.
-
-        </p>
-
-      </div>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          5. Tambahkan Produk Lain
-
-        </strong>
-
-        <p>
-
-          Ulangi proses pada produk lain
-          jika diperlukan.
-
-        </p>
-
-      </div>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          6. Buka Ringkasan Reserve
-
-        </strong>
-
-        <p>
-
-          Klik tombol Ringkasan Reserve
-          di kanan bawah untuk memeriksa
-          seluruh pesanan.
-
-        </p>
-
-      </div>
-
-      <div class="began-reserve-step">
-
-        <strong>
-
-          7. Checkout
-
-        </strong>
-
-        <p>
-
-          Jika seluruh data sudah sesuai,
-          lanjutkan checkout untuk
-          mengirim reserve.
-
-        </p>
-
-      </div>
-
-      <button
-        class="began-reserve-close-btn">
-
-        TUTUP
-
-      </button>
-
+  TENTANG RESERVE
+</h3>
+
+<p>
+  Reserve memungkinkan partner mengamankan slot produksi lebih awal sebelum produksi penuh dimulai.
+</p>
+
+<div class="began-reserve-step">
+  <strong>1. Pilih Produk</strong>
+  <span>
+    Pilih produk yang ingin di-reserve dari daftar produk yang tersedia.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>2. Pilih Size</strong>
+  <span>
+    Tentukan size yang dibutuhkan sesuai alokasi stok dan kebutuhan partner.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>3. Tentukan Quantity</strong>
+  <span>
+    Gunakan tombol plus dan minus untuk menentukan jumlah reserve pada setiap size.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>4. Pilih Mode Pembayaran</strong>
+  <span>
+    Pilih Full Payment, DP 50%, atau Non Priority. Setiap metode memiliki prioritas produksi yang berbeda.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>5. Tambahkan Produk</strong>
+  <span>
+    Klik tombol Tambah untuk memasukkan produk ke Ringkasan Reserve.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>6. Tambahkan Produk Lain</strong>
+  <span>
+    Ulangi proses pada produk lain apabila diperlukan.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>7. Buka Ringkasan Reserve</strong>
+  <span>
+    Klik tombol Ringkasan Reserve di kanan bawah untuk memeriksa seluruh pesanan.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>8. Periksa Kembali Pesanan</strong>
+  <span>
+    Pastikan produk, size, quantity, dan metode pembayaran sudah sesuai sebelum checkout.
+  </span>
+</div>
+
+<div class="began-reserve-step">
+  <strong>9. Checkout</strong>
+  <span>
+    Jika seluruh data sudah sesuai, lanjutkan checkout untuk mengirim reserve ke sistem.
+  </span>
+</div>
+
+<button class="began-reserve-close-btn">
+  TUTUP
+</button>
     </div>
 
   </div>
