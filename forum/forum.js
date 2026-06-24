@@ -6,6 +6,15 @@ let allPosts = [];
 let searchTimer;
 let currentSearch = '';
 let currentCategory = '';
+let previousUnreadCount = 0;
+
+const notificationAudio =
+
+  new Audio(
+
+'https://pwa.barkahgarment.com/assets/alertNotificationSound.mp3'
+
+  );
 let forumNotifications = [];
 
 let IS_NOTIFICATION_REFRESHING =
@@ -22,6 +31,8 @@ document.addEventListener(
 
     if(window.lucide){
       lucide.createIcons();
+      notificationAudio.preload =
+  'auto';
     }
  
     try {
@@ -1222,6 +1233,37 @@ async function loadForumNotifications(){
     forumNotifications =
 
       data.notifications || [];
+    const unreadCount =
+
+  forumNotifications.filter(
+
+    function(notification){
+
+      return !notification.isRead;
+
+    }
+
+  ).length;
+
+if(
+
+  previousUnreadCount > 0 &&
+
+  unreadCount >
+  previousUnreadCount
+
+){
+
+  notificationAudio
+    .play()
+    .catch(
+      console.error
+    );
+
+}
+
+previousUnreadCount =
+  unreadCount;
 
     renderForumNotificationBadge();
 
