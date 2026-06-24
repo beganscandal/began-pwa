@@ -1248,19 +1248,31 @@ function bindGlobalNavigation(){
 
     function(event){
 
-      const btn =
+      const desktop =
 
         event.target.closest(
-          '.began-nav-link'
+          '[data-global-nav]'
         );
 
-      if(!btn){
+      const mobile =
+
+        event.target.closest(
+          '[data-mobile-nav]'
+        );
+
+      const item =
+        desktop || mobile;
+
+      if(!item){
         return;
       }
 
-      switch(
-        btn.dataset.page
-      ){
+      const page =
+
+        item.dataset.globalNav ||
+        item.dataset.mobileNav;
+
+      switch(page){
 
         case 'dashboard':
 
@@ -1268,18 +1280,6 @@ function bindGlobalNavigation(){
 
             buildBeganPwaUrl(
               'https://www.barkahgarment.com/began-partner-dashboard-dev'
-            )
-
-          );
-
-        break;
-
-        case 'reserve':
-
-          BeganPwaBridge.open(
-
-            buildBeganPwaUrl(
-              'https://www.barkahgarment.com/reserve-system'
             )
 
           );
@@ -1298,12 +1298,24 @@ function bindGlobalNavigation(){
 
         break;
 
-        case 'notification':
+        case 'updates':
 
           BeganDeepLink.open(
 
             buildBeganPwaUrl(
               'https://pwa.barkahgarment.com/notifications/'
+            )
+
+          );
+
+        break;
+
+        case 'reserve':
+
+          BeganPwaBridge.open(
+
+            buildBeganPwaUrl(
+              'https://www.barkahgarment.com/reserve-system'
             )
 
           );
