@@ -56,6 +56,7 @@ renderPosts(
       bindLikeEvents();
 bindMentionAutocomplete();
       bindGlobalNavigation();
+      renderForumNotificationBadge(5);
       
 
     } catch(err) {
@@ -1133,6 +1134,39 @@ function getFilteredPosts(){
   );
 
 }
+function renderForumNotificationBadge(
+  unreadCount
+){
+
+  const desktopBadge =
+    document.getElementById(
+      'forum-notification-badge'
+    );
+
+  const mobileBadge =
+    document.getElementById(
+      'forum-mobile-notification-badge'
+    );
+
+  const show =
+    unreadCount > 0;
+
+  if(desktopBadge){
+
+    desktopBadge.hidden =
+      !show;
+
+  }
+
+  if(mobileBadge){
+
+    mobileBadge.hidden =
+      !show;
+
+  }
+
+}
+
 function bindGlobalNavigation(){
 
   document.addEventListener(
