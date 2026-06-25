@@ -620,6 +620,14 @@ if(priceEl){
 
   cardEl.dataset.productId =
     productId;
+    if(window.ReserveCardMap){
+
+  window.ReserveCardMap.set(
+    productId,
+    cardEl
+  );
+
+}
 
   var state =
     State.getState(productId);
