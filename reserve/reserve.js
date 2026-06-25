@@ -15,6 +15,9 @@
   var CartRender = window.ReserveCartRender;
 
   var reserveRealtimeTimer = null;
+  var PRODUCT_MAP =
+  new Map();
+  
   var rootEl = null;
   var gridEl = null;
   var videoDialog = null;
@@ -35,11 +38,25 @@ reserveSound.volume = 0.5;
 var LAST_RESERVE_ACTIVITY = '';
 
 var LAST_SOUND_TIME = 0;
+var IS_REFRESHING_ANALYTICS =
+  false;
+
+var IS_REFRESHING_ACTIVITY =
+  false;  
 
   async function refreshReserveAnalytics(){
 
-  try{
+  if(
+    IS_REFRESHING_ANALYTICS
+  ){
+    return;
+  }
 
+  IS_REFRESHING_ANALYTICS =
+    true;
+
+  try{
+ 
     const res = await fetch(
       window.BEGAN_RESERVE_API +
       '?action=getReserveProducts&_=' +
@@ -103,6 +120,11 @@ Render.syncCard(
       err
     );
 
+  }finally{
+
+    IS_REFRESHING_ANALYTICS =
+      false;
+
   }
 
 }
@@ -111,20 +133,11 @@ Render.syncCard(
     return node ? node.dataset.productId : null;
   }
 
-  function getProduct(productId) {
+  function getProduct(productId){
 
-  return (
-    window.BEGAN_PRODUCTS || []
-  ).find(function(product){
-
-    return (
-      (
-        product.productId ||
-        product.id
-      ) === productId
-    );
-
-  }) || null;
+  return PRODUCT_MAP.get(
+    productId
+  ) || null;
 
 }
 
@@ -724,6 +737,20 @@ if(!products.length){
 
     window.BEGAN_PRODUCTS =
       products;
+    PRODUCT_MAP.clear();
+
+products.forEach(function(product){
+
+  PRODUCT_MAP.set(
+
+    product.productId ||
+    product.id,
+
+    product
+
+  );
+
+});
 
     State.initProductStates(
       products
@@ -833,8 +860,16 @@ if(!products.length){
 }
   async function refreshReserveActivity(){
 
-  try{
+  if(
+    IS_REFRESHING_ACTIVITY
+  ){
+    return;
+  }
 
+  IS_REFRESHING_ACTIVITY =
+    true;
+
+  try{
     const res =
       await fetch(
 
@@ -885,15 +920,18 @@ if(!products.length){
 
   }catch(err){
 
-    console.error(
-      '[RESERVE_ACTIVITY]',
-      err
-    );
+  console.error(
+    '[RESERVE_ACTIVITY]',
+    err
+  );
 
-  }
+}finally{
+
+  IS_REFRESHING_ACTIVITY =
+    false;
 
 }
-
+  }
 
   function init() {
     rootEl = document.getElementById('reserve-app');
@@ -1051,18 +1089,47 @@ videoDialog.addEventListener(
     Cart.init();
 
 bootReserve();
-    
-    setInterval(function(){
 
-  refreshReserveAnalytics();
+if(
+  reserveRealtimeTimer
+){
 
-  refreshReserveActivity();
+  clearInterval(
+    reserveRealtimeTimer
+  );
 
-},5000);
+}
 
+reserveRealtimeTimer =
+  setInterval(function(){
+
+    refreshReserveAnalytics();
+
+    refreshReserveActivity();
+
+  },30000);
 
 CartRender.init();
+    document.addEventListener(
 
+  'visibilitychange',
+
+  function(){
+
+    if(
+      document.hidden
+    ){
+      return;
+    }
+
+    refreshReserveAnalytics();
+
+    refreshReserveActivity();
+
+  }
+
+);
+    
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('change', onDocumentChange);
 
