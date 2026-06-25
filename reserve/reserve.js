@@ -880,9 +880,18 @@ products.forEach(function(product){
         Date.now()
 
       );
+// DEBUG: inspect raw response when
+// dashboard API returns HTML instead of JSON
+    const text =
+  await res.text();
 
-    const data =
-      await res.json();
+console.log(
+  '[ACTIVITY RAW]',
+  text.substring(0,500)
+);
+
+const data =
+  JSON.parse(text);
 
     if(
       !data.activities ||
