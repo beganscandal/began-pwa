@@ -3393,168 +3393,130 @@ and (orientation:portrait){
 }
 
 /* ==================================================
-   HORIZONTAL RESERVE CARD
-   MOCK CANVA FINAL
+   DESKTOP / TABLET HORIZONTAL FINAL
 ================================================== */
 
 @media (min-width:768px){
 
-  /* =====================================
-     SATU PRODUK = SATU ROW
-  ===================================== */
-
   .reserve-grid{
 
     display:flex;
-
     flex-direction:column;
 
     gap:18px;
 
     width:100%;
-
-    max-width:1320px;
+    max-width:1380px;
 
     margin:0 auto;
   }
-
-  /* =====================================
-     CARD HORIZONTAL
-  ===================================== */
 
   .reserve-card{
 
     display:grid;
 
     grid-template-columns:
-      320px
-      minmax(0,1fr)
-      320px;
+      260px
+      minmax(420px,1fr)
+      300px;
 
-    grid-template-areas:
-      "media meta allocation"
-      "media progress allocation"
-      "media analytics payment"
-      "media timeline payment"
-      "media partners summary"
-      "media partners summary"
-      "action action action";
-
-    gap:18px;
+    gap:20px;
 
     align-items:start;
 
     padding:18px;
-
-    width:100%;
   }
 
-  /* =====================================
+  /* ===============================
      MEDIA
-  ===================================== */
+  =============================== */
 
   .reserve-card__media-wrap{
-    grid-area:media;
+
+    grid-column:1;
+    grid-row:1 / span 6;
+
+    align-self:stretch;
   }
 
   .reserve-card__media{
 
-    min-height:500px;
+    min-height:360px;
 
-    height:100%;
+    height:360px;
 
-    border-radius:14px;
-
-    overflow:hidden;
-  }
-
-  .reserve-card__thumb{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
+    border-radius:16px;
   }
 
   .reserve-gallery{
 
     margin-top:10px;
+  }
+
+  /* ===============================
+     BODY
+  =============================== */
+
+  .reserve-card__body{
+
+    grid-column:2;
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:12px;
 
     padding:0;
   }
 
-  /* =====================================
-     KOLOM TENGAH
-  ===================================== */
+  /* ===============================
+     RIGHT SIDEBAR
+  =============================== */
 
-  .reserve-card__product-meta{
-    grid-area:meta;
-  }
+  .reserve-allocation,
+  .reserve-size-qty-list,
+  .reserve-payment-group,
+  .reserve-summary{
 
-  .reserve-progress,
-  .reserve-production-status{
-    grid-area:progress;
-  }
-
-  .reserve-analytics{
-    grid-area:analytics;
-  }
-
-  .reserve-timeline{
-    grid-area:timeline;
-  }
-
-  .reserve-partners{
-    grid-area:partners;
-  }
-
-  /* =====================================
-     KOLOM KANAN
-  ===================================== */
-
-  .reserve-allocation{
-    grid-area:allocation;
+    grid-column:3;
   }
 
   .reserve-size-qty-list{
-    grid-area:allocation;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:8px;
   }
 
-  .reserve-payment,
-  .reserve-payment-group,
-  .reserve-card__payment{
-    grid-area:payment;
+  .reserve-payment-group{
+
+    grid-template-columns:1fr;
+
+    gap:8px;
   }
 
-  .reserve-summary,
-  .reserve-card__summary{
-    grid-area:summary;
+  .reserve-payment-option{
+
+    min-height:56px;
   }
 
-  /* =====================================
+  /* ===============================
      CTA
-  ===================================== */
+  =============================== */
 
   .reserve-card__action-bar{
 
-    grid-area:action;
+    grid-column:1 / -1;
 
     padding-top:18px;
 
-    margin-top:8px;
+    margin-top:10px;
 
     border-top:1px solid var(--reserve-border);
 
     background:none;
-  }
-
-  /* =====================================
-     PANEL CLOSED
-  ===================================== */
-
-  .reserve-closed-panel{
-
-    grid-column:1 / -1;
   }
 
 }
