@@ -3395,142 +3395,55 @@ and (orientation:portrait){
 /* ==========================================
    RESERVE CARD HORIZONTAL LAYOUT
    Production Safe
-========================================== */
-
-
-/* ==========================================
    DESKTOP + TABLET
-   3 KOLOM HORIZONTAL
 ========================================== */
 
 @media (min-width:768px){
 
   .reserve-card{
+    min-height:720px;
+  }
+
+  .reserve-card__body{
 
     display:grid;
 
-    grid-template-columns:1.6fr 1.5fr .9fr;
+    grid-template-columns:
+      1.35fr 1.15fr .9fr;
 
-    grid-template-areas:
-      "media config action";
-
-    gap:24px;
+    gap:16px;
 
     align-items:start;
-
-    min-height:620px;
   }
 
-  /* =======================================
-     KOLOM 1
-  ======================================= */
+  /* KOLOM 1 */
 
-  .reserve-card__media-wrap,
   .reserve-card__product-meta{
-
     grid-column:1;
   }
 
-  .reserve-card__media-wrap{
-    margin-bottom:16px;
-  }
+  /* KOLOM 2 */
 
-  .reserve-card__media{
-    min-height:380px;
-  }
-
-
-  /* =======================================
-     KOLOM 2
-  ======================================= */
-
-  .reserve-production-status,
+  .reserve-progress,
   .reserve-analytics,
   .reserve-timeline,
   .reserve-partners,
   .reserve-allocation,
-  .reserve-card__payment{
+  .reserve-payment-group{
 
     grid-column:2;
   }
 
+  /* KOLOM 3 */
 
-  /* =======================================
-     KOLOM 3
-  ======================================= */
-
-  .reserve-card__summary,
-  .reserve-card__action-bar{
+  .reserve-summary{
 
     grid-column:3;
-  }
 
-
-  .reserve-card__summary{
-    position:sticky;
-    top:20px;
-  }
-
-
-  .reserve-card__action-bar{
-    margin-top:16px;
+    align-self:start;
   }
 
 }
-
-
-
-/* ==========================================
-   MOBILE LANDSCAPE
-   2 KOLOM HORIZONTAL
-========================================== */
-
-@media (max-width:767px)
-and (orientation:landscape){
-
-  .reserve-card{
-
-    display:grid;
-
-    grid-template-columns:1fr 1.2fr;
-
-    gap:18px;
-
-    align-items:start;
-  }
-
-
-  /* KOLOM KIRI */
-
-  .reserve-card__media-wrap,
-  .reserve-card__product-meta{
-
-    grid-column:1;
-  }
-
-
-  .reserve-card__media{
-    min-height:260px;
-  }
-
-
-  /* KOLOM KANAN */
-
-  .reserve-production-status,
-  .reserve-analytics,
-  .reserve-timeline,
-  .reserve-partners,
-  .reserve-allocation,
-  .reserve-card__payment,
-  .reserve-card__summary,
-  .reserve-card__action-bar{
-
-    grid-column:2;
-  }
-
-}
-
-
 
 /* ==========================================
    MOBILE PORTRAIT
