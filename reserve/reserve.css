@@ -3538,4 +3538,32 @@ and (orientation:portrait){
   }
 
 }
+@media (min-width:700px){
 
+  .reserve-card{
+    display:grid;
+    grid-template-columns:320px minmax(0,1fr) 280px;
+    gap:14px;
+    align-items:start;
+  }
+
+  .reserve-card__media-wrap{
+    grid-column:1;
+    grid-row:1 / span 8;
+  }
+
+  .reserve-card__product-meta,
+  .reserve-production-status,
+  .reserve-analytics,
+  .reserve-timeline,
+  .reserve-partners{
+    grid-column:2;
+  }
+
+  .reserve-allocation,
+  .reserve-card__payment,
+  .reserve-card__summary,
+  .reserve-card__action-bar{
+    grid-column:3;
+  }
+}
