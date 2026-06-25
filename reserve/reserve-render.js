@@ -13,6 +13,22 @@
     var el = root.querySelector(selector);
     if (el) el.textContent = text;
   }
+  function getPartnerSignature(product){
+
+  return JSON.stringify({
+
+    primary:
+      product.partnerReserves || [],
+
+    more:
+      product.partnerReservesMore || [],
+
+    extra:
+      product.partnerReservesExtra || 0
+
+  });
+
+}
 
   function appendPartnerRow(
   listEl,
@@ -63,6 +79,47 @@ setText(
     var visible = primary.slice(0, limit);
     var extra = primary.slice(limit).concat(more);
     var extraCount = product.partnerReservesExtra || extra.length;
+    var signature =
+  getPartnerSignature(product);
+
+if(
+  cardEl.dataset.partnerSignature ===
+  signature
+){
+
+  var section =
+    cardEl.querySelector(
+      '[data-partner-section]'
+    );
+
+  if(section){
+
+    section.classList.toggle(
+      'is-expanded',
+      expanded
+    );
+
+    section.dataset.expanded =
+      expanded
+        ? 'true'
+        : 'false';
+
+  }
+
+  if(toggleBtn){
+
+    toggleBtn.setAttribute(
+      'aria-expanded',
+      expanded
+        ? 'true'
+        : 'false'
+    );
+
+  }
+
+  return;
+
+}
 
     visibleList.innerHTML = '';
     extraList.innerHTML = '';
@@ -82,6 +139,8 @@ setText(
   product
 );
     });
+    cardEl.dataset.partnerSignature =
+  signature;
 
     var section = cardEl.querySelector('[data-partner-section]');
     if (section) {
