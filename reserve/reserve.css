@@ -3285,3 +3285,109 @@ and (orientation:portrait){
   }
 
 }
+
+/* =====================================
+   RESERVE SKELETON
+===================================== */
+
+.reserve-skeleton-card{
+
+  pointer-events:none;
+
+  overflow:hidden;
+
+}
+
+.reserve-skeleton-media{
+
+  width:100%;
+
+  aspect-ratio:4/5;
+
+  background:#141414;
+
+}
+
+.reserve-skeleton-line{
+
+  width:100%;
+
+  height:14px;
+
+  border-radius:8px;
+
+  background:#141414;
+
+  margin-bottom:10px;
+
+}
+
+.reserve-skeleton-analytics{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:8px;
+
+  margin:14px 0;
+
+}
+
+.reserve-skeleton-analytics > div{
+
+  height:56px;
+
+  border-radius:12px;
+
+  background:#141414;
+
+}
+
+.shimmer{
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.shimmer::after{
+
+  content:'';
+
+  position:absolute;
+
+  inset:0;
+
+  transform:translateX(-100%);
+
+  background:
+
+    linear-gradient(
+
+      90deg,
+
+      transparent,
+
+      rgba(255,255,255,.08),
+
+      transparent
+
+    );
+
+  animation:
+    reserveShimmer 1.4s infinite;
+
+}
+
+@keyframes reserveShimmer{
+
+  100%{
+
+    transform:translateX(100%);
+
+  }
+
+}
