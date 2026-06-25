@@ -1,5 +1,5 @@
 
-function getInitials(name) {
+function getInitials(name) { 
 
     if (!name) return '?';  
 
