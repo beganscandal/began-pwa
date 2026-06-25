@@ -2724,11 +2724,19 @@ and (orientation:landscape){
   }
 
  
-  .began-mobile-notification{
+ .began-mobile-notification{
+
+    min-width:42px;
 
     width:42px;
 
     height:42px;
+
+    padding:0;
+
+    gap:0;
+
+    flex:0 0 42px;
 
     border-radius:999px;
 
@@ -2737,7 +2745,8 @@ and (orientation:landscape){
     align-items:center;
 
     justify-content:center;
-  }
+
+}
 
   .began-mobile-nav{
 
@@ -2759,8 +2768,15 @@ and (orientation:landscape){
     padding:8px 8px;
 
     font-size:12px;
-  }
 
+}
+
+.began-mobile-nav .began-mobile-notification{
+
+    flex:0 0 42px;
+
+}
+   
   #began-reserve-info-btn{
 
     width:100%;
