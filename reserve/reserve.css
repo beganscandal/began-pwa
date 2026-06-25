@@ -3428,20 +3428,6 @@ and (orientation:portrait){
     aspect-ratio:4/5;
   }
 
-  .reserve-card__product-meta,
-  .reserve-production-status,
-  .reserve-analytics,
-  .reserve-timeline,
-  .reserve-partners{
-    grid-column:2;
-  }
-
-  .reserve-allocation,
-  .reserve-card__payment,
-  .reserve-card__summary,
-  .reserve-card__action-bar{
-    grid-column:3;
-
     width:100%;
     min-width:0;
   }
@@ -3482,6 +3468,36 @@ and (orientation:portrait){
   .reserve-card__summary{
     margin-bottom:14px;
   }
+   .reserve-card__body{
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(240px,280px)
+    minmax(340px,360px);
+
+  gap:20px;
+
+  align-items:start;
+
+  padding:0;
+}
+   .reserve-card__product-meta,
+.reserve-production-status,
+.reserve-analytics,
+.reserve-timeline,
+.reserve-partners{
+
+  grid-column:1;
+}
+
+.reserve-allocation,
+.reserve-card__payment,
+.reserve-card__summary,
+.reserve-card__action-bar{
+
+  grid-column:2;
+}
 
 }
 
