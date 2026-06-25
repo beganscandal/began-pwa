@@ -3392,114 +3392,64 @@ and (orientation:portrait){
 
 }
 
-/* ==========================================
-   RESERVE CARD HORIZONTAL LAYOUT
-   Production Safe
+/* =====================================
+   RESERVE HORIZONTAL
    DESKTOP + TABLET
-========================================== */
+===================================== */
 
 @media (min-width:768px){
 
-  .reserve-card{
+  .reserve-card__body{
 
-    display:grid !important;
+    display:grid;
 
     grid-template-columns:
-      1.45fr
-      1.1fr
-      .9fr;
+      minmax(0,1.4fr)
+      minmax(0,1fr)
+      minmax(220px,.9fr);
 
     gap:16px;
 
     align-items:start;
 
-    padding:14px;
   }
 
-  /* KOLOM 1 */
+  /* =====================
+     KOLOM 1
+     PRODUK + FOTO
+  ===================== */
 
-  .reserve-card__media-wrap,
-  .reserve-card__product-meta{
+  .reserve-card__product-meta,
+  .reserve-progress{
 
     grid-column:1;
+
   }
 
-  /* KOLOM 2 */
+  /* =====================
+     KOLOM 2
+     ANALYTICS
+  ===================== */
 
-  .reserve-production-status,
   .reserve-analytics,
   .reserve-timeline,
-  .reserve-partners,
-  .reserve-allocation,
-  .reserve-card__payment{
+  .reserve-partners{
 
     grid-column:2;
+
   }
 
-  /* KOLOM 3 */
+  /* =====================
+     KOLOM 3
+     PEMBELIAN
+  ===================== */
 
-  .reserve-card__summary,
-  .reserve-card__action-bar{
-
-    grid-column:3;
-  }
-
-  .reserve-card__action-bar{
-
-    border-top:0;
-
-    padding:0;
-  }
-
-}
-
-/* =====================================
-   RESERVE HORIZONTAL EXPERIMENT
-   DESKTOP + TABLET ONLY
-===================================== */
-
-@media (min-width:992px){
-
-  .reserve-card{
-
-    display:grid !important;
-
-    grid-template-columns:
-      minmax(320px,420px)
-      minmax(260px,1fr)
-      minmax(220px,260px);
-
-    gap:18px;
-
-    align-items:start;
-  }
-
-  /* KOLOM 1 */
-
-  .reserve-card__media-wrap,
-  .reserve-card__product-meta{
-
-    grid-column:1;
-  }
-
-  /* KOLOM 2 */
-
-  .reserve-production-status,
-  .reserve-analytics,
-  .reserve-timeline,
-  .reserve-partners,
   .reserve-allocation,
-  .reserve-card__payment{
-
-    grid-column:2;
-  }
-
-  /* KOLOM 3 */
-
-  .reserve-card__summary,
-  .reserve-card__action-bar{
+  .reserve-card__payment,
+  .reserve-card__summary{
 
     grid-column:3;
+
   }
 
 }
