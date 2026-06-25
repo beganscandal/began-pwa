@@ -3392,3 +3392,169 @@ and (orientation:portrait){
 
 }
 
+/* ======================================================
+   DESKTOP + TABLET LANDSCAPE
+====================================================== */
+
+@media (min-width:992px){
+
+  .reserve-card{
+
+    display:grid;
+
+    grid-template-columns:
+      minmax(480px,1.45fr)
+      minmax(360px,1fr)
+      minmax(400px,1.1fr);
+
+    gap:24px;
+
+    align-items:start;
+
+    padding:24px;
+
+    min-height:680px;
+
+  }
+
+  .reserve-card > *{
+    min-width:0;
+  }
+
+
+  /* =========================
+     COLUMN 1 : MEDIA
+  ========================= */
+
+  .reserve-card__media-wrap{
+
+    grid-column:1;
+    grid-row:1 / span 20;
+
+    position:sticky;
+    top:24px;
+
+    align-self:start;
+
+  }
+
+  .reserve-card__media{
+
+    aspect-ratio:4/5;
+    min-height:500px;
+
+  }
+
+  .reserve-card__thumb{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+
+  /* =========================
+     COLUMN 2 : PRODUCT INFO
+  ========================= */
+
+  .reserve-card__product-meta,
+  .reserve-production-status,
+  .reserve-analytics,
+  .reserve-timeline,
+  .reserve-partners{
+
+    grid-column:2;
+
+  }
+
+
+  /* analytics tidak terlalu tinggi */
+
+  .reserve-analytics{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+
+  }
+
+
+  /* partner tidak terlalu panjang */
+
+  .reserve-partners{
+
+    max-height:260px;
+
+    overflow:auto;
+
+    padding-right:6px;
+
+  }
+
+
+  /* =========================
+     COLUMN 3 : CHECKOUT
+  ========================= */
+
+  .reserve-allocation,
+  .reserve-card__payment,
+  .reserve-card__summary,
+  .reserve-card__action-bar,
+  .reserve-closed-panel{
+
+    grid-column:3;
+
+  }
+
+
+  /* size allocation lebih rapat */
+
+  .reserve-size-qty-list{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
+
+  }
+
+
+  /* payment vertical */
+
+  .reserve-payment-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+  }
+
+
+  /* summary tetap terlihat */
+
+  .reserve-card__summary{
+
+    margin-top:auto;
+
+  }
+
+
+  /* CTA selalu besar */
+
+  .reserve-card__action-bar{
+
+    position:sticky;
+
+    bottom:0;
+
+    background:var(--reserve-surface,#0f0f0f);
+
+    padding-top:12px;
+
+  }
+
+}
