@@ -90,10 +90,7 @@ var IS_REFRESHING_ACTIVITY =
     getProduct(productId);
 
   var card =
-    Render.findCard(
-      rootEl,
-      productId
-    );
+  CARD_MAP.get(productId);
 
   if(
     !card ||
@@ -148,7 +145,8 @@ Render.syncCard(
 
   function syncProductCard(productId) {
     var product = getProduct(productId);
-    var card = Render.findCard(rootEl, productId);
+    var card =
+  CARD_MAP.get(productId);
     if (card && product) Render.syncCard(card, productId, product);
   }
 
@@ -171,7 +169,8 @@ Render.syncCard(
 
     State.setHeroImageIndex(productId, index);
     var product = getProduct(productId);
-    var card = Render.findCard(rootEl, productId);
+   var card =
+  CARD_MAP.get(productId);
     if (card && product) Render.setHeroImage(card, product, index);
   }
 
@@ -181,7 +180,8 @@ Render.syncCard(
 
     State.togglePartnersExpanded(productId);
     var product = getProduct(productId);
-    var card = Render.findCard(rootEl, productId);
+    var card =
+  CARD_MAP.get(productId);
     var state = State.getState(productId);
     if (card && product && state) {
       Render.buildPartnerSection(card, product, state.partnersExpanded);
@@ -743,6 +743,7 @@ if(!products.length){
     window.BEGAN_PRODUCTS =
       products;
     PRODUCT_MAP.clear();
+    CARD_MAP.clear();
 
 products.forEach(function(product){
 
@@ -1009,6 +1010,8 @@ const data =
   function init() {
     rootEl = document.getElementById('reserve-app');
     gridEl = document.getElementById('reserve-product-grid');
+    window.ReserveCardMap =
+  CARD_MAP;
     videoDialog = document.getElementById('reserve-video-dialog');
     drawerRoot = document.getElementById('reserve-drawer-root');
     fabEl = document.getElementById('reserve-fab');
@@ -1032,10 +1035,7 @@ bindGlobalNavigation();
   BeganNotificationRealtime.init();
 
 }
-    
-
-
-
+  
     window.testReserveSound =
 function(){
 
