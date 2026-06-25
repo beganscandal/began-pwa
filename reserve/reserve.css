@@ -3539,11 +3539,3 @@ and (orientation:portrait){
 
 }
 
-@media (min-width:700px),
-(max-width:900px) and (orientation:landscape){
-
-  .reserve-card{
-    grid-auto-flow:column;
-  }
-
-}
