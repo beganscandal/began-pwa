@@ -43,6 +43,8 @@ var IS_REFRESHING_ANALYTICS =
 
 var IS_REFRESHING_ACTIVITY =
   false;  
+  var ACTIVITY_CONTROLLER =
+  null;
 
   async function refreshReserveAnalytics(){
 
@@ -54,6 +56,7 @@ var IS_REFRESHING_ACTIVITY =
 
   IS_REFRESHING_ANALYTICS =
     true;
+    
 
   try{
  
@@ -869,17 +872,44 @@ products.forEach(function(product){
   IS_REFRESHING_ACTIVITY =
     true;
 
-  try{
-    const res =
-      await fetch(
+ try{
 
-        window.BEGAN_DASHBOARD_API +
+  if(
+    ACTIVITY_CONTROLLER
+  ){
 
-        '?action=boot&_=' +
+    ACTIVITY_CONTROLLER.abort();
 
-        Date.now()
+  }
 
-      );
+  ACTIVITY_CONTROLLER =
+    new AbortController();
+
+  const activityUrl =
+
+    window.BEGAN_DASHBOARD_API +
+
+    '?action=boot&_=' +
+
+    Date.now();
+
+  const res =
+
+    await fetch(
+
+      activityUrl,
+
+      {
+
+        signal:
+          ACTIVITY_CONTROLLER.signal,
+
+        cache:
+          'no-store'
+
+      }
+
+    );
 // DEBUG: inspect raw response when
 // dashboard API returns HTML instead of JSON
     const text =
@@ -927,7 +957,21 @@ const data =
 
     }
 
-  }catch(err){
+ }catch(err){
+
+  if(
+    err &&
+    err.name ===
+    'AbortError'
+  ){
+
+    console.warn(
+      '[RESERVE_ACTIVITY] aborted'
+    );
+
+    return;
+
+  }
 
   console.error(
     '[RESERVE_ACTIVITY]',
@@ -936,10 +980,13 @@ const data =
 
 }finally{
 
+  ACTIVITY_CONTROLLER =
+    null;
+
   IS_REFRESHING_ACTIVITY =
     false;
 
-}
+} 
   }
 
   function init() {
@@ -1119,7 +1166,8 @@ reserveRealtimeTimer =
   },30000);
 
 CartRender.init();
-    document.addEventListener(
+    
+   document.addEventListener(
 
   'visibilitychange',
 
@@ -1131,9 +1179,13 @@ CartRender.init();
       return;
     }
 
-    refreshReserveAnalytics();
+    setTimeout(function(){
 
-    refreshReserveActivity();
+      refreshReserveAnalytics();
+
+      refreshReserveActivity();
+
+    },1000);
 
   }
 
