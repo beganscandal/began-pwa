@@ -3393,130 +3393,221 @@ and (orientation:portrait){
 }
 
 /* ==================================================
-   DESKTOP / TABLET HORIZONTAL FINAL
+   RESERVE HORIZONTAL FINAL
+   Desktop + Tablet + Landscape
+   Premium Layout V1
 ================================================== */
 
 @media (min-width:768px){
 
-  .reserve-grid{
+  .reserve-card{
+
+    display:grid;
+
+    /* MEDIA DOMINAN */
+    grid-template-columns:
+      380px
+      minmax(0,1fr)
+      290px;
+
+    gap:22px;
+
+    align-items:start;
+
+    padding:20px;
+
+    overflow:hidden;
+  }
+
+
+  /* =================================
+     KOLOM KIRI : MEDIA
+  ================================= */
+
+  .reserve-card__media-wrap{
+
+    grid-column:1;
 
     display:flex;
+
     flex-direction:column;
 
-    gap:18px;
+    gap:12px;
+
+    align-self:start;
+  }
+
+  .reserve-card__media{
 
     width:100%;
-    max-width:1380px;
 
-    margin:0 auto;
+    height:430px;
+
+    min-height:430px;
+
+    border-radius:18px;
+
+    overflow:hidden;
   }
+
+  .reserve-card__media img,
+  .reserve-card__media video{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+  }
+
+  .reserve-gallery{
+
+    padding:0;
+
+    margin:0;
+  }
+
+  /* META PRODUK TEPAT DI BAWAH FOTO */
+
+  .reserve-card__product-meta{
+
+    margin-top:12px;
+  }
+
+
+  /* =================================
+     KOLOM TENGAH : INFORMASI
+  ================================= */
+
+  .reserve-production-status,
+  .reserve-progress,
+  .reserve-analytics,
+  .reserve-timeline,
+  .reserve-partners{
+
+    width:100%;
+
+    margin-bottom:14px;
+  }
+
+
+  /* partner reserve dibuat 2 kolom */
+
+  .reserve-partners{
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+  }
+
+
+  /* analytics sejajar */
+
+  .reserve-analytics{
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+
+    gap:10px;
+  }
+
+
+  /* =================================
+     KOLOM KANAN : INTERAKSI
+  ================================= */
+
+  .reserve-allocation,
+  .reserve-size-qty-list{
+
+    margin-bottom:18px;
+  }
+
+
+  .reserve-size-qty-list{
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+  }
+
+
+  .reserve-payment-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-bottom:20px;
+  }
+
+
+  .reserve-summary{
+
+    margin-top:18px;
+  }
+
+
+  /* =================================
+     BUTTON
+  ================================= */
+
+  .reserve-card__action-bar{
+
+    grid-column:1 / -1;
+
+    margin-top:18px;
+
+    padding-top:18px;
+
+    border-top:1px solid var(--reserve-border);
+
+    background:none;
+  }
+
+
+  /* =================================
+     TYPOGRAPHY
+  ================================= */
+
+  .reserve-card h3,
+  .reserve-card h4{
+
+    line-height:1.35;
+  }
+
+}
+
+
+/* ==================================================
+   MOBILE LANDSCAPE
+================================================== */
+
+@media (max-width:767px)
+and (orientation:landscape){
 
   .reserve-card{
 
     display:grid;
 
     grid-template-columns:
-      260px
-      minmax(420px,1fr)
-      300px;
+      320px
+      minmax(0,1fr);
 
-    gap:20px;
-
-    align-items:start;
-
-    padding:18px;
-  }
-
-  /* ===============================
-     MEDIA
-  =============================== */
-
-  .reserve-card__media-wrap{
-
-    grid-column:1;
-    grid-row:1 / span 6;
-
-    align-self:stretch;
+    gap:18px;
   }
 
   .reserve-card__media{
 
-    min-height:360px;
-
-    height:360px;
-
-    border-radius:16px;
-  }
-
-  .reserve-gallery{
-
-    margin-top:10px;
-  }
-
-  /* ===============================
-     BODY
-  =============================== */
-
-  .reserve-card__body{
-
-    grid-column:2;
-
-    display:grid;
-
-    grid-template-columns:1fr;
-
-    gap:12px;
-
-    padding:0;
-  }
-
-  /* ===============================
-     RIGHT SIDEBAR
-  =============================== */
-
-  .reserve-allocation,
-  .reserve-size-qty-list,
-  .reserve-payment-group,
-  .reserve-summary{
-
-    grid-column:3;
-  }
-
-  .reserve-size-qty-list{
-
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-
-    gap:8px;
-  }
-
-  .reserve-payment-group{
-
-    grid-template-columns:1fr;
-
-    gap:8px;
-  }
-
-  .reserve-payment-option{
-
-    min-height:56px;
-  }
-
-  /* ===============================
-     CTA
-  =============================== */
-
-  .reserve-card__action-bar{
-
-    grid-column:1 / -1;
-
-    padding-top:18px;
-
-    margin-top:10px;
-
-    border-top:1px solid var(--reserve-border);
-
-    background:none;
+    height:340px;
   }
 
 }
