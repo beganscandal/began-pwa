@@ -3107,49 +3107,63 @@ and (orientation:portrait){
    NOTIFICATION BADGE
 ===================================== */
 
-#began-notification-badge,
-#began-mobile-notification-badge{
+.began-nav-link,
+.began-mobile-notification{
+
+  position:relative;
+
+}
+
+#began-notification-badge{
 
   position:absolute;
 
-  top:-4px;
-  right:-4px;
+  top:6px;
+  right:10px;
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  min-width:18px;
-  height:18px;
+  min-width:10px;
+  width:10px;
+  height:10px;
 
-  padding:0 5px;
+  padding:0;
 
-  border-radius:999px;
+  border-radius:50%;
 
   background:#ef4444;
-
-  color:#fff;
-
-  font-size:10px;
-
-  font-weight:800;
-
-  line-height:1;
 
   box-shadow:
     0 0 0 2px #050505;
 
 }
 
-.began-nav-link{
+#began-mobile-notification-badge{
 
-  position:relative;
+  position:absolute;
 
-}
+  top:2px;
+  right:2px;
 
-.began-mobile-notification{
+  display:flex;
 
-  position:relative;
+  align-items:center;
+  justify-content:center;
+
+  min-width:10px;
+  width:10px;
+  height:10px;
+
+  padding:0;
+
+  border-radius:50%;
+
+  background:#ef4444;
+
+  box-shadow:
+    0 0 0 2px #050505;
 
 }
