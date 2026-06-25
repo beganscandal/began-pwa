@@ -3392,10 +3392,11 @@ and (orientation:portrait){
 
 }
 
-/* =====================================
-   RESERVE HORIZONTAL
+/* ==================================================
+   HORIZONTAL RESERVE CARD
    DESKTOP + TABLET
-===================================== */
+   MOCK CANVA ADAPTATION
+================================================== */
 
 @media (min-width:768px){
 
@@ -3405,31 +3406,40 @@ and (orientation:portrait){
 
     grid-template-columns:
       320px
-      minmax(0,1fr);
+      minmax(0,1.15fr)
+      340px;
 
-    grid-template-rows:auto auto;
+    grid-template-areas:
+      "media meta allocation"
+      "media progress allocation"
+      "media analytics payment"
+      "media timeline payment"
+      "media partners summary"
+      "media partners summary"
+      "media action action";
 
     gap:18px;
 
     align-items:start;
 
-    padding:16px;
+    padding:18px;
   }
 
-  /* FOTO */
 
-  .reserve-card__media-wrap,
-  .reserve-card__media{
+  /* =====================================
+     FOTO
+  ===================================== */
 
-    grid-column:1;
-    grid-row:1;
+  .reserve-card__media-wrap{
+
+    grid-area:media;
 
     width:100%;
   }
 
   .reserve-card__media{
 
-    min-height:420px;
+    min-height:440px;
 
     border-radius:14px;
 
@@ -3444,85 +3454,77 @@ and (orientation:portrait){
     object-fit:cover;
   }
 
-  /* GALLERY */
-
   .reserve-gallery{
 
-    grid-column:1;
-    grid-row:2;
-
-    padding:0;
-
-    margin-top:-6px;
+    margin-top:10px;
   }
 
-  /* SEMUA INFORMASI */
 
-  .reserve-card__body{
+  /* =====================================
+     KOLOM TENGAH
+  ===================================== */
 
-    grid-column:2;
-    grid-row:1 / span 2;
-
-    display:grid;
-
-    grid-template-columns:
-      minmax(0,1fr)
-      minmax(0,1fr)
-      minmax(260px,.9fr);
-
-    gap:16px;
-
-    align-items:start;
-
-    padding:0;
+  .reserve-card__product-meta{
+    grid-area:meta;
   }
 
-  /* =====================
-     KOLOM 1
-  ===================== */
-
-  .reserve-card__product-meta,
-  .reserve-progress{
-
-    grid-column:1;
+  .reserve-production-status{
+    grid-area:progress;
   }
 
-  /* =====================
-     KOLOM 2
-  ===================== */
+  .reserve-analytics{
+    grid-area:analytics;
+  }
 
-  .reserve-analytics,
-  .reserve-timeline,
+  .reserve-timeline{
+    grid-area:timeline;
+  }
+
   .reserve-partners{
-
-    grid-column:2;
+    grid-area:partners;
   }
 
-  /* =====================
-     KOLOM 3
-  ===================== */
 
-  .reserve-allocation,
-  .reserve-payment,
-  .reserve-summary{
+  /* =====================================
+     KOLOM KANAN
+  ===================================== */
 
-    grid-column:3;
+  .reserve-allocation{
+    grid-area:allocation;
   }
 
-  /* ACTION */
+  .reserve-card__payment{
+    grid-area:payment;
+  }
+
+  .reserve-card__summary{
+    grid-area:summary;
+  }
+
+
+  /* =====================================
+     CTA
+  ===================================== */
 
   .reserve-card__action-bar{
 
-    grid-column:1 / -1;
-
-    padding:14px 0 0;
+    grid-area:action;
 
     border-top:1px solid var(--reserve-border);
 
-    background:none;
+    padding-top:16px;
+
+    margin-top:4px;
   }
 
-}
-.reserve-grid{
-    grid-template-columns:1fr;
+
+  /* =====================================
+     CLOSED PANEL
+  ===================================== */
+
+  .reserve-closed-panel{
+
+    grid-column:1 / -1;
+  }
+
 }
