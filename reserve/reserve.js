@@ -874,14 +874,16 @@ products.forEach(function(product){
 
  try{
 
-  if(
+/*  if(
+    
     ACTIVITY_CONTROLLER
-  ){
+  )
+  {
 
     ACTIVITY_CONTROLLER.abort();
 
   }
-
+*/
   ACTIVITY_CONTROLLER =
     new AbortController();
 
@@ -895,30 +897,34 @@ products.forEach(function(product){
 
   const res =
 
-    await fetch(
+  await fetch(
 
-      activityUrl,
+    activityUrl,
 
-      {
+    {
 
-        signal:
-          ACTIVITY_CONTROLLER.signal,
+      signal:
+        ACTIVITY_CONTROLLER.signal,
 
-        cache:
-          'no-store'
+      cache:
+        'no-store'
 
-      }
+    }
 
-    );
+  );
+
+if(!res.ok){
+
+  throw new Error(
+    'Dashboard API status ' +
+    res.status
+  );
+
+}
 // DEBUG: inspect raw response when
 // dashboard API returns HTML instead of JSON
     const text =
   await res.text();
-
-console.log(
-  '[ACTIVITY RAW]',
-  text.substring(0,500)
-);
 
 const data =
   JSON.parse(text);
@@ -961,12 +967,20 @@ const data =
 
   if(
     err &&
-    err.name ===
-    'AbortError'
-  ){
+    (
+      err.name === 'AbortError' ||
+
+      err.message === 'Failed to fetch' ||
+
+      String(err).includes(
+        'Failed to fetch'
+      )
+    )
+  )
+  {
 
     console.warn(
-      '[RESERVE_ACTIVITY] aborted'
+      '[RESERVE_ACTIVITY] fetch skipped'
     );
 
     return;
@@ -978,7 +992,8 @@ const data =
     err
   );
 
-}finally{
+}   
+ finally{
 
   ACTIVITY_CONTROLLER =
     null;
