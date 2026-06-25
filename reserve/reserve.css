@@ -3405,12 +3405,13 @@ and (orientation:portrait){
 
     grid-template-columns:
       480px
-      minmax(240px,280px)
-      minmax(340px,360px);
+      minmax(600px,1fr);
 
     gap:20px;
 
     align-items:start;
+
+    overflow:visible;
   }
 
   .reserve-card__media-wrap{
@@ -3442,6 +3443,12 @@ and (orientation:portrait){
 
     align-items:start;
 
+    align-self:start;
+
+    width:100%;
+
+    min-width:0;
+
     padding:0;
   }
 
@@ -3465,7 +3472,10 @@ and (orientation:portrait){
 
     grid-column:2;
 
+    align-self:start;
+
     width:100%;
+
     min-width:0;
   }
 
@@ -3509,7 +3519,6 @@ and (orientation:portrait){
 }
 
 .reserve-grid{
-
   grid-template-columns:1fr;
   max-width:100%;
 }
