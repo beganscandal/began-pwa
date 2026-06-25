@@ -3397,20 +3397,24 @@ and (orientation:portrait){
    Desktop + Tablet 
 ========================================== */
 
-.reserve-card{
+@media (min-width:700px){
 
-  display:grid;
+  .reserve-card{
 
-  grid-template-columns:
-    520px
-    minmax(0,1fr);
+    display:grid;
 
-  gap:20px;
+    grid-template-columns:
+      520px
+      minmax(0,1fr);
 
-  align-items:start;
+    gap:20px;
 
-  overflow:visible;
-}
+    align-items:start;
+
+    overflow:visible;
+
+  } /* ← KURUNG PENUTUP INI HILANG */
+
   .reserve-card__media-wrap{
 
     grid-column:1;
@@ -3428,23 +3432,24 @@ and (orientation:portrait){
 
   /* body menjadi 2 kolom */
 
-.reserve-card__body{
+  .reserve-card__body{
 
-  display:grid;
+    display:grid;
 
-  grid-template-columns:
-    38% 62%;
+    grid-template-columns:
+      38% 62%;
 
-  gap:20px;
+    gap:20px;
 
-  align-items:start;
+    align-items:start;
 
-  width:100%;
+    width:100%;
 
-  min-width:0;
+    min-width:0;
 
-  padding:0;
-}
+    padding:0;
+  }
+
   /* kolom tengah */
 
   .reserve-card__product-meta,
