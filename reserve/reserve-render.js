@@ -161,23 +161,89 @@ if(
       }
     }
   }
+  function updateExistingQtyRows(
+  container,
+  state
+){
+
+  container
+    .querySelectorAll(
+      '[data-size-qty-row]'
+    )
+    .forEach(function(row){
+
+      var size =
+        row.dataset.size;
+
+      var qty =
+        state.sizeQty[size] || 0;
+
+      var qtyEl =
+        row.querySelector(
+          '[data-size-qty-value]'
+        );
+
+      if(
+        qtyEl &&
+        qtyEl.textContent !==
+        String(qty)
+      ){
+        qtyEl.textContent =
+          String(qty);
+      }
+
+      var minusBtn =
+        row.querySelector(
+          '[data-action="size-qty-minus"]'
+        );
+
+      if(minusBtn){
+
+        minusBtn.disabled =
+          qty <= State.MIN_QTY;
+
+      }
+
+    });
+
+}
 
   function buildSizeQtyRows(cardEl, productId, state, product) {
     var container = cardEl.querySelector('[data-size-qty-list]');
     if (!container) return;
 
-    container.innerHTML = '';
     var sizes =
-  (
-    product.realtimeSizes ||
-    product.sizes ||
-    []
-  ).map(function(size){
+(
+  product.realtimeSizes ||
+  product.sizes ||
+  []
+).map(function(size){
 
-    return size.sizeLabel;
+  return size.sizeLabel;
 
-  });
-    
+});
+
+var signature =
+  sizes.join('|');
+
+if(
+  container.dataset.sizeSignature ===
+  signature
+){
+
+  updateExistingQtyRows(
+    container,
+    state
+  );
+
+  return;
+
+}
+
+container.dataset.sizeSignature =
+  signature;
+
+container.innerHTML = '';    
 sizes.forEach(function (size) {
       var fragment = Template.cloneFragment(Template.getTemplateIds().sizeQtyRow);
       var row = fragment.querySelector('[data-size-qty-row]');
@@ -313,7 +379,14 @@ sizes.forEach(function (size) {
     var item = gallery[index] || gallery[0];
     var img = cardEl.querySelector('[data-product-image]');
     if (!img || !item) return;
-
+    if(
+  img.dataset.currentSrc ===
+  item.src
+){
+  return;
+}
+img.dataset.currentSrc =
+  item.src;
     img.src = item.src;
     img.onerror = function () {
       if (product.imageFallback) {
