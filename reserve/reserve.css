@@ -3495,3 +3495,55 @@ and (orientation:portrait){
   }
 
 }
+@media (min-width:700px),
+(max-width:900px) and (orientation:landscape){
+
+  .reserve-card{
+    display:grid;
+
+    grid-template-columns:
+      minmax(420px,48%)
+      minmax(320px,28%)
+      minmax(320px,24%);
+
+    gap:20px;
+
+    align-items:start;
+  }
+
+  /* KOLOM KIRI */
+
+  .reserve-card__media-wrap,
+  .reserve-card__product-meta{
+    grid-column:1;
+  }
+
+  /* KOLOM TENGAH */
+
+  .reserve-production-status,
+  .reserve-analytics,
+  .reserve-timeline,
+  .reserve-partners{
+    grid-column:2;
+  }
+
+  /* KOLOM KANAN */
+
+  .reserve-allocation,
+  .reserve-card__payment,
+  .reserve-card__summary,
+  .reserve-card__action-bar,
+  .reserve-closed-panel{
+    grid-column:3;
+  }
+
+}
+
+@media (min-width:700px),
+(max-width:900px) and (orientation:landscape){
+
+  .reserve-card{
+    grid-auto-flow:column;
+  }
+
+}
