@@ -3392,222 +3392,106 @@ and (orientation:portrait){
 
 }
 
-/* ==================================================
-   RESERVE HORIZONTAL FINAL
+/* ==========================================
+   HORIZONTAL RESERVE CARD
    Desktop + Tablet + Landscape
-   Premium Layout V1
-================================================== */
+========================================== */
 
-@media (min-width:768px){
+@media (min-width:700px),
+(max-width:900px) and (orientation:landscape){
+
+  .reserve-grid{
+    grid-template-columns:1fr;
+    max-width:100%;
+  }
 
   .reserve-card{
 
     display:grid;
 
-    /* MEDIA DOMINAN */
     grid-template-columns:
-      380px
-      minmax(0,1fr)
-      290px;
+      minmax(460px,48%)
+      minmax(320px,28%)
+      minmax(320px,24%);
 
-    gap:22px;
-
-    align-items:start;
+    gap:20px;
 
     padding:20px;
 
-    overflow:hidden;
+    align-items:start;
   }
 
+  /* ===== LEFT COLUMN ===== */
 
-  /* =================================
-     KOLOM KIRI : MEDIA
-  ================================= */
+  .reserve-card__media-wrap,
+  .reserve-card__product-meta{
+
+    grid-column:1;
+  }
 
   .reserve-card__media-wrap{
 
-    grid-column:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
+    position:sticky;
+    top:20px;
     align-self:start;
   }
 
   .reserve-card__media{
 
-    width:100%;
-
-    height:430px;
-
-    min-height:430px;
-
+    aspect-ratio:4/5;
     border-radius:18px;
-
-    overflow:hidden;
   }
-
-  .reserve-card__media img,
-  .reserve-card__media video{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-  }
-
-  .reserve-gallery{
-
-    padding:0;
-
-    margin:0;
-  }
-
-  /* META PRODUK TEPAT DI BAWAH FOTO */
 
   .reserve-card__product-meta{
 
-    margin-top:12px;
+    margin-top:14px;
   }
 
-
-  /* =================================
-     KOLOM TENGAH : INFORMASI
-  ================================= */
+  /* ===== MIDDLE COLUMN ===== */
 
   .reserve-production-status,
-  .reserve-progress,
   .reserve-analytics,
   .reserve-timeline,
   .reserve-partners{
 
-    width:100%;
+    grid-column:2;
 
     margin-bottom:14px;
   }
 
-
-  /* partner reserve dibuat 2 kolom */
-
-  .reserve-partners{
-
-    display:grid;
-
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-
-    gap:10px;
-  }
-
-
-  /* analytics sejajar */
-
-  .reserve-analytics{
-
-    display:grid;
-
-    grid-template-columns:
-      repeat(3,minmax(0,1fr));
-
-    gap:10px;
-  }
-
-
-  /* =================================
-     KOLOM KANAN : INTERAKSI
-  ================================= */
+  /* ===== RIGHT COLUMN ===== */
 
   .reserve-allocation,
-  .reserve-size-qty-list{
+  .reserve-card__payment,
+  .reserve-card__summary,
+  .reserve-closed-panel,
+  .reserve-card__action-bar{
 
-    margin-bottom:18px;
+    grid-column:3;
+
+    margin-bottom:14px;
   }
 
+  .reserve-allocation,
+  .reserve-card__payment,
+  .reserve-card__summary{
 
-  .reserve-size-qty-list{
+    padding:14px;
 
-    display:grid;
+    border:1px solid var(--reserve-border);
 
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+    border-radius:14px;
 
-    gap:10px;
+    background:var(--reserve-bg-elevated);
   }
-
-
-  .reserve-payment-group{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-    margin-bottom:20px;
-  }
-
-
-  .reserve-summary{
-
-    margin-top:18px;
-  }
-
-
-  /* =================================
-     BUTTON
-  ================================= */
 
   .reserve-card__action-bar{
 
-    grid-column:1 / -1;
+    padding:0;
 
-    margin-top:18px;
-
-    padding-top:18px;
-
-    border-top:1px solid var(--reserve-border);
+    border:0;
 
     background:none;
-  }
-
-
-  /* =================================
-     TYPOGRAPHY
-  ================================= */
-
-  .reserve-card h3,
-  .reserve-card h4{
-
-    line-height:1.35;
-  }
-
-}
-
-
-/* ==================================================
-   MOBILE LANDSCAPE
-================================================== */
-
-@media (max-width:767px)
-and (orientation:landscape){
-
-  .reserve-card{
-
-    display:grid;
-
-    grid-template-columns:
-      320px
-      minmax(0,1fr);
-
-    gap:18px;
-  }
-
-  .reserve-card__media{
-
-    height:340px;
   }
 
 }
