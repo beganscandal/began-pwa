@@ -3394,171 +3394,38 @@ and (orientation:portrait){
 
 /* ==========================================
    HORIZONTAL RESERVE CARD
-   Desktop + Tablet + Landscape
+   Desktop + Tablet 
 ========================================== */
 
-@media (min-width:700px),
-(max-width:900px) and (orientation:landscape){
 
-  .reserve-grid{
-    grid-template-columns:1fr;
-    max-width:100%;
-  }
+
+@media (min-width:700px){
 
   .reserve-card{
-
     display:grid;
 
     grid-template-columns:
-      minmax(460px,48%)
-      minmax(320px,28%)
-      minmax(320px,24%);
+      480px
+      minmax(240px,280px)
+      minmax(340px,360px);
 
     gap:20px;
-
-    padding:20px;
 
     align-items:start;
   }
 
-  /* ===== LEFT COLUMN ===== */
-
-  .reserve-card__media-wrap,
-  .reserve-card__product-meta{
-
-    grid-column:1;
-  }
-
   .reserve-card__media-wrap{
+    grid-column:1;
+    grid-row:1 / span 8;
 
     position:sticky;
     top:20px;
+
     align-self:start;
   }
 
   .reserve-card__media{
-
     aspect-ratio:4/5;
-    border-radius:18px;
-  }
-
-  .reserve-card__product-meta{
-
-    margin-top:14px;
-  }
-
-  /* ===== MIDDLE COLUMN ===== */
-
-  .reserve-production-status,
-  .reserve-analytics,
-  .reserve-timeline,
-  .reserve-partners{
-
-    grid-column:2;
-
-    margin-bottom:14px;
-  }
-
-  /* ===== RIGHT COLUMN ===== */
-
-  .reserve-allocation,
-  .reserve-card__payment,
-  .reserve-card__summary,
-  .reserve-closed-panel,
-  .reserve-card__action-bar{
-
-    grid-column:3;
-
-    margin-bottom:14px;
-  }
-
-  .reserve-allocation,
-  .reserve-card__payment,
-  .reserve-card__summary{
-
-    padding:14px;
-
-    border:1px solid var(--reserve-border);
-
-    border-radius:14px;
-
-    background:var(--reserve-bg-elevated);
-  }
-
-  .reserve-card__action-bar{
-
-    padding:0;
-
-    border:0;
-
-    background:none;
-  }
-
-}
-@media (min-width:700px),
-(max-width:900px) and (orientation:landscape){
-
-  .reserve-card{
-    display:grid;
-
-    grid-template-columns:
-      minmax(420px,48%)
-      minmax(320px,28%)
-      minmax(320px,24%);
-
-    gap:20px;
-
-    align-items:start;
-  }
-
-  /* KOLOM KIRI */
-
-  .reserve-card__media-wrap,
-  .reserve-card__product-meta{
-    grid-column:1;
-  }
-
-  /* KOLOM TENGAH */
-
-  .reserve-production-status,
-  .reserve-analytics,
-  .reserve-timeline,
-  .reserve-partners{
-    grid-column:2;
-  }
-
-  /* KOLOM KANAN */
-
-  .reserve-allocation,
-  .reserve-card__payment,
-  .reserve-card__summary,
-  .reserve-card__action-bar,
-  .reserve-closed-panel{
-    grid-column:3;
-  }
-
-}
-
-
-  @media (min-width:700px){
-
-  .reserve-card{
-    display:grid;
-
-    grid-template-columns:
-      460px
-      minmax(260px,1fr)
-      320px;
-
-    gap:18px;
-
-    align-items:start;
-  }
-
-}
-  .reserve-card__media-wrap{
-    grid-column:1;
-    grid-row:1 / span 8;
   }
 
   .reserve-card__product-meta,
@@ -3574,5 +3441,52 @@ and (orientation:portrait){
   .reserve-card__summary,
   .reserve-card__action-bar{
     grid-column:3;
+
+    width:100%;
+    min-width:0;
   }
+
+  .reserve-payment-group{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .reserve-payment-option{
+    min-height:64px;
+    padding:10px 8px;
+  }
+
+  .reserve-partners__list{
+    grid-template-columns:1fr;
+  }
+
+  .reserve-allocation,
+  .reserve-card__payment,
+  .reserve-card__summary{
+
+    padding:14px;
+
+    border:1px solid var(--reserve-border);
+
+    border-radius:14px;
+
+    background:var(--reserve-bg-elevated);
+  }
+
+  .reserve-production-status,
+  .reserve-analytics,
+  .reserve-timeline,
+  .reserve-partners,
+
+  .reserve-allocation,
+  .reserve-card__payment,
+  .reserve-card__summary{
+    margin-bottom:14px;
+  }
+
+}
+
+
+.reserve-grid{
+  grid-template-columns:1fr;
+  max-width:100%;
 }
