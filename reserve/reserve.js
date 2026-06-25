@@ -17,6 +17,8 @@
   var reserveRealtimeTimer = null;
   var PRODUCT_MAP =
   new Map();
+  var CARD_MAP =
+  new Map();
   
   var rootEl = null;
   var gridEl = null;
