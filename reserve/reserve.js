@@ -704,6 +704,73 @@ partnerReservesExtra:
   };
 
 }
+  function renderReserveSkeleton(){
+
+  if(!gridEl){
+    return;
+  }
+
+  gridEl.innerHTML =
+
+    Array(6)
+
+    .fill('')
+
+    .map(function(){
+
+      return `
+
+      <article
+        class="reserve-card reserve-skeleton-card">
+
+        <div
+          class="reserve-skeleton-media shimmer">
+        </div>
+
+        <div class="reserve-card__body">
+
+          <div
+            class="reserve-skeleton-line shimmer"
+            style="width:70%">
+          </div>
+
+          <div
+            class="reserve-skeleton-line shimmer"
+            style="width:45%">
+          </div>
+
+          <div class="reserve-skeleton-analytics">
+
+            <div class="shimmer"></div>
+            <div class="shimmer"></div>
+            <div class="shimmer"></div>
+
+          </div>
+
+          <div
+            class="reserve-skeleton-line shimmer">
+          </div>
+
+          <div
+            class="reserve-skeleton-line shimmer">
+          </div>
+
+          <div
+            class="reserve-skeleton-line shimmer"
+            style="height:42px">
+          </div>
+
+        </div>
+
+      </article>
+
+      `;
+
+    })
+
+    .join('');
+
+}
 
   async function bootReserve(){
 
@@ -1160,6 +1227,7 @@ videoDialog.addEventListener(
 
 }
     Cart.init();
+renderReserveSkeleton();
 
 bootReserve();
 
