@@ -3394,11 +3394,33 @@ and (orientation:portrait){
 
 /* ==================================================
    HORIZONTAL RESERVE CARD
-   DESKTOP + TABLET
-   MOCK CANVA ADAPTATION
+   MOCK CANVA FINAL
 ================================================== */
 
 @media (min-width:768px){
+
+  /* =====================================
+     SATU PRODUK = SATU ROW
+  ===================================== */
+
+  .reserve-grid{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    width:100%;
+
+    max-width:1320px;
+
+    margin:0 auto;
+  }
+
+  /* =====================================
+     CARD HORIZONTAL
+  ===================================== */
 
   .reserve-card{
 
@@ -3406,8 +3428,8 @@ and (orientation:portrait){
 
     grid-template-columns:
       320px
-      minmax(0,1.15fr)
-      340px;
+      minmax(0,1fr)
+      320px;
 
     grid-template-areas:
       "media meta allocation"
@@ -3416,30 +3438,30 @@ and (orientation:portrait){
       "media timeline payment"
       "media partners summary"
       "media partners summary"
-      "media action action";
+      "action action action";
 
     gap:18px;
 
     align-items:start;
 
     padding:18px;
-  }
-
-
-  /* =====================================
-     FOTO
-  ===================================== */
-
-  .reserve-card__media-wrap{
-
-    grid-area:media;
 
     width:100%;
   }
 
+  /* =====================================
+     MEDIA
+  ===================================== */
+
+  .reserve-card__media-wrap{
+    grid-area:media;
+  }
+
   .reserve-card__media{
 
-    min-height:440px;
+    min-height:500px;
+
+    height:100%;
 
     border-radius:14px;
 
@@ -3457,8 +3479,9 @@ and (orientation:portrait){
   .reserve-gallery{
 
     margin-top:10px;
-  }
 
+    padding:0;
+  }
 
   /* =====================================
      KOLOM TENGAH
@@ -3468,6 +3491,7 @@ and (orientation:portrait){
     grid-area:meta;
   }
 
+  .reserve-progress,
   .reserve-production-status{
     grid-area:progress;
   }
@@ -3484,7 +3508,6 @@ and (orientation:portrait){
     grid-area:partners;
   }
 
-
   /* =====================================
      KOLOM KANAN
   ===================================== */
@@ -3493,14 +3516,20 @@ and (orientation:portrait){
     grid-area:allocation;
   }
 
+  .reserve-size-qty-list{
+    grid-area:allocation;
+  }
+
+  .reserve-payment,
+  .reserve-payment-group,
   .reserve-card__payment{
     grid-area:payment;
   }
 
+  .reserve-summary,
   .reserve-card__summary{
     grid-area:summary;
   }
-
 
   /* =====================================
      CTA
@@ -3510,16 +3539,17 @@ and (orientation:portrait){
 
     grid-area:action;
 
+    padding-top:18px;
+
+    margin-top:8px;
+
     border-top:1px solid var(--reserve-border);
 
-    padding-top:16px;
-
-    margin-top:4px;
+    background:none;
   }
 
-
   /* =====================================
-     CLOSED PANEL
+     PANEL CLOSED
   ===================================== */
 
   .reserve-closed-panel{
