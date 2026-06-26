@@ -3856,39 +3856,137 @@ and (orientation:landscape){
 
 }
 
+/* =====================================
+   MOBILE LANDSCAPE = MINI DESKTOP
+===================================== */
+
 @media (max-width:991px)
 and (orientation:landscape){
+
+  .reserve-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .reserve-card{
+
+    padding:12px;
+  }
 
   .reserve-card__desktop-layout{
 
     display:grid;
 
     grid-template-columns:
-      280px
-      180px
-      220px;
+      minmax(320px,42%)
+      minmax(200px,28%)
+      minmax(240px,30%);
 
-    gap:12px;
+    gap:14px;
 
     align-items:start;
   }
 
+  /* MEDIA TETAP DOMINAN */
+
   .reserve-card__media{
-    max-height:280px;
+
+    height:340px;
+
+    aspect-ratio:auto;
+
+    border-radius:18px;
   }
 
+  .reserve-gallery{
+
+    padding:8px 0 0;
+  }
+
+  .reserve-gallery__thumb{
+
+    width:56px;
+    height:56px;
+  }
+
+  .reserve-gallery__thumb img{
+
+    width:56px;
+    height:56px;
+  }
+
+  /* INFO */
+
+  .reserve-card__desktop-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+  }
+
+  /* FOMO */
+
+  .reserve-partners{
+
+    max-height:180px;
+
+    overflow:auto;
+  }
+
+  .reserve-partners__list{
+
+    grid-template-columns:1fr;
+  }
+
+  /* CHECKOUT */
+
+  .reserve-card__desktop-checkout{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+  }
+
+  /* JANGAN MISS CLICK */
+
   .reserve-size-qty-list{
+
     grid-template-columns:
       repeat(2,minmax(0,1fr));
   }
 
+  .reserve-qty__btn{
+
+    min-width:48px;
+
+    min-height:48px;
+
+    font-size:18px;
+  }
+
+  .reserve-qty__value{
+
+    min-width:44px;
+
+    font-size:16px;
+  }
+
+  /* PAYMENT */
+
   .reserve-payment-group{
+
     grid-template-columns:1fr;
   }
 
-  .reserve-partners__list{
-    max-height:88px;
-    overflow:auto;
+  /* CTA */
+
+  .reserve-cta{
+
+    min-height:52px;
   }
 
 }
