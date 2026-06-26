@@ -3857,7 +3857,7 @@ and (orientation:landscape){
 }
 
 /* =====================================
-   RESERVE CARD LANDSCAPE FINAL
+   RESERVE CARD LANDSCAPE 3 COLUMN
 ===================================== */
 
 @media (max-width:991px)
@@ -3868,18 +3868,20 @@ and (orientation:landscape){
     display:grid;
 
     grid-template-columns:
-      220px
-      minmax(0,1fr);
+      210px
+      minmax(160px,1fr)
+      210px;
 
     gap:12px;
 
     align-items:start;
   }
 
+  /* ===== MEDIA ===== */
+
   .reserve-card__media-wrap{
 
     grid-column:1;
-    grid-row:1;
 
     min-width:0;
   }
@@ -3888,9 +3890,9 @@ and (orientation:landscape){
 
     aspect-ratio:1/1;
 
-    max-height:220px;
+    max-height:210px;
 
-    border-radius:18px;
+    border-radius:16px;
   }
 
   .reserve-gallery{
@@ -3898,39 +3900,29 @@ and (orientation:landscape){
     padding:8px 0 0;
   }
 
+  /* ===== INFO ===== */
+
   .reserve-card__desktop-info{
 
-    display:contents;
-  }
+    display:flex;
 
-  .reserve-card__product-meta{
-
-    grid-column:1 / -1;
-
-    margin-top:8px;
-  }
-
-  .reserve-analytics,
-  .reserve-progress,
-  .reserve-timeline,
-  .reserve-partners{
-
-    grid-column:2;
-  }
-
-  .reserve-card__desktop-checkout{
-
-    grid-column:1 / -1;
-
-    display:grid;
+    flex-direction:column;
 
     gap:10px;
+
+    min-width:0;
   }
 
-  .reserve-payment-group{
+  .reserve-analytics{
 
-    grid-template-columns:
-      repeat(3,minmax(0,1fr));
+    grid-template-columns:1fr;
+  }
+
+  .reserve-timeline__row{
+
+    flex-direction:column;
+
+    gap:2px;
   }
 
   .reserve-partners__list{
@@ -3938,21 +3930,42 @@ and (orientation:landscape){
     grid-template-columns:1fr;
   }
 
+  /* ===== CHECKOUT ===== */
+
+  .reserve-card__desktop-checkout{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    min-width:0;
+  }
+
+  .reserve-payment-group{
+
+    grid-template-columns:1fr;
+  }
+
   .reserve-size-qty-list{
 
     grid-template-columns:
-      repeat(4,minmax(0,1fr));
+      repeat(2,minmax(0,1fr));
   }
 
   .reserve-size-qty-row{
 
-    flex-direction:column;
+    padding:6px;
+  }
 
-    align-items:center;
+  /* ===== PRODUCT META ===== */
 
-    gap:6px;
+  .reserve-card__product-meta{
 
-    padding:8px;
+    grid-column:1 / -1;
+
+    margin-top:12px;
   }
 
   .reserve-card__action-bar{
