@@ -3393,14 +3393,20 @@ and (orientation:portrait){
 }
 
 
-
 /* ======================================================
    PREMIUM DESKTOP + TABLET LANDSCAPE
 ====================================================== */
 
+/* ======================================================
+   PREMIUM DESKTOP + TABLET LANDSCAPE FINAL
+   MOCK CANVA VERSION
+====================================================== */
+
 @media (min-width:992px){
 
-  /* CARD */
+  /* ======================================================
+     CARD
+  ====================================================== */
 
   .reserve-card{
 
@@ -3415,17 +3421,20 @@ and (orientation:portrait){
 
     display:grid;
 
-    grid-template-columns:
-      36%
-      34%
-      30%;
+    /* MEDIA | INFO | CHECKOUT */
 
-    gap:20px;
+    grid-template-columns:
+      520px
+      minmax(280px,1fr)
+      420px;
+
+    gap:24px;
 
     align-items:start;
   }
 
   .reserve-card__desktop-layout > *{
+
     min-width:0;
   }
 
@@ -3435,11 +3444,13 @@ and (orientation:portrait){
 
   .reserve-card__media{
 
-    height:clamp(360px,46vh,430px);
+    height:480px;
 
     border-radius:24px;
 
     overflow:hidden;
+
+    background:#000;
   }
 
   .reserve-card__thumb{
@@ -3463,20 +3474,20 @@ and (orientation:portrait){
 
   .reserve-gallery__thumb{
 
-    width:58px;
-    height:58px;
+    width:64px;
+    height:64px;
   }
 
   .reserve-gallery__thumb img{
 
-    width:58px;
-    height:58px;
+    width:64px;
+    height:64px;
 
     object-fit:cover;
   }
 
   /* ======================================================
-     INFO
+     INFO COLUMN
   ====================================================== */
 
   .reserve-card__desktop-info{
@@ -3490,7 +3501,7 @@ and (orientation:portrait){
 
   .reserve-card__title{
 
-    font-size:clamp(20px,1.3vw,26px);
+    font-size:24px;
 
     line-height:1.15;
   }
@@ -3512,12 +3523,12 @@ and (orientation:portrait){
 
   .reserve-analytics__item{
 
-    min-height:72px;
+    min-height:78px;
   }
 
   .reserve-analytics__value{
 
-    font-size:26px;
+    font-size:28px;
   }
 
   .reserve-timeline{
@@ -3527,13 +3538,13 @@ and (orientation:portrait){
 
   .reserve-partners{
 
-    max-height:170px;
+    max-height:180px;
 
     overflow:auto;
   }
 
   /* ======================================================
-     CHECKOUT
+     CHECKOUT COLUMN
   ====================================================== */
 
   .reserve-card__desktop-checkout{
@@ -3542,12 +3553,10 @@ and (orientation:portrait){
 
     flex-direction:column;
 
-    gap:16px;
+    gap:18px;
   }
 
   .reserve-size-qty-list{
-
-    display:grid;
 
     grid-template-columns:
       repeat(2,minmax(0,1fr));
@@ -3557,12 +3566,10 @@ and (orientation:portrait){
 
   .reserve-size-qty-row{
 
-    min-height:54px;
+    min-height:58px;
   }
 
   .reserve-payment-group{
-
-    display:grid;
 
     grid-template-columns:1fr;
 
@@ -3571,26 +3578,36 @@ and (orientation:portrait){
 
   .reserve-payment-option{
 
-    min-height:66px;
+    min-height:72px;
 
     padding:14px 16px;
   }
 
+  .reserve-payment-option__text{
+
+    font-size:15px;
+  }
+
+  .reserve-payment-option__hint{
+
+    font-size:12px;
+  }
+
   .reserve-summary{
 
-    padding:16px;
+    padding:18px;
   }
 
   .reserve-summary__pcs{
 
-    font-size:38px;
+    font-size:40px;
 
-    margin-bottom:14px;
+    margin-bottom:16px;
   }
 
   .reserve-summary__row{
 
-    padding:7px 0;
+    padding:8px 0;
   }
 
   .reserve-summary__row dt{
@@ -3605,7 +3622,7 @@ and (orientation:portrait){
 
   .reserve-summary__row--final dd{
 
-    font-size:28px;
+    font-size:30px;
   }
 
   .reserve-card__action-bar{
@@ -3615,11 +3632,42 @@ and (orientation:portrait){
 
   .reserve-cta--add{
 
-    height:58px;
+    height:60px;
 
-    font-size:13px;
+    font-size:14px;
 
     letter-spacing:.08em;
+  }
+
+  /* ======================================================
+     NAV
+  ====================================================== */
+
+  #began-global-nav{
+
+    padding:16px 24px;
+  }
+
+  .began-nav-title{
+
+    font-size:48px;
+
+    margin-bottom:8px;
+  }
+
+  .began-nav-subtitle{
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    margin-bottom:14px;
+  }
+
+  .began-partner-info{
+
+    width:130px;
+    height:130px;
   }
 
 }
@@ -3634,44 +3682,14 @@ and (orientation:portrait){
   .reserve-card__desktop-layout{
 
     grid-template-columns:
-      38%
-      32%
-      30%;
+      580px
+      minmax(320px,1fr)
+      440px;
   }
 
   .reserve-card__media{
 
-    height:470px;
-  }
-
-} 
-@media (min-width:992px){
-
-  #began-global-nav{
-
-    padding:18px 28px;
-  }
-
-  .began-nav-title{
-
-    font-size:58px;
-
-    margin-bottom:10px;
-  }
-
-  .began-nav-subtitle{
-
-    font-size:15px;
-
-    line-height:1.5;
-
-    margin-bottom:16px;
-  }
-
-  .began-partner-info{
-
-    width:150px;
-    height:150px;
+    height:520px;
   }
 
 }
