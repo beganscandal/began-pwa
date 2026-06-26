@@ -3611,7 +3611,13 @@ and (orientation:portrait){
 
     font-size:13px;
   }
-
+   /* sembunyikan subtitle panjang */
+  .began-mobile-bottom{
+    display:none;
+  }
+.began-nav-subtitle{
+    display:none;
+  }
   /* tombol info tampil */
   #began-reserve-info-btn{
 
@@ -3626,6 +3632,13 @@ and (orientation:portrait){
     padding:0 14px;
 
     margin:0;
+  }
+
+}
+@media (orientation:landscape){
+
+  #began-reserve-info-btn{
+    display:flex;
   }
 
 }
