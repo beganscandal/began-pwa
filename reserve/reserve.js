@@ -1532,6 +1532,23 @@ function injectGlobalNav(){
   </span>
 
 </button>
+ <button
+      id="began-reserve-info-btn">
+
+      <span>
+
+        ℹ️ Tentang Reserve
+
+      </span>
+
+      <span>
+
+        ▼
+
+      </span>
+
+    </button>
+
           </div>
 
         </div>
