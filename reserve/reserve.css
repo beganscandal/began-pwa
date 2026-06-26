@@ -3493,3 +3493,66 @@ and (orientation:portrait){
   }
 
 }
+/* ======================================================
+   PREMIUM MEDIA DESKTOP
+====================================================== */
+
+@media (min-width:992px){
+
+  .reserve-card__media{
+   
+   height:700px;
+
+    aspect-ratio:auto;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    background:#050505;
+  }
+
+  .reserve-card__thumb{
+
+    width:100%;
+    height:100%;
+     object-position:center 20%;
+
+    object-fit:cover;
+
+     transition:transform .5s ease;
+  }
+
+  .reserve-card:hover .reserve-card__thumb{
+
+    transform:scale(1.03);
+  }
+
+  .reserve-gallery{
+
+    padding:14px;
+
+    gap:10px;
+
+    background:#080808;
+  }
+
+  .reserve-gallery__thumb{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:12px;
+  }
+
+  .reserve-gallery__thumb img{
+
+    width:72px;
+
+    height:72px;
+
+    object-fit:cover;
+  }
+
+}
