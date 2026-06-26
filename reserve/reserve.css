@@ -3392,158 +3392,82 @@ and (orientation:portrait){
 
 }
 
-/* ======================================================
-   DESKTOP + TABLET LANDSCAPE
-====================================================== */
+/* ======================================
+   DESKTOP HORIZONTAL FINAL
+====================================== */
 
-@media (min-width:992px){
+@media (min-width:1200px){
+
+  .reserve-grid{
+
+    grid-template-columns:1fr;
+
+    max-width:1380px;
+
+  }
 
   .reserve-card{
 
     display:grid;
 
     grid-template-columns:
-      minmax(480px,1.45fr)
-      minmax(360px,1fr)
-      minmax(400px,1.1fr);
+      520px
+      minmax(0,1fr);
 
-    gap:24px;
+    gap:20px;
 
     align-items:start;
 
-    padding:24px;
-
-    min-height:680px;
-
+    overflow:visible;
   }
-
-  .reserve-card > *{
-    min-width:0;
-  }
-
-
-  /* =========================
-     COLUMN 1 : MEDIA
-  ========================= */
 
   .reserve-card__media-wrap{
 
-    grid-column:1;
-    grid-row:1 / span 20;
-
     position:sticky;
+
     top:24px;
 
     align-self:start;
-
   }
 
   .reserve-card__media{
 
     aspect-ratio:4/5;
-    min-height:500px;
 
+    min-height:520px;
   }
 
-  .reserve-card__thumb{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+  .reserve-card__body{
+
+    display:grid;
+
+    grid-template-columns:
+      minmax(0,1fr)
+      360px;
+
+    gap:20px;
+
+    align-items:start;
+
+    padding:0;
   }
-
-
-  /* =========================
-     COLUMN 2 : PRODUCT INFO
-  ========================= */
 
   .reserve-card__product-meta,
-  .reserve-production-status,
+  .reserve-progress,
   .reserve-analytics,
   .reserve-timeline,
   .reserve-partners{
 
-    grid-column:2;
-
+    grid-column:1;
   }
-
-
-  /* analytics tidak terlalu tinggi */
-
-  .reserve-analytics{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:12px;
-
-  }
-
-
-  /* partner tidak terlalu panjang */
-
-  .reserve-partners{
-
-    max-height:260px;
-
-    overflow:auto;
-
-    padding-right:6px;
-
-  }
-
-
-  /* =========================
-     COLUMN 3 : CHECKOUT
-  ========================= */
 
   .reserve-allocation,
   .reserve-card__payment,
   .reserve-card__summary,
-  .reserve-card__action-bar,
-  .reserve-closed-panel{
+  .reserve-card__action-bar{
 
-    grid-column:3;
-
+    grid-column:2;
   }
-
-
-  /* size allocation lebih rapat */
-
-  .reserve-size-qty-list{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:12px;
-
-  }
-
-
-  /* payment vertical */
-
-  .reserve-payment-group{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-  }
-
-
-  /* summary tetap terlihat */
-
-  .reserve-card__summary{
-
-    margin-top:auto;
-
-  }
-
-
-  /* CTA selalu besar */
 
   .reserve-card__action-bar{
 
@@ -3551,10 +3475,16 @@ and (orientation:portrait){
 
     bottom:0;
 
-    background:var(--reserve-surface,#0f0f0f);
+    padding:0;
 
-    padding-top:12px;
+    border:0;
 
+    background:none;
+  }
+
+  .reserve-payment-group{
+
+    grid-template-columns:1fr;
   }
 
 }
