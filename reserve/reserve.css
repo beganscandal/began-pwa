@@ -3612,9 +3612,7 @@ and (orientation:portrait){
     font-size:13px;
   }
    /* sembunyikan subtitle panjang */
-  .began-mobile-bottom{
-    display:none;
-  }
+ 
 .began-nav-subtitle{
     display:none;
   }
@@ -3633,12 +3631,59 @@ and (orientation:portrait){
 
     margin:0;
   }
+   .began-nav-center{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:8px;
+
+  width:fit-content;
+
+  margin-left:auto;
+
+  margin-right:auto;
 
 }
-@media (orientation:landscape){
+
+}
+/* =====================================================
+   MOBILE LANDSCAPE NAV COMPACT
+===================================================== */
+
+@media (min-width:700px) and (max-width:991px)
+and (orientation:landscape){
+
+  /* pakai header mobile */
+
+  #began-mobile-header{
+    display:block;
+  }
+
+  #began-global-nav{
+    display:none;
+  }
+
+  /* tampilkan tombol info */
 
   #began-reserve-info-btn{
+
     display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    width:100%;
+
+    margin-top:8px;
+
+    padding:10px 14px;
+
+    border-radius:14px;
   }
 
 }
