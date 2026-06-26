@@ -2795,13 +2795,6 @@ and (orientation:landscape){
    MOBILE RESERVE OVERLAY
 ===================================== */
 
-#began-reserve-overlay{
-  display:none;
-}
-
-@media (max-width:767px)
-and (orientation:portrait){
-
   #began-reserve-overlay{
 
     position:fixed;
@@ -2962,7 +2955,6 @@ and (orientation:portrait){
 
   }
 
-}
 
 @keyframes overlayFade{
 
