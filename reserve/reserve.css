@@ -3856,10 +3856,6 @@ and (orientation:landscape){
 
 }
 
-/* =====================================
-   RESERVE CARD LANDSCAPE 3 COLUMN
-===================================== */
-
 @media (max-width:991px)
 and (orientation:landscape){
 
@@ -3868,39 +3864,14 @@ and (orientation:landscape){
     display:grid;
 
     grid-template-columns:
-      210px
-      minmax(160px,1fr)
-      210px;
+      250px
+      180px
+      minmax(210px,1fr);
 
     gap:12px;
 
     align-items:start;
   }
-
-  /* ===== MEDIA ===== */
-
-  .reserve-card__media-wrap{
-
-    grid-column:1;
-
-    min-width:0;
-  }
-
-  .reserve-card__media{
-
-    aspect-ratio:1/1;
-
-    max-height:210px;
-
-    border-radius:16px;
-  }
-
-  .reserve-gallery{
-
-    padding:8px 0 0;
-  }
-
-  /* ===== INFO ===== */
 
   .reserve-card__desktop-info{
 
@@ -3913,25 +3884,6 @@ and (orientation:landscape){
     min-width:0;
   }
 
-  .reserve-analytics{
-
-    grid-template-columns:1fr;
-  }
-
-  .reserve-timeline__row{
-
-    flex-direction:column;
-
-    gap:2px;
-  }
-
-  .reserve-partners__list{
-
-    grid-template-columns:1fr;
-  }
-
-  /* ===== CHECKOUT ===== */
-
   .reserve-card__desktop-checkout{
 
     display:flex;
@@ -3943,38 +3895,26 @@ and (orientation:landscape){
     min-width:0;
   }
 
-  .reserve-payment-group{
+  .reserve-card__media{
+
+    aspect-ratio:1/1;
+
+    max-height:250px;
+  }
+
+  .reserve-analytics{
 
     grid-template-columns:1fr;
   }
 
-  .reserve-size-qty-list{
+  .reserve-partners__list{
 
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+    grid-template-columns:1fr;
   }
 
-  .reserve-size-qty-row{
+  .reserve-payment-group{
 
-    padding:6px;
-  }
-
-  /* ===== PRODUCT META ===== */
-
-  .reserve-card__product-meta{
-
-    grid-column:1 / -1;
-
-    margin-top:12px;
-  }
-
-  .reserve-card__action-bar{
-
-    position:static;
-
-    padding:10px 0 0;
-
-    border-top:none;
+    grid-template-columns:1fr;
   }
 
 }
