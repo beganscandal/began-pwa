@@ -3394,23 +3394,13 @@ and (orientation:portrait){
 
 
 
-/* =====================================================
-   DESKTOP + TABLET PREMIUM
-   MOCK CANVA LAYOUT
-===================================================== */
+/* ======================================================
+   PREMIUM DESKTOP + TABLET LANDSCAPE
+====================================================== */
 
 @media (min-width:992px){
 
-  .reserve-app{
-    max-width:1500px;
-    padding:12px;
-  }
-
-  .reserve-grid{
-    grid-template-columns:1fr;
-    max-width:100%;
-    gap:18px;
-  }
+  /* CARD */
 
   .reserve-card{
 
@@ -3418,12 +3408,7 @@ and (orientation:portrait){
 
     border-radius:28px;
 
-    background:
-      linear-gradient(
-        180deg,
-        rgba(12,12,12,.98),
-        rgba(7,7,7,.98)
-      );
+    overflow:hidden;
   }
 
   .reserve-card__desktop-layout{
@@ -3431,24 +3416,28 @@ and (orientation:portrait){
     display:grid;
 
     grid-template-columns:
-      minmax(420px,36%)
-      minmax(320px,34%)
-      minmax(360px,30%);
+      36%
+      34%
+      30%;
 
-    gap:28px;
+    gap:20px;
 
     align-items:start;
   }
 
-  /* ====================
+  .reserve-card__desktop-layout > *{
+    min-width:0;
+  }
+
+  /* ======================================================
      MEDIA
-  ==================== */
+  ====================================================== */
 
   .reserve-card__media{
 
-    height:clamp(470px,62vh,560px);
+    height:clamp(360px,46vh,430px);
 
-    border-radius:26px;
+    border-radius:24px;
 
     overflow:hidden;
   }
@@ -3458,7 +3447,10 @@ and (orientation:portrait){
     width:100%;
     height:100%;
 
+    display:block;
+
     object-fit:cover;
+
     object-position:center;
   }
 
@@ -3466,27 +3458,31 @@ and (orientation:portrait){
 
     padding-top:12px;
 
-    justify-content:flex-start;
+    gap:8px;
   }
 
   .reserve-gallery__thumb{
 
-    width:72px;
+    width:58px;
+    height:58px;
   }
 
   .reserve-gallery__thumb img{
 
-    width:72px;
-    height:72px;
+    width:58px;
+    height:58px;
+
+    object-fit:cover;
   }
 
-  /* ====================
-     INFO COLUMN
-  ==================== */
+  /* ======================================================
+     INFO
+  ====================================================== */
 
   .reserve-card__desktop-info{
 
     display:flex;
+
     flex-direction:column;
 
     gap:14px;
@@ -3494,7 +3490,9 @@ and (orientation:portrait){
 
   .reserve-card__title{
 
-    font-size:28px;
+    font-size:clamp(20px,1.3vw,26px);
+
+    line-height:1.15;
   }
 
   .reserve-card__unit-price{
@@ -3502,41 +3500,54 @@ and (orientation:portrait){
     font-size:18px;
   }
 
+  .reserve-production-status{
+
+    margin-top:2px;
+  }
+
   .reserve-analytics{
 
-    gap:12px;
+    gap:10px;
   }
 
   .reserve-analytics__item{
 
-    min-height:84px;
+    min-height:72px;
   }
 
   .reserve-analytics__value{
 
-    font-size:28px;
+    font-size:26px;
+  }
+
+  .reserve-timeline{
+
+    padding:14px;
   }
 
   .reserve-partners{
 
-    max-height:180px;
+    max-height:170px;
 
     overflow:auto;
   }
 
-  /* ====================
-     CHECKOUT COLUMN
-  ==================== */
+  /* ======================================================
+     CHECKOUT
+  ====================================================== */
 
   .reserve-card__desktop-checkout{
 
     display:flex;
+
     flex-direction:column;
 
-    gap:18px;
+    gap:16px;
   }
 
   .reserve-size-qty-list{
+
+    display:grid;
 
     grid-template-columns:
       repeat(2,minmax(0,1fr));
@@ -3551,6 +3562,8 @@ and (orientation:portrait){
 
   .reserve-payment-group{
 
+    display:grid;
+
     grid-template-columns:1fr;
 
     gap:10px;
@@ -3558,103 +3571,107 @@ and (orientation:portrait){
 
   .reserve-payment-option{
 
-    min-height:72px;
+    min-height:66px;
 
-    padding:16px;
-  }
-
-  .reserve-payment-option__text{
-
-    font-size:22px;
-  }
-
-  .reserve-payment-option__hint{
-
-    font-size:13px;
+    padding:14px 16px;
   }
 
   .reserve-summary{
 
-    padding:18px;
+    padding:16px;
   }
 
   .reserve-summary__pcs{
 
-    font-size:48px;
+    font-size:38px;
 
-    margin-bottom:18px;
+    margin-bottom:14px;
   }
 
   .reserve-summary__row{
 
-    padding:8px 0;
+    padding:7px 0;
   }
 
   .reserve-summary__row dt{
 
-    font-size:14px;
+    font-size:13px;
   }
 
   .reserve-summary__row dd{
 
-    font-size:16px;
+    font-size:15px;
   }
 
   .reserve-summary__row--final dd{
 
-    font-size:32px;
+    font-size:28px;
   }
 
   .reserve-card__action-bar{
-
-    padding:0;
 
     margin-top:auto;
   }
 
   .reserve-cta--add{
 
-    height:64px;
+    height:58px;
 
-    font-size:14px;
+    font-size:13px;
 
     letter-spacing:.08em;
   }
 
 }
 
-#began-global-nav{
 
-  padding:18px 24px;
+/* ======================================================
+   LARGE DESKTOP
+====================================================== */
 
-  border-radius:30px;
+@media (min-width:1600px){
 
-  margin-bottom:14px;
-}
+  .reserve-card__desktop-layout{
 
-.began-nav-title{
+    grid-template-columns:
+      38%
+      32%
+      30%;
+  }
 
-  margin:0 0 10px;
+  .reserve-card__media{
 
-  font-size:64px;
-}
+    height:470px;
+  }
 
-.began-nav-subtitle{
+} 
+@media (min-width:992px){
 
-  margin-bottom:18px;
+  #began-global-nav{
 
-  font-size:16px;
+    padding:18px 28px;
+  }
 
-  line-height:1.6;
-}
+  .began-nav-title{
 
-.began-partner-info{
+    font-size:58px;
 
-  width:170px;
-  height:170px;
-}
+    margin-bottom:10px;
+  }
 
-.began-nav-logo{
+  .began-nav-subtitle{
 
-  width:150px;
+    font-size:15px;
+
+    line-height:1.5;
+
+    margin-bottom:16px;
+  }
+
+  .began-partner-info{
+
+    width:150px;
+    height:150px;
+  }
+
 }
