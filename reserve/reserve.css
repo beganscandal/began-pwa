@@ -91,21 +91,6 @@
   width: 100%;
 }
 
-@media (min-width: 700px) {
-  .reserve-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .reserve-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    max-width: 1320px;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 1rem;
-  }
-
   .reserve-grid:has(.reserve-card:only-child) {
     grid-template-columns: minmax(340px, 420px);
     justify-content: center;
@@ -3397,17 +3382,23 @@ and (orientation:portrait){
    PREMIUM DESKTOP + TABLET LANDSCAPE
 ====================================================== */
 
-/* ======================================================
-   PREMIUM DESKTOP + TABLET LANDSCAPE FINAL
-   MOCK CANVA VERSION
-====================================================== */
 
 @media (min-width:992px){
 
-  /* ======================================================
-     CARD
-  ====================================================== */
+    .reserve-grid{
 
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    max-width:1440px;
+
+    margin:0 auto;
+
+  }
+  
   .reserve-card{
 
     padding:18px;
@@ -3690,6 +3681,15 @@ and (orientation:portrait){
   .reserve-card__media{
 
     height:520px;
+  }
+
+}
+
+@media (min-width:700px){
+
+  .reserve-grid{
+
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
