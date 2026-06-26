@@ -3855,3 +3855,75 @@ and (orientation:landscape){
   }
 
 }
+
+@media (max-width:900px) and (orientation:landscape){
+
+  .reserve-card__desktop-layout{
+
+    display:grid;
+
+    grid-template-columns:
+      minmax(300px,42%)
+      minmax(0,1fr);
+
+    gap:18px;
+
+    align-items:start;
+  }
+
+  .reserve-card__media-wrap{
+
+    position:sticky;
+    top:110px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+  }
+
+  /* gabungkan info + checkout */
+
+  .reserve-card__desktop-info,
+  .reserve-card__desktop-checkout{
+
+    width:100%;
+  }
+
+  .reserve-card__desktop-checkout{
+
+    margin-top:16px;
+  }
+
+  /* size menjadi 2 kolom */
+
+  .reserve-size-qty-list{
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+  }
+
+  /* payment 1 kolom agar tidak sempit */
+
+  .reserve-payment-group{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:8px;
+  }
+
+  /* analytics tetap 3 */
+
+  .reserve-analytics{
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+  }
+
+}
