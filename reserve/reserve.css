@@ -3638,21 +3638,30 @@ and (orientation:portrait){
 
     margin:0;
   }
-   .began-nav-center{
+  .began-nav-center{
 
   display:flex;
 
-  justify-content:center;
-
   align-items:center;
 
-  gap:8px;
+  justify-content:center;
 
-  width:fit-content;
+  gap:10px;
 
-  margin-left:auto;
+  width:100%;
 
-  margin-right:auto;
+  flex-wrap:nowrap;
+
+  overflow:hidden;
+
+}
+   .began-nav-center .began-nav-link{
+
+  flex:1 1 0;
+
+  min-width:0;
+
+  white-space:nowrap;
 
 }
 
