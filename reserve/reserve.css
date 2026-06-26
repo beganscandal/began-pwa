@@ -3392,53 +3392,69 @@ and (orientation:portrait){
 
 }
 
-/* ======================================
-   DESKTOP HORIZONTAL FINAL
-====================================== */
+
+
+/* ==========================================================
+   DESKTOP + TABLET LANDSCAPE
+   (>= 1200px)
+========================================================== */
 
 @media (min-width:1200px){
 
+  /* satu produk per row */
   .reserve-grid{
     grid-template-columns:1fr;
-    max-width:1380px;
+    max-width:1400px;
+    margin-inline:auto;
   }
 
+  /* CARD UTAMA */
   .reserve-card{
 
     display:grid;
 
+    /* berdasarkan dimensi nyata devtools */
     grid-template-columns:
-      520px
+      640px
       minmax(0,1fr);
 
-    gap:24px;
+    gap:28px;
 
     align-items:start;
 
-    overflow:hidden;
+    padding:24px;
   }
 
-  /* HAPUS STICKY */
+  /* ======================
+     MEDIA
+  ====================== */
 
   .reserve-card__media-wrap{
-
-    position:relative;
-
-    top:auto;
-
-    align-self:stretch;
-
     min-width:0;
   }
 
   .reserve-card__media{
 
+    width:100%;
+
     aspect-ratio:4/5;
 
+    max-height:620px;
+
+    overflow:hidden;
+  }
+
+  .reserve-card__thumb{
+
+    width:100%;
     height:100%;
 
-    min-height:720px;
+    object-fit:cover;
   }
+
+  /* ======================
+     BODY
+  ====================== */
 
   .reserve-card__body{
 
@@ -3446,48 +3462,67 @@ and (orientation:portrait){
 
     grid-template-columns:
       minmax(0,1fr)
-      360px;
+      320px;
 
-    gap:20px;
+    gap:24px;
 
     align-items:start;
-
-    padding:20px 20px 20px 0;
 
     min-width:0;
   }
 
+  /* ======================
+     INFO COLUMN
+  ====================== */
+
   .reserve-card__product-meta,
-  .reserve-progress,
+  .reserve-production-status,
   .reserve-analytics,
   .reserve-timeline,
   .reserve-partners{
 
     grid-column:1;
+
+    min-width:0;
   }
+
+  .reserve-partners{
+
+    max-height:180px;
+
+    overflow:auto;
+  }
+
+  /* ======================
+     CHECKOUT COLUMN
+  ====================== */
 
   .reserve-allocation,
   .reserve-card__payment,
   .reserve-card__summary,
-  .reserve-card__action-bar{
+  .reserve-card__action-bar,
+  .reserve-closed-panel{
 
     grid-column:2;
-  }
 
-  .reserve-card__action-bar{
-
-    position:static;
-
-    padding:0;
-
-    border:0;
-
-    background:none;
+    min-width:0;
   }
 
   .reserve-payment-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
 
-    grid-template-columns:1fr;
+  .reserve-card__action-bar{
+    margin-top:12px;
+  }
+
+  /* analytics tetap 3 box */
+  .reserve-analytics{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
   }
 
 }
