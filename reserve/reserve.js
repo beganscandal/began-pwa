@@ -1657,7 +1657,18 @@ root.insertAdjacentHTML(
       </button>
 
     </div>
+<button
+  id="began-reserve-info-btn-mobile">
 
+  <span>
+    ℹ️ Tentang Reserve
+  </span>
+
+  <span>
+    ▼
+  </span>
+
+</button>
    
   </div>
 
@@ -1750,10 +1761,10 @@ root.insertAdjacentHTML(
 
 function bindMobileReserveOverlay(){
 
-  const btn =
+  const buttons =
 
-    document.getElementById(
-      'began-reserve-info-btn'
+    document.querySelectorAll(
+      '#began-reserve-info-btn, #began-reserve-info-btn-mobile'
     );
 
   const overlay =
@@ -1763,7 +1774,7 @@ function bindMobileReserveOverlay(){
     );
 
   if(
-    !btn ||
+    !buttons.length ||
     !overlay
   ){
     return;
@@ -1771,61 +1782,74 @@ function bindMobileReserveOverlay(){
 
   function closeOverlay(){
 
-  overlay.classList.remove(
-    'is-open'
-  );
+    overlay.classList.remove(
+      'is-open'
+    );
 
-  btn.querySelector(
-    'span:last-child'
-  ).textContent = '▼';
+    buttons.forEach(function(btn){
 
-}
+      btn.querySelector(
+        'span:last-child'
+      ).textContent = '▼';
 
- btn.addEventListener(
-
-  'click',
-
-  function(){
-
-    const isOpen =
-
-      overlay.classList.toggle(
-        'is-open'
-      );
-
-    btn.querySelector(
-      'span:last-child'
-    ).textContent =
-
-      isOpen ? '▲' : '▼';
+    });
 
   }
 
-);
+  buttons.forEach(function(btn){
 
- overlay.addEventListener(
+    btn.addEventListener(
 
-  'click',
+      'click',
 
-  function(event){
+      function(){
 
-    if(
+        const isOpen =
 
-      event.target === overlay ||
+          overlay.classList.toggle(
+            'is-open'
+          );
 
-      event.target.closest(
-        '.began-reserve-close-btn'
-      )
+        buttons.forEach(function(b){
 
-    ){
+          b.querySelector(
+            'span:last-child'
+          ).textContent =
 
-      closeOverlay();
+            isOpen ? '▲' : '▼';
+
+        });
+
+      }
+
+    );
+
+  });
+
+  overlay.addEventListener(
+
+    'click',
+
+    function(event){
+
+      if(
+
+        event.target === overlay ||
+
+        event.target.closest(
+          '.began-reserve-close-btn'
+        )
+
+      ){
+
+        closeOverlay();
+
+      }
 
     }
 
-  }
+  );
 
-);
   window.addEventListener(
 
     'scroll',
