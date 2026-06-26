@@ -3556,3 +3556,98 @@ and (orientation:portrait){
   }
 
 }
+
+/* =====================================
+   MOBILE LANDSCAPE COMPACT HEADER
+===================================== */
+
+@media (max-width:991px)
+and (orientation:landscape){
+
+  /* sembunyikan subtitle panjang */
+  .began-nav-subtitle{
+    display:none;
+  }
+
+  /* perkecil seluruh nav */
+  #began-global-nav{
+
+    padding:12px 20px;
+
+    border-radius:0 0 24px 24px;
+  }
+
+  /* logo kiri */
+  .began-nav-brand{
+
+    display:grid;
+
+    grid-template-columns:
+      110px
+      1fr
+      120px;
+
+    align-items:center;
+
+    gap:16px;
+  }
+
+  /* title reserve */
+  .began-nav-title{
+
+    font-size:42px;
+
+    margin:0;
+  }
+
+  /* tombol nav */
+  .began-nav-links{
+
+    margin-top:10px;
+  }
+
+  .began-nav-link{
+
+    min-height:48px;
+
+    padding:0 18px;
+  }
+
+  /* partner card kanan */
+  .began-partner-info{
+
+    width:110px;
+    height:110px;
+  }
+
+  /* reserve info button tampil */
+  #began-reserve-info-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    width:100%;
+
+    margin-top:10px;
+
+    min-height:48px;
+
+    padding:0 14px;
+
+    border-radius:14px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(15,15,15,.96),
+        rgba(5,5,5,.96)
+      );
+
+    border:
+      1px solid rgba(216,185,104,.18);
+  }
+
+}
