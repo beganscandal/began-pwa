@@ -3399,11 +3399,8 @@ and (orientation:portrait){
 @media (min-width:1200px){
 
   .reserve-grid{
-
     grid-template-columns:1fr;
-
     max-width:1380px;
-
   }
 
   .reserve-card{
@@ -3414,27 +3411,33 @@ and (orientation:portrait){
       520px
       minmax(0,1fr);
 
-    gap:20px;
+    gap:24px;
 
     align-items:start;
 
-    overflow:visible;
+    overflow:hidden;
   }
+
+  /* HAPUS STICKY */
 
   .reserve-card__media-wrap{
 
-    position:sticky;
+    position:relative;
 
-    top:24px;
+    top:auto;
 
-    align-self:start;
+    align-self:stretch;
+
+    min-width:0;
   }
 
   .reserve-card__media{
 
     aspect-ratio:4/5;
 
-    min-height:520px;
+    height:100%;
+
+    min-height:720px;
   }
 
   .reserve-card__body{
@@ -3449,7 +3452,9 @@ and (orientation:portrait){
 
     align-items:start;
 
-    padding:0;
+    padding:20px 20px 20px 0;
+
+    min-width:0;
   }
 
   .reserve-card__product-meta,
@@ -3471,9 +3476,7 @@ and (orientation:portrait){
 
   .reserve-card__action-bar{
 
-    position:sticky;
-
-    bottom:0;
+    position:static;
 
     padding:0;
 
