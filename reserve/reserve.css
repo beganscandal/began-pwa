@@ -3611,8 +3611,15 @@ and (orientation:portrait){
 
     font-size:13px;
   }
-   /* sembunyikan subtitle panjang */
  
+.began-nav-eyebrow{
+    display:none;
+  }
+   
+.began-nav-title{
+    display:none;
+  }
+   
 .began-nav-subtitle{
     display:none;
   }
@@ -3656,11 +3663,6 @@ and (orientation:portrait){
 
 @media (min-width:700px) and (max-width:991px)
 and (orientation:landscape){
-
-  
-
- 
-  /* tampilkan tombol info */
 
   #began-reserve-info-btn{
 
