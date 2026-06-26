@@ -3657,11 +3657,7 @@ and (orientation:portrait){
 @media (min-width:700px) and (max-width:991px)
 and (orientation:landscape){
 
-  /* pakai header mobile */
-
-  #began-mobile-header{
-    display:block;
-  }
+  
 
  
   /* tampilkan tombol info */
