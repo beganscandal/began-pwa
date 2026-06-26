@@ -3663,10 +3663,7 @@ and (orientation:landscape){
     display:block;
   }
 
-  #began-global-nav{
-    display:none;
-  }
-
+ 
   /* tampilkan tombol info */
 
   #began-reserve-info-btn{
