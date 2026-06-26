@@ -268,6 +268,7 @@ getUnitLabel: getUnitLabel,
   <!-- Product card -->
   <template id="reserve-card-template">
     <article class="reserve-card" role="listitem">
+    <div class="reserve-card__desktop-layout">
       <div class="reserve-card__media-wrap">
         <div class="reserve-card__media">
           <img class="reserve-card__thumb" data-product-image src="" alt="" width="800" height="640" loading="lazy" decoding="async">
@@ -283,7 +284,10 @@ getUnitLabel: getUnitLabel,
           </button>
         </div>
         <div class="reserve-gallery" data-gallery role="list" aria-label="Galeri produk"></div>
+      
       </div>
+
+<div class="reserve-card__desktop-info">
 
       <header class="reserve-card__product-meta">
 
@@ -403,6 +407,9 @@ getUnitLabel: getUnitLabel,
           <ul class="reserve-partners__list reserve-partners__list--extra" data-partner-list-extra role="list"></ul>
           <button type="button" class="reserve-partners__toggle" data-action="toggle-partners" hidden aria-expanded="false"></button>
         </section>
+        </div>
+
+<div class="reserve-card__desktop-checkout">
 
         <section class="reserve-allocation" aria-label="Alokasi per size">
           <h4 class="reserve-block-title">Alokasi Size</h4>
@@ -443,8 +450,15 @@ getUnitLabel: getUnitLabel,
             </div>
           </dl>
         </section>
+        
+        <div class="reserve-card__action-bar">
+        <button type="button" class="reserve-cta reserve-cta--add" data-action="add-to-reserve">
+          Tambah Produk ke Reserve
+        </button>
       </div>
 
+      </div>
+</div>
       <div
   class="reserve-closed-panel"
   data-reserve-closed-panel
@@ -469,13 +483,7 @@ getUnitLabel: getUnitLabel,
   </div>
 
 </div>
-
-
-      <div class="reserve-card__action-bar">
-        <button type="button" class="reserve-cta reserve-cta--add" data-action="add-to-reserve">
-          Tambah Produk ke Reserve
-        </button>
-      </div>
+            
     </article>
   </template>
 
