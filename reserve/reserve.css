@@ -3856,176 +3856,73 @@ and (orientation:landscape){
 
 }
 
-/* ==================================================
-   MOBILE LANDSCAPE PREMIUM UX
-   640x360 - 932x430
-================================================== */
+@media (max-width:768px) and (orientation:landscape){
 
-@media (max-width:900px) and (orientation:landscape){
-
-  .reserve-card{
-
+  .reserve-card__desktop-layout{
     display:grid;
-
-    grid-template-columns:
-      260px
-      minmax(0,1fr);
-
+    grid-template-columns:280px minmax(0,1fr);
     gap:14px;
-
     align-items:start;
   }
 
-  /* ======================
-     LEFT COLUMN
-  ======================= */
-
   .reserve-card__media-wrap{
-
-    position:relative !important;
-
-    top:auto !important;
-
+    position:sticky;
+    top:90px;
     align-self:start;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
   }
-
-  .reserve-card__media{
-
-    height:250px !important;
-
-    aspect-ratio:auto;
-
-    border-radius:20px;
-
-    overflow:hidden;
-  }
-
-  .reserve-card__thumbs{
-
-    gap:8px;
-  }
-
-  .reserve-card__thumb{
-
-    width:56px;
-
-    height:56px;
-  }
-
-  /* ======================
-     RIGHT COLUMN
-  ======================= */
 
   .reserve-card__desktop-info,
   .reserve-card__desktop-checkout{
-
     width:100%;
-
-    min-width:0;
   }
 
-  .reserve-card__desktop-checkout{
-
-    margin-top:12px;
-  }
-
-  /* ======================
-     PRODUCT HEADER
-  ======================= */
-
-  .reserve-product-header{
-
+  .reserve-card__desktop-info{
+    display:grid;
+    gap:10px;
     margin-bottom:12px;
   }
 
-  .reserve-product-title{
-
-    font-size:24px;
-  }
-
-  /* ======================
-     STATUS + ANALYTICS
-  ======================= */
-
-  .reserve-analytics{
-
+  .reserve-card__desktop-checkout{
     display:grid;
-
-    grid-template-columns:
-      repeat(3,minmax(0,1fr));
-
-    gap:8px;
-  }
-
-  .reserve-analytics-card{
-
-    min-height:70px;
-  }
-
-  /* ======================
-     SIZE GRID
-  ======================= */
-
-  .reserve-size-qty-list{
-
-    display:grid;
-
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-
     gap:10px;
   }
 
-  .reserve-size-card{
-
-    min-height:58px;
+  .reserve-size-qty-list{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
   }
 
-  /* ======================
-     PAYMENT
-  ======================= */
-
   .reserve-payment-group{
-
     display:grid;
-
-    grid-template-columns:
-      repeat(3,minmax(0,1fr));
-
+    grid-template-columns:repeat(3,1fr);
     gap:8px;
   }
 
   .reserve-payment-option{
-
-    min-height:66px;
+    min-height:72px;
+    padding:10px;
   }
 
-  /* ======================
-     SUMMARY
-  ======================= */
-
-  .reserve-summary{
-
-    margin-top:14px;
+  .reserve-card__summary{
+    padding:12px;
   }
 
-  /* ======================
-     CTA
-  ======================= */
+  .reserve-card__action-bar{
+    position:sticky;
+    bottom:0;
+    z-index:15;
+    padding-top:10px;
+    background:linear-gradient(
+      to top,
+      rgba(0,0,0,.95),
+      rgba(0,0,0,0)
+    );
+  }
 
-  .reserve-add-btn{
-
+  .reserve-cta{
     width:100%;
-
-    height:52px;
-
-    font-size:15px;
+    min-height:48px;
   }
 
 }
