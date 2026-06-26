@@ -3068,6 +3068,86 @@ and (orientation:portrait){
 
 }
 /* =====================================
+   RESERVE INFO BUTTON GLOBAL
+===================================== */
+
+#began-reserve-info-btn{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+  min-height:46px;
+
+  min-width:180px;
+
+  padding:0 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,15,15,.96),
+      rgba(5,5,5,.96)
+    );
+
+  border:1px solid rgba(216,185,104,.18);
+
+  border-radius:18px;
+
+  color:#ffffff;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+  flex:0 0 auto;
+
+}
+
+#began-reserve-info-btn:hover{
+
+  border-color:rgba(216,185,104,.45);
+
+  background:
+    rgba(216,185,104,.08);
+
+}
+
+#began-reserve-info-btn span{
+
+  display:block;
+
+  color:#ffffff;
+
+  font-size:12px;
+
+  line-height:1;
+
+}
+
+#began-reserve-info-btn span:first-child{
+
+  flex:1;
+
+  text-align:left;
+
+  font-weight:600;
+
+}
+
+#began-reserve-info-btn span:last-child{
+
+  flex-shrink:0;
+
+  color:#d8b968;
+
+}
+
+/* =====================================
    MOBILE HEADER DEFAULT
 ===================================== */
 
@@ -3646,16 +3726,23 @@ and (orientation:portrait){
 
   justify-content:center;
 
-  gap:10px;
+  gap:8px;
 
   width:100%;
 
   flex-wrap:nowrap;
 
-  overflow:hidden;
+  overflow-x:auto;
+
+  scrollbar-width:none;
 
 }
-   .began-nav-center .began-nav-link{
+
+.began-nav-center::-webkit-scrollbar{
+
+  display:none;
+
+}   .began-nav-center .began-nav-link{
 
   flex:1 1 0;
 
