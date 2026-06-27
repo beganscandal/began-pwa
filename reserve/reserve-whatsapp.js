@@ -242,41 +242,7 @@ var partner =
     number +
     '?text=' +
     encodeURIComponent(message);
-
-  try {
-
-    var partner =
-      JSON.parse(
-        localStorage.getItem(
-          'began_partner'
-        ) || '{}'
-      );
-
-    localStorage.setItem(
-
-      'began_reserve_checkout_success',
-
-      JSON.stringify({
-
-  timestamp: Date.now(),
-
-  partnerId:
-    partner.id || '',
-
-  partnerName:
-    partner.toko ||
-    partner.name ||
-    'PARTNER BEGAN'
-
-})
-    );
-
-  } catch(err){
-
-    console.warn(err);
-
-  }
-
+  
   console.log(
     '[WA URL]',
     url
