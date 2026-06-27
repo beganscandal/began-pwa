@@ -14,9 +14,7 @@
   var CartRender = window.ReserveCartRender;
 
   var reserveRealtimeTimer = null;
-  var RESERVE_SUCCESS_KEY =
-  'began_reserve_checkout_success';
-  var PRODUCT_MAP =
+   var PRODUCT_MAP =
   new Map();
   var CARD_MAP =
   new Map();
@@ -367,6 +365,13 @@ const waResult =
     savedPayload,
     {}
   );
+    if(waResult){
+
+  showReserveSuccessModal(
+    payload.partner
+  );
+
+}
 
 console.log(
   '[WA RESULT]',
@@ -533,43 +538,7 @@ case 'cart-size-plus':
         event.preventDefault();
         closeVideoModal();
         break;
-        case 'close-success-modal':
-
-  event.preventDefault();
-
-  localStorage.removeItem(
-    RESERVE_SUCCESS_KEY
-  );
-
-  var modal =
-    document.getElementById(
-      'reserve-success-modal'
-    );
-
-  if(modal){
-
-    modal.hidden = true;
-
-  }
-
-  document.body.classList.remove(
-    'reserve-success-open'
-  );
-
-  closeDrawer();
-
-  CartRender.showDrawerStatus(
-    '',
-    false
-  );
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
-break;
-      default:
+        default:
         break;
     }
   }
@@ -1110,188 +1079,140 @@ const data =
 
 } 
   }
-function renderReserveSuccessModal(){
 
-  if(
-    document.getElementById(
-      'reserve-success-modal'
-    )
-  ){
-    return;
-  }
-
-  document.body.insertAdjacentHTML(
-
-    'beforeend',
-
-    `
-    <div
-      id="reserve-success-modal"
-      class="reserve-success-modal"
-      hidden>
-
-      <div
-        class="reserve-success-card">
-
-        <div
-          class="reserve-success-left">
-
-          <img
-            class="reserve-success-logo"
-            src="https://pwa.barkahgarment.com/assets/began%20font%20tagline.png"
-            alt="BEGAN">
-
-          <div
-            class="reserve-success-icon">
-
-            <i
-              data-lucide="badge-check">
-            </i>
-
-          </div>
-
-        </div>
-
-        <div
-          class="reserve-success-right">
-
-          <h3>
-
-            Reserve Berhasil Diamankan
-
-          </h3>
-
-          <span
-            class="reserve-success-partner">
-
-            PARTNER BEGAN
-
-          </span>
-
-          <p>
-
-            Terima kasih telah melakukan
-            alokasi reserve bersama BEGAN.
-
-            Pesanan Anda telah resmi
-            masuk ke antrean produksi
-            sesuai prioritas pembayaran
-            yang dipilih.
-
-          </p>
-
-          <button
-  class="reserve-success-btn"
-  data-action="close-success-modal"
-  type="button">
-
-Kembali Ke Halaman
-
-</button>
-
-        </div>
-
-      </div>
-
-    </div>
-    `
-  );
-
-  if(window.lucide){
-
-    lucide.createIcons();
-
-  }
-
-}
-  
-  
-function checkReserveSuccessModal(){
+  function showReserveSuccessModal(partner){
 
   var modal =
+
     document.getElementById(
       'reserve-success-modal'
     );
 
   if(!modal){
-    return;
-  }
 
-  var raw =
-    localStorage.getItem(
-      RESERVE_SUCCESS_KEY
+    document.body.insertAdjacentHTML(
+
+      'beforeend',
+
+      `
+      <div
+        id="reserve-success-modal"
+        class="reserve-success-modal">
+
+        <div
+          class="reserve-success-card">
+
+          <div
+            class="reserve-success-left">
+
+            <img
+              class="reserve-success-logo"
+              src="https://pwa.barkahgarment.com/assets/began%20font%20tagline.png"
+              alt="BEGAN">
+
+            <div
+              class="reserve-success-icon">
+
+              <i
+                data-lucide="badge-check">
+              </i>
+
+            </div>
+
+          </div>
+
+          <div
+            class="reserve-success-right">
+
+            <h3>
+
+              Reserve Berhasil Diamankan
+
+            </h3>
+
+            <span
+              class="reserve-success-partner">
+
+              ${
+                (
+                  partner?.toko ||
+                  partner?.name ||
+                  'PARTNER BEGAN'
+                ).toUpperCase()
+              }
+
+            </span>
+
+            <p>
+
+              Terima kasih telah melakukan
+              alokasi reserve bersama BEGAN.
+
+              Pesanan Anda telah resmi
+              masuk ke antrean produksi
+              sesuai prioritas pembayaran
+              yang dipilih.
+
+            </p>
+
+            <button
+              id="reserve-success-close-btn"
+              class="reserve-success-btn"
+              type="button">
+
+              Kembali Ke Halaman
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+      `
     );
 
-  if(!raw){
-    return;
-  }
+    modal =
 
-   try{
-
-    var data =
-      JSON.parse(raw);
-
-     var currentPartner =
-
-  JSON.parse(
-
-    localStorage.getItem(
-      'began_partner'
-    ) || '{}'
-
-  );
-
-if(
-
-  data.partnerId &&
-  data.partnerId !== currentPartner.id
-
-){
-
-  return;
-
-}
-
-    var partnerEl =
-      modal.querySelector(
-        '.reserve-success-partner'
+      document.getElementById(
+        'reserve-success-modal'
       );
+    modal.style.display = 'flex';
 
-    if(partnerEl){
+    document
+      .getElementById(
+        'reserve-success-close-btn'
+      )
 
-      partnerEl.textContent =
+      .onclick = function(){
 
-        (
-          data.partnerName ||
-          'PARTNER BEGAN'
-        ).toUpperCase();
+        modal.style.display = 'none';
 
-    }
+        window.scrollTo({
 
-  }catch(err){
+          top:0,
 
-    console.error(
-      '[Reserve Success]',
-      err
-    );
+          behavior:'smooth'
+
+        });
+
+      };
 
   }
-  console.log(
-  '[SUCCESS MODAL SHOW]',
-  data
+modal =
+document.getElementById(
+  'reserve-success-modal'
 );
 
-  modal.hidden = false;
-  closeDrawer();
+modal.style.display = 'flex';
+
+closeDrawer();
 
 CartRender.showDrawerStatus(
   '',
   false
 );
-  document.body.classList.add(
-  'reserve-success-open'
-);
-
+    
   if(window.lucide){
 
     lucide.createIcons();
@@ -1477,11 +1398,6 @@ reserveRealtimeTimer =
   },30000);
 
 CartRender.init();
-    renderReserveSuccessModal();
-
-  
-
-checkReserveSuccessModal();
     
    document.addEventListener(
 
@@ -1496,7 +1412,6 @@ checkReserveSuccessModal();
     }
 
     setTimeout(function(){
-      checkReserveSuccessModal();
 
       refreshReserveAnalytics();
 
