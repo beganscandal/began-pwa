@@ -523,8 +523,15 @@ setText(
   fab.innerHTML = `
 
     <span class="reserve-fab__label">
-      RINGKASAN RESERVE 🛒
-    </span>
+
+    <i
+      data-lucide="shopping-cart"
+      class="reserve-fab__icon">
+    </i>
+
+    RINGKASAN RESERVE
+
+  </span>
 
     <span class="reserve-fab__count">
 
