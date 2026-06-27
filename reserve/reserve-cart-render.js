@@ -1,5 +1,5 @@
 /**
- * RESERVE SYSTEM — Ringkasan Reserve drawer UI
+ * RESERVE SYSTEM —Ringkasan Reserve drawer UI 
  */
 
 (function (global) {
