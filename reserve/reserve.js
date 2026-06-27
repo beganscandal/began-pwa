@@ -15,6 +15,8 @@
   var CartRender = window.ReserveCartRender;
 
   var reserveRealtimeTimer = null;
+  var RESERVE_SUCCESS_KEY =
+  'began_reserve_checkout_success';
   var PRODUCT_MAP =
   new Map();
   var CARD_MAP =
@@ -1073,6 +1075,112 @@ const data =
 
 } 
   }
+  function bindReserveSuccessModal(){
+
+  var modal =
+    document.getElementById(
+      'reserve-success-modal'
+    );
+
+  var button =
+    document.getElementById(
+      'reserve-success-btn'
+    );
+
+  if(
+    !modal ||
+    !button
+  ){
+    return;
+  }
+
+  button.addEventListener(
+    'click',
+    function(){
+
+      modal.hidden = true;
+      document.body.classList.remove(
+  'reserve-success-open'
+);
+
+      window.scrollTo({
+
+        top:0,
+        behavior:'smooth'
+
+      });
+
+    }
+  );
+
+}
+
+function checkReserveSuccessModal(){
+
+  var modal =
+    document.getElementById(
+      'reserve-success-modal'
+    );
+
+  if(!modal){
+    return;
+  }
+
+  var raw =
+    sessionStorage.getItem(
+      RESERVE_SUCCESS_KEY
+    );
+
+  if(!raw){
+    return;
+  }
+
+  sessionStorage.removeItem(
+    RESERVE_SUCCESS_KEY
+  );
+
+  try{
+
+    var data =
+      JSON.parse(raw);
+
+    var partnerEl =
+      modal.querySelector(
+        '.reserve-success-partner'
+      );
+
+    if(partnerEl){
+
+      partnerEl.textContent =
+
+        (
+          data.partnerName ||
+          'PARTNER BEGAN'
+        ).toUpperCase();
+
+    }
+
+  }catch(err){
+
+    console.error(
+      '[Reserve Success]',
+      err
+    );
+
+  }
+
+  modal.hidden = false;
+  document.body.classList.add(
+  'reserve-success-open'
+);
+
+  if(window.lucide){
+
+    lucide.createIcons();
+
+  }
+
+}
 
   function init() {
     rootEl = document.getElementById('reserve-app');
@@ -1251,6 +1359,9 @@ reserveRealtimeTimer =
   },30000);
 
 CartRender.init();
+    bindReserveSuccessModal();
+
+checkReserveSuccessModal();
     
    document.addEventListener(
 
