@@ -1178,33 +1178,49 @@ const data =
         'reserve-success-modal'
       );
     modal.style.display = 'flex';
-
+    
     document
-      .getElementById(
-        'reserve-success-close-btn'
-      )
+  .getElementById(
+    'reserve-success-close-btn'
+  )
 
-      .onclick = function(){
+  .onclick =
+    hideReserveSuccessModal;
+    modal.onclick = function(event){
 
-        modal.style.display = 'none';
-
-        window.scrollTo({
-
-          top:0,
-
-          behavior:'smooth'
-
-        });
-
-      };
-
+  if(
+    event.target !== modal
+  ){
+    return;
   }
+
+  hideReserveSuccessModal();
+
+};
+  }
+    
 modal =
 document.getElementById(
   'reserve-success-modal'
 );
 
 modal.style.display = 'flex';
+
+    function hideReserveSuccessModal(){
+
+  modal.style.display = 'none';
+
+  closeDrawer();
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:'smooth'
+
+  });
+
+}
 
 closeDrawer();
 
