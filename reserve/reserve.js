@@ -1075,6 +1075,101 @@ const data =
 
 } 
   }
+function renderReserveSuccessModal(){
+
+  if(
+    document.getElementById(
+      'reserve-success-modal'
+    )
+  ){
+    return;
+  }
+
+  document.body.insertAdjacentHTML(
+
+    'beforeend',
+
+    `
+    <div
+      id="reserve-success-modal"
+      class="reserve-success-modal"
+      hidden>
+
+      <div
+        class="reserve-success-card">
+
+        <div
+          class="reserve-success-left">
+
+          <img
+            class="reserve-success-logo"
+            src="https://pwa.barkahgarment.com/assets/began%20font%20tagline.png"
+            alt="BEGAN">
+
+          <div
+            class="reserve-success-icon">
+
+            <i
+              data-lucide="badge-check">
+            </i>
+
+          </div>
+
+        </div>
+
+        <div
+          class="reserve-success-right">
+
+          <h3>
+
+            Reserve Berhasil Diamankan
+
+          </h3>
+
+          <span
+            class="reserve-success-partner">
+
+            PARTNER BEGAN
+
+          </span>
+
+          <p>
+
+            Terima kasih telah melakukan
+            alokasi reserve bersama BEGAN.
+
+            Pesanan Anda telah resmi
+            masuk ke antrean produksi
+            sesuai prioritas pembayaran
+            yang dipilih.
+
+          </p>
+
+          <button
+            id="reserve-success-btn"
+            class="reserve-success-btn"
+            type="button">
+
+            Lanjut Reserve
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+    `
+  );
+
+  if(window.lucide){
+
+    lucide.createIcons();
+
+  }
+
+}
+  
   function bindReserveSuccessModal(){
 
   var modal =
@@ -1380,6 +1475,8 @@ reserveRealtimeTimer =
   },30000);
 
 CartRender.init();
+    renderReserveSuccessModal();
+
     bindReserveSuccessModal();
 
 checkReserveSuccessModal();
