@@ -523,7 +523,7 @@ setText(
   fab.innerHTML = `
 
     <span class="reserve-fab__label">
-      RINGKASAN RESERVE
+      RINGKASAN RESERVE 🛒
     </span>
 
     <span class="reserve-fab__count">
