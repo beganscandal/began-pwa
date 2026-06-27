@@ -1,6 +1,5 @@
 /**
- * RESERVE SYSTEM — Entry point & event delegation 
- */
+ * RESERVE SYSTEM — Entry point & event delegation  */
 
 (function () {
   'use strict';
