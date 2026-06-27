@@ -1408,6 +1408,21 @@ checkReserveSuccessModal();
   }
 
 );
+    window.addEventListener(
+
+  'focus',
+
+  function(){
+
+    setTimeout(function(){
+
+      checkReserveSuccessModal();
+
+    },500);
+
+  }
+
+);
     
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('change', onDocumentChange);
