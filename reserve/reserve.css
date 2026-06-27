@@ -4085,33 +4085,3 @@ and (orientation:landscape){
   }
 
 }
-@media (max-width:991px)
-and (orientation:landscape){
-
-  .reserve-card__desktop-layout{
-
-    display:grid;
-
-    grid-template-columns:
-      320px
-      minmax(0,1fr)
-      280px;
-
-    gap:10px;
-  }
-
-  .reserve-card__media-wrap{
-
-    grid-column:1;
-    grid-row:1;
-  }
-
-  .reserve-card__product-meta{
-
-    grid-column:1;
-    grid-row:2;
-
-    margin-top:8px;
-  }
-
-}
