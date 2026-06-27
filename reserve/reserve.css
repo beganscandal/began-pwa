@@ -4087,6 +4087,111 @@ and (orientation:landscape){
   gap:28px;
 }
 
+/* =====================================
+   LANDSCAPE COMPACT OPTIMIZATION
+===================================== */
+
+@media (max-width:900px)
+and (orientation:landscape){
+
+  /* SIZE SECTION */
+
+  .reserve-size-qty-list{
+
+    gap:4px;
+  }
+
+  .reserve-size-qty-row{
+
+    padding:0;
+
+    border:none;
+
+    background:transparent;
+
+    gap:6px;
+
+    min-height:32px;
+  }
+
+  .reserve-size-qty-row__label{
+
+    min-width:20px;
+
+    font-size:12px;
+  }
+
+  /* HILANGKAN BOX LUAR */
+
+  .reserve-qty--compact{
+
+    border:none;
+
+    background:transparent;
+  }
+
+  .reserve-qty{
+
+    min-height:32px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    background:#0b0b0b;
+  }
+
+  .reserve-qty__btn{
+
+    min-width:28px;
+
+    min-height:32px;
+
+    font-size:14px;
+  }
+
+  .reserve-qty__value{
+
+    min-width:22px;
+
+    font-size:12px;
+  }
+
+  /* PAYMENT */
+
+  .reserve-payment-group{
+
+    gap:4px;
+  }
+
+  .reserve-payment-option{
+
+    min-height:42px;
+
+    padding:6px 8px;
+
+    gap:4px;
+  }
+
+  .reserve-payment-option__text{
+
+    font-size:11px;
+
+    line-height:1.1;
+  }
+
+  .reserve-payment-option__hint{
+
+    font-size:9px;
+
+    line-height:1.05;
+  }
+
+  .reserve-payment-option__input{
+
+    margin-top:1px;
+  }
+
+}
+
 /* floating button RINGKASAN RESERVE */
 .reserve-fab__label{
 
