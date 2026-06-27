@@ -1095,24 +1095,45 @@ const data =
   }
 
   button.addEventListener(
-    'click',
-    function(){
 
-      modal.hidden = true;
-      document.body.classList.remove(
-  'reserve-success-open'
-);
+  'click',
 
-      window.scrollTo({
+  function(){
 
-        top:0,
-        behavior:'smooth'
+    modal.hidden = true;
 
-      });
+    document.body.classList.remove(
+      'reserve-success-open'
+    );
+
+    Cart.clear();
+
+    closeDrawer();
+
+    CartRender.showDrawerStatus(
+      '',
+      false
+    );
+     if(fabEl){
+
+      fabEl.setAttribute(
+        'aria-expanded',
+        'false'
+      );
 
     }
-  );
 
+    window.scrollTo({
+
+      top:0,
+
+      behavior:'smooth'
+
+    });
+
+  }
+
+);
 }
 
 function checkReserveSuccessModal(){
@@ -1127,7 +1148,7 @@ function checkReserveSuccessModal(){
   }
 
   var raw =
-    sessionStorage.getItem(
+    localStorage.getItem(
       RESERVE_SUCCESS_KEY
     );
 
@@ -1135,7 +1156,7 @@ function checkReserveSuccessModal(){
     return;
   }
 
-  sessionStorage.removeItem(
+  localStorage.removeItem(
     RESERVE_SUCCESS_KEY
   );
 
