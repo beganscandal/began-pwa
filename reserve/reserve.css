@@ -3856,21 +3856,18 @@ and (orientation:landscape){
 
 }
 
-/* =====================================
-   MOBILE LANDSCAPE = MINI DESKTOP
-===================================== */
+/* ==================================================
+   LANDSCAPE ULTRA COMPACT
+   740px - 991px landscape
+================================================== */
 
 @media (max-width:991px)
+and (min-width:740px)
 and (orientation:landscape){
-
-  .reserve-grid{
-
-    grid-template-columns:1fr;
-  }
 
   .reserve-card{
 
-    padding:12px;
+    padding:10px;
   }
 
   .reserve-card__desktop-layout{
@@ -3878,115 +3875,243 @@ and (orientation:landscape){
     display:grid;
 
     grid-template-columns:
-      minmax(320px,42%)
-      minmax(200px,28%)
-      minmax(240px,30%);
+      36%
+      30%
+      34%;
 
-    gap:14px;
+    gap:10px;
 
     align-items:start;
   }
 
-  /* MEDIA TETAP DOMINAN */
+  /* =========================
+     MEDIA
+  ========================= */
 
   .reserve-card__media{
 
-    height:340px;
+    height:260px;
 
-    aspect-ratio:auto;
-
-    border-radius:18px;
+    border-radius:16px;
   }
 
   .reserve-gallery{
 
-    padding:8px 0 0;
+    padding:6px 0 0;
+
+    gap:6px;
   }
 
   .reserve-gallery__thumb{
 
-    width:56px;
-    height:56px;
+    width:48px;
+    height:48px;
   }
 
   .reserve-gallery__thumb img{
 
-    width:56px;
-    height:56px;
+    width:48px;
+    height:48px;
   }
 
-  /* INFO */
+  /* =========================
+     PRODUCT META
+  ========================= */
+
+  .reserve-card__product-meta{
+
+    margin-top:8px;
+
+    padding:8px;
+  }
+
+  .reserve-card__title{
+
+    font-size:12px;
+  }
+
+  .reserve-card__subtitle{
+
+    font-size:10px;
+  }
+
+  .reserve-card__unit-price{
+
+    margin-top:6px;
+
+    padding-top:6px;
+
+    font-size:10px;
+  }
+
+  /* =========================
+     INFO COLUMN
+  ========================= */
 
   .reserve-card__desktop-info{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
+    gap:8px;
   }
 
-  /* FOMO */
+  .reserve-analytics{
+
+    gap:6px;
+  }
+
+  .reserve-analytics__item{
+
+    padding:6px;
+  }
+
+  .reserve-analytics__value{
+
+    font-size:13px;
+  }
+
+  .reserve-analytics__label{
+
+    font-size:8px;
+  }
+
+  .reserve-progress{
+
+    padding:8px;
+  }
 
   .reserve-partners{
 
-    max-height:180px;
+    max-height:120px;
 
     overflow:auto;
   }
 
-  .reserve-partners__list{
+  .reserve-partner-row{
 
-    grid-template-columns:1fr;
+    padding:6px 8px;
   }
 
-  /* CHECKOUT */
+  /* =========================
+     CHECKOUT
+  ========================= */
 
   .reserve-card__desktop-checkout{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
+    gap:8px;
   }
-
-  /* JANGAN MISS CLICK */
 
   .reserve-size-qty-list{
 
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+    gap:6px;
+  }
+
+  .reserve-size-qty-row{
+
+    padding:4px 6px;
+  }
+
+  .reserve-size-qty-row__label{
+
+    font-size:12px;
   }
 
   .reserve-qty__btn{
 
-    min-width:48px;
+    min-width:34px;
 
-    min-height:48px;
-
-    font-size:18px;
+    min-height:34px;
   }
 
   .reserve-qty__value{
 
-    min-width:44px;
+    min-width:28px;
 
-    font-size:16px;
+    font-size:13px;
   }
 
-  /* PAYMENT */
+  .reserve-payment-option{
 
-  .reserve-payment-group{
+    min-height:52px;
 
-    grid-template-columns:1fr;
+    padding:6px;
   }
 
-  /* CTA */
+  .reserve-payment-option__text{
+
+    font-size:10px;
+  }
+
+  .reserve-payment-option__hint{
+
+    font-size:8px;
+  }
+
+  .reserve-summary{
+
+    padding:8px;
+  }
+
+  .reserve-summary__pcs{
+
+    font-size:18px;
+
+    margin-bottom:6px;
+  }
+
+  .reserve-summary__row{
+
+    padding:1px 0;
+  }
+
+  .reserve-summary__row dt{
+
+    font-size:10px;
+  }
+
+  .reserve-summary__row dd{
+
+    font-size:11px;
+  }
+
+  .reserve-card__action-bar{
+
+    padding:8px 0 0;
+  }
 
   .reserve-cta{
 
-    min-height:52px;
+    min-height:42px;
+
+    font-size:11px;
+  }
+
+}
+@media (max-width:991px)
+and (orientation:landscape){
+
+  .reserve-card__desktop-layout{
+
+    display:grid;
+
+    grid-template-columns:
+      320px
+      minmax(0,1fr)
+      280px;
+
+    gap:10px;
+  }
+
+  .reserve-card__media-wrap{
+
+    grid-column:1;
+    grid-row:1;
+  }
+
+  .reserve-card__product-meta{
+
+    grid-column:1;
+    grid-row:2;
+
+    margin-top:8px;
   }
 
 }
