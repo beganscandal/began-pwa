@@ -1259,6 +1259,27 @@ function checkReserveSuccessModal(){
     var data =
       JSON.parse(raw);
 
+     var currentPartner =
+
+  JSON.parse(
+
+    localStorage.getItem(
+      'began_partner'
+    ) || '{}'
+
+  );
+
+if(
+
+  data.partnerId &&
+  data.partnerId !== currentPartner.id
+
+){
+
+  return;
+
+}
+
     var partnerEl =
       modal.querySelector(
         '.reserve-success-partner'
