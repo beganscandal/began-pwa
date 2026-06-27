@@ -72,7 +72,7 @@
     { id: 'NON_PRIORITY', label: 'Non Priority', hint: 'PRIORITY 03' }
   ];
 
-  var PARTNER_COLLAPSED_VISIBLE = 6;
+  var PARTNER_COLLAPSED_VISIBLE = 4;
 
   var RESERVE_PRODUCTS = [
     {
