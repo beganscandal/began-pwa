@@ -534,6 +534,42 @@ case 'cart-size-plus':
         event.preventDefault();
         closeVideoModal();
         break;
+        case 'close-success-modal':
+
+  event.preventDefault();
+
+  localStorage.removeItem(
+    RESERVE_SUCCESS_KEY
+  );
+
+  var modal =
+    document.getElementById(
+      'reserve-success-modal'
+    );
+
+  if(modal){
+
+    modal.hidden = true;
+
+  }
+
+  document.body.classList.remove(
+    'reserve-success-open'
+  );
+
+  closeDrawer();
+
+  CartRender.showDrawerStatus(
+    '',
+    false
+  );
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+break;
       default:
         break;
     }
@@ -1146,13 +1182,13 @@ function renderReserveSuccessModal(){
           </p>
 
           <button
-            id="reserve-success-btn"
-            class="reserve-success-btn"
-            type="button">
+  class="reserve-success-btn"
+  data-action="close-success-modal"
+  type="button">
 
-            Lanjut Reserve
+Kembali Ke Halaman
 
-          </button>
+</button>
 
         </div>
 
@@ -1170,76 +1206,7 @@ function renderReserveSuccessModal(){
 
 }
   
-  function bindReserveSuccessModal(){
-
-  document.addEventListener(
-
-    'click',
-
-    function(event){
-
-      if(
-        !event.target.closest(
-          '#reserve-success-btn'
-        )
-      ){
-        return;
-      }
-
-      var modal =
-        document.getElementById(
-          'reserve-success-modal'
-        );
-
-      localStorage.removeItem(
-        RESERVE_SUCCESS_KEY
-      );
-
-      if(modal){
-
-        modal.hidden = true;
-
-      }
-
-      document.body.classList.remove(
-        'reserve-success-open'
-      );
-
-      Cart.clear();
-
-      closeDrawer();
-
-      CartRender.showDrawerStatus(
-        '',
-        false
-      );
-
-      if(fabEl){
-
-        fabEl.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-
-      }
-
-      window.scrollTo({
-
-        top:0,
-        behavior:'smooth'
-
-      });
-
-      console.log(
-        '[SUCCESS MODAL CLOSED]'
-      );
-
-    }
-
-  );
-
-}
-
+  
 function checkReserveSuccessModal(){
 
   var modal =
@@ -1513,7 +1480,7 @@ reserveRealtimeTimer =
 CartRender.init();
     renderReserveSuccessModal();
 
-    bindReserveSuccessModal();
+  
 
 checkReserveSuccessModal();
     
