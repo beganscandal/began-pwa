@@ -252,7 +252,7 @@ var partner =
         ) || '{}'
       );
 
-    sessionStorage.setItem(
+    localStorage.setItem(
 
       'began_reserve_checkout_success',
 
