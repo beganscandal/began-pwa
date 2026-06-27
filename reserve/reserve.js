@@ -1172,66 +1172,72 @@ function renderReserveSuccessModal(){
   
   function bindReserveSuccessModal(){
 
-  var modal =
-    document.getElementById(
-      'reserve-success-modal'
-    );
+  document.addEventListener(
 
-  var button =
-    document.getElementById(
-      'reserve-success-btn'
-    );
+    'click',
 
-  if(
-    !modal ||
-    !button
-  ){
-    return;
-  }
+    function(event){
 
-  button.addEventListener(
+      if(
+        !event.target.closest(
+          '#reserve-success-btn'
+        )
+      ){
+        return;
+      }
 
-  'click',
+      var modal =
+        document.getElementById(
+          'reserve-success-modal'
+        );
 
-  function(){
-    localStorage.removeItem(
-  RESERVE_SUCCESS_KEY
-);
+      localStorage.removeItem(
+        RESERVE_SUCCESS_KEY
+      );
 
-    modal.hidden = true;
+      if(modal){
 
-    document.body.classList.remove(
-      'reserve-success-open'
-    );
+        modal.hidden = true;
 
-    Cart.clear();
+      }
 
-    closeDrawer();
+      document.body.classList.remove(
+        'reserve-success-open'
+      );
 
-    CartRender.showDrawerStatus(
-      '',
-      false
-    );
-     if(fabEl){
+      Cart.clear();
 
-      fabEl.setAttribute(
-        'aria-expanded',
-        'false'
+      closeDrawer();
+
+      CartRender.showDrawerStatus(
+        '',
+        false
+      );
+
+      if(fabEl){
+
+        fabEl.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+      }
+
+      window.scrollTo({
+
+        top:0,
+        behavior:'smooth'
+
+      });
+
+      console.log(
+        '[SUCCESS MODAL CLOSED]'
       );
 
     }
 
-    window.scrollTo({
+  );
 
-      top:0,
-
-      behavior:'smooth'
-
-    });
-
-  }
-
-);
 }
 
 function checkReserveSuccessModal(){
@@ -1304,6 +1310,10 @@ if(
     );
 
   }
+  console.log(
+  '[SUCCESS MODAL SHOW]',
+  data
+);
 
   modal.hidden = false;
   closeDrawer();
