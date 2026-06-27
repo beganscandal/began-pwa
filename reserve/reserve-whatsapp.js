@@ -258,15 +258,17 @@ var partner =
 
       JSON.stringify({
 
-        timestamp: Date.now(),
+  timestamp: Date.now(),
 
-        partnerName:
-          partner.toko ||
-          partner.name ||
-          'PARTNER BEGAN'
+  partnerId:
+    partner.id || '',
 
-      })
+  partnerName:
+    partner.toko ||
+    partner.name ||
+    'PARTNER BEGAN'
 
+})
     );
 
   } catch(err){
