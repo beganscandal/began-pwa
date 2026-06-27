@@ -1206,7 +1206,7 @@ document.getElementById(
 
 modal.style.display = 'flex';
 
-    function hideReserveSuccessModal(){
+   function hideReserveSuccessModal(){
 
   modal.style.display = 'none';
 
@@ -1216,9 +1216,17 @@ modal.style.display = 'flex';
 
     top:0,
 
+    left:0,
+
     behavior:'smooth'
 
   });
+
+  setTimeout(function(){
+
+    window.location.reload();
+
+  },300);
 
 }
 
