@@ -180,7 +180,7 @@ var partner =
 
     
     var parts = [];
-    parts.push('RESERVE SYSTEM BEGAN');
+    parts.push('RESERVE_SYSTEM_BEGAN');
     parts.push(lineBreak());
     parts.push('Partner :');
     parts.push(partner);
@@ -243,23 +243,65 @@ var partner =
     '?text=' +
     encodeURIComponent(message);
 
+  try {
+
+    var partner =
+      JSON.parse(
+        localStorage.getItem(
+          'began_partner'
+        ) || '{}'
+      );
+
+    sessionStorage.setItem(
+
+      'began_reserve_checkout_success',
+
+      JSON.stringify({
+
+        timestamp: Date.now(),
+
+        partnerName:
+          partner.toko ||
+          partner.name ||
+          'PARTNER BEGAN'
+
+      })
+
+    );
+
+  } catch(err){
+
+    console.warn(err);
+
+  }
+
   console.log(
     '[WA URL]',
     url
   );
 
-  
-var popup =
-  window.open(url);
-    
-    
-    console.log(
+  var popup =
+    window.open(
+      url,
+      '_blank'
+    );
+
+  console.log(
     '[WA WINDOW]',
     popup
   );
+    if (!popup) {
+
+  console.warn(
+    '[Reserve WhatsApp] Popup blocked'
+  );
+
+  window.location.href = url;
+
+}
 
   return true;
-}
+}  
   
 function sendReserveConfirmation(
   payload,
