@@ -1408,6 +1408,20 @@ checkReserveSuccessModal();
   }
 
 );
+    window.addEventListener(
+
+  'pageshow',
+
+  function(){
+
+    setTimeout(
+      checkReserveSuccessModal,
+      500
+    );
+
+  }
+
+);
    
     
     document.addEventListener('click', onDocumentClick);
