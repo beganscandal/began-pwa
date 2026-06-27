@@ -1194,6 +1194,9 @@ function renderReserveSuccessModal(){
   'click',
 
   function(){
+    localStorage.removeItem(
+  RESERVE_SUCCESS_KEY
+);
 
     modal.hidden = true;
 
@@ -1251,11 +1254,7 @@ function checkReserveSuccessModal(){
     return;
   }
 
-  localStorage.removeItem(
-    RESERVE_SUCCESS_KEY
-  );
-
-  try{
+   try{
 
     var data =
       JSON.parse(raw);
@@ -1286,6 +1285,12 @@ function checkReserveSuccessModal(){
   }
 
   modal.hidden = false;
+  closeDrawer();
+
+CartRender.showDrawerStatus(
+  '',
+  false
+);
   document.body.classList.add(
   'reserve-success-open'
 );
