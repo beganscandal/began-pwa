@@ -567,15 +567,20 @@ fab.addEventListener(
 );
 
   document
-    .getElementById(
-      'reserve-app'
-    )
-    ?.appendChild(
-      fab
-    );
+  .getElementById(
+    'reserve-app'
+  )
+  ?.appendChild(
+    fab
+  );
 
-  return fab;
+if(
+  window.lucide
+){
+  lucide.createIcons();
+}
 
+return fab;
 }
   
 function ensureDrawerRoot(){
