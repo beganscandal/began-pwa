@@ -1376,6 +1376,7 @@ checkReserveSuccessModal();
     }
 
     setTimeout(function(){
+      checkReserveSuccessModal();
 
       refreshReserveAnalytics();
 
