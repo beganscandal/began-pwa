@@ -80,14 +80,26 @@ Dashboard
 
 </button>
 
-<button
-class="began-nav__item"
-data-nav="kategori">
+<div
+class="filter-dropdown began-nav-kategori">
 
-Kategori Produk
+  <div
+  class="filter-toggle began-nav__item"
+  data-nav="kategori">
 
-</button>
+    <div class="text-block-59">
 
+      KATEGORI PRODUCT
+
+    </div>
+
+    <img
+    class="image-32"
+    src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
+
+  </div>
+
+</div>
 <button
 class="began-nav__item"
 data-nav="reserve">
@@ -156,6 +168,28 @@ Contact
     'afterend',
     navContainer
   );
+  const oldPanel =
+
+  document.querySelector(
+    '.filter-dropdown-panel'
+  );
+
+const newKategori =
+
+  navContainer.querySelector(
+    '.began-nav-kategori'
+  );
+
+if(
+  oldPanel &&
+  newKategori
+){
+
+  newKategori.appendChild(
+    oldPanel
+  );
+
+}
 
   console.log(
     '[BEGAN NAV] injected'
@@ -201,23 +235,23 @@ Contact
 
         case 'kategori':
 
-          document
-            .querySelector(
-              '.filter-dropdown'
-            )
-            ?.click();
+  document
+    .getElementById(
+      'filter-toggle-kategori'
+    )
+    ?.click();
 
-        break;
+break;
 
-        case 'history':
+       case 'history':
 
-          document
-            .querySelector(
-              '.menu-item.history'
-            )
-            ?.click();
+  document
+    .querySelector(
+      '.btn-history'
+    )
+    ?.click();
 
-        break;
+break;
 
         case 'panduan':
 
