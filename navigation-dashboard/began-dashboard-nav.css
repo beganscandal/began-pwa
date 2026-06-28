@@ -177,23 +177,7 @@
 
 }
 
-#began-nav-v2 .filter-dropdown-panel{
 
-  position:absolute;
-
-  top:calc(100% + 8px);
-
-  left:0;
-
-  min-width:240px;
-
-  z-index:99999;
-
-  display:none;
-  overflow:auto;
-max-height:70vh;
-
-}
 
 /* =====================================
    TABLET
@@ -292,5 +276,57 @@ max-height:70vh;
     font-size:10px;
 
   }
+
+}
+#began-nav-v2
+.filter-dropdown.active
+.filter-dropdown-panel{
+
+  display:block;
+
+  opacity:1;
+
+  visibility:visible;
+
+  pointer-events:auto;
+
+  transform:translateY(0);
+
+}
+#began-nav-v2
+.filter-dropdown-panel{
+
+  position:absolute;
+
+  top:calc(100% + 8px);
+
+  left:0;
+
+  min-width:240px;
+
+  z-index:99999;
+
+  opacity:0;
+
+  visibility:hidden;
+
+  pointer-events:none;
+
+  transform:translateY(-6px);
+
+  transition:.2s ease;
+
+}
+
+.began-nav__icon{
+
+width:28px;
+height:28px;
+
+object-fit:contain;
+
+margin-left:10px;
+
+flex-shrink:0;
 
 }
