@@ -1,5 +1,5 @@
 (function(){
- 
+  
 'use strict';
  
  let NAV_BINDED = false;
