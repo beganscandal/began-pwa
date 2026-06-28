@@ -81,7 +81,6 @@ Dashboard
 </button>
 
 <div class="
-filter-dropdown
 began-nav-kategori">
 
 <button
