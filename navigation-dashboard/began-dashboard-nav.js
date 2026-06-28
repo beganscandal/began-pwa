@@ -405,9 +405,13 @@ function waitDashboardReady(){
     '[BEGAN NAV] waiting dashboard'
   );
 
+  let attempts = 0;
+
   const timer = setInterval(
 
     function(){
+
+      attempts++;
 
       const wrapper =
         document.querySelector(
@@ -424,11 +428,11 @@ function waitDashboardReady(){
         partner
       ){
 
+        clearInterval(timer);
+
         console.log(
           '[BEGAN NAV] dashboard ready'
         );
-
-        clearInterval(timer);
 
         injectNavigation();
 
@@ -438,6 +442,18 @@ function waitDashboardReady(){
 
         renderForumBadge();
 
+        return;
+
+      }
+
+      if(attempts >= 40){
+
+        clearInterval(timer);
+
+        console.warn(
+          '[BEGAN NAV] timeout'
+        );
+
       }
 
     },
@@ -446,8 +462,7 @@ function waitDashboardReady(){
 
   );
 
-}
- 
+} 
 window.addEventListener(
 
   'load',
