@@ -341,3 +341,18 @@ flex-shrink:0;
   white-space:nowrap;
 
 }
+.began-nav__kategori-btn{
+
+  min-width:240px;
+
+}
+
+.began-nav__label{
+
+  display:block;
+
+  line-height:1.2;
+
+  white-space:nowrap;
+
+}
