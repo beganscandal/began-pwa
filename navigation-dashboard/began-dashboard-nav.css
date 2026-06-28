@@ -356,3 +356,32 @@ flex-shrink:0;
   white-space:nowrap;
 
 }
+#began-nav-v2 .filter-dropdown{
+
+  line-height:normal;
+
+}
+
+#began-nav-v2 .filter-dropdown span{
+
+  line-height:1.2;
+
+}
+
+#began-nav-v2 .began-nav__label{
+
+  display:block;
+
+  white-space:nowrap;
+
+  line-height:1.2;
+
+  flex:1;
+
+}
+
+#began-nav-v2 .began-nav__kategori-btn{
+
+  min-width:240px;
+
+}
