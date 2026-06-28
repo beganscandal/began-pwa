@@ -1,1 +1,48 @@
-tes
+.began-nav{
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+
+}
+
+.began-nav__item{
+
+  position:relative;
+
+  height:42px;
+  padding:0 18px;
+
+  border:1px solid rgba(255,255,255,.1);
+
+  background:#090909;
+
+  color:#fff;
+
+  cursor:pointer;
+
+}
+
+.began-nav__badge{
+
+  position:absolute;
+  top:-6px;
+  right:-6px;
+
+  min-width:20px;
+  height:20px;
+
+  border-radius:50%;
+
+  background:#ff2f2f;
+
+  color:#fff;
+
+  font-size:11px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+}
