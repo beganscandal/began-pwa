@@ -87,7 +87,7 @@ class="filter-dropdown began-nav-kategori">
   class="filter-toggle began-nav__item"
   data-nav="kategori">
 
-    <div class="text-block-59">
+    <div class="began-nav__label">
 
       KATEGORI PRODUCT
 
@@ -233,13 +233,43 @@ if(
 
         break;
 
-        case 'kategori':
+       case 'kategori':
 
-  document
-    .getElementById(
-      'filter-toggle-kategori'
-    )
-    ?.click();
+  const panel =
+    document.querySelector(
+      '.began-nav-kategori .filter-dropdown-panel'
+    );
+
+  const icon =
+    document.querySelector(
+      '.began-nav-kategori .image-32'
+    );
+
+  if(!panel)
+    return;
+
+  const isOpen =
+    panel.classList.contains(
+      'is-open'
+    );
+
+  panel.classList.toggle(
+    'is-open'
+  );
+
+  panel.style.display =
+    isOpen
+      ? 'none'
+      : 'block';
+
+  if(icon){
+
+    icon.src =
+      isOpen
+        ? 'https://pwa.barkahgarment.com/assets/toggleDown.jpg'
+        : 'https://pwa.barkahgarment.com/assets/toggleUp.jpg';
+
+  }
 
 break;
 
