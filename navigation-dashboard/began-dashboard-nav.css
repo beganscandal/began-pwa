@@ -1,9 +1,8 @@
-#began-nav-v2{ 
+#began-nav-v2{
 
   width:100%;
 
   margin-top:18px;
-
   margin-bottom:18px;
 
 }
@@ -22,9 +21,21 @@
 
 }
 
+/* =====================================
+   NAV BUTTON
+===================================== */
+
 .began-nav__item{
 
   position:relative;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
 
   min-height:46px;
 
@@ -34,9 +45,11 @@
 
   background:#070707;
 
-  color:#fff;
+  color:#ffffff;
 
   font-size:12px;
+
+  font-weight:600;
 
   letter-spacing:.08em;
 
@@ -44,7 +57,7 @@
 
   cursor:pointer;
 
-  transition:.25s;
+  transition:.25s ease;
 
 }
 
@@ -66,6 +79,26 @@
 
 }
 
+/* =====================================
+   LABEL
+===================================== */
+
+.began-nav__label{
+
+  font:inherit;
+
+  color:inherit;
+
+  text-transform:inherit;
+
+  letter-spacing:inherit;
+
+}
+
+/* =====================================
+   BADGE
+===================================== */
+
 .began-nav__badge{
 
   position:absolute;
@@ -84,9 +117,11 @@
 
   background:#ff1f1f;
 
-  color:#fff;
+  color:#ffffff;
 
   font-size:10px;
+
+  font-weight:700;
 
   display:flex;
 
@@ -95,32 +130,120 @@
   justify-content:center;
 
 }
-.began-nav__label{
 
-  font:inherit;
-  color:inherit;
-  text-transform:inherit;
-  letter-spacing:inherit;
+/* =====================================
+   KATEGORI DROPDOWN
+===================================== */
 
-}
-
-.began-nav-kategori{
+#began-nav-v2 .began-nav-kategori{
 
   position:relative;
 
+  display:flex;
+
+  flex-direction:column;
+
 }
 
-.began-nav-kategori
-.filter-dropdown-panel{
+#began-nav-v2 .began-nav-kategori .image-32{
+
+  width:16px;
+
+  height:16px;
+
+  object-fit:contain;
+
+}
+
+#began-nav-v2 .filter-dropdown-panel{
 
   position:absolute;
 
-  top:110%;
+  top:calc(100% + 8px);
 
   left:0;
+
+  min-width:240px;
 
   z-index:99999;
 
   display:none;
+
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media screen and (max-width:991px){
+
+  .began-nav{
+
+    justify-content:flex-start;
+
+  }
+
+  .began-nav__item{
+
+    min-height:42px;
+
+    padding:0 16px;
+
+    font-size:11px;
+
+  }
+
+}
+
+/* =====================================
+   MOBILE LANDSCAPE
+===================================== */
+
+@media screen and (max-width:767px){
+
+  .began-nav{
+
+    gap:8px;
+
+  }
+
+  .began-nav__item{
+
+    min-height:40px;
+
+    padding:0 14px;
+
+    font-size:10px;
+
+  }
+
+}
+
+/* =====================================
+   MOBILE PORTRAIT
+===================================== */
+
+@media screen and (max-width:479px){
+
+  .began-nav{
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap:8px;
+
+  }
+
+  .began-nav__item{
+
+    width:100%;
+
+    min-height:44px;
+
+    font-size:10px;
+
+  }
 
 }
