@@ -17,7 +17,7 @@
 
   display:flex;
 
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
 
   justify-content:center;
 
@@ -26,6 +26,10 @@
   gap:10px;
 
   overflow:visible;
+}
+.began-nav__item,
+.began-nav-kategori{
+  flex:0 0 auto;
 }
 
 #began-nav-v2{
@@ -57,10 +61,7 @@
   z-index:999;
 
 }
-.began-nav{
 
-  row-gap:36px;
-}
 
 /* =====================================
    NAV BUTTON
