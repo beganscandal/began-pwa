@@ -15,17 +15,24 @@
 
 .began-nav{
 
-  display:flex;
+  display:grid;
 
-  flex-wrap:nowrap;
+  grid-template-columns:
+    repeat(4,minmax(180px,1fr));
 
   justify-content:center;
 
-  align-items:center;
+  gap:12px;
 
-  gap:10px;
+  max-width:900px;
 
-  overflow:visible;
+  margin:0 auto;
+
+}
+.began-nav-kategori{
+
+  order:5;
+
 }
 .began-nav__item,
 .began-nav-kategori{
