@@ -95,3 +95,11 @@
   justify-content:center;
 
 }
+.began-nav__label{
+
+  font:inherit;
+  color:inherit;
+  text-transform:inherit;
+  letter-spacing:inherit;
+
+}
