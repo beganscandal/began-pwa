@@ -26,21 +26,40 @@
   gap:10px;
 
   overflow:visible;
-  overflow-x:auto;
-
-}
-.began-nav::-webkit-scrollbar{
-
-  display:none;
-
 }
 
+#began-nav-v2{
+
+  position:relative;
+
+  z-index:50;
+
+}
+
+.began-nav-kategori{
+
+  position:relative;
+
+  z-index:100;
+
+}
+
+.filter-dropdown-panel{
+
+  position:absolute;
+
+  top:calc(100% + 8px);
+
+  left:0;
+
+  min-width:240px;
+
+  z-index:999;
+
+}
 .began-nav{
 
-  -ms-overflow-style:none;
-
-  scrollbar-width:none;
-
+  row-gap:36px;
 }
 
 /* =====================================
