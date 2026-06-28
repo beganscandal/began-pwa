@@ -80,8 +80,9 @@ Dashboard
 
 </button>
 
-<div
-class="began-nav-kategori">
+<div class="
+filter-dropdown
+began-nav-kategori">
 
 <button
 class="began-nav__item began-nav__kategori-btn"
@@ -184,8 +185,6 @@ if(
   newKategori
 ){
 
-  oldPanel.style.display = 'none';
-
   newKategori.appendChild(
     oldPanel
   );
@@ -238,39 +237,34 @@ if(
 
         case 'kategori':
 
-          const panel =
-            document.querySelector(
-              '#began-nav-v2 .filter-dropdown-panel'
-            );
+const dropdown =
+document.querySelector(
+'#began-nav-v2 .began-nav-kategori'
+);
 
-          const icon =
-            document.querySelector(
-              '.began-nav__icon'
-            );
+const icon =
+document.querySelector(
+'.began-nav__icon'
+);
 
-          if(!panel){
-            break;
-          }
+if(!dropdown) break;
 
-          const opened =
-            panel.style.display === 'block';
+const opened =
+dropdown.classList.toggle(
+'active'
+);
 
-          panel.style.display =
-            opened
-              ? 'none'
-              : 'block';
+if(icon){
 
-          if(icon){
+  icon.src =
+    opened
+    ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
+    : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
 
-            icon.src =
-              opened
-              ? 'https://pwa.barkahgarment.com/assets/toggleDown.jpg'
-              : 'https://pwa.barkahgarment.com/assets/toggleUp.jpg';
+}
 
-          }
-
-        break;
-
+break;
+        
         case 'history':
 
           document
@@ -335,48 +329,39 @@ if(
   // CLOSE DROPDOWN OUTSIDE
   // ==========================
 
-  document.addEventListener(
+ document.addEventListener(
 
-    'click',
+'click',
 
-    function(event){
+function(event){
 
-      const wrap =
-        document.querySelector(
-          '.began-nav-kategori'
-        );
+const wrap =
+document.querySelector(
+'.began-nav-kategori'
+);
 
-      const panel =
-        document.querySelector(
-          '#began-nav-v2 .filter-dropdown-panel'
-        );
+if(
+!wrap ||
+wrap.contains(event.target)
+){
+return;
+}
 
-      const icon =
-        document.querySelector(
-          '.began-nav__icon'
-        );
+wrap.classList.remove('active');
 
-      if(
-        !wrap ||
-        !panel ||
-        wrap.contains(event.target)
-      ){
-        return;
-      }
+const icon =
+document.querySelector(
+'.began-nav__icon'
+);
 
-      panel.style.display = 'none';
+if(icon){
 
-      if(icon){
-
-        icon.src =
+icon.src =
 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
 
-      }
+}
 
-    }
-
-  );
-
+});
 }
  function renderNotificationBadge(){
 
