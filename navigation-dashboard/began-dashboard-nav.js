@@ -81,25 +81,24 @@ Dashboard
 </button>
 
 <div
-class="filter-dropdown began-nav-kategori">
+class="began-nav-kategori">
 
-  <div
-  class="filter-toggle began-nav__item"
-  data-nav="kategori">
+<button
+class="began-nav__item began-nav__kategori-btn"
+data-nav="kategori">
 
-    <div class="began-nav__label">
+<span class="began-nav__label">
+KATEGORI PRODUCT
+</span>
 
-      KATEGORI PRODUCT
+<img
+class="began-nav__icon"
+src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
 
-    </div>
-
-    <img
-    class="image-32"
-    src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
-
-  </div>
+</button>
 
 </div>
+
 <button
 class="began-nav__item"
 data-nav="reserve">
@@ -185,6 +184,8 @@ if(
   newKategori
 ){
 
+  oldPanel.style.display = 'none';
+
   newKategori.appendChild(
     oldPanel
   );
@@ -204,6 +205,10 @@ if(
 
   NAV_BINDED = true;
 
+  // ==========================
+  // NAVIGATION CLICK
+  // ==========================
+
   document.addEventListener(
 
     'click',
@@ -211,7 +216,6 @@ if(
     function(event){
 
       const item =
-
         event.target.closest(
           '[data-nav]'
         );
@@ -224,64 +228,58 @@ if(
 
       switch(item.dataset.nav){
 
-       case 'dashboard':
+        case 'dashboard':
 
-  BeganPwaBridge.open(
+          BeganPwaBridge.open(
 'https://www.barkahgarment.com/began-partner-dashboard-dev'
-  );
-
+          );
 
         break;
 
-       case 'kategori':
+        case 'kategori':
 
-  const panel =
-    document.querySelector(
-      '.began-nav-kategori .filter-dropdown-panel'
-    );
+          const panel =
+            document.querySelector(
+              '#began-nav-v2 .filter-dropdown-panel'
+            );
 
-  const icon =
-    document.querySelector(
-      '.began-nav-kategori .image-32'
-    );
+          const icon =
+            document.querySelector(
+              '.began-nav__icon'
+            );
 
-  if(!panel)
-    return;
+          if(!panel){
+            break;
+          }
 
-  const isOpen =
-    panel.classList.contains(
-      'is-open'
-    );
+          const opened =
+            panel.style.display === 'block';
 
-  panel.classList.toggle(
-    'is-open'
-  );
+          panel.style.display =
+            opened
+              ? 'none'
+              : 'block';
 
-  panel.style.display =
-    isOpen
-      ? 'none'
-      : 'block';
+          if(icon){
 
-  if(icon){
+            icon.src =
+              opened
+              ? 'https://pwa.barkahgarment.com/assets/toggleDown.jpg'
+              : 'https://pwa.barkahgarment.com/assets/toggleUp.jpg';
 
-    icon.src =
-      isOpen
-        ? 'https://pwa.barkahgarment.com/assets/toggleDown.jpg'
-        : 'https://pwa.barkahgarment.com/assets/toggleUp.jpg';
+          }
 
-  }
+        break;
 
-break;
+        case 'history':
 
-       case 'history':
+          document
+            .querySelector(
+              '.btn-history'
+            )
+            ?.click();
 
-  document
-    .querySelector(
-      '.btn-history'
-    )
-    ?.click();
-
-break;
+        break;
 
         case 'panduan':
 
@@ -333,8 +331,53 @@ break;
 
   );
 
-}
+  // ==========================
+  // CLOSE DROPDOWN OUTSIDE
+  // ==========================
 
+  document.addEventListener(
+
+    'click',
+
+    function(event){
+
+      const wrap =
+        document.querySelector(
+          '.began-nav-kategori'
+        );
+
+      const panel =
+        document.querySelector(
+          '#began-nav-v2 .filter-dropdown-panel'
+        );
+
+      const icon =
+        document.querySelector(
+          '.began-nav__icon'
+        );
+
+      if(
+        !wrap ||
+        !panel ||
+        wrap.contains(event.target)
+      ){
+        return;
+      }
+
+      panel.style.display = 'none';
+
+      if(icon){
+
+        icon.src =
+'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
+
+      }
+
+    }
+
+  );
+
+}
  function renderNotificationBadge(){
 
   const badge =
