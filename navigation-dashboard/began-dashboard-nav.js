@@ -1,6 +1,8 @@
 (function(){
  
 'use strict';
+ 
+ let NAV_BINDED = false;
 
 const partner = JSON.parse(
   localStorage.getItem(
@@ -38,12 +40,12 @@ if(!ENABLE_NAV){
 
  function injectNavigation(){
 
-  const wrapper =
+  const oldWrapper =
     document.querySelector(
       '.menu-wrapper'
     );
 
-  if(!wrapper){
+  if(!oldWrapper){
 
     console.warn(
       '[BEGAN NAV] menu-wrapper not found'
@@ -52,72 +54,121 @@ if(!ENABLE_NAV){
     return;
   }
 
-  wrapper.innerHTML = `
+  if(
+    document.getElementById(
+      'began-nav-v2'
+    )
+  ){
+    return;
+  }
+
+  const navContainer =
+    document.createElement('div');
+
+  navContainer.id =
+    'began-nav-v2';
+
+  navContainer.innerHTML = `
 
 <div class="began-nav">
 
 <button
 class="began-nav__item active"
 data-nav="dashboard">
+
 Dashboard
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="kategori">
+
 Kategori Produk
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="reserve">
+
 Produk Reserve
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="forum">
+
 Forum
+
 <span
 id="forum-badge"
 class="began-nav__badge"
-hidden></span>
+hidden>
+</span>
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="notification">
+
 Notifications
+
 <span
 id="notification-badge"
 class="began-nav__badge"
-hidden></span>
+hidden>
+</span>
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="history">
+
 Riwayat Belanja
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="panduan">
+
 Panduan
+
 </button>
 
 <button
 class="began-nav__item"
 data-nav="contact">
+
 Contact
+
 </button>
 
 </div>
 
 `;
-}
 
+  oldWrapper.insertAdjacentElement(
+    'afterend',
+    navContainer
+  );
+
+  console.log(
+    '[BEGAN NAV] injected'
+  );
+
+}
  function bindNavigation(){
+
+  if(NAV_BINDED){
+    return;
+  }
+
+  NAV_BINDED = true;
 
   document.addEventListener(
 
@@ -139,10 +190,12 @@ Contact
 
       switch(item.dataset.nav){
 
-        case 'dashboard':
+       case 'dashboard':
 
-          location.href =
-'https://www.barkahgarment.com/began-partner-dashboard-dev';
+  BeganPwaBridge.open(
+'https://www.barkahgarment.com/began-partner-dashboard-dev'
+  );
+
 
         break;
 
@@ -282,22 +335,61 @@ Contact
 
 }
 
- document.addEventListener(
+function waitDashboardReady(){
 
-  'DOMContentLoaded',
+  console.log(
+    '[BEGAN NAV] waiting dashboard'
+  );
 
-  function(){
+  const timer = setInterval(
 
-    injectNavigation();
+    function(){
 
-    bindNavigation();
+      const wrapper =
+        document.querySelector(
+          '.menu-wrapper'
+        );
 
-    renderNotificationBadge();
+      const partner =
+        localStorage.getItem(
+          'began_partner'
+        );
 
-    renderForumBadge();
+      if(
+        wrapper &&
+        partner
+      ){
 
-  }
+        console.log(
+          '[BEGAN NAV] dashboard ready'
+        );
+
+        clearInterval(timer);
+
+        injectNavigation();
+
+        bindNavigation();
+
+        renderNotificationBadge();
+
+        renderForumBadge();
+
+      }
+
+    },
+
+    500
+
+  );
+
+}
+ 
+window.addEventListener(
+
+  'load',
+
+  waitDashboardReady
 
 );
 
-})();
+ })();
