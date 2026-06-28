@@ -2,222 +2,302 @@
 
 'use strict';
 
-function closeMobileNav(){
-
-  const menu =
-    document.querySelector(
-      '.mobile_menu'
-    );
-
-  if(menu){
-
-    menu.classList.remove(
-      'active'
-    );
-
-  }
-
-}
-
-function gotoDashboard(e){
-
-  e.preventDefault();
-
-  closeMobileNav();
-
-  location.href =
-'https://www.barkahgarment.com/began-partner-dashboard-dev';
-
-}
-
-function gotoReserve(e){
-
-  e.preventDefault();
-
-  closeMobileNav();
-
-  window.BeganPwaBridge.open(
-
-'https://www.barkahgarment.com/reserve-system'
-
-  );
-
-}
-
-function gotoForum(e){
-
-  e.preventDefault();
-
-  closeMobileNav();
-
-  window.BeganPwaBridge.open(
-
-'https://pwa.barkahgarment.com/forum/'
-
-  );
-
-}
-
-function gotoNotification(e){
-
-  e.preventDefault();
-
-  closeMobileNav();
-
-  window.BeganPwaBridge.open(
-
-'https://pwa.barkahgarment.com/notifications/index.html'
-
-  );
-
-}
-
-function gotoContact(e){
-
-  e.preventDefault();
-
-  closeMobileNav();
-
-  window.open(
-
-'https://wa.me/6285759709855?text=Halo%20BEGAN',
-
-'_blank'
-
-  );
-
-}
-
-document
-.querySelectorAll('.nav-dashboard')
-.forEach(btn=>{
-
-btn.addEventListener(
-'click',
-gotoDashboard
+const partner = JSON.parse(
+  localStorage.getItem(
+    'began_partner'
+  ) || '{}'
 );
 
-});
+const ENABLE_NAV =
 
-document
-.querySelectorAll('.nav-reserve')
-.forEach(btn=>{
-
-btn.addEventListener(
-'click',
-gotoReserve
-);
-
-});
-
-document
-.querySelectorAll('.nav-forum')
-.forEach(btn=>{
-
-btn.addEventListener(
-'click',
-gotoForum
-);
-
-});
-
-document
-.querySelectorAll('.nav-notification')
-.forEach(btn=>{
-
-btn.addEventListener(
-'click',
-gotoNotification
-);
-
-});
-
-document
-.querySelectorAll('.nav-contact')
-.forEach(btn=>{
-
-btn.addEventListener(
-'click',
-gotoContact
-);
-
-});
-
-})();
-/* ==========================================
-   BEGAN INTERNAL QA ACCESS
-   NAVIGATION ONLY FOR BGN-250 / ADMIN1
-========================================== */
-
-const INTERNAL_QA_IDS = [
-  'BGN-250'
-];
-
-const INTERNAL_QA_STORES = [
-  'ADMIN1'
-];
-
-function getPartnerSession(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        'began_partner'
-      ) || '{}'
-    );
-
-  }catch(error){
-
-    return {};
-
-  }
-
-}
-
-const partner =
-  getPartnerSession();
-
-const partnerId =
   String(
     partner.id || ''
   )
   .trim()
-  .toUpperCase();
+  .toUpperCase()
 
-const partnerStore =
+  ===
+
+  'BGN-250'
+
+  ||
+
   String(
     partner.toko || ''
   )
   .trim()
-  .toUpperCase();
+  .toUpperCase()
 
-const HAS_NAV_ACCESS =
+  ===
 
-  INTERNAL_QA_IDS.includes(
-    partnerId
-  )
+  'ADMIN1';
 
-  ||
-
-  INTERNAL_QA_STORES.includes(
-    partnerStore
-  );
-
-console.log(
-  '[BEGAN NAV QA]',
-  {
-    partnerId,
-    partnerStore,
-    HAS_NAV_ACCESS
-  }
-);
-
-if(!HAS_NAV_ACCESS){
-
-  console.log(
-    '[BEGAN NAV] Hidden for partner'
-  );
-
+if(!ENABLE_NAV){
   return;
 }
+
+ function injectNavigation(){
+
+  const wrapper =
+    document.querySelector(
+      '.menu-wrapper'
+    );
+
+  if(!wrapper){
+
+    console.warn(
+      '[BEGAN NAV] menu-wrapper not found'
+    );
+
+    return;
+  }
+
+  wrapper.innerHTML = `
+
+<div class="began-nav">
+
+<button
+class="began-nav__item active"
+data-nav="dashboard">
+Dashboard
+</button>
+
+<button
+class="began-nav__item"
+data-nav="kategori">
+Kategori Produk
+</button>
+
+<button
+class="began-nav__item"
+data-nav="reserve">
+Produk Reserve
+</button>
+
+<button
+class="began-nav__item"
+data-nav="forum">
+Forum
+<span
+id="forum-badge"
+class="began-nav__badge"
+hidden></span>
+</button>
+
+<button
+class="began-nav__item"
+data-nav="notification">
+Notifications
+<span
+id="notification-badge"
+class="began-nav__badge"
+hidden></span>
+</button>
+
+<button
+class="began-nav__item"
+data-nav="history">
+Riwayat Belanja
+</button>
+
+<button
+class="began-nav__item"
+data-nav="panduan">
+Panduan
+</button>
+
+<button
+class="began-nav__item"
+data-nav="contact">
+Contact
+</button>
+
+</div>
+
+`;
+}
+
+ function bindNavigation(){
+
+  document.addEventListener(
+
+    'click',
+
+    function(event){
+
+      const item =
+
+        event.target.closest(
+          '[data-nav]'
+        );
+
+      if(!item){
+        return;
+      }
+
+      event.preventDefault();
+
+      switch(item.dataset.nav){
+
+        case 'dashboard':
+
+          location.href =
+'https://www.barkahgarment.com/began-partner-dashboard-dev';
+
+        break;
+
+        case 'kategori':
+
+          document
+            .querySelector(
+              '.filter-dropdown'
+            )
+            ?.click();
+
+        break;
+
+        case 'history':
+
+          document
+            .querySelector(
+              '.menu-item.history'
+            )
+            ?.click();
+
+        break;
+
+        case 'panduan':
+
+          document
+            .querySelector(
+              '.menu-item.panduan'
+            )
+            ?.click();
+
+        break;
+
+        case 'contact':
+
+          document
+            .querySelector(
+              '.menu-item.contact'
+            )
+            ?.click();
+
+        break;
+
+        case 'reserve':
+
+          BeganPwaBridge.open(
+'https://www.barkahgarment.com/reserve-system'
+          );
+
+        break;
+
+        case 'forum':
+
+          BeganPwaBridge.open(
+'https://pwa.barkahgarment.com/forum/'
+          );
+
+        break;
+
+        case 'notification':
+
+          BeganPwaBridge.open(
+'https://pwa.barkahgarment.com/notifications/index.html'
+          );
+
+        break;
+
+      }
+
+    }
+
+  );
+
+}
+
+ function renderNotificationBadge(){
+
+  const badge =
+    document.getElementById(
+      'notification-badge'
+    );
+
+  if(!badge)
+    return;
+
+  const unread =
+    Number(
+      localStorage.getItem(
+        'began_notification_unread'
+      ) || 0
+    );
+
+  if(unread <= 0){
+
+    badge.hidden = true;
+    return;
+  }
+
+  badge.hidden = false;
+
+  badge.textContent =
+    unread > 99
+      ? '99+'
+      : unread;
+
+}
+
+ function renderForumBadge(){
+
+  const badge =
+    document.getElementById(
+      'forum-badge'
+    );
+
+  if(!badge)
+    return;
+
+  const unread =
+    Number(
+      localStorage.getItem(
+        'began_forum_unread'
+      ) || 0
+    );
+
+  if(unread <= 0){
+
+    badge.hidden = true;
+    return;
+  }
+
+  badge.hidden = false;
+
+  badge.textContent =
+    unread > 99
+      ? '99+'
+      : unread;
+
+}
+
+ document.addEventListener(
+
+  'DOMContentLoaded',
+
+  function(){
+
+    injectNavigation();
+
+    bindNavigation();
+
+    renderNotificationBadge();
+
+    renderForumBadge();
+
+  }
+
+);
+
+})();
