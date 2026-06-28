@@ -80,26 +80,6 @@ Dashboard
 
 </button>
 
-<div class="
-filter-dropdown
-began-nav-kategori">
-
-<button
-class="began-nav__item began-nav__kategori-btn"
-data-nav="kategori">
-
-<span class="began-nav__label">
-KATEGORI PRODUCT
-</span>
-
-<img
-class="began-nav__icon"
-src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
-
-</button>
-
-</div>
-
 <button
 class="began-nav__item"
 data-nav="reserve">
