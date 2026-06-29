@@ -145,6 +145,7 @@ src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
     'afterend',
     navContainer
   );
+   oldWrapper.style.display = 'none';
   const oldPanel =
 
   document.querySelector(
