@@ -744,7 +744,7 @@ and (orientation:landscape){
 
 @media screen and (max-width:479px){
 
-  .mobile_menu{
+  .mobile-menu{
     display:none;
   }
 
@@ -846,6 +846,60 @@ and (orientation:landscape){
     height:18px;
     display:block;
     background:url('https://pwa.barkahgarment.com/assets/whatsappIcon.png') center/contain no-repeat;
+  }
+
+}
+@media screen and (max-width:479px){
+
+  #began-nav-v2{
+      padding-top:52px;
+      position:relative;
+  }
+
+  /* utility */
+
+  .began-nav__item[data-nav="notification"],
+  .began-nav__item[data-nav="history"],
+  .began-nav__item[data-nav="panduan"],
+  .began-nav__item[data-nav="contact"]{
+
+      position:absolute;
+
+      top:0;
+
+      width:42px;
+
+      min-height:42px;
+
+      font-size:0;
+  }
+
+  .began-nav__item[data-nav="notification"]{ left:8px; }
+  .began-nav__item[data-nav="history"]{ left:58px; }
+  .began-nav__item[data-nav="panduan"]{ left:108px; }
+  .began-nav__item[data-nav="contact"]{ left:158px; }
+
+  /* menu utama */
+
+  .began-nav{
+
+      display:flex;
+
+      flex-wrap:nowrap;
+
+      overflow-x:auto;
+
+      gap:8px;
+
+      padding-bottom:6px;
+  }
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"],
+  .began-nav-kategori{
+
+      flex:0 0 140px;
   }
 
 }
