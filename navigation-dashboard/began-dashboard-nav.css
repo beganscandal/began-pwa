@@ -430,6 +430,37 @@ and (orientation:landscape){
   }
 
 }
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  /* semua box lebih compact */
+
+  .began-nav__item{
+
+    min-height:30px;
+
+    padding:0 4px;
+
+    font-size:8px;
+
+    letter-spacing:0;
+
+  }
+
+  /* core menu */
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"],
+  .began-nav__kategori-btn{
+
+    min-height:36px;
+
+    font-size:9px;
+  }
+
+}
 /* =====================================
    MOBILE LANDSCAPE REFINEMENT
 ===================================== */
@@ -532,6 +563,52 @@ and (orientation:landscape){
   .began-nav__item[data-nav="contact"]{
 
     min-height:30px;
+  }
+
+}
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav__kategori-btn{
+
+    padding:2px 6px;
+  }
+
+  .began-nav__kategori-btn
+  .began-nav__label{
+
+    white-space:normal;
+
+    line-height:1.05;
+
+    font-size:8px;
+
+    text-align:center;
+  }
+
+}
+
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav__item[data-nav="notification"]
+  .began-nav__badge{
+
+    top:3px;
+
+    right:18px;
+
+    min-width:14px;
+
+    width:14px;
+
+    height:14px;
+
+    padding:0;
+
+    font-size:8px;
   }
 
 }
