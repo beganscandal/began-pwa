@@ -17,15 +17,29 @@
 
   display:grid;
 
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:
+    repeat(4, minmax(140px,1fr));
 
-  gap:12px;
+  gap:10px;
 
-  max-width:920px;
+  max-width:760px;
 
   margin:0 auto;
+
 }
 
+.began-nav__item,
+.began-nav__kategori-btn{
+
+  width:100%;
+
+  min-width:0;
+
+  padding:0 12px;
+
+  font-size:11px;
+
+}
 .began-nav__item,
 .began-nav-kategori{
 
@@ -402,8 +416,4 @@ flex-shrink:0;
 
 }
 
-#began-nav-v2 .began-nav__kategori-btn{
 
-  min-width:240px;
-
-}
