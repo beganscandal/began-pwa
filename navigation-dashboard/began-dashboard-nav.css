@@ -593,11 +593,6 @@ and (orientation:landscape){
 (max-width:767px)
 and (orientation:landscape){
 
- 
-@media screen and
-(max-width:767px)
-and (orientation:landscape){
-
   #partner-info{
 
     position:absolute;
