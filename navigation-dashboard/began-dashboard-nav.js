@@ -300,6 +300,11 @@ if(
       'began-nav-portrait'
     );
 
+  const kategori =
+    document.querySelector(
+      '.began-nav-kategori'
+    );
+
   if(window.innerWidth <= 479){
 
     if(!portrait){
@@ -308,42 +313,55 @@ if(
 
     }
 
-    if(desktop){
+    const portraitMain =
+      document.querySelector(
+        '.began-portrait-main'
+      );
 
-      desktop.style.display =
-        'none';
+    if(
+      kategori &&
+      portraitMain &&
+      !portraitMain.contains(kategori)
+    ){
+
+      portraitMain.appendChild(
+        kategori
+      );
 
     }
 
- }else{
+    if(desktop){
 
-  const kategori =
-    document.querySelector(
-      '#began-nav-portrait .began-nav-kategori'
-    );
+      desktop.style.display = 'none';
 
-  if(
-    kategori &&
-    desktop
-  ){
+    }
 
-    desktop.querySelector(
-      '.began-nav'
-    ).appendChild(
-      kategori
-    );
+  }else{
+
+    if(
+      kategori &&
+      desktop &&
+      !desktop.contains(kategori)
+    ){
+
+      desktop.querySelector(
+        '.began-nav'
+      ).appendChild(
+        kategori
+      );
+
+    }
+
+    portrait?.remove();
+
+    if(desktop){
+
+      desktop.style.display = '';
+
+    }
 
   }
 
-  portrait?.remove();
-
-  if(desktop){
-
-    desktop.style.display = '';
-
-  }
-
-}
 }
  function bindNavigation(){
 
