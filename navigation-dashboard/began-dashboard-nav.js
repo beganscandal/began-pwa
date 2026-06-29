@@ -174,6 +174,115 @@ if(
   );
 
 }
+
+  function renderPortraitNavigation(){
+
+  if(window.innerWidth > 479){
+    return;
+  }
+
+  if(
+    document.getElementById(
+      'began-nav-portrait'
+    )
+  ){
+    return;
+  }
+
+  const desktopNav =
+    document.getElementById(
+      'began-nav-v2'
+    );
+
+  if(!desktopNav){
+    return;
+  }
+
+  desktopNav.style.display = 'none';
+
+  const portrait =
+    document.createElement('div');
+
+  portrait.id =
+    'began-nav-portrait';
+
+  portrait.innerHTML = `
+
+<div class="began-portrait-main">
+
+<button class="portrait-main active"
+data-nav="dashboard">
+Dashboard
+</button>
+
+<button
+class="portrait-main"
+data-nav="kategori">
+
+Kategori Product ▼
+
+</button>
+
+<button class="portrait-main"
+data-nav="reserve">
+Produk Reserve
+</button>
+
+<button class="portrait-main"
+data-nav="forum">
+Forum
+</button>
+
+</div>
+
+`;
+
+  desktopNav.insertAdjacentElement(
+    'afterend',
+    portrait
+  );
+
+}
+  function updatePortraitNavigation(){
+
+  const desktop =
+    document.getElementById(
+      'began-nav-v2'
+    );
+
+  const portrait =
+    document.getElementById(
+      'began-nav-portrait'
+    );
+
+  if(window.innerWidth <= 479){
+
+    if(!portrait){
+
+      renderPortraitNavigation();
+
+    }
+
+    if(desktop){
+
+      desktop.style.display =
+        'none';
+
+    }
+
+  }else{
+
+    portrait?.remove();
+
+    if(desktop){
+
+      desktop.style.display = '';
+
+    }
+
+  }
+
+}
  function bindNavigation(){
 
   if(NAV_BINDED){
@@ -220,16 +329,41 @@ document.querySelector(
 '#began-nav-v2 .began-nav-kategori'
 );
 
+if(!dropdown){
+  break;
+}
+
 const icon =
-document.querySelector(
+dropdown.querySelector(
 '.began-nav__icon'
 );
 
-if(!dropdown) break;
+/* portrait mode */
+
+if(window.innerWidth <= 479){
+
+  const opened =
+    dropdown.classList.toggle(
+      'active'
+    );
+
+  if(icon){
+
+    icon.src =
+      opened
+      ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
+      : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
+
+  }
+
+  break;
+}
+
+/* desktop + tablet + landscape */
 
 const opened =
 dropdown.classList.toggle(
-'active'
+  'active'
 );
 
 if(icon){
@@ -487,11 +621,18 @@ function waitDashboardReady(){
           '[BEGAN NAV] dashboard ready'
         );
 
-        injectNavigation();
+       injectNavigation();
 
-        bindNavigation();
+bindNavigation();
 
-        refreshNotificationBadge();
+updatePortraitNavigation();
+
+window.addEventListener(
+  'resize',
+  updatePortraitNavigation
+);
+
+refreshNotificationBadge();
 
         return;
 
