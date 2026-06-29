@@ -374,7 +374,167 @@ and (orientation:landscape){
   }
 
 }
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
 
+  .began-nav{
+
+    grid-template-columns:
+      repeat(4,1fr);
+
+    gap:6px;
+
+  }
+
+  .began-nav__item{
+
+    min-height:34px;
+
+    padding:0 8px;
+
+    font-size:9px;
+
+    letter-spacing:.03em;
+  }
+
+  /* tombol utama */
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"],
+  .began-nav__kategori-btn{
+
+    min-height:38px;
+
+    font-size:10px;
+
+    border-color:#00ff66;
+  }
+
+  /* tombol utility */
+
+  .began-nav__item[data-nav="notification"],
+  .began-nav__item[data-nav="history"],
+  .began-nav__item[data-nav="panduan"],
+  .began-nav__item[data-nav="contact"]{
+
+    min-height:30px;
+
+    background:#050505;
+
+    border-color:
+      rgba(255,255,255,.08);
+
+    opacity:.85;
+  }
+
+}
+/* =====================================
+   MOBILE LANDSCAPE REFINEMENT
+===================================== */
+
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  /* beri ruang atas agar tidak tabrak running text */
+
+  #began-nav-v2{
+
+    margin-top:10px;
+    margin-bottom:12px;
+
+  }
+
+  /* nav lebih compact */
+
+  .began-nav{
+
+    grid-template-columns:
+      repeat(4,1fr);
+
+    gap:5px;
+
+    max-width:100%;
+
+    padding:0 4px;
+
+  }
+
+  /* semua tombol */
+
+  .began-nav__item{
+
+    min-height:34px;
+
+    padding:0 6px;
+
+    font-size:9px;
+
+    letter-spacing:.02em;
+
+    overflow:hidden;
+
+  }
+
+  /* core business */
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"]{
+
+    min-height:40px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+  }
+
+  /* kategori dibuat 2 baris */
+
+  .began-nav__kategori-btn{
+
+    min-height:40px;
+
+    padding:4px 8px;
+
+  }
+
+  .began-nav__label{
+
+    white-space:normal;
+
+    line-height:1.05;
+
+    text-align:center;
+
+    font-size:9px;
+  }
+
+  /* icon toggle kecil */
+
+  .began-nav__icon{
+
+    width:16px;
+
+    height:16px;
+
+    margin-left:4px;
+
+  }
+
+  /* support menu dibuat icon-only */
+
+  .began-nav__item[data-nav="notification"],
+  .began-nav__item[data-nav="panduan"],
+  .began-nav__item[data-nav="contact"]{
+
+    min-height:30px;
+  }
+
+}
 
 /* =====================================
    MOBILE PORTRAIT
