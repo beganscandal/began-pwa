@@ -744,25 +744,143 @@ and (orientation:landscape){
 
 @media screen and (max-width:479px){
 
+  #began-nav-v2{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding-right:44px; /* ruang utility */
+  }
+
+  /* menu utama horizontal */
+
   .began-nav{
 
-    display:grid;
+    display:flex;
 
-    grid-template-columns:
-      repeat(2,1fr);
+    flex-wrap:nowrap;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
 
     gap:8px;
 
+    padding:0 8px 12px;
+
+    scroll-behavior:smooth;
+
+    -webkit-overflow-scrolling:touch;
+
+    scrollbar-width:thin;
   }
 
-  .began-nav__item{
+  /* scrollbar harus terlihat */
 
-    width:100%;
+  .began-nav::-webkit-scrollbar{
 
-    min-height:44px;
+    height:4px;
+  }
+
+  .began-nav::-webkit-scrollbar-track{
+
+    background:#111;
+  }
+
+  .began-nav::-webkit-scrollbar-thumb{
+
+    background:#00ff66;
+  }
+
+  /* tombol utama */
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"],
+  .began-nav__kategori-btn{
+
+    flex:0 0 130px;
+
+    min-height:48px;
 
     font-size:10px;
+  }
 
+  /* utility menjadi icon kecil */
+
+  .began-nav__item[data-nav="notification"],
+  .began-nav__item[data-nav="history"],
+  .began-nav__item[data-nav="panduan"],
+  .began-nav__item[data-nav="contact"]{
+
+    position:fixed;
+
+    right:6px;
+
+    width:36px;
+
+    min-height:36px;
+
+    padding:0;
+
+    font-size:0;
+
+    z-index:100;
+  }
+
+  .began-nav__item[data-nav="notification"]{
+
+    top:210px;
+  }
+
+  .began-nav__item[data-nav="history"]{
+
+    top:252px;
+  }
+
+  .began-nav__item[data-nav="panduan"]{
+
+    top:294px;
+  }
+
+  .began-nav__item[data-nav="contact"]{
+
+    top:336px;
+  }
+
+  .began-nav__item[data-nav="notification"]::before{
+
+    content:'🔔';
+
+    font-size:16px;
+  }
+
+  .began-nav__item[data-nav="history"]::before{
+
+    content:'🧾';
+
+    font-size:16px;
+  }
+
+  .began-nav__item[data-nav="panduan"]::before{
+
+    content:'📖';
+
+    font-size:16px;
+  }
+
+  .began-nav__item[data-nav="contact"]::before{
+
+    content:'';
+
+    display:block;
+
+    width:18px;
+
+    height:18px;
+
+    background:url('https://pwa.barkahgarment.com/assets/whatsappIcon.png') center/contain no-repeat;
   }
 
 }
