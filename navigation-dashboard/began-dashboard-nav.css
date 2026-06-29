@@ -891,7 +891,7 @@ flex-shrink:0;
 
   padding:0;
 
-  overflow:hidden;
+  overflow:visible;
 }
   /* row */
 
@@ -1017,7 +1017,8 @@ flex-shrink:0;
   flex-shrink:0;
 
 }
-/* =====================================
+}
+  /* =====================================
    PORTRAIT UTIL MENU
 ===================================== */
 
@@ -1157,4 +1158,76 @@ flex-shrink:0;
 
 }
 
+  @media screen and (max-width:479px){
+
+  .began-portrait-main{
+
+    overflow-x:auto;
+    overflow-y:visible !important;
+
+  }
+
+  .began-portrait-main
+  .began-nav-kategori{
+
+    position:relative;
+
+    flex:0 0 auto;
+
+    min-width:170px;
+
+    z-index:9999;
+  }
+
+  .began-portrait-main
+  .filter-dropdown-panel{
+
+    position:absolute;
+
+    top:calc(100% + 8px);
+
+    left:0;
+
+    width:240px;
+
+    max-height:60vh;
+
+    overflow-y:auto;
+
+    z-index:99999;
+  }
+
 }
+
+  html,
+body{
+
+  overflow-x:hidden !important;
+
+}
+  .began-portrait-main{
+
+  overscroll-behavior-x:contain;
+
+}
+@media screen and (max-width:479px){
+
+  .began-portrait-main{
+    position:relative;
+  }
+
+}
+@media screen and (max-width:479px){
+
+  .nav_container.w-nav,
+  .nav,
+  .nav_left,
+  #began-nav-portrait{
+
+    overflow:visible !important;
+
+  }
+
+}
+
+
