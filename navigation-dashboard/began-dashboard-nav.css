@@ -739,51 +739,72 @@ and (orientation:landscape){
 
 }
 
-
 /* =====================================
    MOBILE PORTRAIT
 ===================================== */
 
 @media screen and (max-width:479px){
 
-  /* ---------------------------------
-     Hide old mobile navigation
-  --------------------------------- */
+  /* hide legacy mobile menu */
 
   .hamburger,
   .mobile_menu{
     display:none;
   }
 
-  /* ---------------------------------
-     Biarkan logo tetap tampil
-  --------------------------------- */
+  /* header menjadi vertical stack */
 
-  .nav_left{
+  .nav_container{
+
     display:flex;
-    width:100%;
-    justify-content:flex-start;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    padding:8px;
+
+    height:auto !important;
   }
 
-  /* ---------------------------------
-     Nav custom full width
-  --------------------------------- */
+  /* logo */
+
+  .nav_left{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:8px;
+  }
+
+  .nav_logo{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+  }
+
+  .nav_logo img{
+
+    width:110px;
+  }
+
+  /* custom nav */
 
   .nav_center{
-
-    position:absolute;
-
-    left:0;
-
-    top:54px;
 
     width:100%;
 
     max-width:100%;
 
-    padding:0 8px;
+    position:static;
 
-    z-index:20;
+    padding:0;
   }
 
   #began-nav-v2{
@@ -791,89 +812,55 @@ and (orientation:landscape){
     width:100%;
 
     margin:0;
-
-    overflow:visible;
-
-    position:relative;
-
-    padding-top:50px;
   }
 
-  /* ---------------------------------
-     Utility icon row
-  --------------------------------- */
+  /* utility row */
 
   .began-nav__item[data-nav="notification"],
   .began-nav__item[data-nav="history"],
   .began-nav__item[data-nav="panduan"],
   .began-nav__item[data-nav="contact"]{
 
-    position:absolute;
+    flex:0 0 44px;
 
-    top:0;
-
-    width:42px;
-
-    min-height:42px;
-
-    padding:0;
+    min-height:44px;
 
     font-size:0;
   }
 
   .began-nav__item[data-nav="notification"]{
-    left:8px;
+    order:1;
   }
 
   .began-nav__item[data-nav="history"]{
-    left:58px;
+    order:2;
   }
 
   .began-nav__item[data-nav="panduan"]{
-    left:108px;
+    order:3;
   }
 
   .began-nav__item[data-nav="contact"]{
-    left:158px;
+    order:4;
   }
 
-  /* ---------------------------------
-     Utility icons
-  --------------------------------- */
-
-  .began-nav__item[data-nav="notification"]::before{
-    content:'🔔';
-    font-size:16px;
+  .began-nav__item[data-nav="dashboard"]{
+    order:10;
   }
 
-  .began-nav__item[data-nav="history"]::before{
-    content:'🧾';
-    font-size:16px;
+  .began-nav-kategori{
+    order:11;
   }
 
-  .began-nav__item[data-nav="panduan"]::before{
-    content:'📖';
-    font-size:16px;
+  .began-nav__item[data-nav="reserve"]{
+    order:12;
   }
 
-  .began-nav__item[data-nav="contact"]::before{
-
-    content:'';
-
-    display:block;
-
-    width:18px;
-
-    height:18px;
-
-    background:
-      url('https://pwa.barkahgarment.com/assets/whatsappIcon.png')
-      center/contain no-repeat;
+  .began-nav__item[data-nav="forum"]{
+    order:13;
   }
 
-  /* ---------------------------------
-     Main menu horizontal scroll
-  --------------------------------- */
+  /* NAV STYLE ala Canva */
 
   .began-nav{
 
@@ -887,11 +874,7 @@ and (orientation:landscape){
 
     gap:8px;
 
-    width:max-content;
-
-    min-width:100%;
-
-    padding:0 0 10px;
+    padding:4px 0 10px;
 
     scroll-behavior:smooth;
 
@@ -900,72 +883,73 @@ and (orientation:landscape){
     scrollbar-width:thin;
   }
 
+  /* scrollbar visible */
+
   .began-nav::-webkit-scrollbar{
-    height:4px;
+
+    height:5px;
   }
 
   .began-nav::-webkit-scrollbar-track{
+
     background:#111;
   }
 
   .began-nav::-webkit-scrollbar-thumb{
+
     background:#00ff66;
-    border-radius:999px;
+
+    border-radius:99px;
   }
 
-  /* ---------------------------------
-     Main menu size
-  --------------------------------- */
+  /* main button */
 
   .began-nav__item[data-nav="dashboard"],
   .began-nav__item[data-nav="reserve"],
   .began-nav__item[data-nav="forum"],
   .began-nav-kategori{
 
-    flex:0 0 140px;
+    flex:0 0 150px;
 
     min-height:48px;
-
-    font-size:10px;
   }
 
-  /* ---------------------------------
-     Hint scroll
-  --------------------------------- */
+  /* utility icons */
 
-  #began-nav-v2::after{
+  .began-nav__item[data-nav="notification"]::before{
 
-    content:'⇢';
+    content:'🔔';
 
-    position:absolute;
-
-    right:6px;
-
-    bottom:8px;
-
-    color:#00ff66;
-
-    font-size:18px;
-
-    animation:navScrollHint 1s ease-in-out infinite;
+    font-size:16px;
   }
 
-}
+  .began-nav__item[data-nav="history"]::before{
 
-/* ---------------------------------
-   Scroll hint animation
---------------------------------- */
+    content:'🧾';
 
-@keyframes navScrollHint{
-
-  0%,100%{
-    transform:translateX(0);
-    opacity:.4;
+    font-size:16px;
   }
 
-  50%{
-    transform:translateX(6px);
-    opacity:1;
+  .began-nav__item[data-nav="panduan"]::before{
+
+    content:'📖';
+
+    font-size:16px;
+  }
+
+  .began-nav__item[data-nav="contact"]::before{
+
+    content:'';
+
+    width:18px;
+
+    height:18px;
+
+    display:block;
+
+    background:
+      url('https://pwa.barkahgarment.com/assets/whatsappIcon.png')
+      center/contain no-repeat;
   }
 
 }
