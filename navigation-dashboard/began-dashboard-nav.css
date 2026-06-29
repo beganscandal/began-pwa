@@ -249,38 +249,66 @@
    MOBILE LANDSCAPE
 ===================================== */
 
-@media screen and (max-width:767px){
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
 
-  .began-nav{
+  .began-nav__item[data-nav="contact"]{
 
-    gap:8px;
+    font-size:0;
 
   }
 
-  .began-nav__item{
+  .began-nav__item[data-nav="contact"]::before{
 
-    min-height:40px;
+    content:'💬';
 
-    padding:0 14px;
-
-    font-size:10px;
-     touch-action:manipulation;
-    user-select:none;
-     flex-shrink:0;
+    font-size:16px;
 
   }
 
 }
 
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
 
-.began-nav__item:focus-visible{
-  outline:2px solid #00ff66;
-  outline-offset:2px;
+  .began-nav__item[data-nav="notification"]{
+
+    font-size:0;
+
+  }
+
+  .began-nav__item[data-nav="notification"]::before{
+
+    content:'🔔';
+
+    font-size:16px;
+
+  }
+
+}
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav__item[data-nav="panduan"]{
+
+    font-size:0;
+
+  }
+
+  .began-nav__item[data-nav="panduan"]::before{
+
+    content:'📖';
+
+    font-size:16px;
+
+  }
+
 }
 
-.began-nav__item:active{
-  transform:scale(.97);
-}
+
 /* =====================================
    MOBILE PORTRAIT
 ===================================== */
