@@ -612,6 +612,52 @@ and (orientation:landscape){
   }
 
 }
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  #partner-info{
+
+    position:relative;
+
+    margin-top:24px !important;
+
+    transform:translateY(18px);
+
+    z-index:1;
+
+  }
+
+}
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav__item[data-nav="notification"]{
+
+    position:relative;
+  }
+
+  .began-nav__item[data-nav="notification"]
+  .began-nav__badge{
+
+    top:7px;
+
+    right:calc(50% - 12px);
+
+    min-width:12px;
+
+    width:12px;
+
+    height:12px;
+
+    font-size:7px;
+
+    padding:0;
+
+  }
+
+}
 
 /* =====================================
    MOBILE PORTRAIT
