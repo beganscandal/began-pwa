@@ -462,6 +462,47 @@ and (orientation:landscape){
 
 }
 /* =====================================
+   DESKTOP RESET
+===================================== */
+
+@media screen and (min-width:768px){
+
+  .began-nav{
+
+    max-width:820px;
+
+    gap:10px;
+
+    grid-template-columns:
+      repeat(4,minmax(140px,1fr));
+
+  }
+
+  .began-nav__item,
+  .began-nav__kategori-btn{
+
+    min-height:46px;
+
+    padding:0 20px;
+
+    font-size:12px;
+
+    letter-spacing:.08em;
+  }
+
+  .began-nav__label{
+
+    white-space:nowrap;
+
+    line-height:1.2;
+
+    font-size:inherit;
+
+    text-align:center;
+  }
+
+}
+/* =====================================
    MOBILE LANDSCAPE REFINEMENT
 ===================================== */
 
@@ -609,14 +650,7 @@ and (orientation:landscape){
 
 }
 
-@media screen and
-(max-width:767px)
-and (orientation:landscape){
 
-  .began-nav__item[data-nav="notification"]{
-
-    position:relative;
-  }
 
  @media screen and
 (max-width:767px)
