@@ -652,7 +652,63 @@ and (orientation:landscape){
   }
 
 }
+  @media screen and
+(max-width:767px)
+and (orientation:landscape){
 
+  #began-nav-v2{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+  }
+
+  .began-nav{
+
+    width:100%;
+
+    max-width:640px;
+
+    margin:0 auto;
+  }
+
+}
+  @media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .text-block-41{
+
+    margin-top:20px !important;
+
+    font-size:10px;
+
+    letter-spacing:.05em;
+
+  }
+
+}
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav__item[data-nav="notification"]
+  .began-nav__badge{
+
+    top:6px;
+    right:20px;
+
+    min-width:14px;
+    height:14px;
+
+    font-size:8px;
+
+    padding:0 3px;
+  }
+
+}
 /* =====================================
    MOBILE PORTRAIT
 ===================================== */
