@@ -77,6 +77,8 @@ if(!ENABLE_NAV){
 
   navContainer.innerHTML = `
 
+  
+
 <div class="began-nav">
 
 <button class="began-nav__item active"
@@ -208,6 +210,40 @@ if(
 
   portrait.innerHTML = `
 
+  <div class="began-portrait-utils">
+
+<button class="portrait-util"
+data-nav="notification">
+
+<span class="portrait-badge"
+id="portrait-notification-badge"
+hidden></span>
+
+🔔
+
+</button>
+
+<button class="portrait-util"
+data-nav="history">
+🧾
+</button>
+
+<button class="portrait-util"
+data-nav="panduan">
+📖
+</button>
+
+<button class="portrait-util whatsapp"
+data-nav="contact">
+
+<img
+src="https://pwa.barkahgarment.com/assets/whatsappIcon.png"
+alt="WhatsApp">
+
+</button>
+
+</div>
+
 <div class="began-portrait-main">
 
 <button class="portrait-main active"
@@ -236,14 +272,34 @@ Forum
 </div>
 
 `;
+const desktopDropdown =
+document.querySelector(
+'#began-nav-v2 .began-nav-kategori'
+);
 
-  desktopNav.insertAdjacentElement(
-    'afterend',
-    portrait
+desktopNav.insertAdjacentElement(
+  'afterend',
+  portrait
+);
+
+const mainMenu =
+  portrait.querySelector(
+    '.began-portrait-main'
   );
 
-}
-  function updatePortraitNavigation(){
+if(
+  desktopDropdown &&
+  mainMenu
+){
+
+  mainMenu.appendChild(
+    desktopDropdown
+  );
+
+} 
+  }
+    
+    function updatePortraitNavigation(){
 
   const desktop =
     document.getElementById(
@@ -271,6 +327,23 @@ Forum
     }
 
   }else{
+    const dropdown =
+document.querySelector(
+'#began-nav-portrait .began-nav-kategori'
+);
+
+if(
+  dropdown &&
+  desktop
+){
+
+  desktop.querySelector(
+    '.began-nav'
+  ).appendChild(
+    dropdown
+  );
+
+}
 
     portrait?.remove();
 
@@ -322,11 +395,11 @@ Forum
 
         break;
 
-        case 'kategori':
+    case 'kategori':
 
 const dropdown =
 document.querySelector(
-'#began-nav-v2 .began-nav-kategori'
+  '.began-nav-kategori'
 );
 
 if(!dropdown){
@@ -335,31 +408,8 @@ if(!dropdown){
 
 const icon =
 dropdown.querySelector(
-'.began-nav__icon'
+  '.began-nav__icon'
 );
-
-/* portrait mode */
-
-if(window.innerWidth <= 479){
-
-  const opened =
-    dropdown.classList.toggle(
-      'active'
-    );
-
-  if(icon){
-
-    icon.src =
-      opened
-      ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
-      : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
-
-  }
-
-  break;
-}
-
-/* desktop + tablet + landscape */
 
 const opened =
 dropdown.classList.toggle(
@@ -370,13 +420,13 @@ if(icon){
 
   icon.src =
     opened
-    ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
-    : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
+      ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
+      : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
 
 }
 
 break;
-        
+
         case 'history':
 
           document
@@ -441,40 +491,44 @@ break;
   // CLOSE DROPDOWN OUTSIDE
   // ==========================
 
- document.addEventListener(
+document.addEventListener(
 
-'click',
+  'click',
 
-function(event){
+  function(event){
 
-const wrap =
-document.querySelector(
-'.began-nav-kategori'
-);
+    const wrap =
+      document.querySelector(
+        '.began-nav-kategori'
+      );
 
-if(
-!wrap ||
-wrap.contains(event.target)
-){
-return;
-}
+    if(
+      !wrap ||
+      wrap.contains(event.target)
+    ){
+      return;
+    }
 
-wrap.classList.remove('active');
+    wrap.classList.remove(
+      'active'
+    );
 
-const icon =
-document.querySelector(
-'.began-nav__icon'
-);
+    const icon =
+      wrap.querySelector(
+        '.began-nav__icon'
+      );
 
-if(icon){
+    if(icon){
 
-icon.src =
+      icon.src =
 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
 
-}
+    }
 
-});
-}
+  }
+
+);
+ }
 
   async function refreshNotificationBadge(){
 
@@ -545,47 +599,36 @@ icon.src =
 }
   function renderNotificationBadge(){
 
-  const badge =
-
-    document.getElementById(
-      'notification-badge'
-    );
-
-  if(!badge){
-    return;
-  }
+  const badges = document.querySelectorAll(
+    '#notification-badge, #portrait-notification-badge'
+  );
 
   const unreadCount =
-
     NAV_NOTIFICATIONS.filter(
-
-      function(notification){
-
-        return !notification.isRead;
-
-      }
-
+      n => !n.isRead
     ).length;
 
- if(unreadCount <= 0){
+  badges.forEach(function(badge){
 
-  badge.hidden = true;
+    if(!badge) return;
 
-  badge.textContent = '';
+    if(unreadCount <= 0){
 
-  return;
+      badge.hidden = true;
+      badge.textContent = '';
+      return;
+    }
 
-}
     badge.hidden = false;
 
-badge.textContent =
+    badge.textContent =
+      unreadCount > 99
+      ? '99+'
+      : unreadCount;
 
-  unreadCount > 99
-    ? '99+'
-    : unreadCount;
- 
+  });
+
 }
-
 function waitDashboardReady(){
 
   console.log(
