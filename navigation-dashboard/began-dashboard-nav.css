@@ -744,154 +744,113 @@ and (orientation:landscape){
 
 @media screen and (max-width:479px){
 
-  #began-nav-v2{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding-right:44px; /* ruang utility */
+  .mobile_menu{
+    display:none;
   }
 
-  /* menu utama horizontal */
+  #began-nav-v2{
+    overflow:hidden;
+  }
 
   .began-nav{
 
     display:flex;
 
-    flex-wrap:nowrap;
-
-    overflow-x:auto;
-
-    overflow-y:hidden;
+    flex-wrap:wrap;
 
     gap:8px;
 
-    padding:0 8px 12px;
+    overflow-x:auto;
+
+    padding:0 8px 8px;
 
     scroll-behavior:smooth;
 
     -webkit-overflow-scrolling:touch;
-
-    scrollbar-width:thin;
   }
 
-  /* scrollbar harus terlihat */
+  /* scrollbar terlihat */
 
   .began-nav::-webkit-scrollbar{
-
     height:4px;
   }
 
   .began-nav::-webkit-scrollbar-track{
-
     background:#111;
   }
 
   .began-nav::-webkit-scrollbar-thumb{
-
     background:#00ff66;
   }
 
-  /* tombol utama */
-
-  .began-nav__item[data-nav="dashboard"],
-  .began-nav__item[data-nav="reserve"],
-  .began-nav__item[data-nav="forum"],
-  .began-nav__kategori-btn{
-
-    flex:0 0 130px;
-
-    min-height:48px;
-
-    font-size:10px;
-  }
-
-  /* utility menjadi icon kecil */
+  /* ===== utility row ===== */
 
   .began-nav__item[data-nav="notification"],
   .began-nav__item[data-nav="history"],
   .began-nav__item[data-nav="panduan"],
   .began-nav__item[data-nav="contact"]{
 
-    position:fixed;
+    flex:0 0 48px;
 
-    right:6px;
-
-    width:36px;
-
-    min-height:36px;
+    min-height:38px;
 
     padding:0;
 
     font-size:0;
-
-    z-index:100;
   }
 
-  .began-nav__item[data-nav="notification"]{
+  .began-nav__item[data-nav="notification"]{ order:1; }
+  .began-nav__item[data-nav="history"]{ order:2; }
+  .began-nav__item[data-nav="panduan"]{ order:3; }
+  .began-nav__item[data-nav="contact"]{ order:4; }
 
-    top:210px;
+  /* ===== main menu row ===== */
+
+  .began-nav__item[data-nav="dashboard"]{ order:10; }
+  .began-nav-kategori{ order:11; }
+  .began-nav__item[data-nav="reserve"]{ order:12; }
+  .began-nav__item[data-nav="forum"]{ order:13; }
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"],
+  .began-nav-kategori{
+
+    flex:0 0 140px;
+
+    min-height:48px;
+
+    font-size:10px;
   }
 
-  .began-nav__item[data-nav="history"]{
-
-    top:252px;
-  }
-
-  .began-nav__item[data-nav="panduan"]{
-
-    top:294px;
-  }
-
-  .began-nav__item[data-nav="contact"]{
-
-    top:336px;
-  }
+  /* icon utility */
 
   .began-nav__item[data-nav="notification"]::before{
-
     content:'🔔';
-
     font-size:16px;
   }
 
   .began-nav__item[data-nav="history"]::before{
-
     content:'🧾';
-
     font-size:16px;
   }
 
   .began-nav__item[data-nav="panduan"]::before{
-
     content:'📖';
-
     font-size:16px;
   }
 
   .began-nav__item[data-nav="contact"]::before{
-
     content:'';
-
-    display:block;
-
     width:18px;
-
     height:18px;
-
+    display:block;
     background:url('https://pwa.barkahgarment.com/assets/whatsappIcon.png') center/contain no-repeat;
   }
 
 }
 
-@media screen and (max-width:479px){
-
-  .mobile_menu{
-    display:none;
-  }
-
-}
+/* ========================================================================= */
 
 .began-nav__icon{
 
