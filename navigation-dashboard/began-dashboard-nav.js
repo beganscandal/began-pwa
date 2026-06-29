@@ -268,6 +268,24 @@ Forum
   'afterend',
   portrait
 );
+    const kategori =
+  document.querySelector(
+    '#began-nav-v2 .began-nav-kategori'
+  );
+
+const portraitMain =
+  portrait.querySelector(
+    '.began-portrait-main'
+  );
+
+if(
+  kategori &&
+  portraitMain
+){
+  portraitMain.appendChild(
+    kategori
+  );
+}
   }
     
     function updatePortraitNavigation(){
@@ -297,19 +315,35 @@ Forum
 
     }
 
-  }else{
-   
+ }else{
 
-    portrait?.remove();
+  const kategori =
+    document.querySelector(
+      '#began-nav-portrait .began-nav-kategori'
+    );
 
-    if(desktop){
+  if(
+    kategori &&
+    desktop
+  ){
 
-      desktop.style.display = '';
-
-    }
+    desktop.querySelector(
+      '.began-nav'
+    ).appendChild(
+      kategori
+    );
 
   }
 
+  portrait?.remove();
+
+  if(desktop){
+
+    desktop.style.display = '';
+
+  }
+
+}
 }
  function bindNavigation(){
 
