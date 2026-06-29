@@ -251,14 +251,6 @@ data-nav="dashboard">
 Dashboard
 </button>
 
-<button
-class="portrait-main"
-data-nav="kategori">
-
-Kategori Product ▼
-
-</button>
-
 <button class="portrait-main"
 data-nav="reserve">
 Produk Reserve
@@ -272,31 +264,10 @@ Forum
 </div>
 
 `;
-const desktopDropdown =
-document.querySelector(
-'#began-nav-v2 .began-nav-kategori'
-);
-
-desktopNav.insertAdjacentElement(
+    desktopNav.insertAdjacentElement(
   'afterend',
   portrait
 );
-
-const mainMenu =
-  portrait.querySelector(
-    '.began-portrait-main'
-  );
-
-if(
-  desktopDropdown &&
-  mainMenu
-){
-
-  mainMenu.appendChild(
-    desktopDropdown
-  );
-
-} 
   }
     
     function updatePortraitNavigation(){
@@ -327,23 +298,7 @@ if(
     }
 
   }else{
-    const dropdown =
-document.querySelector(
-'#began-nav-portrait .began-nav-kategori'
-);
-
-if(
-  dropdown &&
-  desktop
-){
-
-  desktop.querySelector(
-    '.began-nav'
-  ).appendChild(
-    dropdown
-  );
-
-}
+   
 
     portrait?.remove();
 
