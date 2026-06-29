@@ -885,6 +885,13 @@ and (orientation:landscape){
 
 }
 
+@media screen and (max-width:479px){
+
+  .mobile_menu{
+    display:none;
+  }
+
+}
 
 .began-nav__icon{
 
