@@ -743,58 +743,116 @@ and (orientation:landscape){
    MOBILE PORTRAIT
 ===================================== */
 
+/* =====================================
+   MOBILE PORTRAIT FINAL
+===================================== */
+
 @media screen and (max-width:479px){
 
-  /* hide legacy mobile menu */
+  /* hide old mobile menu */
 
   .hamburger,
   .mobile_menu{
     display:none;
   }
 
-  /* header menjadi vertical stack */
-
-  .nav_container{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:stretch;
-
-    padding:8px;
-
-    height:auto !important;
-  }
-
-  /* logo */
+  /* ---------------------------------
+     logo
+  --------------------------------- */
 
   .nav_left{
 
-    width:100%;
-
     display:flex;
 
-    justify-content:center;
+    align-items:flex-start;
 
-    margin-bottom:8px;
+    justify-content:flex-start;
+
+    width:auto;
+
+    margin:0;
   }
 
   .nav_logo{
 
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
+    width:90px;
   }
 
-  .nav_logo img{
+  .nav_logo img.image-26{
 
-    width:110px;
+    width:90px;
+
+    max-width:90px;
   }
 
-  /* custom nav */
+  .text-block-57{
+
+    display:none;
+  }
+
+  /* ---------------------------------
+     real time text
+  --------------------------------- */
+
+  .text-block-41{
+
+    position:absolute;
+
+    top:52px;
+
+    left:110px;
+
+    width:130px;
+
+    font-size:0;
+
+    margin:0;
+  }
+
+  .text-block-41::before{
+
+    content:
+      'REAL-TIME STOCK UPDATE\A PRIORITY PARTNER';
+
+    white-space:pre;
+
+    display:block;
+
+    color:#00ff66;
+
+    font-size:9px;
+
+    line-height:1.2;
+
+    font-weight:600;
+
+    letter-spacing:.04em;
+
+    text-transform:uppercase;
+  }
+
+  /* ---------------------------------
+     partner info
+  --------------------------------- */
+
+  #partner-info{
+
+    position:absolute;
+
+    top:52px;
+
+    right:8px;
+
+    width:130px;
+
+    text-align:right;
+
+    z-index:5;
+  }
+
+  /* ---------------------------------
+     custom nav wrapper
+  --------------------------------- */
 
   .nav_center{
 
@@ -802,9 +860,7 @@ and (orientation:landscape){
 
     max-width:100%;
 
-    position:static;
-
-    padding:0;
+    margin-top:72px;
   }
 
   #began-nav-v2{
@@ -814,107 +870,35 @@ and (orientation:landscape){
     margin:0;
   }
 
-  /* utility row */
+  /* ---------------------------------
+     utility row
+  --------------------------------- */
+
+  .began-nav{
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(4,1fr);
+
+    gap:6px;
+
+    width:100%;
+  }
+
+  /* utility */
 
   .began-nav__item[data-nav="notification"],
   .began-nav__item[data-nav="history"],
   .began-nav__item[data-nav="panduan"],
   .began-nav__item[data-nav="contact"]{
 
-    flex:0 0 44px;
-
     min-height:44px;
+
+    padding:0;
 
     font-size:0;
   }
-
-  .began-nav__item[data-nav="notification"]{
-    order:1;
-  }
-
-  .began-nav__item[data-nav="history"]{
-    order:2;
-  }
-
-  .began-nav__item[data-nav="panduan"]{
-    order:3;
-  }
-
-  .began-nav__item[data-nav="contact"]{
-    order:4;
-  }
-
-  .began-nav__item[data-nav="dashboard"]{
-    order:10;
-  }
-
-  .began-nav-kategori{
-    order:11;
-  }
-
-  .began-nav__item[data-nav="reserve"]{
-    order:12;
-  }
-
-  .began-nav__item[data-nav="forum"]{
-    order:13;
-  }
-
-  /* NAV STYLE ala Canva */
-
-  .began-nav{
-
-    display:flex;
-
-    flex-wrap:nowrap;
-
-    overflow-x:auto;
-
-    overflow-y:hidden;
-
-    gap:8px;
-
-    padding:4px 0 10px;
-
-    scroll-behavior:smooth;
-
-    -webkit-overflow-scrolling:touch;
-
-    scrollbar-width:thin;
-  }
-
-  /* scrollbar visible */
-
-  .began-nav::-webkit-scrollbar{
-
-    height:5px;
-  }
-
-  .began-nav::-webkit-scrollbar-track{
-
-    background:#111;
-  }
-
-  .began-nav::-webkit-scrollbar-thumb{
-
-    background:#00ff66;
-
-    border-radius:99px;
-  }
-
-  /* main button */
-
-  .began-nav__item[data-nav="dashboard"],
-  .began-nav__item[data-nav="reserve"],
-  .began-nav__item[data-nav="forum"],
-  .began-nav-kategori{
-
-    flex:0 0 150px;
-
-    min-height:48px;
-  }
-
-  /* utility icons */
 
   .began-nav__item[data-nav="notification"]::before{
 
@@ -941,15 +925,75 @@ and (orientation:landscape){
 
     content:'';
 
+    display:block;
+
     width:18px;
 
     height:18px;
 
-    display:block;
-
     background:
       url('https://pwa.barkahgarment.com/assets/whatsappIcon.png')
       center/contain no-repeat;
+  }
+
+  /* ---------------------------------
+     main menu 1 row
+  --------------------------------- */
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav-kategori,
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"]{
+
+    min-height:58px;
+
+    padding:6px 4px;
+  }
+
+  /* label 2 line */
+
+  .began-nav__label{
+
+    white-space:normal;
+
+    text-align:center;
+
+    line-height:1.1;
+
+    font-size:10px;
+  }
+
+  /* kategori */
+
+  .began-nav__kategori-btn{
+
+    min-height:58px;
+
+    padding:4px;
+  }
+
+  .began-nav__icon{
+
+    width:14px;
+
+    height:14px;
+
+    margin-left:2px;
+  }
+
+  /* notification badge */
+
+  .began-nav__badge{
+
+    top:4px;
+
+    right:4px;
+
+    min-width:14px;
+
+    height:14px;
+
+    font-size:8px;
   }
 
 }
