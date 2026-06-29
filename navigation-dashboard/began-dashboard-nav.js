@@ -72,75 +72,47 @@ if(!ENABLE_NAV){
 
 <div class="began-nav">
 
-<button
-class="began-nav__item active"
+<button class="began-nav__item active"
 data-nav="dashboard">
-
 Dashboard
-
 </button>
 
-<button
-class="began-nav__item"
+<button class="began-nav__item"
 data-nav="reserve">
-
 Produk Reserve
-
 </button>
 
-<button
-class="began-nav__item"
+<button class="began-nav__item"
 data-nav="forum">
-
 Forum
-
-<span
-id="forum-badge"
+<span id="forum-badge"
 class="began-nav__badge"
-hidden>
-</span>
-
+hidden></span>
 </button>
 
-<button
-class="began-nav__item"
+<button class="began-nav__item"
 data-nav="notification">
-
 Notifications
-
-<span
-id="notification-badge"
+<span id="notification-badge"
 class="began-nav__badge"
-hidden>
-</span>
-
+hidden></span>
 </button>
 
-<button
-class="began-nav__item"
+<button class="began-nav__item"
 data-nav="history">
-
 Riwayat Belanja
-
 </button>
 
-<button
-class="began-nav__item"
+<button class="began-nav__item"
 data-nav="panduan">
-
 Panduan
-
 </button>
 
-<button
-class="began-nav__item"
+<button class="began-nav__item"
 data-nav="contact">
-
 Contact
-
 </button>
 
-</div>
 <div class="
 filter-dropdown
 began-nav-kategori">
@@ -161,6 +133,7 @@ src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
 
 </div>
 
+</div>
 `;
 
   oldWrapper.insertAdjacentElement(
