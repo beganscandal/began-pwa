@@ -320,6 +320,61 @@ and (orientation:landscape){
   }
 
 }
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav{
+
+    grid-template-columns:
+      repeat(4,1fr);
+
+    gap:6px;
+
+    max-width:100%;
+
+  }
+
+  .began-nav__item{
+
+    min-height:34px;
+
+    padding:0 8px;
+
+    font-size:9px;
+
+    letter-spacing:.04em;
+  }
+
+  /* tombol utama */
+
+  .began-nav__item[data-nav="dashboard"],
+  .began-nav__item[data-nav="reserve"],
+  .began-nav__item[data-nav="forum"],
+  .began-nav__kategori-btn{
+
+    min-height:38px;
+
+    font-size:10px;
+
+    font-weight:700;
+  }
+
+  /* tombol support */
+
+  .began-nav__item[data-nav="notification"],
+  .began-nav__item[data-nav="history"],
+  .began-nav__item[data-nav="panduan"],
+  .began-nav__item[data-nav="contact"]{
+
+    min-height:32px;
+
+    background:#050505;
+
+    border-color:rgba(255,255,255,.08);
+  }
+
+}
 
 
 /* =====================================
