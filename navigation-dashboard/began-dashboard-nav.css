@@ -415,5 +415,10 @@ flex-shrink:0;
   flex:1;
 
 }
+.began-nav__badge[hidden]{
+
+  display:none !important;
+
+}
 
 
