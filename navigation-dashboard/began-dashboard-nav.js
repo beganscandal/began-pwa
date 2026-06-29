@@ -1,8 +1,15 @@
 (function(){
   
 'use strict';
- 
+  
+  let NAV_NOTIFICATIONS = [];
+
+let IS_NAV_NOTIFICATION_REFRESHING =
+  false;
  let NAV_BINDED = false;
+  let NOTIFICATION_TIMER = null;
+   const NOTIFICATION_API =
+'https://script.google.com/macros/s/AKfycbyOrOoPCY8tHo5GMlGaW9eOyxA3O-7Q_-Y3NNGZAuxhe_In0ZwxBy2dHYySDNvsuIfyKg/exec';
 
 const partner = JSON.parse(
   localStorage.getItem(
@@ -85,10 +92,8 @@ Produk Reserve
 <button class="began-nav__item"
 data-nav="forum">
 Forum
-<span id="forum-badge"
-class="began-nav__badge"
-hidden></span>
 </button>
+
 
 <button class="began-nav__item"
 data-nav="notification">
@@ -335,68 +340,115 @@ icon.src =
 
 });
 }
- function renderNotificationBadge(){
+
+  async function refreshNotificationBadge(){
+
+  if(
+    IS_NAV_NOTIFICATION_REFRESHING
+  ){
+    return;
+  }
+
+  IS_NAV_NOTIFICATION_REFRESHING =
+    true;
+
+  try{
+
+    const partner = JSON.parse(
+
+      localStorage.getItem(
+        'began_partner'
+      ) || '{}'
+
+    );
+
+    if(!partner.id){
+      return;
+    }
+
+ 
+
+ const response = await fetch(
+
+  NOTIFICATION_API +
+
+  '?action=getNotifications' +
+
+  '&partnerId=' +
+
+  encodeURIComponent(
+    partner.id
+  )
+
+);
+    const result =
+      await response.json();
+
+    NAV_NOTIFICATIONS =
+      result.notifications || [];
+
+    renderNotificationBadge();
+
+  }
+
+  catch(error){
+
+    console.error(
+      '[BEGAN NAV]',
+      error
+    );
+
+  }
+
+  finally{
+
+    IS_NAV_NOTIFICATION_REFRESHING =
+      false;
+
+  }
+
+}
+  function renderNotificationBadge(){
 
   const badge =
+
     document.getElementById(
       'notification-badge'
     );
 
-  if(!badge)
-    return;
-
-  const unread =
-    Number(
-      localStorage.getItem(
-        'began_notification_unread'
-      ) || 0
-    );
-
-  if(unread <= 0){
-
-    badge.hidden = true;
+  if(!badge){
     return;
   }
 
-  badge.hidden = false;
+  const unreadCount =
 
-  badge.textContent =
-    unread > 99
-      ? '99+'
-      : unread;
+    NAV_NOTIFICATIONS.filter(
+
+      function(notification){
+
+        return !notification.isRead;
+
+      }
+
+    ).length;
+
+ if(unreadCount <= 0){
+
+  badge.hidden = true;
+
+  badge.textContent = '';
+
+  return;
 
 }
+    badge.hidden = false;
 
- function renderForumBadge(){
+badge.textContent =
 
-  const badge =
-    document.getElementById(
-      'forum-badge'
-    );
-
-  if(!badge)
-    return;
-
-  const unread =
-    Number(
-      localStorage.getItem(
-        'began_forum_unread'
-      ) || 0
-    );
-
-  if(unread <= 0){
-
-    badge.hidden = true;
-    return;
-  }
-
-  badge.hidden = false;
-
-  badge.textContent =
-    unread > 99
-      ? '99+'
-      : unread;
-
+  unreadCount > 99
+    ? '99+'
+    : unreadCount;
+ 
 }
 
 function waitDashboardReady(){
@@ -438,9 +490,7 @@ function waitDashboardReady(){
 
         bindNavigation();
 
-        renderNotificationBadge();
-
-        renderForumBadge();
+        refreshNotificationBadge();
 
         return;
 
@@ -462,13 +512,39 @@ function waitDashboardReady(){
 
   );
 
-} 
-window.addEventListener(
+}
+ if(!NOTIFICATION_TIMER){
 
-  'load',
+  NOTIFICATION_TIMER =
 
-  waitDashboardReady
+    setInterval(
 
-);
+      async function(){
 
+        if(document.hidden){
+          return;
+        }
+
+        await refreshNotificationBadge();
+
+      },
+
+      30000
+
+    );
+
+}
+  
+ if(document.readyState === 'loading'){
+
+  window.addEventListener(
+    'load',
+    waitDashboardReady
+  );
+
+}else{
+
+  waitDashboardReady();
+
+}
  })();
