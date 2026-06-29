@@ -249,25 +249,6 @@
    MOBILE LANDSCAPE
 ===================================== */
 
-@media screen and
-(max-width:767px)
-and (orientation:landscape){
-
-  .began-nav__item[data-nav="contact"]{
-
-    font-size:0;
-
-  }
-
-  .began-nav__item[data-nav="contact"]::before{
-
-    content:'💬';
-
-    font-size:16px;
-
-  }
-
-}
 
 @media screen and
 (max-width:767px)
@@ -303,6 +284,38 @@ and (orientation:landscape){
     content:'📖';
 
     font-size:16px;
+
+  }
+
+}
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav__item[data-nav="contact"]{
+
+    font-size:0;
+
+  }
+
+  .began-nav__item[data-nav="contact"]::before{
+
+    content:'';
+
+    display:block;
+
+    width:18px;
+
+    height:18px;
+
+    background-image:
+      url('https://pwa.barkahgarment.com/assets/whatsappIcon.png');
+
+    background-size:contain;
+
+    background-repeat:no-repeat;
+
+    background-position:center;
 
   }
 
