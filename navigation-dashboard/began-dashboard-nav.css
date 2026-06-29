@@ -642,7 +642,11 @@ and (orientation:landscape){
 
     right:6px;
 
-    width:220px;
+    width:auto;
+
+    max-width:40vw;
+
+    min-width:120px;
 
     z-index:5;
 
