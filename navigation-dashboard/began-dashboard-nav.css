@@ -1289,4 +1289,93 @@ body{
 
 }
 
+@media screen and (max-width:479px){
 
+  .began-portrait-main{
+
+    gap:6px;
+
+    padding:0 6px 8px;
+
+    overflow-x:auto;
+
+    overflow-y:visible !important;
+
+    scrollbar-width:none;
+  }
+
+  .began-portrait-main::-webkit-scrollbar{
+    display:none;
+  }
+
+  /* semua tombol portrait */
+
+  .portrait-main,
+  .began-nav__kategori-btn{
+
+    flex:0 0 auto;
+
+    min-width:92px; /* sebelumnya terlalu besar */
+
+    min-height:42px;
+
+    padding:0 8px;
+
+    font-size:9px;
+
+    background:#070707 !important;
+
+    color:#fff !important;
+
+    border:1px solid rgba(0,255,70,.18);
+
+    border-radius:10px;
+
+    -webkit-appearance:none;
+
+    appearance:none;
+  }
+
+  /* kategori saja dibuat 2 baris */
+
+  .began-nav-kategori{
+
+    min-width:130px !important;
+  }
+
+  .began-nav__kategori-btn{
+
+    min-height:42px;
+
+    padding:4px 6px;
+  }
+
+  .began-nav__kategori-btn .began-nav__label{
+
+    white-space:normal !important;
+
+    line-height:1.05;
+
+    font-size:8px;
+
+    text-align:center;
+  }
+
+  /* hindari tombol jadi putih */
+
+  .portrait-main:focus,
+  .portrait-main:active,
+  .portrait-main:hover,
+  .began-nav__kategori-btn:focus,
+  .began-nav__kategori-btn:active{
+
+    background:#070707 !important;
+
+    color:#00ff66 !important;
+
+    border-color:#00ff66 !important;
+
+    outline:none;
+  }
+
+}
