@@ -1401,3 +1401,57 @@ body{
   }
 
 }
+
+@media screen and (max-width:479px){
+
+  /* semua item sama lebar */
+
+  .began-portrait-main > *{
+
+    flex:0 0 82px !important;
+
+    min-width:82px !important;
+
+    max-width:82px !important;
+  }
+
+  /* kategori dipaksa sama */
+
+  .began-portrait-main .began-nav-kategori{
+
+    flex:0 0 82px !important;
+
+    min-width:82px !important;
+
+    max-width:82px !important;
+  }
+
+  .began-nav__kategori-btn{
+
+    width:82px !important;
+
+    min-width:82px !important;
+
+    max-width:82px !important;
+
+    min-height:38px !important;
+
+    padding:0 4px !important;
+
+    border-radius:8px;
+  }
+
+  .portrait-main{
+
+    min-width:82px !important;
+
+    max-width:82px !important;
+
+    min-height:38px !important;
+
+    padding:0 4px !important;
+
+    border-radius:8px;
+  }
+
+}
