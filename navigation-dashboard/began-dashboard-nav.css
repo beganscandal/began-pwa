@@ -1564,7 +1564,7 @@ body{
 
     position:fixed !important;
 
-    top:128px !important; /* tepat di bawah tombol */
+    top:124px !important; /* tepat di bawah main menu */
 
     right:12px !important;
 
@@ -1572,15 +1572,13 @@ body{
 
     width:auto !important;
 
-    max-width:160px !important;
-
-    min-width:110px !important;
+    max-width:calc(100vw - 24px);
 
     margin:0 !important;
 
-    padding:6px 10px !important;
+    padding:6px 12px !important;
 
-    border-radius:10px;
+    border-radius:0 0 12px 12px;
 
     background:rgba(7,7,7,.92);
 
@@ -1588,18 +1586,31 @@ body{
 
     text-align:right;
 
-    overflow:hidden;
+    white-space:nowrap;
+
+    overflow:visible !important;
+
+    box-shadow:
+      0 4px 16px rgba(0,0,0,.35);
   }
 
   #partner-info span{
 
-    white-space:nowrap;
+    white-space:nowrap !important;
 
-    overflow:hidden;
+    overflow:visible !important;
 
-    text-overflow:ellipsis;
+    text-overflow:unset !important;
+  }
 
-    display:block;
+}
+  @media screen and (max-width:479px){
+
+  #partner-info{
+
+    border-top:1px solid rgba(0,255,70,.15);
+
+    border-left:1px solid rgba(0,255,70,.15);
   }
 
 }
