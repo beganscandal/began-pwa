@@ -998,37 +998,7 @@ flex-shrink:0;
 
   }
 
-  /* scroll hint */
-#began-nav-portrait::after{
-  pointer-events:none;
-}
-  #began-nav-portrait::after{
-
-    content:'GESER MENU →';
-
-    display:block;
-
-    margin-top:4px;
-
-    text-align:right;
-
-    color:#00ff66;
-
-    font-size:9px;
-
-    font-weight:700;
-
-    letter-spacing:.08em;
-
-    opacity:.8;
-  }
-  .began-portrait-main > *{
-
-  flex-shrink:0;
-
-}
-}
-  /* =====================================
+   /* =====================================
    PORTRAIT UTIL MENU
 ===================================== */
 
