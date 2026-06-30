@@ -737,7 +737,7 @@ refreshNotificationBadge();
  if(document.readyState === 'loading'){
 
   window.addEventListener(
-    'load',
+   'DOMContentLoaded',
     waitDashboardReady
   );
 
