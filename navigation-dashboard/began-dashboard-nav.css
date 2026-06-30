@@ -893,6 +893,17 @@ flex-shrink:0;
 
   overflow:visible;
 }
+   #began-nav-portrait{
+    z-index:9999;
+    pointer-events:auto;
+  }
+
+  .began-portrait-main,
+  .began-portrait-utils{
+    position:relative;
+    z-index:10000;
+  }
+
   /* row */
 
   .began-portrait-main{
