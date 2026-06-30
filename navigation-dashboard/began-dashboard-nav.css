@@ -1520,3 +1520,55 @@ body{
   }
 
 }
+@media screen and (max-width:479px){
+
+  /* pindahkan ke area kosong kanan logo */
+
+  .text-block-41{
+
+    position:fixed !important;
+
+    top:42px;
+
+    left:96px;
+
+    z-index:100001 !important;
+
+    width:92px;
+
+    margin:0 !important;
+
+    font-size:0 !important; /* hide text asli */
+
+    line-height:0;
+
+    color:transparent;
+
+  }
+
+  /* tampilkan text baru */
+
+  .text-block-41::after{
+
+    content:'REAL-TIME STOCK\A PRIORITY PARTNER ONLY';
+
+    white-space:pre;
+
+    display:block;
+
+    color:#ffffff;
+
+    font-size:7px;
+
+    font-weight:700;
+
+    line-height:1.15;
+
+    letter-spacing:.04em;
+
+    text-transform:uppercase;
+
+    text-align:left;
+  }
+
+}
