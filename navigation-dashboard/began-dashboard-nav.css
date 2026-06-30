@@ -1530,7 +1530,7 @@ body{
 
     top:42px;
 
-    left:96px;
+    left:100px;
 
     z-index:100001 !important;
 
@@ -1550,7 +1550,7 @@ body{
 
   .text-block-41::after{
 
-    content:'REAL-TIME STOCK\A PRIORITY PARTNER ONLY';
+    content:'REAL-TIME STOCK\A PRIORITY PARTNER';
 
     white-space:pre;
 
@@ -1558,7 +1558,7 @@ body{
 
     color:#00FF66;
 
-    font-size:10px;
+    font-size:9px;
 
     font-weight:700;
 
