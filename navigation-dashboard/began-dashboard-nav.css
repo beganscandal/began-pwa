@@ -1471,3 +1471,52 @@ body{
   }
 
 }
+
+@media screen and (max-width:479px){
+
+  .nav_left{
+
+    position:relative !important;
+  }
+
+  .nav_logo{
+
+    position:fixed !important;
+
+    top:40px;      /* sesuaikan dengan running text */
+
+    left:16px;
+
+    z-index:100001 !important;
+
+    width:auto !important;
+
+    display:flex !important;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    pointer-events:auto;
+  }
+
+  .nav_logo img,
+  .nav_logo .image-26{
+
+    width:72px !important;
+
+    height:auto !important;
+
+    max-height:28px;
+
+    object-fit:contain;
+  }
+
+  /* hide text di bawah logo */
+
+  .nav_logo .text-block-57{
+
+    display:none !important;
+  }
+
+}
