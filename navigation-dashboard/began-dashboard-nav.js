@@ -378,125 +378,96 @@ if(
   // NAVIGATION CLICK
   // ==========================
 
-  document.addEventListener(
+ ['click','touchend'].forEach(function(type){
 
-    'click',
+  document.addEventListener(type,function(event){
 
-    function(event){
+    const item =
+      event.target.closest('[data-nav]');
 
-      const item =
-        event.target.closest(
-          '[data-nav]'
+    if(!item){
+      return;
+    }
+
+    event.preventDefault();
+
+    switch(item.dataset.nav){
+
+      case 'dashboard':
+
+        BeganPwaBridge.open(
+'https://www.barkahgarment.com/began-partner-dashboard-dev'
         );
 
-      if(!item){
-        return;
-      }
+      break;
 
-      event.preventDefault();
+      case 'kategori':
 
-      switch(item.dataset.nav){
-
-        case 'dashboard':
-
-          BeganPwaBridge.open(
-'https://www.barkahgarment.com/began-partner-dashboard-dev'
+        const dropdown =
+          document.querySelector(
+            '.began-nav-kategori'
           );
 
-        break;
+        if(!dropdown){
+          break;
+        }
 
-    case 'kategori':
+        const icon =
+          dropdown.querySelector(
+            '.began-nav__icon'
+          );
 
-const dropdown =
-document.querySelector(
-  '.began-nav-kategori'
-);
+        const opened =
+          dropdown.classList.toggle(
+            'active'
+          );
 
-if(!dropdown){
-  break;
-}
+        if(icon){
 
-const icon =
-dropdown.querySelector(
-  '.began-nav__icon'
-);
+          icon.src =
+            opened
+              ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
+              : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
 
-const opened =
-dropdown.classList.toggle(
-  'active'
-);
+        }
 
-if(icon){
+      break;
 
-  icon.src =
-    opened
-      ? 'https://pwa.barkahgarment.com/assets/toggleUp.jpg'
-      : 'https://pwa.barkahgarment.com/assets/toggleDown.jpg';
+      case 'history':
+        document.querySelector('.btn-history')?.click();
+      break;
 
-}
+      case 'panduan':
+        document.querySelector('.menu-item.panduan')?.click();
+      break;
 
-break;
+      case 'contact':
+        document.querySelector('.menu-item.contact')?.click();
+      break;
 
-        case 'history':
-
-          document
-            .querySelector(
-              '.btn-history'
-            )
-            ?.click();
-
-        break;
-
-        case 'panduan':
-
-          document
-            .querySelector(
-              '.menu-item.panduan'
-            )
-            ?.click();
-
-        break;
-
-        case 'contact':
-
-          document
-            .querySelector(
-              '.menu-item.contact'
-            )
-            ?.click();
-
-        break;
-
-        case 'reserve':
-
-          BeganPwaBridge.open(
+      case 'reserve':
+        BeganPwaBridge.open(
 'https://www.barkahgarment.com/reserve-system'
-          );
+        );
+      break;
 
-        break;
-
-        case 'forum':
-
-          BeganPwaBridge.open(
+      case 'forum':
+        BeganPwaBridge.open(
 'https://pwa.barkahgarment.com/forum/'
-          );
+        );
+      break;
 
-        break;
-
-        case 'notification':
-
-          BeganPwaBridge.open(
+      case 'notification':
+        BeganPwaBridge.open(
 'https://pwa.barkahgarment.com/notifications/index.html'
-          );
-
-        break;
-
-      }
+        );
+      break;
 
     }
 
-  );
+  }, { passive:false });
 
+});
   // ==========================
   // CLOSE DROPDOWN OUTSIDE
   // ==========================
