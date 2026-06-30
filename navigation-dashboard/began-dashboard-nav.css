@@ -963,7 +963,7 @@ flex-shrink:0;
 
   -webkit-overflow-scrolling:touch;
 
-  touch-action:pan-x;
+  touch-action:auto;
 
   scroll-behavior:smooth;
 
@@ -991,7 +991,9 @@ flex-shrink:0;
   }
 
   /* scroll hint */
-
+#began-nav-portrait::after{
+  pointer-events:none;
+}
   #began-nav-portrait::after{
 
     content:'GESER MENU →';
