@@ -1379,3 +1379,25 @@ body{
   }
 
 }
+
+@media screen and (max-width:479px){
+
+  .began-nav__kategori-btn .began-nav__label{
+
+    display:none;
+  }
+
+  .began-nav__kategori-btn::before{
+
+    content:'KATEGORI';
+
+    font-size:8px;
+
+    color:#fff;
+
+    font-weight:700;
+
+    letter-spacing:.05em;
+  }
+
+}
