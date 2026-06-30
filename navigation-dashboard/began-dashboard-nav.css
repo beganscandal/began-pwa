@@ -1595,48 +1595,39 @@ flex-shrink:0;
   }
 
 }
-@media screen and (min-width:480px){
+
+
+@media screen and (min-width:768px){
 
   .nav{
-
     height:auto !important;
-
     min-height:auto !important;
-
     overflow:visible !important;
   }
 
   .nav_logo{
-
     position:static !important;
-
     top:auto !important;
-
     left:auto !important;
   }
 
   .text-block-41{
-
     position:static !important;
-
     top:auto !important;
-
     left:auto !important;
-
     width:auto !important;
-
     font-size:inherit !important;
-
     color:inherit !important;
   }
 
   #partner-info{
-
     position:static !important;
-
     top:auto !important;
-
     right:auto !important;
+  }
+
+  #began-nav-portrait{
+    display:none !important;
   }
 
 }
