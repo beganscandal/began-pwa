@@ -1692,3 +1692,17 @@ and (orientation:landscape){
   }
 
 }
+@media screen and
+(min-width:480px){
+
+  #began-nav-v2{
+
+    display:block !important;
+
+    visibility:visible !important;
+
+    opacity:1 !important;
+
+  }
+
+}
