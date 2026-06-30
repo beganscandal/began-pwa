@@ -1457,3 +1457,17 @@ body{
   }
 
 }
+@media screen and (max-width:479px){
+
+  .began-nav__icon{
+
+    width:12px !important;
+
+    height:12px !important;
+
+    margin:0 !important;
+
+    padding:0 !important;
+  }
+
+}
