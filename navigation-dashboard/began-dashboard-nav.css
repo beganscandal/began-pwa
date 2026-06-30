@@ -1564,21 +1564,21 @@ body{
 
     position:fixed !important;
 
-    top:118px; /* tepat di bawah main menu */
+    top:128px !important; /* tepat di bawah tombol */
 
-    right:12px;
+    right:12px !important;
 
-    z-index:100000 !important;
+    z-index:99998 !important;
 
-    width:auto;
+    width:auto !important;
 
-    max-width:170px;
+    max-width:160px !important;
 
-    min-width:140px;
+    min-width:110px !important;
 
     margin:0 !important;
 
-    padding:6px 10px;
+    padding:6px 10px !important;
 
     border-radius:10px;
 
@@ -1587,6 +1587,19 @@ body{
     backdrop-filter:blur(8px);
 
     text-align:right;
+
+    overflow:hidden;
+  }
+
+  #partner-info span{
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    display:block;
   }
 
 }
