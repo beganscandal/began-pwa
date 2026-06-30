@@ -10,6 +10,7 @@ let IS_NAV_NOTIFICATION_REFRESHING =
   let NOTIFICATION_TIMER = null;
   let resizeTimer;
   let LAST_NAV_MODE = null;
+  let RESIZE_BINDED = false;
 
   
   const NOTIFICATION_API =
@@ -634,6 +635,50 @@ document.addEventListener(
   });
 
 }
+  function initNavigation() {
+     if(document.getElementById("began-nav-v2")){
+        return;
+    }
+
+    injectNavigation();
+
+    bindNavigation();
+
+    updatePortraitNavigation();
+
+    if (!RESIZE_BINDED) {
+
+        RESIZE_BINDED = true;
+
+        window.addEventListener(
+            'resize',
+            function () {
+
+                clearTimeout(resizeTimer);
+
+                resizeTimer = setTimeout(
+                    updatePortraitNavigation,
+                    200
+                );
+
+            },
+            { passive: true }
+        );
+
+    }
+
+    const partner = JSON.parse(
+        localStorage.getItem('began_partner') || '{}'
+    );
+
+    if (partner.id) {
+
+        refreshNotificationBadge();
+
+    }
+
+}
+  
 function waitDashboardReady(){
 
   console.log(
@@ -649,69 +694,30 @@ function waitDashboardReady(){
       attempts++;
 
       const wrapper =
-        document.querySelector(
-          '.menu-wrapper'
-        );
+    document.querySelector('.menu-wrapper');
 
-      const partner =
-        localStorage.getItem(
-          'began_partner'
-        );
+if (wrapper) {
 
-      if(
-        wrapper &&
-        partner
-      ){
+    clearInterval(timer);
 
-        clearInterval(timer);
+    console.log('[BEGAN NAV] dashboard ready');
 
-        console.log(
-          '[BEGAN NAV] dashboard ready'
-        );
+    initNavigation();
 
-       injectNavigation();
-
-bindNavigation();
-
-updatePortraitNavigation();
-
-
-window.addEventListener(
-  'resize',
-  function(){
-
-    clearTimeout(resizeTimer);
-
-    resizeTimer = setTimeout(
-      updatePortraitNavigation,
-      200
-    );
-
-  }
-);
-refreshNotificationBadge();
-
-        return;
-
-      }
-
-      if(attempts >= 40){
-
-        clearInterval(timer);
-
-        console.warn(
-          '[BEGAN NAV] timeout'
-        );
-
-      }
-
-    },
-
-    500
-
-  );
-
+    return;
 }
+
+if (attempts >= 40) {
+
+    clearInterval(timer);
+
+    console.warn('[BEGAN NAV] timeout');
+
+ }
+
+},500);
+}
+  
  if(!NOTIFICATION_TIMER){
 
   NOTIFICATION_TIMER =
@@ -746,4 +752,13 @@ refreshNotificationBadge();
   waitDashboardReady();
 
 }
+  window.addEventListener(
+    "beganDashboardBootReady",
+    function () {
+
+        initNavigation();
+
+    },
+    { once: true }
+);
  })();
