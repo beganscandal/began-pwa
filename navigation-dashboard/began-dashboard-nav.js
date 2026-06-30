@@ -270,7 +270,7 @@ Forum
 );
     const kategori =
   document.querySelector(
-    '#began-nav-v2 .began-nav-kategori'
+    '.began-nav-kategori'
   );
 
 const portraitMain =
@@ -301,9 +301,12 @@ if(
     );
 
   const kategori =
-    document.querySelector(
-      '.began-nav-kategori'
-    );
+  document.querySelector(
+    '#began-nav-portrait .began-nav-kategori'
+  ) ||
+  document.querySelector(
+    '#began-nav-v2 .began-nav-kategori'
+  );
 
   if(window.innerWidth <= 479){
 
