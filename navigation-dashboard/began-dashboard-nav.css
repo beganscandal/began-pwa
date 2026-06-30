@@ -1733,3 +1733,33 @@ and (orientation:landscape){
   }
 
 }
+
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .nav_center{
+    overflow:visible !important;
+    width:100% !important;
+  }
+
+  .began-nav{
+    width:100% !important;
+    max-width:none !important;
+  }
+
+}
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  .began-nav-kategori{
+
+    background:red !important;
+    display:flex !important;
+    opacity:1 !important;
+    visibility:visible !important;
+
+  }
+
+}
