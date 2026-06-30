@@ -1388,7 +1388,7 @@ body{
 
   .began-nav__kategori-btn::before{
 
-    content:'KATEGORI';
+    content:'Kategori';
 
     font-size:8px;
 
@@ -1403,54 +1403,57 @@ body{
 
 @media screen and (max-width:479px){
 
-  /* semua item sama lebar */
+  .began-portrait-main{
+
+    justify-content:space-between;
+
+    gap:4px;
+
+    padding:0 4px 8px;
+  }
+
+  /* semua item */
 
   .began-portrait-main > *{
 
-    flex:0 0 82px !important;
+    flex:1 1 0 !important;
 
-    min-width:82px !important;
+    min-width:0 !important;
 
-    max-width:82px !important;
+    max-width:none !important;
   }
 
-  /* kategori dipaksa sama */
+  /* semua tombol */
 
-  .began-portrait-main .began-nav-kategori{
-
-    flex:0 0 82px !important;
-
-    min-width:82px !important;
-
-    max-width:82px !important;
-  }
-
+  .portrait-main,
   .began-nav__kategori-btn{
 
-    width:82px !important;
+    width:100% !important;
 
-    min-width:82px !important;
+    min-width:0 !important;
 
-    max-width:82px !important;
+    max-width:none !important;
 
-    min-height:38px !important;
+    min-height:42px !important;
 
-    padding:0 4px !important;
+    padding:0 6px !important;
 
-    border-radius:8px;
+    border-radius:10px;
+
+    font-size:10px !important;
+
+    font-weight:700;
+
+    letter-spacing:.02em;
+
+    line-height:1.1;
   }
 
-  .portrait-main{
+  /* kategori sedikit lebih kecil */
 
-    min-width:82px !important;
+  .began-nav__kategori-btn::before{
 
-    max-width:82px !important;
-
-    min-height:38px !important;
-
-    padding:0 4px !important;
-
-    border-radius:8px;
+    font-size:9px;
   }
 
 }
