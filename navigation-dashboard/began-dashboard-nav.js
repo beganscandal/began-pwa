@@ -8,7 +8,10 @@ let IS_NAV_NOTIFICATION_REFRESHING =
   false;
  let NAV_BINDED = false;
   let NOTIFICATION_TIMER = null;
-   const NOTIFICATION_API =
+  let resizeTimer;
+
+  
+  const NOTIFICATION_API =
 'https://script.google.com/macros/s/AKfycbyOrOoPCY8tHo5GMlGaW9eOyxA3O-7Q_-Y3NNGZAuxhe_In0ZwxBy2dHYySDNvsuIfyKg/exec';
 
 const partner = JSON.parse(
@@ -651,11 +654,20 @@ bindNavigation();
 
 updatePortraitNavigation();
 
+
 window.addEventListener(
   'resize',
-  updatePortraitNavigation
-);
+  function(){
 
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(
+      updatePortraitNavigation,
+      200
+    );
+
+  }
+);
 refreshNotificationBadge();
 
         return;
