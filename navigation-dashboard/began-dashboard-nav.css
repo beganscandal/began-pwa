@@ -1617,11 +1617,6 @@ flex-shrink:0;
     color:inherit !important;
   }
 
-  #partner-info{
-    position:static !important;
-    top:auto !important;
-    right:auto !important;
-  }
 }
 
 @media screen and (min-width:480px){
@@ -1635,8 +1630,7 @@ flex-shrink:0;
 @media screen and (min-width:480px){
 
   .nav_logo,
-  .text-block-41,
-  #partner-info{
+  .text-block-41{
 
     position:static !important;
 
@@ -1645,6 +1639,55 @@ flex-shrink:0;
     left:auto !important;
 
     right:auto !important;
+
+  }
+
+}
+
+@media screen and (min-width:480px){
+
+  #partner-info{
+
+    position:absolute !important;
+
+    top:70px !important;
+
+    right:12px !important;
+
+    z-index:20;
+
+    width:auto !important;
+
+    max-width:260px;
+
+    white-space:nowrap;
+
+    pointer-events:none;
+  }
+
+  .nav_container.w-nav{
+    position:relative;
+  }
+
+}
+
+@media screen and
+(max-width:767px)
+and (orientation:landscape){
+
+  #partner-info{
+
+    position:absolute !important;
+
+    top:82px !important;
+
+    right:6px !important;
+
+    max-width:40vw !important;
+
+    min-width:120px !important;
+
+    z-index:20 !important;
 
   }
 
