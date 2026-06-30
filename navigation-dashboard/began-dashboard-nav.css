@@ -1503,11 +1503,11 @@ body{
   .nav_logo img,
   .nav_logo .image-26{
 
-    width:72px !important;
+    width:77px !important;
 
     height:auto !important;
 
-    max-height:28px;
+    max-height:33px;
 
     object-fit:contain;
   }
@@ -1556,9 +1556,9 @@ body{
 
     display:block;
 
-    color:#ffffff;
+    color:#00FF66;
 
-    font-size:7px;
+    font-size:10px;
 
     font-weight:700;
 
