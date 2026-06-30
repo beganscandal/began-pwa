@@ -9,6 +9,7 @@ let IS_NAV_NOTIFICATION_REFRESHING =
  let NAV_BINDED = false;
   let NOTIFICATION_TIMER = null;
   let resizeTimer;
+  let LAST_NAV_MODE = null;
 
   
   const NOTIFICATION_API =
@@ -302,6 +303,8 @@ if(
     document.getElementById(
       'began-nav-portrait'
     );
+      const isPortrait =
+  window.innerWidth <= 479;
 
   const kategori =
   document.querySelector(
@@ -311,13 +314,18 @@ if(
     '#began-nav-v2 .began-nav-kategori'
   );
 
-  if(window.innerWidth <= 479){
+ if(isPortrait){
 
-    if(!portrait){
+  if(LAST_NAV_MODE !== 'portrait'){
+  LAST_NAV_MODE = 'portrait';
+}else{
+  return;
+}
+  if(!portrait){
 
-      renderPortraitNavigation();
+    renderPortraitNavigation();
 
-    }
+  }
 
     const portraitMain =
       document.querySelector(
@@ -342,22 +350,35 @@ if(
 
     }
 
-  }else{
+ }else{
 
-    if(
-      kategori &&
-      desktop &&
-      !desktop.contains(kategori)
-    ){
+  if(LAST_NAV_MODE !== 'desktop'){
+  LAST_NAV_MODE = 'desktop';
+}else{
+  return;
+}
+  if(
+  kategori &&
+  desktop
+){
 
-      desktop.querySelector(
-        '.began-nav'
-      ).appendChild(
-        kategori
-      );
+  const nav =
+    desktop.querySelector(
+      '.began-nav'
+    );
 
-    }
+  if(
+    nav &&
+    kategori.parentNode !== nav
+  ){
 
+    nav.appendChild(
+      kategori
+    );
+
+  }
+
+}
     portrait?.remove();
 
     if(desktop){
