@@ -22,30 +22,8 @@ const partner = JSON.parse(
   ) || '{}'
 );
 
-const ENABLE_NAV =
-
-  String(
-    partner.id || ''
-  )
-  .trim()
-  .toUpperCase()
-
-  ===
-
-  'BGN-250'
-
-  ||
-
-  String(
-    partner.toko || ''
-  )
-  .trim()
-  .toUpperCase()
-
-  ===
-
-  'ADMIN1';
-
+const ENABLE_NAV = true;
+ 
 if(!ENABLE_NAV){
   return;
 }
@@ -148,40 +126,37 @@ src="https://pwa.barkahgarment.com/assets/toggleDown.jpg">
 </div>
 `;
 
-  oldWrapper.insertAdjacentElement(
+ oldWrapper.insertAdjacentElement(
     'afterend',
     navContainer
-  );
-   oldWrapper.style.display = 'none';
-  const oldPanel =
+);
 
-  document.querySelector(
-    '.filter-dropdown-panel'
-  );
+// pindahkan panel kategori
+const oldPanel =
+    document.querySelector(
+        '.filter-dropdown-panel'
+    );
 
 const newKategori =
+    navContainer.querySelector(
+        '.began-nav-kategori'
+    );
 
-  navContainer.querySelector(
-    '.began-nav-kategori'
-  );
-
-if(
-  oldPanel &&
-  newKategori
-){
-
-  newKategori.appendChild(
-    oldPanel
-  );
-
+if (
+    oldPanel &&
+    newKategori
+) {
+    newKategori.appendChild(oldPanel);
 }
 
-  console.log(
-    '[BEGAN NAV] injected'
-  );
+// setelah semua siap
+oldWrapper.style.display = 'none';
+   LAST_NAV_MODE = null;
 
-}
+console.log('[BEGAN NAV] injected');
 
+ }
+  
   function renderPortraitNavigation(){
 
   if(window.innerWidth > 479){
