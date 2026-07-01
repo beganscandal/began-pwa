@@ -16,18 +16,6 @@ let IS_NAV_NOTIFICATION_REFRESHING =
   const NOTIFICATION_API =
 'https://script.google.com/macros/s/AKfycbyOrOoPCY8tHo5GMlGaW9eOyxA3O-7Q_-Y3NNGZAuxhe_In0ZwxBy2dHYySDNvsuIfyKg/exec';
 
-const partner = JSON.parse(
-  localStorage.getItem(
-    'began_partner'
-  ) || '{}'
-);
-
-const ENABLE_NAV = true;
- 
-if(!ENABLE_NAV){
-  return;
-}
-
  function injectNavigation(){
 
   const oldWrapper =
