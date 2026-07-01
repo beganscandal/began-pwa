@@ -1,6 +1,6 @@
 window.FORUM_DEV = {
 
-    ENABLED : true,
+    ENABLED : false,
 
     PARTNER_ID : 'BGN-250',
 
