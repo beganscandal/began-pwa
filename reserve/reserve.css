@@ -3211,6 +3211,16 @@ and (orientation:portrait){
     0 0 0 2px #050505;
 
 }
+/* =====================================
+   HIDE BADGE WHEN NO UNREAD
+===================================== */
+
+#began-notification-badge[hidden],
+#began-mobile-notification-badge[hidden]{
+
+  display:none !important;
+
+}
 
 /* =====================================
    DRAWER FOOTER OPTIMIZATION
@@ -4349,3 +4359,4 @@ and
 body.reserve-success-open{
   overflow:hidden;
 }
+
