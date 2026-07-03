@@ -1080,6 +1080,61 @@ const data =
 } 
   }
 
+  function syncReserveNotificationBadge(){
+
+  if(
+    !window.NotificationState
+  ){
+    return;
+  }
+
+  const unreadCount =
+
+    (
+      NotificationState.notifications || []
+    )
+
+    .filter(function(n){
+
+      return !n.isRead;
+
+    })
+
+    .length;
+
+  [
+
+    'began-notification-badge',
+
+    'began-mobile-notification-badge'
+
+  ]
+
+  .forEach(function(id){
+
+    const badge =
+
+      document.getElementById(id);
+
+    if(!badge){
+      return;
+    }
+
+    badge.style.display =
+      unreadCount > 0
+      ? 'block'
+      : 'none';
+
+    badge.hidden =
+      unreadCount === 0;
+
+  });
+
+}
+
+
+  
+
   function showReserveSuccessModal(partner){
 
   var modal =
@@ -1402,6 +1457,15 @@ renderReserveSkeleton();
 
 bootReserve();
 
+if(typeof loadNotifications === 'function'){
+
+    loadNotifications().then(function(){
+
+    syncReserveNotificationBadge();
+
+});
+}
+
 if(
   reserveRealtimeTimer
 ){
@@ -1429,13 +1493,20 @@ CartRender.init();
 
   function(){
 
-    if(
-      document.hidden
-    ){
+    if(document.hidden){
       return;
     }
 
     setTimeout(function(){
+
+      if(typeof loadNotifications === 'function'){
+
+        loadNotifications().then(function(){
+
+    syncReserveNotificationBadge();
+
+});
+      }
 
       refreshReserveAnalytics();
 
