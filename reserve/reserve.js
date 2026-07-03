@@ -1121,12 +1121,12 @@ const data =
     }
 
     badge.style.display =
-      unreadCount > 0
-      ? 'block'
-      : 'none';
+  unreadCount > 0
+    ? 'flex'
+    : 'none';
 
-    badge.hidden =
-      unreadCount === 0;
+badge.hidden =
+  unreadCount === 0;
 
   });
 
