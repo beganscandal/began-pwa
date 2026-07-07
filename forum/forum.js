@@ -37,6 +37,7 @@ document.addEventListener(
  
     try {
 renderPostSkeleton();
+bindMentionAutocomplete();
       await
         loadMentionPartners();
       
@@ -72,7 +73,7 @@ renderPosts(
       bindCategories();
       bindPostSubmit();
       bindLikeEvents();
-bindMentionAutocomplete();
+
       bindGlobalNavigation();
       startForumNotificationPolling();
      
