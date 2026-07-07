@@ -2,6 +2,12 @@ let PARTNER_MENTIONS = [];
  
 let mentionBound = false;
 
+const MENTION_PARTNERS_API =
+
+  typeof API_URL !== 'undefined'
+    ? API_URL
+    : 'https://script.google.com/macros/s/AKfycbwPDFvz4K19zuY2FY-IoeMF5WONSafuTTAwWW_cMJAn0L9TlHVpYtMUJzZlAMx1QRWw0Q/exec';
+
 async function loadMentionPartners(){
 
   try{
@@ -10,7 +16,8 @@ async function loadMentionPartners(){
 
       await fetch(
 
-        'https://script.google.com/macros/s/AKfycbwPDFvz4K19zuY2FY-IoeMF5WONSafuTTAwWW_cMJAn0L9TlHVpYtMUJzZlAMx1QRWw0Q/exec?action=partners'
+        MENTION_PARTNERS_API +
+        '?action=partners'
 
       );
 
@@ -26,7 +33,31 @@ async function loadMentionPartners(){
 
       PARTNER_MENTIONS =
 
-        result.partners || [];
+        (result.partners || [])
+          .filter(function(partner){
+
+            return (
+
+              partner &&
+              typeof partner.toko === 'string' &&
+              partner.toko.trim()
+
+            );
+
+          })
+          .map(function(partner){
+
+            return {
+
+              partnerId:
+                partner.partnerId || partner.id || '',
+
+              toko:
+                partner.toko.trim()
+
+            };
+
+          });
 
       console.log(
 
@@ -35,6 +66,23 @@ async function loadMentionPartners(){
         PARTNER_MENTIONS
 
       );
+
+    }
+
+    const active =
+      document.activeElement;
+
+    if(
+
+      active &&
+      active.closest &&
+      active.closest(
+        '#post-content, .reply-input'
+      )
+
+    ){
+
+      handleMentionInput(active);
 
     }
 
@@ -120,11 +168,24 @@ function handleMentionInput(
 
     textarea.value;
 
+  const caret =
+
+    typeof textarea.selectionStart === 'number'
+      ? textarea.selectionStart
+      : value.length;
+
+  const beforeCaret =
+
+    value.slice(
+      0,
+      caret
+    );
+
   const match =
 
-    value.match(
+    beforeCaret.match(
 
-      /(?:^|\s)@([^\s@]*)$/
+      /(?:^|\s)@([^@\r\n]*)$/
 
     );
 
@@ -140,10 +201,18 @@ function handleMentionInput(
 
   }
 
+  match.mentionStart =
+    beforeCaret.lastIndexOf('@');
+
+  match.caret =
+    caret;
+
   const keyword =
 
     match[1]
-      .toLowerCase();
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .trim();
 
   let results =
 
@@ -153,7 +222,7 @@ function handleMentionInput(
 
             return (
 
-                partner.toko
+                String(partner.toko || '')
                     .toLowerCase()
                     .includes(
 
@@ -169,7 +238,6 @@ function handleMentionInput(
 
 if(
 
-    keyword &&
     'all'.startsWith(
         keyword
     )
@@ -279,11 +347,11 @@ function renderMentionDropdown(
 
             class="mention-item"
 
-            data-toko="${partner.toko}"
+            data-toko="${escapeHtml(partner.toko)}"
 
           >
 
-            @${partner.toko}
+            @${escapeHtml(partner.toko)}
 
           </button>
 
@@ -357,29 +425,50 @@ function renderMentionDropdown(
 
         item.dataset.toko;
 
-      const mentionText =
+      const before =
 
-        match[0];
+        textarea.value.slice(
+          0,
+          match.mentionStart
+        );
+
+      const after =
+
+        textarea.value.slice(
+          match.caret
+        );
+
+      const inserted =
+
+        '@' + toko + ' ';
 
       textarea.value =
 
-        textarea.value.replace(
-
-          mentionText,
-
-          mentionText.replace(
-
-            /@([^\s@]*)$/,
-
-            '@' + toko + ' '
-
-          )
-
-        );
+        before +
+        inserted +
+        after;
 
       hideMentionDropdown();
 
       textarea.focus();
+
+      if(
+
+        typeof textarea.setSelectionRange === 'function'
+
+      ){
+
+        const cursor =
+
+          before.length +
+          inserted.length;
+
+        textarea.setSelectionRange(
+          cursor,
+          cursor
+        );
+
+      }
 
     }
 
@@ -476,7 +565,9 @@ function escapeHtml(text){
 function formatMentions(text){
 
     if(!text){
+
         return '';
+
     }
 
     let html = escapeHtml(text);
@@ -597,11 +688,12 @@ function safeFormatMentions(text){
 
 }
  }
-
 function extractMentions(text){
 
   if(!text){
+
     return [];
+
   }
 
   const mentions = [];
@@ -610,14 +702,15 @@ function extractMentions(text){
     .forEach(function(partner){
 
       const toko =
+
         String(
           partner.toko || ''
         ).trim();
 
-      if(
-        !toko
-      ){
+      if(!toko){
+
         return;
+
       }
 
       const escaped =
@@ -657,6 +750,7 @@ function extractMentions(text){
 }
 window.extractMentions =
   extractMentions;
+
 window.loadMentionPartners =
     loadMentionPartners;
 
