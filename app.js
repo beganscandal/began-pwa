@@ -4,8 +4,9 @@ new URLSearchParams(
 );
 
 const partnerId =
-params.get("partner") || "";
-
+params.get("partner") ||
+params.get("partnerId") ||
+"";
 const toko =
 params.get("toko") || "";
 
@@ -146,44 +147,67 @@ isIOS &&
     }
 
     // =========================
-    // INIT
+    // INIT ONCE
     // =========================
 
     window.OneSignalDeferred =
       window.OneSignalDeferred || [];
 
-    await new Promise(resolve=>{
+    if(!window.BEGAN_ONESIGNAL_INIT_PROMISE){
 
-      OneSignalDeferred.push(
-        async function(OneSignal){
-          console.log(
-  "ONESIGNAL INIT START"
-);
+      window.BEGAN_ONESIGNAL_INIT_PROMISE =
+      new Promise((resolve,reject)=>{
 
-          await OneSignal.init({
+        OneSignalDeferred.push(
+          async function(OneSignal){
+            try{
 
-            appId:
-"37e11236-e95b-4d5d-b925-f7b5f8308cdd",
+              if(!window.BEGAN_ONESIGNAL_INITIALIZED){
 
-            safari_web_id:
-"web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
+                console.log(
+    "ONESIGNAL INIT START"
+  );
 
-            notifyButton: {
-              enable: true,
-            },
+                await OneSignal.init({
 
-          });
+                  appId:
+  "37e11236-e95b-4d5d-b925-f7b5f8308cdd",
 
-          console.log(
-  "ONESIGNAL INIT SUCCESS"
-);
+                  safari_web_id:
+  "web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
 
-resolve();
+                  notifyButton: {
+                    enable: false,
+                  },
 
-        }
-      );
+                });
 
-    });
+                window.BEGAN_ONESIGNAL_INITIALIZED =
+                  true;
+
+                console.log(
+    "ONESIGNAL INIT SUCCESS"
+  );
+
+              }
+
+              resolve(OneSignal);
+
+            }catch(err){
+
+              reject(err);
+
+            }
+
+          }
+        );
+
+      });
+
+    }
+
+    const OneSignal =
+    await window.BEGAN_ONESIGNAL_INIT_PROMISE;
 
     window.BEGAN_ONESIGNAL_READY =
       true;
@@ -199,37 +223,147 @@ resolve();
     }
 
     // =========================
+    // IDENTITY SYNC
+    // =========================
+
+    const syncIdentity = async (retry)=>{
+
+      if(!partnerId){
+
+        console.log(
+          "ONESIGNAL IDENTITY SKIPPED"
+        );
+
+        return true;
+
+      }
+
+      const lastExternalId =
+      localStorage.getItem(
+        "began_onesignal_external_id"
+      );
+
+      if(
+        lastExternalId &&
+        lastExternalId !== partnerId
+      ){
+
+        console.log(
+          "ONESIGNAL PARTNER SWITCH",
+          {
+            from:
+            lastExternalId,
+            to:
+            partnerId
+          }
+        );
+
+        if(OneSignal.logout){
+
+          await OneSignal.logout();
+
+        }
+
+      }
+
+      await OneSignal.login(
+        partnerId
+      );
+
+      localStorage.setItem(
+        "began_onesignal_external_id",
+        partnerId
+      );
+
+      await OneSignal.User.addTag(
+        "partner",
+        partnerId
+      );
+
+      if(toko){
+
+        await OneSignal.User.addTag(
+          "toko",
+          toko
+        );
+
+      }
+
+      let tags = {};
+
+      if(
+        OneSignal.User &&
+        typeof OneSignal.User.getTags === "function"
+      ){
+
+        tags =
+        await OneSignal.User.getTags();
+
+      }
+
+      const partnerOk =
+      String(tags.partner || "") ===
+      String(partnerId);
+
+      const tokoOk =
+      !toko ||
+      String(tags.toko || "") ===
+      String(toko);
+
+      if(
+        partnerOk &&
+        tokoOk
+      ){
+
+        console.log(
+          "ONESIGNAL IDENTITY VERIFIED",
+          tags
+        );
+
+        return true;
+
+      }
+
+      console.log(
+        "ONESIGNAL TAG VERIFY FAILED",
+        tags
+      );
+
+      if(!retry){
+
+        return syncIdentity(true);
+
+      }
+
+      return false;
+
+    };
+
+    const identitySynced =
+    await syncIdentity(false);
+
+    if(!identitySynced){
+
+      throw new Error(
+        "ONESIGNAL_IDENTITY_SYNC_FAILED"
+      );
+
+    }
+
+    // =========================
     // DIRECT FLOW
     // =========================
       try{
 
         const alreadySubscribed =
 
-OneSignal.User.PushSubscription.optedIn;
+!!(
+  OneSignal.User &&
+  OneSignal.User.PushSubscription &&
+  OneSignal.User.PushSubscription.optedIn
+);
         
         if(alreadySubscribed){
-
-          if(partnerId){
-
-            await OneSignal.login(
-              partnerId
-            );
-
-            await OneSignal.User.addTag(
-              "partner",
-              partnerId
-            );
-
-          }
-
-          if(toko){
-
-            await OneSignal.User.addTag(
-              "toko",
-              toko
-            );
-
-          }
 
           if(btn){
 
@@ -287,28 +421,6 @@ console.log(
   permission === true
 
 ){
-
-          if(partnerId){
-
-            await OneSignal.login(
-              partnerId
-            );
-
-            await OneSignal.User.addTag(
-              "partner",
-              partnerId
-            );
-
-          }
-
-          if(toko){
-
-            await OneSignal.User.addTag(
-              "toko",
-              toko
-            );
-
-          }
 
           if(btn){
 
