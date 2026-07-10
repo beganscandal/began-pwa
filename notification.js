@@ -73,6 +73,78 @@ const PARTNER_ARTICLE_KEY =
 partnerId
 ? `article_seen_${partnerId}`
 : "article_seen_guest";
+
+function withNotificationManager(callback){
+
+  if(
+    window.BeganNotificationRealtime
+  ){
+
+    callback(
+      window.BeganNotificationRealtime
+    );
+
+    return;
+
+  }
+
+  window.addEventListener(
+
+    'beganNotificationRealtimeReady',
+
+    function(){
+
+      if(
+        window.BeganNotificationRealtime
+      ){
+
+        callback(
+          window.BeganNotificationRealtime
+        );
+
+      }
+
+    },
+
+    { once:true }
+
+  );
+
+}
+
+function refreshNotificationState(){
+
+  withNotificationManager(function(manager){
+
+    manager.refresh();
+
+  });
+
+}
+
+function markDashboardArticleNotificationsRead(){
+
+  withNotificationManager(function(manager){
+
+    if(
+      typeof manager.markArticleNotificationsRead ===
+      'function'
+    ){
+
+      manager.markArticleNotificationsRead(
+        null,
+        'dashboard_new_product_visible'
+      );
+
+      return;
+
+    }
+
+    manager.refresh();
+
+  });
+
+}
 // =========================
 // SOUND
 // =========================
@@ -147,9 +219,21 @@ document.addEventListener(
 window.openPushOverlay = function(){
   console.log("OPEN PUSH OVERLAY");
   try {
+    const layer = document.querySelector(".push-permission-layer");
+    if(layer){
+      layer.remove();
+      PUSH_OVERLAY_ACTIVE = false;
+    }
+
     const partnerData = JSON.parse(localStorage.getItem("began_partner") || "{}");
     const partnerId = partnerData.id || "";
     const toko = partnerData.toko || "";
+
+    if(!partnerId){
+      console.log("PUSH WAITING PARTNER");
+      return;
+    }
+
     const url = `https://pwa.barkahgarment.com/?partner=${partnerId}&toko=${encodeURIComponent(toko)}`;
 
     // =========================
@@ -181,27 +265,7 @@ window.openPushOverlay = function(){
         return;
       }
 
-      // 3. JIKA SUDAH DI DALAM PWA (STANDALONE - IOS 16.4+)
-      if (typeof OneSignal !== "undefined") {
-        OneSignal.push(function() {
-          OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
-            if (accepted) {
-              // PERBAIKAN: \n\n sudah dihapus
-              alert("Notifikasi BEGAN berhasil diaktifkan. until god says so.");
-            } else {
-              // PERBAIKAN: Teks disambung menjadi satu baris utuh agar tidak error
-              alert("Sistem Apple memblokir izin. Silakan aktifkan manual di Pengaturan > Pemberitahuan > Safari iPhone Anda.");
-            }
-          });
-        });
-      } else {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            // PERBAIKAN: \n\n sudah dihapus
-            alert("Notifikasi BEGAN berhasil diaktifkan. until god says so.");
-          }
-        });
-      }
+      window.open(url, "BEGAN_PUSH", "width=420,height=620");
       return;
     }
 
@@ -214,6 +278,206 @@ window.openPushOverlay = function(){
     console.log("PUSH OVERLAY ERROR", err);
   }
 };
+
+function isPushConfirmed(){
+  try{
+    const partnerData =
+    JSON.parse(
+      localStorage.getItem("began_partner") || "{}"
+    );
+
+    const partnerId =
+    partnerData.id || "";
+
+    if(!partnerId){
+      return false;
+    }
+
+    return localStorage.getItem(
+      `push_confirmed_${partnerId}`
+    ) === "yes";
+  }catch(err){
+    return false;
+  }
+}
+
+function isDashboardReadyForPushOverlay(){
+  let partnerData = {};
+
+  try{
+    partnerData =
+    JSON.parse(
+      localStorage.getItem("began_partner") || "{}"
+    );
+  }catch(err){
+    return false;
+  }
+
+  if(!partnerData.id){
+    return false;
+  }
+
+  const loginOverlay =
+  document.getElementById("login-overlay");
+
+  if(
+    loginOverlay &&
+    loginOverlay.style.display !== "none"
+  ){
+    return false;
+  }
+
+  return true;
+}
+
+function showPushPermissionModal(){
+  if(
+    isPushConfirmed() ||
+    (
+      typeof Notification !== "undefined" &&
+      Notification.permission === "granted"
+    )
+  ){
+    updatePushButton();
+    return;
+  }
+
+  if(!isDashboardReadyForPushOverlay()){
+    return;
+  }
+
+  if(document.querySelector(".push-permission-layer")){
+    return;
+  }
+
+  PUSH_OVERLAY_ACTIVE = true;
+
+  const style =
+  document.createElement("style");
+
+  style.innerHTML = `
+    .push-permission-layer{
+      position:fixed;
+      inset:0;
+      z-index:999998;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      background:rgba(0,0,0,.58);
+    }
+    .push-permission-modal{
+      width:100%;
+      max-width:320px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      background:#050505;
+      color:white;
+      padding:24px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.42);
+      font-family:inherit;
+    }
+    .push-permission-icon{
+      font-size:34px;
+      line-height:1;
+      margin-bottom:14px;
+    }
+    .push-permission-title{
+      font-size:20px;
+      line-height:1.2;
+      font-weight:900;
+      margin-bottom:20px;
+    }
+    .push-permission-actions{
+      display:grid;
+      gap:10px;
+    }
+    .push-permission-enable,
+    .push-permission-later{
+      width:100%;
+      min-height:44px;
+      border-radius:12px;
+      border:0;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .push-permission-enable{
+      background:#39FF14;
+      color:#030303;
+    }
+    .push-permission-later{
+      background:rgba(255,255,255,.08);
+      color:white;
+    }
+  `;
+
+  if(!document.getElementById("began-push-permission-style")){
+    style.id =
+      "began-push-permission-style";
+    document.head.appendChild(style);
+  }
+
+  const layer =
+  document.createElement("div");
+
+  layer.className =
+    "push-permission-layer";
+
+  layer.innerHTML = `
+    <div class="push-permission-modal">
+      <div class="push-permission-icon">🔔</div>
+      <div class="push-permission-title">Aktifkan Notifikasi</div>
+      <div class="push-permission-actions">
+        <button class="push-permission-enable" type="button">Aktifkan</button>
+        <button class="push-permission-later" type="button">Nanti</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(layer);
+
+  const close = ()=>{
+    layer.remove();
+    PUSH_OVERLAY_ACTIVE = false;
+  };
+
+  const enable =
+  layer.querySelector(".push-permission-enable");
+
+  const later =
+  layer.querySelector(".push-permission-later");
+
+  if(enable){
+    enable.onclick = ()=>{
+      window.openPushOverlay();
+    };
+  }
+
+  if(later){
+    later.onclick = close;
+  }
+}
+
+function schedulePushPermissionModal(attempt){
+  const nextAttempt =
+  Number(attempt || 0);
+
+  setTimeout(()=>{
+    if(
+      !isDashboardReadyForPushOverlay() &&
+      nextAttempt < 5
+    ){
+      schedulePushPermissionModal(
+        nextAttempt + 1
+      );
+
+      return;
+    }
+
+    showPushPermissionModal();
+  },250);
+}
 
 // =========================
 // POPUP INSTALL IOS (DENGAN CLOSE BUTTON)
@@ -296,11 +560,22 @@ function tampilkanOverlayInstallIOS() {
       pushBtn.onclick =
       window.openPushOverlay;
 
+      schedulePushPermissionModal();
+
     },1200);
 
   }
 
 );
+
+window.addEventListener(
+  "beganDashboardBootReady",
+  schedulePushPermissionModal
+);
+
+if(document.readyState !== "loading"){
+  schedulePushPermissionModal();
+}
 
 window.addEventListener(
 
@@ -488,11 +763,6 @@ false;
   );
 
   localStorage.setItem(
-    "articleUnread",
-    "true"
-  );
-
-  localStorage.setItem(
     "lastArticleVersion",
     currentVersion);
     LAST_ARTICLE_VERSION =
@@ -533,14 +803,8 @@ try{
   );
 
 }
-}
+  }
   showNotificationBadge();
-      if("setAppBadge" in navigator){
-
-  navigator.setAppBadge(1)
-  .catch(()=>{});
-
-}
       if(data.drop_image){
 
   const preload =
@@ -568,17 +832,7 @@ showNewDropOverlay(data);
 
 function showNotificationBadge(){
 
-  const badges =
-    document.querySelectorAll(
-      ".notif-dot"
-    );
-
-  badges.forEach(badge => {
-
-    badge.style.display =
-      "block";
-
-  });
+  refreshNotificationState();
 }
 
 // =========================
@@ -619,12 +873,6 @@ max(20px, env(safe-area-inset-bottom));
   align-items:center;
 
   backdrop-filter:blur(8px);
-
-}
-
-.a55-lite .new-drop-overlay{
-
-  backdrop-filter:none;
 
 }
 
@@ -930,15 +1178,6 @@ if(!partnerId){
 }
 
 updatePushButton();
-const unread =
-localStorage.getItem(
-  "articleUnread"
-);
-
-if(unread === "true"){
-
-  showNotificationBadge();
-}
 
 function showNewDropOverlay(data){
   if(
@@ -1041,6 +1280,8 @@ sub.innerText =
 
   overlay.style.display =
     "flex";
+
+  markDashboardArticleNotificationsRead();
  
   const close = ()=>{
 
@@ -1054,13 +1295,6 @@ sub.innerText =
     overlay.style.display =
       "none";
    
-
-if("clearAppBadge" in navigator){
-
-  navigator.clearAppBadge()
-  .catch(()=>{});
-
-}
 
     NEW_DROP_ACTIVE = false;
 
@@ -1107,12 +1341,7 @@ function scrollToNewDrop(){
 
     firstDrop.scrollIntoView({
 
-      behavior:
-document.body.classList.contains(
-  "a55-lite"
-)
-? "auto"
-: "smooth",
+      behavior: "smooth",
 
       block:"center"
 
@@ -1124,12 +1353,7 @@ document.body.classList.contains(
 }
       firstDrop.scrollIntoView({
 
-        behavior:
-document.body.classList.contains(
-  "a55-lite"
-)
-? "auto"
-: "smooth",
+        behavior: "smooth",
 
         block:"center"
 
@@ -1201,4 +1425,3 @@ document.addEventListener(
   }
 
 );
-
