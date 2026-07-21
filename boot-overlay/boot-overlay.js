@@ -203,6 +203,112 @@
     window.setTimeout(hide, 180);
   }
 
+  function readPartnerCandidate() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const queryId = (params.get("partnerId") || "").trim().toUpperCase();
+      const queryStore = (params.get("toko") || "").trim();
+
+      if (queryId && queryStore) {
+        const queryPartner = {
+          id: queryId,
+          toko: queryStore,
+          name: params.get("name") || queryStore,
+          whatsapp: params.get("whatsapp") || "",
+          tier: params.get("tier") || ""
+        };
+
+        localStorage.setItem("began_partner", JSON.stringify(queryPartner));
+
+        ["partnerId", "toko", "name", "whatsapp", "tier"].forEach(function (key) {
+          params.delete(key);
+        });
+
+        const cleanUrl = window.location.pathname + (params.toString() ? "?" + params.toString() : "") + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
+        return queryPartner;
+      }
+
+      const saved = JSON.parse(localStorage.getItem("began_partner") || "null");
+      if (saved && saved.id && saved.toko) return saved;
+    } catch (error) {
+      console.warn("BEGAN bootstrap session read failed", error);
+    }
+
+    return null;
+  }
+
+  function revealLogin() {
+    localStorage.removeItem("began_partner");
+    document.documentElement.classList.remove("began-session-pending");
+    const login = document.getElementById("login-overlay");
+    if (login) login.style.display = "flex";
+    hide({ immediate: true });
+  }
+
+  function startSessionBootstrap() {
+    const partner = readPartnerCandidate();
+    if (!partner) {
+      document.documentElement.classList.remove("began-session-pending");
+      return;
+    }
+
+    show({ partnerName: partner.toko });
+    complete("session", "Sesi " + partner.toko + " ditemukan.");
+    activate("server", "Menghubungkan dashboard ke server BEGAN.");
+
+    let serverReady = false;
+    let inventoryReady = false;
+    const startedAt = Date.now();
+
+    function inspectRealState() {
+      try {
+        if (!serverReady && typeof PARTNERS !== "undefined" && Object.keys(PARTNERS).length) {
+          if (!PARTNERS[partner.id]) {
+            revealLogin();
+            return true;
+          }
+
+          serverReady = true;
+          complete("server", "Server terhubung dan sesi terverifikasi.");
+          activate("inventory", "Mengambil stok dan produk terbaru.");
+        }
+
+        if (serverReady && !inventoryReady && typeof INITIAL_DATA_LOADED !== "undefined" && INITIAL_DATA_LOADED) {
+          inventoryReady = true;
+          complete("inventory", "Stok terbaru berhasil disinkronkan.");
+          activate("dashboard", "Menyelesaikan tampilan partner.");
+        }
+
+        const login = document.getElementById("login-overlay");
+        const loginHidden = login && window.getComputedStyle(login).display === "none";
+        const dashboardReady = typeof APP_READY !== "undefined" && APP_READY;
+
+        if (inventoryReady && dashboardReady && window.CURRENT_PARTNER_DATA && loginHidden) {
+          success(window.CURRENT_PARTNER_DATA.toko || partner.toko);
+          return true;
+        }
+      } catch (error) {
+        console.warn("BEGAN bootstrap state check failed", error);
+      }
+
+      if (Date.now() - startedAt > 35000) {
+        fail(serverReady ? "inventory" : "server", "Dashboard belum berhasil dimuat. Periksa koneksi lalu coba lagi.", function () {
+          window.location.reload();
+        });
+        return true;
+      }
+
+      return false;
+    }
+
+    const poll = window.setInterval(function () {
+      if (inspectRealState()) window.clearInterval(poll);
+    }, 120);
+
+    window.addEventListener("beganDashboardBootReady", inspectRealState, { once: true });
+  }
+
   window.BeganBootOverlay = Object.freeze({
     show: show,
     activate: activate,
@@ -214,4 +320,5 @@
   });
 
   mount();
+  startSessionBootstrap();
 })(window, document);
