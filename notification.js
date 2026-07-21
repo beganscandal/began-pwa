@@ -151,7 +151,7 @@ function markDashboardArticleNotificationsRead(){
 
 const newDropSound =
 new Audio(
-  "https://cdn.prod.website-files.com/69c14cdea8e1d469f0564d69/6a07b03b3076e93739d1d7bb_new%20article%20drop.mp3"
+  "https://pwa.barkahgarment.com/assets/newArticleDrop.mp3"
 );
 
 newDropSound.volume = 0.5;
