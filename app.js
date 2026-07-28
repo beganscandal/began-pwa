@@ -94,7 +94,7 @@ isIOS &&
 
     },
 
-    "https://www.barkahgarment.com"
+    "https://barkahgarment.com"
 
     );
 
@@ -382,7 +382,7 @@ isIOS &&
 
   },
 
-  "https://www.barkahgarment.com"
+  "https://barkahgarment.com"
 
   );
 
@@ -395,7 +395,7 @@ isIOS &&
 
   window.location.href =
 
-"https://www.barkahgarment.com/began-partner-dashboard-dev?push=success";
+"https://barkahgarment.com/began-partner-dashboard-dev?push=success";
 
 }
           return;
@@ -439,7 +439,7 @@ console.log(
 
   },
 
-  "https://www.barkahgarment.com"
+  "https://barkahgarment.com"
 
   );
 
@@ -453,7 +453,7 @@ console.log(
 
   window.location.href =
 
-"https://www.barkahgarment.com/began-partner-dashboard-dev?push=success";
+"https://barkahgarment.com/began-partner-dashboard-dev?push=success";
 
 }
 
@@ -472,7 +472,7 @@ return;
 
     },
 
-    "https://www.barkahgarment.com"
+    "https://barkahgarment.com"
 
     );
 
@@ -486,7 +486,7 @@ return;
 
     window.location.href =
 
-"https://www.barkahgarment.com/began-partner-dashboard-dev?push=denied";
+"https://barkahgarment.com/began-partner-dashboard-dev?push=denied";
 
   }
 
@@ -506,7 +506,7 @@ return;
 
     },
 
-    "https://www.barkahgarment.com"
+    "https://barkahgarment.com"
 
     );
 
