@@ -23,7 +23,7 @@ let IS_NOTIFICATION_REFRESHING =
 let NOTIFICATION_TIMER =
   null;
 const RESERVE_SYSTEM_URL =
-  'https://www.barkahgarment.com/reserve-system';
+  'https://barkahgarment.com/reserve-system';
 
 document.addEventListener(
   'DOMContentLoaded',
@@ -1382,7 +1382,7 @@ function bindGlobalNavigation(){
           BeganPwaBridge.open(
 
             buildBeganPwaUrl(
-              'https://www.barkahgarment.com/began-partner-dashboard-dev'
+              'https://barkahgarment.com/began-partner-dashboard-dev'
             )
 
           );
@@ -1418,7 +1418,7 @@ function bindGlobalNavigation(){
           BeganPwaBridge.open(
 
             buildBeganPwaUrl(
-              'https://www.barkahgarment.com/reserve-system'
+              'https://barkahgarment.com/reserve-system'
             )
 
           );
