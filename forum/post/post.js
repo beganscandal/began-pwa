@@ -177,7 +177,7 @@ function bindGlobalNavigation(){
         case 'dashboard':
 
           BeganPwaBridge.open(
-            'https://www.barkahgarment.com/began-partner-dashboard-dev'
+            'https://barkahgarment.com/began-partner-dashboard-dev'
           );
 
           break;
@@ -201,7 +201,7 @@ function bindGlobalNavigation(){
         case 'reserve':
 
           BeganPwaBridge.open(
-            'https://www.barkahgarment.com/reserve-system'
+            'https://barkahgarment.com/reserve-system'
           );
 
           break;
