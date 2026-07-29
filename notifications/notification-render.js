@@ -9,28 +9,28 @@ function getTypeIcon(type){
 
     case 'reply':
     case 'mention':
-      return 'ðŸ’¬';
+      return 'message-circle';
 
     case 'announcement':
-      return 'ðŸ“¢';
+      return 'megaphone';
 
     case 'reserve':
-      return 'ðŸ“¦';
+      return 'package';
 
     case 'article':
-      return 'ðŸ”¥';
+      return 'flame';
 
     case 'checkout':
-      return 'ðŸ›’';
+      return 'shopping-cart';
 
     case 'production':
-      return 'ðŸ­';
+      return 'factory';
 
     case 'shipping':
-      return 'ðŸšš';
+      return 'truck';
 
     default:
-      return 'ðŸ””';
+      return 'bell';
 
   }
 
@@ -152,6 +152,8 @@ function renderNotifications(){
 
     list.innerHTML = '';
 
+    lucide.createIcons();
+
     document
       .getElementById(
         'empty-state'
@@ -209,7 +211,10 @@ function renderNotifications(){
     <div
       class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg shrink-0"
     >
-      ${getTypeIcon(n.type)}
+      <i
+        data-lucide="${getTypeIcon(n.type)}"
+        class="w-5 h-5"
+      ></i>
     </div>
 
     <div class="flex-1 min-w-0">
@@ -258,7 +263,10 @@ function renderNotifications(){
       class="notif-delete-btn w-10 h-10 shrink-0 flex items-center justify-center text-white/35 hover:text-white"
       data-notification-id="${n.notificationId || ''}"
     >
-      âœ•
+      <i
+        data-lucide="x"
+        class="w-4 h-4"
+      ></i>
     </button>
 
   </div>
@@ -266,6 +274,8 @@ function renderNotifications(){
 `;
 
   }).join('');
+
+  lucide.createIcons();
 
 }
 
@@ -370,6 +380,53 @@ if(unreadChip){
 
 function bindNotificationClicks(){
 
+  let navigationBusy = false;
+  let navigationFailsafe = null;
+
+  function setNavigationBusy(
+    card,
+    busy
+  ){
+
+    navigationBusy = busy;
+
+    card?.setAttribute(
+      'aria-busy',
+      String(busy)
+    );
+
+    const overlay =
+      document.getElementById(
+        'notification-navigation-overlay'
+      );
+
+    overlay?.classList.toggle(
+      'hidden',
+      !busy
+    );
+
+    overlay?.setAttribute(
+      'aria-hidden',
+      String(!busy)
+    );
+
+    clearTimeout(
+      navigationFailsafe
+    );
+
+    navigationFailsafe =
+      busy
+        ? setTimeout(
+          () =>
+            setNavigationBusy(
+              card,
+              false
+            ),
+          8000
+        )
+        : null;
+  }
+
   document.addEventListener(
 
     'click',
@@ -391,6 +448,14 @@ function bindNotificationClicks(){
         );
 
       if(!card) return;
+
+      if(navigationBusy)
+        return;
+
+      setNavigationBusy(
+        card,
+        true
+      );
 
       const url =
         card.dataset.url;
@@ -417,11 +482,6 @@ const type =
           await markNotificationRead(
             notificationId
           );
-          await loadNotifications();
-
-renderNotifications();
-renderNotificationStats();
-renderNotificationBadge();
 
         }catch(error){
 
@@ -495,7 +555,16 @@ if(
     type,
     destinationUrl
   );
+
+  return;
 }
+
+await refreshNotificationCenter();
+
+setNavigationBusy(
+  card,
+  false
+);
           }   // penutup async function
 
   );    // penutup addEventListener
@@ -559,4 +628,4 @@ function formatTimeAgo(dateString){
   );
 
 }
-
+
