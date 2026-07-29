@@ -1,5 +1,61 @@
 let BOTTOM_NAV_BINDED = false;  
 
+function openNotificationDestination(
+  type,
+  url
+){
+
+  if(!url){
+    return;
+  }
+
+  const normalizedType =
+    String(type || '')
+      .toLowerCase();
+
+  if(
+    ['reserve','checkout','article']
+      .includes(normalizedType)
+  ){
+
+    if(
+      window.BeganPwaBridge
+
+      &&
+
+      typeof
+      window.BeganPwaBridge.open
+      === 'function'
+    ){
+
+      window.BeganPwaBridge.open(url);
+
+    }
+
+    return;
+  }
+
+  if(
+    window.BeganDeepLink
+
+    &&
+
+    typeof
+    window.BeganDeepLink.open
+    === 'function'
+  ){
+
+    window.BeganDeepLink.open(url);
+
+    return;
+  }
+
+  window.location.href = url;
+}
+
+window.openNotificationDestination =
+  openNotificationDestination;
+
 async function initNotifications(){
 
   try{
