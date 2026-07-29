@@ -9,28 +9,28 @@ function getTypeIcon(type){
 
     case 'reply':
     case 'mention':
-      return '💬';
+      return 'ðŸ’¬';
 
     case 'announcement':
-      return '📢';
+      return 'ðŸ“¢';
 
     case 'reserve':
-      return '📦';
+      return 'ðŸ“¦';
 
     case 'article':
-      return '🔥';
+      return 'ðŸ”¥';
 
     case 'checkout':
-      return '🛒';
+      return 'ðŸ›’';
 
     case 'production':
-      return '🏭';
+      return 'ðŸ­';
 
     case 'shipping':
-      return '🚚';
+      return 'ðŸšš';
 
     default:
-      return '🔔';
+      return 'ðŸ””';
 
   }
 
@@ -258,7 +258,7 @@ function renderNotifications(){
       class="notif-delete-btn w-10 h-10 shrink-0 flex items-center justify-center text-white/35 hover:text-white"
       data-notification-id="${n.notificationId || ''}"
     >
-      ✕
+      âœ•
     </button>
 
   </div>
@@ -434,46 +434,67 @@ renderNotificationBadge();
 
       }
 
-      if(!url) return;
+let destinationUrl = url;
 
+if(type === 'article'){
+
+  const destination =
+    new URL(
+      'https://barkahgarment.com/began-partner-dashboard-dev/'
+    );
+
+  destination.searchParams.set(
+    'focus',
+    'new-drop'
+  );
+
+  try{
+
+    const articleCode =
+      new URL(
+        notification?.url || '',
+        window.location.origin
+      )
+      .searchParams
+      .get('artikel')
+      ?.trim();
+
+    if(articleCode){
+
+      destination.searchParams.set(
+        'artikel',
+        articleCode
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      'ARTICLE URL ERROR',
+      error
+    );
+
+  }
+
+  destinationUrl =
+    destination.toString();
+}
 
 if(
-
-  ['reserve','checkout']
-    .includes(type)
-
-  &&
-
-  window.BeganPwaBridge
+  destinationUrl
 
   &&
 
   typeof
-  window.BeganPwaBridge.open
+  window.openNotificationDestination
   === 'function'
-
 ){
 
-  window.BeganPwaBridge.open(url);
-
-}else if(
-
-  window.BeganDeepLink
-
-  &&
-
-  typeof
-  window.BeganDeepLink.open
-  === 'function'
-
-){
-
-  window.BeganDeepLink.open(url);
-
-}else{
-
-  window.location.href = url;
-
+  window.openNotificationDestination(
+    type,
+    destinationUrl
+  );
 }
           }   // penutup async function
 
@@ -538,3 +559,4 @@ function formatTimeAgo(dateString){
   );
 
 }
+
