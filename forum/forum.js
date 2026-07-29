@@ -1403,16 +1403,11 @@ function bindGlobalNavigation(){
 
         case 'updates':
 
-          BeganDeepLink.open(
+  BeganPwaBridge.open(
+    'https://pwa.barkahgarment.com/notifications/'
+  );
 
-            buildBeganPwaUrl(
-              'https://pwa.barkahgarment.com/notifications/'
-            )
-
-          );
-
-        break;
-
+break;
         case 'reserve':
 
           BeganPwaBridge.open(
