@@ -37,13 +37,21 @@ document.addEventListener(
  
     try {
 renderPostSkeleton();
-bindMentionAutocomplete();
-      await
-        loadMentionPartners();
-      
-     const data =
-  await getBoard();
 
+bindMentionAutocomplete();
+
+const initialData =
+  await Promise.all([
+
+    getBoard(),
+
+    loadMentionPartners()
+
+  ]);
+
+const data =
+  initialData[0];
+      
 allPosts =
   data.posts || [];
 
