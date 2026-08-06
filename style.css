@@ -1,167 +1,157 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
-body{
-
-  margin:0;
-  padding:0;
-
-  width:100%;
-  height:100%;
-
-  background:transparent;
-
-  overflow:hidden;
-
-  font-family:sans-serif;
-
+body {
+  margin: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-/* =========================
-OVERLAY
-========================= */
-
-.overlay{
-
-  width:100%;
-  height:100%;
-
-  display:flex;
-
-  justify-content:center;
-  align-items:center;
-
-  background:rgba(0,0,0,.15);
-
-  backdrop-filter:blur(6px);
-
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: auto;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(57, 255, 20, .09), transparent 32%),
+    linear-gradient(180deg, #0a0a0a 0%, #020202 100%);
+  color: #fff;
 }
 
-/* =========================
-BUTTON
-========================= */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(to bottom, #000, transparent 78%);
+}
 
-.notif-btn{
+.alert-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:
+    max(18px, env(safe-area-inset-top))
+    16px
+    max(18px, env(safe-area-inset-bottom));
+}
 
-  border:none;
-  outline:none;
-
-  padding:14px 22px;
-
-  border-radius:14px;
-
-  background:#111;
-
-  color:#fff;
-
-  font-size:14px;
-  font-weight:600;
-
-  cursor:pointer;
-
-  transition:.2s;
-
+.auth-box {
+  position: relative;
+  width: min(360px, 100%);
+  padding: 34px 24px 24px;
+  border: 1px solid rgba(57, 255, 20, .2);
+  border-radius: 24px;
+  background: rgba(12, 12, 12, .96);
+  text-align: center;
   box-shadow:
-  0 4px 20px rgba(0,0,0,.25);
-
+    0 24px 80px rgba(0, 0, 0, .58),
+    0 0 42px rgba(57, 255, 20, .08);
+  backdrop-filter: blur(12px);
 }
 
-/* =========================
-BUTTON CLICK
-========================= */
-
-.notif-btn:active{
-
-  transform:scale(.97);
-
+.auth-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .06);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
 }
 
-body{
-
-  margin:0;
-  width:100vw;
-  height:100vh;
-
-  background:#050505;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  overflow:hidden;
-
-  font-family:sans-serif;
-
+.auth-close:active {
+  transform: scale(.96);
 }
 
-.auth-box{
-
-  width:280px;
-
-  padding:32px 24px;
-
-  border-radius:24px;
-
-  background:#111;
-
-  border:
-  1px solid rgba(57,255,20,.15);
-
-  text-align:center;
-
-  box-shadow:
-  0 0 40px rgba(57,255,20,.08);
-
+.began-logo {
+  display: block;
+  width: 82px;
+  height: 82px;
+  margin: 4px auto 20px;
+  object-fit: contain;
 }
 
-.began-logo{
-
-  width:88px;
-
-  margin-bottom:20px;
-
-  object-fit:contain;
-
+.auth-title {
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: .02em;
 }
 
-.auth-title{
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:700;
-
-  margin-bottom:10px;
-
+.auth-sub {
+  min-height: 40px;
+  margin-bottom: 22px;
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.55;
 }
 
-.auth-sub{
-
-  color:#888;
-
-  font-size:13px;
-
-  line-height:1.5;
-
-  margin-bottom:24px;
-
+#enableNotif {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  background: #39ff14;
+  color: #000;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.25;
+  cursor: pointer;
 }
 
-#enableNotif{
+#enableNotif:disabled {
+  cursor: wait;
+  opacity: .58;
+}
 
-  width:100%;
+#enableNotif:not(:disabled):active {
+  transform: scale(.985);
+}
 
-  height:52px;
+.auth-note {
+  margin-top: 16px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
+}
 
-  border:none;
+@media (max-width: 600px) {
+  .alert-shell {
+    align-items: flex-end;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 
-  border-radius:14px;
-
-  background:#39FF14;
-
-  color:#000;
-
-  font-size:15px;
-
-  font-weight:700;
-
+  .auth-box {
+    width: 100%;
+    max-width: 430px;
+    border-radius: 22px;
+    padding-bottom: calc(22px + env(safe-area-inset-bottom));
+  }
 }
