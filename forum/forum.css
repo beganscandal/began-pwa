@@ -795,3 +795,17 @@
 #began-mobile-nav button{
   position:relative;
 }
+
+@supports (content-visibility: auto) {
+
+  .forum-card {
+
+    content-visibility:
+      auto;
+
+    contain-intrinsic-size:
+      auto 560px;
+
+  }
+
+}
