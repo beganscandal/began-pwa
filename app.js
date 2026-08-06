@@ -7,7 +7,8 @@
   const DASHBOARD_ORIGINS = new Set([
     "https://barkahgarment.com",
     "https://www.barkahgarment.com"
-  ]); 
+  ]);
+  const ACTIVATION_TIMEOUT_MS = 35000;
 
   const params = new URLSearchParams(window.location.search);
   const partnerId = String(
@@ -16,11 +17,13 @@
   const toko = String(params.get("toko") || "").trim();
 
   const button = document.getElementById("enableNotif");
+  const closeButton = document.getElementById("closeAlert");
   const subtitle = document.querySelector(".auth-sub");
 
   let busy = false;
   let oneSignalReadyPromise = null;
   let finalStateReached = false;
+  let operationEpoch = 0;
 
   function setUi(label, message, disabled = false) {
     if (button) {
@@ -67,15 +70,54 @@
     }
   }
 
-  function redirectToDashboard(status) {
+  function buildDashboardUrl(status) {
     const target = new URL(DASHBOARD_URL);
     target.searchParams.set("push", status);
-    window.location.replace(target.toString());
+    return target.toString();
+  }
+
+  function redirectToDashboard(status) {
+    window.location.replace(buildDashboardUrl(status));
+  }
+
+  function closeAccessPage(reason = "cancelled") {
+    if (finalStateReached) return;
+
+    operationEpoch += 1;
+    busy = false;
+    oneSignalReadyPromise = null;
+
+    setUi(
+      "KEMBALI KE DASHBOARD",
+      "Aktivasi notifikasi ditutup. Anda dapat mencobanya kembali kapan saja.",
+      true
+    );
+
+    const notified = notifyDashboard("BEGAN_PUSH_CANCELLED", { reason });
+
+    window.setTimeout(() => {
+      if (notified) {
+        window.close();
+      }
+
+      window.setTimeout(() => {
+        if (!window.closed) {
+          redirectToDashboard("cancelled");
+        }
+      }, 500);
+    }, 80);
+  }
+
+  function assertOperation(epoch) {
+    if (epoch !== operationEpoch || finalStateReached) {
+      throw new Error("OPERATION_CANCELLED");
+    }
   }
 
   function finishSuccess() {
     if (finalStateReached) return;
     finalStateReached = true;
+    operationEpoch += 1;
 
     setUi("🔥 ALERT ACTIVE", "Notifikasi artikel terbaru sudah aktif.", true);
 
@@ -140,7 +182,7 @@
     }
 
     oneSignalReadyPromise = new Promise(async (resolve, reject) => {
-      let timeoutId = window.setTimeout(() => {
+      const timeoutId = window.setTimeout(() => {
         reject(new Error("ONESIGNAL_INIT_TIMEOUT"));
       }, 20000);
 
@@ -206,10 +248,12 @@
     );
   }
 
-  async function waitForSubscription(OneSignal, timeoutMs = 15000) {
+  async function waitForSubscription(OneSignal, epoch, timeoutMs = 15000) {
     const startedAt = Date.now();
 
     while (Date.now() - startedAt < timeoutMs) {
+      assertOperation(epoch);
+
       if (isSubscriptionReady(OneSignal)) {
         return true;
       }
@@ -217,15 +261,23 @@
       await new Promise((resolve) => window.setTimeout(resolve, 250));
     }
 
+    assertOperation(epoch);
     return isSubscriptionReady(OneSignal);
   }
 
-  async function waitForExternalId(OneSignal, expectedId, timeoutMs = 8000) {
+  async function waitForExternalId(
+    OneSignal,
+    expectedId,
+    epoch,
+    timeoutMs = 8000
+  ) {
     if (!expectedId) return true;
 
     const startedAt = Date.now();
 
     while (Date.now() - startedAt < timeoutMs) {
+      assertOperation(epoch);
+
       if (String(OneSignal.User.externalId || "") === expectedId) {
         return true;
       }
@@ -233,10 +285,13 @@
       await new Promise((resolve) => window.setTimeout(resolve, 200));
     }
 
+    assertOperation(epoch);
     return String(OneSignal.User.externalId || "") === expectedId;
   }
 
-  async function syncPartnerIdentity(OneSignal) {
+  async function syncPartnerIdentity(OneSignal, epoch) {
+    assertOperation(epoch);
+
     if (!partnerId) {
       throw new Error("PARTNER_ID_MISSING");
     }
@@ -251,11 +306,18 @@
       typeof OneSignal.logout === "function"
     ) {
       await OneSignal.logout();
+      assertOperation(epoch);
     }
 
     await OneSignal.login(partnerId);
+    assertOperation(epoch);
 
-    const identityReady = await waitForExternalId(OneSignal, partnerId);
+    const identityReady = await waitForExternalId(
+      OneSignal,
+      partnerId,
+      epoch
+    );
+
     if (!identityReady) {
       throw new Error("ONESIGNAL_IDENTITY_SYNC_TIMEOUT");
     }
@@ -277,7 +339,25 @@
     if (busy || finalStateReached) return;
 
     busy = true;
+    const epoch = ++operationEpoch;
+
     setUi("CONNECTING...", "Menghubungkan notifikasi partner...", true);
+
+    const watchdog = window.setTimeout(() => {
+      if (epoch !== operationEpoch || finalStateReached) return;
+
+      operationEpoch += 1;
+      busy = false;
+      oneSignalReadyPromise = null;
+
+      setUi(
+        "COBA LAGI",
+        "Aktivasi membutuhkan waktu terlalu lama. Periksa koneksi dan izin browser, lalu coba kembali.",
+        false
+      );
+
+      notifyDashboard("BEGAN_PUSH_DENIED", { reason: "activation_timeout" });
+    }, ACTIVATION_TIMEOUT_MS);
 
     try {
       if (!partnerId) {
@@ -285,6 +365,7 @@
       }
 
       const OneSignal = await getOneSignal();
+      assertOperation(epoch);
 
       if (!OneSignal.Notifications.isPushSupported()) {
         throw new Error("PUSH_NOT_SUPPORTED");
@@ -296,9 +377,8 @@
       }
 
       if (!isBrowserPermissionGranted(OneSignal)) {
-        // requestPermission() does not return "granted" in Web SDK v16.
-        // The supported authority is OneSignal.Notifications.permission.
         await OneSignal.Notifications.requestPermission();
+        assertOperation(epoch);
       }
 
       if (!isBrowserPermissionGranted(OneSignal)) {
@@ -308,20 +388,26 @@
 
       if (!OneSignal.User.PushSubscription.optedIn) {
         await OneSignal.User.PushSubscription.optIn();
+        assertOperation(epoch);
       }
 
-      const subscriptionReady = await waitForSubscription(OneSignal);
+      const subscriptionReady = await waitForSubscription(OneSignal, epoch);
       if (!subscriptionReady) {
         throw new Error("ONESIGNAL_SUBSCRIPTION_TIMEOUT");
       }
 
-      await syncPartnerIdentity(OneSignal);
+      await syncPartnerIdentity(OneSignal, epoch);
+      assertOperation(epoch);
       finishSuccess();
     } catch (error) {
+      const code = String(error && error.message ? error.message : error);
+
+      if (code.includes("OPERATION_CANCELLED") || epoch !== operationEpoch) {
+        return;
+      }
+
       console.error("BEGAN PUSH ACTIVATION FAILED", error);
       busy = false;
-
-      const code = String(error && error.message ? error.message : error);
 
       if (code.includes("PARTNER_ID_MISSING")) {
         setUi(
@@ -346,6 +432,13 @@
         "Koneksi notifikasi belum berhasil. Pastikan internet aktif lalu tekan Coba Lagi.",
         false
       );
+
+      notifyDashboard("BEGAN_PUSH_DENIED", { reason: code });
+    } finally {
+      window.clearTimeout(watchdog);
+      if (epoch === operationEpoch && !finalStateReached) {
+        busy = false;
+      }
     }
   }
 
@@ -353,6 +446,13 @@
     if (!button) return;
 
     button.addEventListener("click", activatePush);
+    closeButton?.addEventListener("click", () => closeAccessPage("close_button"));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeAccessPage("escape_key");
+      }
+    });
 
     if (!partnerId) {
       setUi(
@@ -364,16 +464,19 @@
     }
 
     setUi("CONNECTING...", "Menyiapkan sistem notifikasi...", true);
+    const epoch = ++operationEpoch;
 
     try {
       const OneSignal = await getOneSignal();
+      assertOperation(epoch);
 
       if (!OneSignal.Notifications.isPushSupported()) {
         throw new Error("PUSH_NOT_SUPPORTED");
       }
 
       if (isSubscriptionReady(OneSignal)) {
-        await syncPartnerIdentity(OneSignal);
+        await syncPartnerIdentity(OneSignal, epoch);
+        assertOperation(epoch);
         finishSuccess();
         return;
       }
@@ -390,12 +493,28 @@
         false
       );
     } catch (error) {
+      const code = String(error && error.message ? error.message : error);
+
+      if (code.includes("OPERATION_CANCELLED") || epoch !== operationEpoch) {
+        return;
+      }
+
       console.error("BEGAN PUSH PREPARE FAILED", error);
       busy = false;
       oneSignalReadyPromise = null;
+
+      if (code.includes("PUSH_NOT_SUPPORTED")) {
+        setUi(
+          "DEVICE NOT SUPPORTED",
+          "Browser atau perangkat ini belum mendukung web push notification.",
+          true
+        );
+        return;
+      }
+
       setUi(
         "COBA LAGI",
-        "Sistem notifikasi belum tersambung. Pastikan internet aktif lalu coba lagi.",
+        "Sistem notifikasi belum tersambung. Anda dapat menutup halaman ini atau mencoba lagi.",
         false
       );
     }
