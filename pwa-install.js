@@ -452,3 +452,18 @@
     installUi.style.display = "none";
   }
 })();
+
+// Load the push-modal UX guard on every dashboard context, including an
+// already-installed standalone PWA where the installer above returns early.
+(() => {
+  "use strict";
+
+  const src = "https://pwa.barkahgarment.com/push-modal-ux.js?v=1";
+  if (document.querySelector('script[data-began-push-modal-ux="1"]')) return;
+
+  const script = document.createElement("script");
+  script.src = src;
+  script.defer = true;
+  script.dataset.beganPushModalUx = "1";
+  document.head.appendChild(script);
+})();
