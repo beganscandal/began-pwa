@@ -58,15 +58,7 @@ async function loadMentionPartners(){
             };
 
           });
-
-      console.log(
-
-        'PARTNER_MENTIONS',
-
-        PARTNER_MENTIONS
-
-      );
-
+      
     }
 
     const active =
