@@ -80,10 +80,6 @@ window.createPost =
 window.uploadPostImage =
 async function(payload){
 
-  console.log(
-    'UPLOAD PAYLOAD',
-    payload
-  );
 
   try{
 
