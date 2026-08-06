@@ -1,87 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-
-  <!-- =========================
-  BASIC META
-  ========================== -->
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
 
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1.0">
+  <title>BEGAN ALERT ACCESS</title>
 
-  <meta
-    name="theme-color"
-    content="#000000">
+  <link rel="manifest" href="./manifest.json?v=3">
+  <link rel="apple-touch-icon" href="./assets/icon-512.png?v=2">
+  <link rel="stylesheet" href="./style.css?v=2">
 
-  <!-- =========================
-  TITLE
-  ========================== -->
-
-  <title>
-    BEGAN ALERT ACCESS
-  </title>
-
-  <!-- =========================
-  MANIFEST
-  ========================== -->
-
-  <link
-    rel="manifest"
-    href="./manifest.json?v=3">
-
-  <!-- =========================
-  IOS ICON
-  ========================== -->
-
-  <link
-    rel="apple-touch-icon"
-    href="./assets/icon-512.png?v=2">
-
-  <!-- =========================
-  CSS FILE
-  ========================== -->
-
-  <link
-    rel="stylesheet"
-    href="./style.css?v=2">
-
+  <script
+    src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+    defer
+    data-began-onesignal-sdk="1"></script>
+  <script src="./app.js?v=3" defer></script>
 </head>
-
 <body>
-
   <div class="auth-box">
+    <img
+      src="https://pwa.barkahgarment.com/assets/logo-icon-512.png"
+      class="began-logo"
+      alt="BEGAN">
 
-  <img
-    src="https://pwa.barkahgarment.com/assets/logo-icon-512.png"
-    class="began-logo"
-  >
+    <div class="auth-title">BEGAN ALERT SYSTEM</div>
 
-  <div class="auth-title">
-    BEGAN ALERT SYSTEM
+    <div class="auth-sub">Menyiapkan sistem notifikasi...</div>
+
+    <button id="enableNotif" type="button" disabled>
+      CONNECTING...
+    </button>
   </div>
-
-  <div class="auth-sub">
-    Menghubungkan notifikasi partner...
-  </div>
-
-  <button id="enableNotif">
-🔔 Aktifkan Alert Artikel Baru  </button>
-
-</div>
-
- 
-  <!-- =========================
-  JS FILE
-  ========================== -->
-
-  <script src="./app.js?v=2"></script>
-  
- 
 </body>
 </html>
-
-
