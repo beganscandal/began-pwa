@@ -33,7 +33,7 @@ async function init(){
 if(!postId){
 
     BeganDeepLink.open(
-        '/forum/'
+        'https://pwa.barkahgarment.com/forum/'
     );
 
     return;
