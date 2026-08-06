@@ -1,548 +1,405 @@
-const params =
-new URLSearchParams(
-  window.location.search
-);
+(() => {
+  "use strict";
 
-const partnerId =
-params.get("partner") ||
-params.get("partnerId") ||
-"";
-const toko =
-params.get("toko") || "";
+  const ONE_SIGNAL_APP_ID = "37e11236-e95b-4d5d-b925-f7b5f8308cdd";
+  const SAFARI_WEB_ID = "web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38";
+  const DASHBOARD_URL = "https://barkahgarment.com/began-partner-dashboard-dev";
+  const DASHBOARD_ORIGINS = new Set([
+    "https://barkahgarment.com",
+    "https://www.barkahgarment.com"
+  ]);
 
-async function initPush(){
+  const params = new URLSearchParams(window.location.search);
+  const partnerId = String(
+    params.get("partner") || params.get("partnerId") || ""
+  ).trim();
+  const toko = String(params.get("toko") || "").trim();
 
-  console.log(
-    "INIT PUSH START"
-  );
+  const button = document.getElementById("enableNotif");
+  const subtitle = document.querySelector(".auth-sub");
 
-  const btn =
-  document.getElementById(
-    "enableNotif"
-  );
+  let busy = false;
+  let oneSignalReadyPromise = null;
+  let finalStateReached = false;
 
-  // =========================
-  // IOS UNSUPPORTED CHECK
-  // =========================
-
-  const isIOS =
-
-/iPad|iPhone|iPod/.test(
-  navigator.userAgent
-) ||
-
-(
-  navigator.platform === "MacIntel" &&
-  navigator.maxTouchPoints > 1
-);
-
-const unsupportedIOS =
-
-isIOS &&
-
-!(
-  "PushManager" in window
-);
-  if(unsupportedIOS){
-
-    console.log(
-      "IOS PUSH NOT SUPPORTED"
-    );
-
-    const sub =
-    document.querySelector(
-      ".auth-sub"
-    );
-
-    if(sub){
-
-      sub.innerHTML =
-
-"iPhone ini belum support push notification Safari.<br><br>Minimal iOS 16.4 diperlukan.";
-
+  function setUi(label, message, disabled = false) {
+    if (button) {
+      button.textContent = label;
+      button.disabled = disabled;
     }
 
-    if(btn){
-
-      btn.disabled = true;
-
-      btn.innerHTML =
-        "DEVICE NOT SUPPORTED";
+    if (subtitle && message) {
+      subtitle.textContent = message;
     }
-
-    return;
-
   }
 
-  if(btn){
+  function getDashboardOrigin() {
+    try {
+      const referrerOrigin = new URL(document.referrer).origin;
+      if (DASHBOARD_ORIGINS.has(referrerOrigin)) {
+        return referrerOrigin;
+      }
+    } catch (error) {
+      // The page may be opened without a referrer. Use the canonical origin.
+    }
 
-    btn.disabled = true;
-
-    btn.innerHTML =
-      "CONNECTING...";
+    return "https://barkahgarment.com";
   }
 
- 
-  const failSafe = setTimeout(()=>{
-
-  if(window.opener){
-
-    window.opener.postMessage({
-
-      type:
-      "BEGAN_PUSH_DENIED"
-
-    },
-
-    "https://barkahgarment.com"
-
-    );
-
-    setTimeout(()=>{
-
-      window.close();
-
-    },1200);
-
-  }
-
-},25000);
-  try{
-
-    // =========================
-    // LOAD SDK
-    // =========================
-
-    if(!window.OneSignal){
-
-      const sdk =
-      document.createElement(
-        "script"
-      );
-
-      sdk.src =
-"https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
-
-      sdk.defer = true;
-
-      document.head.appendChild(
-        sdk
-      );
-
-      await new Promise((resolve,reject)=>{
-
-  sdk.onload = ()=>{
-
-  console.log(
-    "SDK LOADED"
-  );
-
-  resolve();
-
-};
-
-  sdk.onerror = reject;
-
-});
-    }
-
-    // =========================
-    // INIT ONCE
-    // =========================
-
-    window.OneSignalDeferred =
-      window.OneSignalDeferred || [];
-
-    if(!window.BEGAN_ONESIGNAL_INIT_PROMISE){
-
-      window.BEGAN_ONESIGNAL_INIT_PROMISE =
-      new Promise((resolve,reject)=>{
-
-        OneSignalDeferred.push(
-          async function(OneSignal){
-            try{
-
-              if(!window.BEGAN_ONESIGNAL_INITIALIZED){
-
-                console.log(
-    "ONESIGNAL INIT START"
-  );
-
-                await OneSignal.init({
-
-                  appId:
-  "37e11236-e95b-4d5d-b925-f7b5f8308cdd",
-
-                  safari_web_id:
-  "web.onesignal.auto.14469d21-a548-446f-9323-a0e21fc14d38",
-
-                  notifyButton: {
-                    enable: false,
-                  },
-
-                });
-
-                window.BEGAN_ONESIGNAL_INITIALIZED =
-                  true;
-
-                console.log(
-    "ONESIGNAL INIT SUCCESS"
-  );
-
-              }
-
-              resolve(OneSignal);
-
-            }catch(err){
-
-              reject(err);
-
-            }
-
-          }
-        );
-
-      });
-
-    }
-
-    const OneSignal =
-    await window.BEGAN_ONESIGNAL_INIT_PROMISE;
-
-    window.BEGAN_ONESIGNAL_READY =
-      true;
-
-    console.log(
-      "ONESIGNAL READY"
-    );
-
-    if(btn){
-
-      btn.innerHTML =
-        "ALLOW NOTIFICATION";
-    }
-
-    // =========================
-    // IDENTITY SYNC
-    // =========================
-
-    const syncIdentity = async (retry)=>{
-
-      if(!partnerId){
-
-        console.log(
-          "ONESIGNAL IDENTITY SKIPPED"
-        );
-
-        return true;
-
-      }
-
-      const lastExternalId =
-      localStorage.getItem(
-        "began_onesignal_external_id"
-      );
-
-      if(
-        lastExternalId &&
-        lastExternalId !== partnerId
-      ){
-
-        console.log(
-          "ONESIGNAL PARTNER SWITCH",
-          {
-            from:
-            lastExternalId,
-            to:
-            partnerId
-          }
-        );
-
-        if(OneSignal.logout){
-
-          await OneSignal.logout();
-
-        }
-
-      }
-
-      await OneSignal.login(
-        partnerId
-      );
-
-      localStorage.setItem(
-        "began_onesignal_external_id",
-        partnerId
-      );
-
-      await OneSignal.User.addTag(
-        "partner",
-        partnerId
-      );
-
-      if(toko){
-
-        await OneSignal.User.addTag(
-          "toko",
-          toko
-        );
-
-      }
-
-      let tags = {};
-
-      if(
-        OneSignal.User &&
-        typeof OneSignal.User.getTags === "function"
-      ){
-
-        tags =
-        await OneSignal.User.getTags();
-
-      }
-
-      const partnerOk =
-      String(tags.partner || "") ===
-      String(partnerId);
-
-      const tokoOk =
-      !toko ||
-      String(tags.toko || "") ===
-      String(toko);
-
-      if(
-        partnerOk &&
-        tokoOk
-      ){
-
-        console.log(
-          "ONESIGNAL IDENTITY VERIFIED",
-          tags
-        );
-
-        return true;
-
-      }
-
-      console.log(
-        "ONESIGNAL TAG VERIFY FAILED",
-        tags
-      );
-
-      if(!retry){
-
-        return syncIdentity(true);
-
-      }
-
+  function notifyDashboard(type, extra = {}) {
+    if (!window.opener || window.opener.closed) {
       return false;
-
-    };
-
-    const identitySynced =
-    await syncIdentity(false);
-
-    if(!identitySynced){
-
-      throw new Error(
-        "ONESIGNAL_IDENTITY_SYNC_FAILED"
-      );
-
     }
 
-    // =========================
-    // DIRECT FLOW
-    // =========================
-      try{
+    try {
+      window.opener.postMessage(
+        {
+          type,
+          partnerId,
+          ...extra
+        },
+        getDashboardOrigin()
+      );
+      return true;
+    } catch (error) {
+      console.warn("BEGAN PUSH POSTMESSAGE FAILED", error);
+      return false;
+    }
+  }
 
-        const alreadySubscribed =
+  function redirectToDashboard(status) {
+    const target = new URL(DASHBOARD_URL);
+    target.searchParams.set("push", status);
+    window.location.replace(target.toString());
+  }
 
-!!(
-  OneSignal.User &&
-  OneSignal.User.PushSubscription &&
-  OneSignal.User.PushSubscription.optedIn
-);
-        
-        if(alreadySubscribed){
+  function finishSuccess() {
+    if (finalStateReached) return;
+    finalStateReached = true;
 
-          if(btn){
+    setUi("🔥 ALERT ACTIVE", "Notifikasi artikel terbaru sudah aktif.", true);
 
-            btn.innerHTML =
-              "🔥 ALERT ACTIVE";
-          }
+    const notified = notifyDashboard("BEGAN_PUSH_SUCCESS", {
+      subscriptionActive: true
+    });
 
-          clearTimeout(failSafe);
+    window.setTimeout(() => {
+      if (notified) {
+        window.close();
+      }
 
-          if(window.opener){
+      window.setTimeout(() => {
+        if (!window.closed) {
+          redirectToDashboard("success");
+        }
+      }, 700);
+    }, 900);
+  }
 
-  window.opener.postMessage({
+  function finishDenied(reason, blocked = false) {
+    finalStateReached = false;
+    busy = false;
 
-    type:
-    "BEGAN_PUSH_SUCCESS"
+    notifyDashboard("BEGAN_PUSH_DENIED", { reason });
 
-  },
+    if (blocked) {
+      setUi(
+        "NOTIFIKASI DIBLOKIR",
+        "Buka info situs di browser, ubah izin Notifikasi menjadi Izinkan, lalu kembali ke halaman ini.",
+        false
+      );
+      return;
+    }
 
-  "https://barkahgarment.com"
+    setUi(
+      "COBA LAGI",
+      "Izin notifikasi belum diberikan. Tekan lagi lalu pilih Izinkan pada dialog browser.",
+      false
+    );
+  }
 
-  );
+  function loadSdkScript() {
+    if (document.querySelector('script[data-began-onesignal-sdk="1"]')) {
+      return Promise.resolve();
+    }
 
-  setTimeout(()=>{
+    return new Promise((resolve, reject) => {
+      const sdk = document.createElement("script");
+      sdk.src = "https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
+      sdk.defer = true;
+      sdk.dataset.beganOnesignalSdk = "1";
+      sdk.onload = resolve;
+      sdk.onerror = () => reject(new Error("ONESIGNAL_SDK_LOAD_FAILED"));
+      document.head.appendChild(sdk);
+    });
+  }
 
-    window.close();
-  },1200);
+  async function getOneSignal() {
+    if (oneSignalReadyPromise) {
+      return oneSignalReadyPromise;
+    }
 
-}else{
+    oneSignalReadyPromise = new Promise(async (resolve, reject) => {
+      let timeoutId = window.setTimeout(() => {
+        reject(new Error("ONESIGNAL_INIT_TIMEOUT"));
+      }, 20000);
 
-  window.location.href =
+      try {
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-"https://barkahgarment.com/began-partner-dashboard-dev?push=success";
-
-}
-          return;
-
+        if (!document.querySelector('script[src*="OneSignalSDK.page.js"]')) {
+          await loadSdkScript();
         }
 
-       console.log(
-  "REQUEST PERMISSION START"
-);
+        window.OneSignalDeferred.push(async function (OneSignal) {
+          try {
+            await OneSignal.init({
+              appId: ONE_SIGNAL_APP_ID,
+              safari_web_id: SAFARI_WEB_ID,
+              notifyButton: { enable: false },
+              autoResubscribe: true,
+              serviceWorkerPath: "/OneSignalSDKWorker.js",
+              serviceWorkerParam: { scope: "/" }
+            });
 
-const permission =
-
-await OneSignal.Notifications.requestPermission();
-
-console.log(
-  permission
-);
-
-        if(
-
-  permission === "granted" ||
-
-  permission === true
-
-){
-
-          if(btn){
-
-            btn.innerHTML =
-              "🔥 ALERT ACTIVE";
+            window.clearTimeout(timeoutId);
+            resolve(OneSignal);
+          } catch (error) {
+            window.clearTimeout(timeoutId);
+            reject(error);
           }
+        });
+      } catch (error) {
+        window.clearTimeout(timeoutId);
+        reject(error);
+      }
+    });
 
-          clearTimeout(failSafe);
+    oneSignalReadyPromise.catch(() => {
+      oneSignalReadyPromise = null;
+    });
 
-          if(window.opener){
+    return oneSignalReadyPromise;
+  }
 
-  window.opener.postMessage({
+  function isBrowserPermissionGranted(OneSignal) {
+    return Boolean(
+      OneSignal.Notifications.permission === true ||
+      (typeof Notification !== "undefined" && Notification.permission === "granted")
+    );
+  }
 
-    type:
-    "BEGAN_PUSH_SUCCESS"
+  function isBrowserPermissionBlocked() {
+    return Boolean(
+      typeof Notification !== "undefined" &&
+      Notification.permission === "denied"
+    );
+  }
 
-  },
+  function isSubscriptionReady(OneSignal) {
+    const subscription = OneSignal.User && OneSignal.User.PushSubscription;
+    if (!subscription) return false;
 
-  "https://barkahgarment.com"
+    return Boolean(
+      subscription.optedIn === true &&
+      (subscription.token || subscription.id)
+    );
+  }
 
-  );
+  async function waitForSubscription(OneSignal, timeoutMs = 15000) {
+    const startedAt = Date.now();
 
-  setTimeout(()=>{
+    while (Date.now() - startedAt < timeoutMs) {
+      if (isSubscriptionReady(OneSignal)) {
+        return true;
+      }
 
-    window.close();
+      await new Promise((resolve) => window.setTimeout(resolve, 250));
+    }
 
-  },1200);
+    return isSubscriptionReady(OneSignal);
+  }
 
-}else{
+  async function waitForExternalId(OneSignal, expectedId, timeoutMs = 8000) {
+    if (!expectedId) return true;
 
-  window.location.href =
+    const startedAt = Date.now();
 
-"https://barkahgarment.com/began-partner-dashboard-dev?push=success";
+    while (Date.now() - startedAt < timeoutMs) {
+      if (String(OneSignal.User.externalId || "") === expectedId) {
+        return true;
+      }
 
-}
+      await new Promise((resolve) => window.setTimeout(resolve, 200));
+    }
 
-return;
-          
-        }else{
+    return String(OneSignal.User.externalId || "") === expectedId;
+  }
 
-  clearTimeout(failSafe);
+  async function syncPartnerIdentity(OneSignal) {
+    if (!partnerId) {
+      throw new Error("PARTNER_ID_MISSING");
+    }
 
-  if(window.opener){
-
-    window.opener.postMessage({
-
-      type:
-      "BEGAN_PUSH_DENIED"
-
-    },
-
-    "https://barkahgarment.com"
-
+    const previousExternalId = localStorage.getItem(
+      "began_onesignal_external_id"
     );
 
-    setTimeout(()=>{
+    if (
+      previousExternalId &&
+      previousExternalId !== partnerId &&
+      typeof OneSignal.logout === "function"
+    ) {
+      await OneSignal.logout();
+    }
 
-      window.close();
+    await OneSignal.login(partnerId);
 
-    },1200);
+    const identityReady = await waitForExternalId(OneSignal, partnerId);
+    if (!identityReady) {
+      throw new Error("ONESIGNAL_IDENTITY_SYNC_TIMEOUT");
+    }
 
-  }else{
+    localStorage.setItem("began_onesignal_external_id", partnerId);
 
-    window.location.href =
-
-"https://barkahgarment.com/began-partner-dashboard-dev?push=denied";
-
+    try {
+      const tags = { partner: partnerId };
+      if (toko) tags.toko = toko;
+      OneSignal.User.addTags(tags);
+    } catch (error) {
+      // External ID is the targeting authority. Tags are helpful metadata and
+      // must not invalidate an otherwise healthy push subscription.
+      console.warn("BEGAN PUSH TAG SYNC FAILED", error);
+    }
   }
 
-}
-    
-}catch(err){
-  console.log(err);
+  async function activatePush() {
+    if (busy || finalStateReached) return;
 
-  clearTimeout(failSafe);
+    busy = true;
+    setUi("CONNECTING...", "Menghubungkan notifikasi partner...", true);
 
-  if(window.opener){
+    try {
+      if (!partnerId) {
+        throw new Error("PARTNER_ID_MISSING");
+      }
 
-    window.opener.postMessage({
+      const OneSignal = await getOneSignal();
 
-      type:
-      "BEGAN_PUSH_DENIED"
+      if (!OneSignal.Notifications.isPushSupported()) {
+        throw new Error("PUSH_NOT_SUPPORTED");
+      }
 
-    },
+      if (isBrowserPermissionBlocked()) {
+        finishDenied("permission_blocked", true);
+        return;
+      }
 
-    "https://barkahgarment.com"
+      if (!isBrowserPermissionGranted(OneSignal)) {
+        // requestPermission() does not return "granted" in Web SDK v16.
+        // The supported authority is OneSignal.Notifications.permission.
+        await OneSignal.Notifications.requestPermission();
+      }
 
-    );
+      if (!isBrowserPermissionGranted(OneSignal)) {
+        finishDenied("permission_not_granted", isBrowserPermissionBlocked());
+        return;
+      }
 
-    setTimeout(()=>{
+      if (!OneSignal.User.PushSubscription.optedIn) {
+        await OneSignal.User.PushSubscription.optIn();
+      }
 
-      window.close();
+      const subscriptionReady = await waitForSubscription(OneSignal);
+      if (!subscriptionReady) {
+        throw new Error("ONESIGNAL_SUBSCRIPTION_TIMEOUT");
+      }
 
-    },1200);
+      await syncPartnerIdentity(OneSignal);
+      finishSuccess();
+    } catch (error) {
+      console.error("BEGAN PUSH ACTIVATION FAILED", error);
+      busy = false;
 
+      const code = String(error && error.message ? error.message : error);
+
+      if (code.includes("PARTNER_ID_MISSING")) {
+        setUi(
+          "KEMBALI KE DASHBOARD",
+          "Partner ID tidak ditemukan. Tutup halaman ini lalu aktifkan notifikasi dari dashboard partner.",
+          false
+        );
+        return;
+      }
+
+      if (code.includes("PUSH_NOT_SUPPORTED")) {
+        setUi(
+          "DEVICE NOT SUPPORTED",
+          "Browser atau perangkat ini belum mendukung web push notification.",
+          true
+        );
+        return;
+      }
+
+      setUi(
+        "COBA LAGI",
+        "Koneksi notifikasi belum berhasil. Pastikan internet aktif lalu tekan Coba Lagi.",
+        false
+      );
+    }
   }
 
-}
+  async function preparePage() {
+    if (!button) return;
 
-}catch(err){
+    button.addEventListener("click", activatePush);
 
-  console.log(err);
+    if (!partnerId) {
+      setUi(
+        "KEMBALI KE DASHBOARD",
+        "Partner ID tidak ditemukan. Aktifkan notifikasi melalui dashboard partner.",
+        false
+      );
+      return;
+    }
 
-  if(btn){
+    setUi("CONNECTING...", "Menyiapkan sistem notifikasi...", true);
 
-    btn.disabled = false;
+    try {
+      const OneSignal = await getOneSignal();
 
-    btn.innerHTML =
-      "TRY AGAIN";
+      if (!OneSignal.Notifications.isPushSupported()) {
+        throw new Error("PUSH_NOT_SUPPORTED");
+      }
+
+      if (isSubscriptionReady(OneSignal)) {
+        await syncPartnerIdentity(OneSignal);
+        finishSuccess();
+        return;
+      }
+
+      if (isBrowserPermissionBlocked()) {
+        finishDenied("permission_blocked", true);
+        return;
+      }
+
+      busy = false;
+      setUi(
+        "🔔 AKTIFKAN ALERT ARTIKEL BARU",
+        "Tekan tombol lalu pilih Izinkan pada dialog notifikasi browser.",
+        false
+      );
+    } catch (error) {
+      console.error("BEGAN PUSH PREPARE FAILED", error);
+      busy = false;
+      oneSignalReadyPromise = null;
+      setUi(
+        "COBA LAGI",
+        "Sistem notifikasi belum tersambung. Pastikan internet aktif lalu coba lagi.",
+        false
+      );
+    }
   }
 
-}
-}
-
-const enableBtn =
-document.getElementById(
-  "enableNotif"
-);
-
-if(enableBtn){
-
-  enableBtn.onclick =
-    initPush;
-
-}
+  preparePage();
+})();
