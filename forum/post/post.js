@@ -185,7 +185,7 @@ function bindGlobalNavigation(){
         case 'forum':
 
           BeganDeepLink.open(
-            '/forum/'
+            'https://pwa.barkahgarment.com/forum/'
           );
 
           break;
@@ -193,7 +193,7 @@ function bindGlobalNavigation(){
         case 'updates':
 
           BeganDeepLink.open(
-            '/notifications/'
+            'https://pwa.barkahgarment.com/notifications/'
           );
 
           break;
