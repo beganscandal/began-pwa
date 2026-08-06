@@ -1,5 +1,5 @@
 let PARTNER_MENTIONS = [];
-  
+   
 let mentionBound = false;
 
 const MENTION_PARTNERS_API =
