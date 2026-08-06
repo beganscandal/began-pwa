@@ -1,4 +1,4 @@
-let PARTNER_MENTIONS = [];
+let PARTNER_MENTIONS = []; 
    
 let mentionBound = false;
 
