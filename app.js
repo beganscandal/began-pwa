@@ -7,7 +7,7 @@
   const DASHBOARD_ORIGINS = new Set([
     "https://barkahgarment.com",
     "https://www.barkahgarment.com"
-  ]);
+  ]); 
 
   const params = new URLSearchParams(window.location.search);
   const partnerId = String(
