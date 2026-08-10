@@ -1,4 +1,4 @@
-let BOTTOM_NAV_BINDED = false;  
+let BOTTOM_NAV_BINDED = false;   
 
 function openNotificationDestination(
   type,
