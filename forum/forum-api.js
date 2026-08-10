@@ -4,7 +4,7 @@ const API_URL =
 const RESERVE_API_URL =
   window.BEGAN_RESERVE_API ||
   'https://script.google.com/macros/s/AKfycbw4mu0uuhnprRIcM0Jeft4y8QlPqc6J79NlIoj-d6KD_glSEXrCACM9X6-387_0QO8Wcg/exec';
-
+ 
 window.getBoard = async function () {
 
   const response = await fetch(
