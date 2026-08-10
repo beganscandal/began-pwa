@@ -1,4 +1,4 @@
-function getTypeIcon(type){
+function getTypeIcon(type){ 
   
   switch(
 
@@ -628,4 +628,4 @@ function formatTimeAgo(dateString){
   );
 
 }
-
+
