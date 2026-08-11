@@ -77,6 +77,21 @@ ${
   ? `
   <div class="forum-media">
 
+    <button
+      type="button"
+      class="forum-video-expand"
+      data-forum-video-expand
+      aria-expanded="false"
+      aria-label="Perbesar video"
+    >
+      <svg class="forum-video-expand__open" aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
+      </svg>
+      <svg class="forum-video-expand__close" aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+
     <iframe
       class="forum-media-iframe"
       src="${
@@ -87,7 +102,7 @@ ${
             'https://drive.google.com/file/d/'
           ) + '/preview'
       }"
-      allow="autoplay"
+      allow="autoplay; fullscreen"
       allowfullscreen
       loading="lazy"
     >
@@ -157,4 +172,3 @@ ${
   `).join('');
 
 }
-

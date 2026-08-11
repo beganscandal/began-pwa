@@ -122,6 +122,13 @@
   border-color: var(--reserve-border-strong);
 }
 
+@supports (content-visibility: auto) {
+  .reserve-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+}
+
 /* Cinematic media */
 .reserve-card__media {
   position: relative;

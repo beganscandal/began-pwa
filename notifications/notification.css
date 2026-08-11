@@ -6,3 +6,10 @@
 .notif-item:hover{
   border-color:rgba(255,255,255,.15);
 }
+
+@supports (content-visibility: auto) {
+  .notif-item {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 112px;
+  }
+}
