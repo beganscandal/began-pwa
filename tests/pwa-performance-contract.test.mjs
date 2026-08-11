@@ -36,9 +36,24 @@ assert.match(forum, /logo-font-400\.webp/);
 assert.match(forumPost, /logo-font-400\.webp/);
 
 assert.match(forumRender, /data-forum-video-expand/);
+assert.ok(
+  forumRender.indexOf('forum-video-toolbar') < forumRender.indexOf('forum-media-iframe'),
+  'Forum expand control must be rendered outside and before the video iframe'
+);
 assert.match(forumRender, /allow="autoplay; fullscreen"/);
 assert.match(forumScript, /bindForumVideoExpand/);
 assert.match(forumStyles, /\.forum-media\.is-expanded/);
+assert.match(forumStyles, /\.forum-media\.is-expanded \.forum-video-toolbar/);
+
+const expandButtonRule = forumStyles.match(/\.forum-video-expand\{([^}]*)\}/)?.[1] || '';
+assert.doesNotMatch(
+  expandButtonRule,
+  /position\s*:\s*(?:absolute|fixed)/,
+  'Forum expand control must stay in its own toolbar, outside the player overlay'
+);
+
+assert.match(forum, /forum\.css\?v=20260812-2/);
+assert.match(forum, /forum-render\.js\?v=20260812-2/);
 
 assert.match(reserveRender, /heroImage\.loading = 'eager'/);
 assert.match(reserveRender, /heroImage\.fetchPriority = 'high'/);

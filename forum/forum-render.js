@@ -75,38 +75,43 @@ ${
 ${
   post.videoUrl
   ? `
-  <div class="forum-media">
+  <div class="forum-media forum-media--video">
 
-    <button
-      type="button"
-      class="forum-video-expand"
-      data-forum-video-expand
-      aria-expanded="false"
-      aria-label="Perbesar video"
-    >
-      <svg class="forum-video-expand__open" aria-hidden="true" viewBox="0 0 24 24">
-        <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
-      </svg>
-      <svg class="forum-video-expand__close" aria-hidden="true" viewBox="0 0 24 24">
-        <path d="M6 6l12 12M18 6L6 18" />
-      </svg>
-    </button>
+    <div class="forum-video-toolbar">
+      <button
+        type="button"
+        class="forum-video-expand"
+        data-forum-video-expand
+        aria-expanded="false"
+        aria-label="Perbesar video"
+      >
+        <span class="forum-video-expand__label">Perbesar</span>
+        <svg class="forum-video-expand__open" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
+        </svg>
+        <svg class="forum-video-expand__close" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
 
-    <iframe
-      class="forum-media-iframe"
-      src="${
-        post.videoUrl.includes('/preview')
-        ? post.videoUrl
-        : post.videoUrl.replace(
-            'https://drive.google.com/uc?export=view&id=',
-            'https://drive.google.com/file/d/'
-          ) + '/preview'
-      }"
-      allow="autoplay; fullscreen"
-      allowfullscreen
-      loading="lazy"
-    >
-    </iframe>
+    <div class="forum-video-frame">
+      <iframe
+        class="forum-media-iframe"
+        src="${
+          post.videoUrl.includes('/preview')
+          ? post.videoUrl
+          : post.videoUrl.replace(
+              'https://drive.google.com/uc?export=view&id=',
+              'https://drive.google.com/file/d/'
+            ) + '/preview'
+        }"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+        loading="lazy"
+      >
+      </iframe>
+    </div>
 
   </div>
   `
