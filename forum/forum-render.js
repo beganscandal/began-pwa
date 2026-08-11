@@ -75,38 +75,23 @@ ${
 ${
   post.videoUrl
   ? `
-  <div class="forum-media forum-media--video">
+  <div class="forum-media">
 
-    <div class="forum-video-toolbar">
-      <button
-        type="button"
-        class="forum-video-expand"
-        data-forum-video-expand
-        aria-label="Perbesar video"
-      >
-        <svg aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
-        </svg>
-      </button>
-    </div>
-
-    <div class="forum-video-frame">
-      <iframe
-        class="forum-media-iframe"
-        src="${
-          post.videoUrl.includes('/preview')
-          ? post.videoUrl
-          : post.videoUrl.replace(
-              'https://drive.google.com/uc?export=view&id=',
-              'https://drive.google.com/file/d/'
-            ) + '/preview'
-        }"
-        allow="autoplay; fullscreen"
-        allowfullscreen
-        loading="lazy"
-      >
-      </iframe>
-    </div>
+    <iframe
+      class="forum-media-iframe"
+      src="${
+        post.videoUrl.includes('/preview')
+        ? post.videoUrl
+        : post.videoUrl.replace(
+            'https://drive.google.com/uc?export=view&id=',
+            'https://drive.google.com/file/d/'
+          ) + '/preview'
+      }"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      loading="lazy"
+    >
+    </iframe>
 
   </div>
   `
