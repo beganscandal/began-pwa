@@ -210,10 +210,86 @@
 
   margin-top:16px;
 
+  position:relative;
+
   overflow:hidden;
 
   border-radius:16px;
 
+}
+
+.forum-video-expand{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:3;
+  display:grid;
+  width:44px;
+  height:44px;
+  padding:0;
+  place-items:center;
+  color:#fff;
+  background:rgba(0,0,0,.78);
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:12px;
+  box-shadow:0 4px 18px rgba(0,0,0,.45);
+  cursor:pointer;
+  touch-action:manipulation;
+}
+
+.forum-video-expand svg{
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.forum-video-expand__close,
+.forum-video-expand[aria-expanded="true"] .forum-video-expand__open{
+  display:none;
+}
+
+.forum-video-expand[aria-expanded="true"] .forum-video-expand__close{
+  display:block;
+}
+
+.forum-video-expand:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:2px;
+}
+
+body.forum-video-expanded{
+  overflow:hidden;
+}
+
+.forum-media.is-expanded{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0;
+  padding:max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom));
+  background:#000;
+  border-radius:0;
+}
+
+.forum-media.is-expanded .forum-media-iframe{
+  width:100%;
+  height:100%;
+  max-height:100dvh;
+  aspect-ratio:auto;
+  border-radius:0;
+}
+
+.forum-media.is-expanded .forum-video-expand{
+  position:fixed;
+  top:max(12px, env(safe-area-inset-top));
+  right:max(12px, env(safe-area-inset-right));
 }
 
 .forum-like-btn{

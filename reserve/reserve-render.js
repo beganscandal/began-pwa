@@ -730,7 +730,10 @@ if(priceEl){
     });
   }
 
-  function createProductCard(product) {
+  function createProductCard(
+    product,
+    prioritizeImage
+  ) {
 
   var productId =
     product.productId ||
@@ -766,6 +769,20 @@ if(priceEl){
 
   if(!state){
     return null;
+  }
+
+  if(prioritizeImage){
+
+    var heroImage =
+      cardEl.querySelector(
+        '[data-product-image]'
+      );
+
+    if(heroImage){
+      heroImage.loading = 'eager';
+      heroImage.fetchPriority = 'high';
+    }
+
   }
 
   setText(
@@ -904,8 +921,11 @@ if(priceEl){
   function renderProductGrid(container, products) {
     if (!container) return;
     container.innerHTML = '';
-    products.forEach(function (product) {
-      var card = createProductCard(product);
+    products.forEach(function (product, index) {
+      var card = createProductCard(
+        product,
+        index === 0
+      );
       if (card) container.appendChild(card);
     });
   }

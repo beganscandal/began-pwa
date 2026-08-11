@@ -74,6 +74,7 @@ renderPosts(
   getFilteredPosts()
 );
       initPostNavigation();
+      bindForumVideoExpand();
 
       bindPostImagePicker();
       bindPostVideoPicker();
@@ -238,6 +239,69 @@ window.location.href =
     }
   );
 
+}
+
+function bindForumVideoExpand(){
+  const feed = document.getElementById('dynamic-feed');
+  if(!feed || feed.dataset.videoExpandBound){
+    return;
+  }
+
+  feed.dataset.videoExpandBound = 'true';
+
+  function closeExpandedVideo(){
+    const media = feed.querySelector('.forum-media.is-expanded');
+    if(!media){
+      return;
+    }
+
+    media.classList.remove('is-expanded');
+
+    const button = media.querySelector('[data-forum-video-expand]');
+
+    if(button){
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Perbesar video');
+    }
+
+    document.body.classList.remove('forum-video-expanded');
+  }
+
+  feed.addEventListener('click', function(event){
+    const button = event.target.closest('[data-forum-video-expand]');
+
+    if(!button){
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const media = button.closest('.forum-media');
+
+    if(!media){
+      return;
+    }
+
+    const shouldExpand = !media.classList.contains('is-expanded');
+
+    closeExpandedVideo();
+
+    if(!shouldExpand){
+      return;
+    }
+
+    media.classList.add('is-expanded');
+    button.setAttribute('aria-expanded', 'true');
+    button.setAttribute('aria-label', 'Tutup tampilan video besar');
+    document.body.classList.add('forum-video-expanded');
+  });
+
+  document.addEventListener('keydown', function(event){
+    if(event.key === 'Escape'){
+      closeExpandedVideo();
+    }
+  });
 }
 
 function bindPostSubmit(){

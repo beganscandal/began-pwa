@@ -3,9 +3,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BEGAN Notification Center</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="../forum/tailwind.min.css?v=20260812-1">
+  <link rel="stylesheet" href="../assets/dm-sans.css?v=20260812-1">
+  <link rel="stylesheet" href="./notification.css?v=20260812-1">
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
         * { font-family: 'DM Sans', sans-serif; }
         body { background: #050505; color: #ffffff; -webkit-tap-highlight-color: transparent; }
@@ -19,21 +21,6 @@
         .slide-up { animation: slideUp 0.4s ease forwards; opacity: 0; }
         .pull-indicator { transition: transform 0.3s ease, opacity 0.3s ease; }
     </style>
-  <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        surface: '#111111',
-                        accent: '#39FF14',
-                        dark: '#050505'
-                    }
-                }
-            }
-        }
-    </script>
-  
- 
  </head>
  <body data-template-id="__page-root" class="min-h-screen pb-24 relative" style="background: rgb(5, 5, 5);"><!-- Pull to refresh -->
   <div id="pull-indicator" class="pull-indicator fixed top-0 left-0 right-0 z-50 flex items-center justify-center py-3 opacity-0 -translate-y-full">
@@ -85,20 +72,11 @@
   </nav>
   
  
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0cf45d845b77a21',t:'MTc4MTY3MDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<link rel="stylesheet"
-      href="https://pwa.barkahgarment.com/notifications/notification.css">
-
-   <script src="https://pwa.barkahgarment.com/core-dashboard-pwa-bridge.js"></script>
-   <script src="https://pwa.barkahgarment.com/deeplink.js"></script>
-
-<script src="https://pwa.barkahgarment.com/notifications/notification-state.js"></script>
-
-<script src="https://pwa.barkahgarment.com/notifications/notification-api.js"></script>
-
-<script src="https://pwa.barkahgarment.com/notifications/notification-render.js?v=20260729-2"></script>
-
-<script src="https://pwa.barkahgarment.com/notifications/notification.js?v=20260729-2"></script>
+   <script defer src="../core-dashboard-pwa-bridge.js"></script>
+   <script defer src="../deeplink.js"></script>
+   <script defer src="./notification-state.js"></script>
+   <script defer src="./notification-api.js"></script>
+   <script defer src="./notification-render.js?v=20260729-2"></script>
+   <script defer src="./notification.js?v=20260729-2"></script>
    
 </body></html>
-
