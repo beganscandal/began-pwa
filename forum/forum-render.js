@@ -79,7 +79,6 @@ ${
 
     <iframe
       class="forum-media-iframe"
-      style="min-height:300px;"
       src="${
         post.videoUrl.includes('/preview')
         ? post.videoUrl

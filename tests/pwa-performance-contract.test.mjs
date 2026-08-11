@@ -36,7 +36,6 @@ assert.match(forum, /logo-font-400\.webp/);
 assert.match(forumPost, /logo-font-400\.webp/);
 
 assert.match(forumRender, /class="forum-media-iframe"/);
-assert.match(forumRender, /style="min-height:300px;"/);
 assert.match(forumRender, /allow="autoplay; fullscreen"/);
 assert.doesNotMatch(forumRender, /data-forum-video-expand/);
 assert.doesNotMatch(forumRender, /forum-video-toolbar/);
