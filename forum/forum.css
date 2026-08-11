@@ -224,9 +224,9 @@
 
 .forum-video-toolbar{
   display:flex;
-  justify-content:flex-end;
-  min-height:60px;
-  padding:8px;
+  justify-content:flex-start;
+  min-height:52px;
+  padding:4px;
   background:#111;
 }
 
@@ -236,13 +236,11 @@
 }
 
 .forum-video-expand{
-  display:flex;
-  min-width:44px;
+  display:grid;
+  width:44px;
   height:44px;
-  padding:0 12px;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+  padding:0;
+  place-items:center;
   color:#fff;
   background:rgba(0,0,0,.78);
   border:1px solid rgba(255,255,255,.3);
@@ -250,12 +248,6 @@
   box-shadow:0 4px 18px rgba(0,0,0,.45);
   cursor:pointer;
   touch-action:manipulation;
-}
-
-.forum-video-expand__label{
-  font-size:14px;
-  font-weight:600;
-  line-height:1;
 }
 
 .forum-video-expand svg{
@@ -268,56 +260,18 @@
   stroke-linejoin:round;
 }
 
-.forum-video-expand__close,
-.forum-video-expand[aria-expanded="true"] .forum-video-expand__open{
-  display:none;
-}
-
-.forum-video-expand[aria-expanded="true"] .forum-video-expand__close{
-  display:block;
-}
-
 .forum-video-expand:focus-visible{
   outline:2px solid #fff;
   outline-offset:2px;
 }
 
-body.forum-video-expanded{
-  overflow:hidden;
-}
-
-.forum-media.is-expanded{
-  position:fixed;
-  inset:0;
-  z-index:10000;
-  display:flex;
-  flex-direction:column;
-  margin:0;
-  padding:max(8px, env(safe-area-inset-top)) 0 max(8px, env(safe-area-inset-bottom));
-  background:#000;
-  border-radius:0;
-}
-
-.forum-media.is-expanded .forum-video-toolbar{
-  flex:0 0 auto;
-  width:100%;
-  min-height:60px;
-  padding:8px max(8px, env(safe-area-inset-right)) 8px max(8px, env(safe-area-inset-left));
-  background:#000;
-}
-
-.forum-media.is-expanded .forum-video-frame{
-  flex:1 1 auto;
-  width:100%;
-  min-height:0;
-  border-radius:0;
-}
-
-.forum-media.is-expanded .forum-media-iframe{
-  width:100%;
-  height:100%;
+.forum-media-iframe:fullscreen,
+.forum-media-iframe:-webkit-full-screen{
+  width:100vw;
+  height:100vh;
   aspect-ratio:auto;
   border-radius:0;
+  background:#000;
 }
 
 .forum-like-btn{

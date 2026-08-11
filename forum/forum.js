@@ -249,24 +249,6 @@ function bindForumVideoExpand(){
 
   feed.dataset.videoExpandBound = 'true';
 
-  function closeExpandedVideo(){
-    const media = feed.querySelector('.forum-media.is-expanded');
-    if(!media){
-      return;
-    }
-
-    media.classList.remove('is-expanded');
-
-    const button = media.querySelector('[data-forum-video-expand]');
-
-    if(button){
-      button.setAttribute('aria-expanded', 'false');
-      button.setAttribute('aria-label', 'Perbesar video');
-    }
-
-    document.body.classList.remove('forum-video-expanded');
-  }
-
   feed.addEventListener('click', function(event){
     const button = event.target.closest('[data-forum-video-expand]');
 
@@ -278,28 +260,31 @@ function bindForumVideoExpand(){
     event.stopPropagation();
 
     const media = button.closest('.forum-media');
+    const iframe = media && media.querySelector('.forum-media-iframe');
 
-    if(!media){
+    if(!iframe){
       return;
     }
 
-    const shouldExpand = !media.classList.contains('is-expanded');
+    const requestFullscreen =
+      iframe.requestFullscreen ||
+      iframe.webkitRequestFullscreen;
 
-    closeExpandedVideo();
-
-    if(!shouldExpand){
+    if(!requestFullscreen){
+      window.open(iframe.src, '_blank', 'noopener');
       return;
     }
 
-    media.classList.add('is-expanded');
-    button.setAttribute('aria-expanded', 'true');
-    button.setAttribute('aria-label', 'Tutup tampilan video besar');
-    document.body.classList.add('forum-video-expanded');
-  });
+    try{
+      const fullscreenRequest = requestFullscreen.call(iframe);
 
-  document.addEventListener('keydown', function(event){
-    if(event.key === 'Escape'){
-      closeExpandedVideo();
+      if(fullscreenRequest && typeof fullscreenRequest.catch === 'function'){
+        fullscreenRequest.catch(function(error){
+          console.error('FORUM VIDEO FULLSCREEN ERROR', error);
+        });
+      }
+    }catch(error){
+      console.error('FORUM VIDEO FULLSCREEN ERROR', error);
     }
   });
 }
