@@ -107,6 +107,28 @@ function hydrateNotificationPartnerSession(){
 hydrateNotificationPartnerSession();
 
 
+// The timeout covers both response headers and the JSON body.
+async function requestNotificationJson(url, options = {}){
+  const partner = JSON.parse(localStorage.getItem('began_partner') || '{}');
+  if(!partner.id) throw new Error('PARTNER_NOT_FOUND');
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try{
+    const response = await fetch(url, {...options, signal:controller.signal});
+    if(!response.ok) throw new Error('NOTIFICATION_HTTP_ERROR');
+    if(!/\bapplication\/(?:[\w.-]+\+)?json\b/i.test(response.headers.get('content-type') || '')){
+      throw new Error('NOTIFICATION_INVALID_RESPONSE');
+    }
+    const result = await response.json();
+    if(!result || typeof result !== 'object' || result.success !== true){
+      throw new Error('NOTIFICATION_API_ERROR');
+    }
+    return result;
+  }finally{
+    clearTimeout(timeout);
+  }
+}
+
 async function getNotifications(){
 
   const partner = JSON.parse(
@@ -128,10 +150,7 @@ async function getNotifications(){
     url
   );
 
-  const response =
-    await fetch(url);
-
-  return response.json();
+  return requestNotificationJson(url);
 
 }
 
@@ -144,8 +163,8 @@ async function markNotificationRead(notificationId){
       ) || '{}'
     );
 
-  const response =
-    await fetch(
+  const result =
+    await requestNotificationJson(
       API_URL,
       {
         method:'POST',
@@ -159,7 +178,7 @@ async function markNotificationRead(notificationId){
       }
     );
 
-  return response.json();
+  return result;
 
 }
 
@@ -172,8 +191,8 @@ async function markAllNotificationsRead(){
       ) || '{}'
     );
 
-  const response =
-    await fetch(
+  const result =
+    await requestNotificationJson(
       API_URL,
       {
         method:'POST',
@@ -186,7 +205,7 @@ async function markAllNotificationsRead(){
       }
     );
 
-  return response.json();
+  return result;
 
 }
 
@@ -195,8 +214,12 @@ async function loadNotifications(){
   const result =
     await getNotifications();
 
+  if(!Array.isArray(result.notifications)){
+    throw new Error('NOTIFICATION_INVALID_RESPONSE');
+  }
+
   NotificationState.notifications =
-    result.notifications || [];
+    result.notifications;
 
   return result;
 
@@ -224,8 +247,8 @@ async function deleteNotification(
 
   }
 
-  const response =
-    await fetch(
+  const result =
+    await requestNotificationJson(
       API_URL,
       {
         method:'POST',
@@ -241,9 +264,6 @@ async function deleteNotification(
         })
       }
     );
-
-  const result =
-    await response.json();
 
   if(!result.success){
 

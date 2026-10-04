@@ -56,14 +56,13 @@ function openNotificationDestination(
 window.openNotificationDestination =
   openNotificationDestination;
 
+let NOTIFICATION_HANDLERS_BOUND = false;
+window.NOTIFICATION_ACTION_BUSY = false;
+
 async function initNotifications(){
-
   try{
-
-    await loadNotifications();
-    renderNotifications();
-    renderNotificationStats();
-    renderNotificationBadge();
+  if(!NOTIFICATION_HANDLERS_BOUND){
+    NOTIFICATION_HANDLERS_BOUND = true;
     bindNotificationClicks();
     bindMarkAllRead();
     bindNotificationFilters();
@@ -73,20 +72,13 @@ async function initNotifications(){
     bindFabRefresh();
     bindExploreForum();
     bindBackButton();
-
     lucide.createIcons();
-
   }
-
-  catch(error){
-
-    console.error(
-      'INIT ERROR',
-      error
-    );
-
+  await refreshNotificationCenter();
+  }catch(error){
+    console.error('INIT ERROR', error);
+    setNotificationError(error);
   }
-
 }
 
 document.addEventListener(
@@ -106,6 +98,7 @@ async function refreshNotificationCenter(){
 
   IS_REFRESHING = true;
   togglePullIndicator(true);
+  setNotificationError();
 
 
   try{
@@ -125,6 +118,7 @@ async function refreshNotificationCenter(){
       'REFRESH NOTIFICATION ERROR',
       error
     );
+    setNotificationError(error);
 
   }
 
@@ -181,6 +175,12 @@ function bindMarkAllRead(){
 
     async function(){
 
+      if(button.disabled || window.NOTIFICATION_ACTION_BUSY) return;
+      window.NOTIFICATION_ACTION_BUSY = true;
+      button.disabled = true;
+      const label = button.textContent;
+      button.textContent = 'Memproses…';
+      button.setAttribute('aria-busy', 'true');
       try{
 
        await markAllNotificationsRead();
@@ -194,7 +194,13 @@ function bindMarkAllRead(){
           'MARK ALL READ ERROR',
           error
         );
+        setNotificationError(error, true);
 
+      }finally{
+        window.NOTIFICATION_ACTION_BUSY = false;
+        button.disabled = false;
+        button.textContent = label;
+        button.setAttribute('aria-busy', 'false');
       }
 
     }
@@ -326,9 +332,13 @@ function bindDeleteNotifications(){
 
         button.dataset.notificationId;
 
-      if(!notificationId)
+      if(!notificationId || button.disabled || window.NOTIFICATION_ACTION_BUSY)
         return;
 
+      window.NOTIFICATION_ACTION_BUSY = true;
+      button.disabled = true;
+      button.classList.add('animate-pulse');
+      button.setAttribute('aria-busy', 'true');
       try{
 
         await deleteNotification(
@@ -345,7 +355,13 @@ function bindDeleteNotifications(){
           'DELETE NOTIFICATION ERROR',
           error
         );
+        setNotificationError(error, true);
 
+      }finally{
+        window.NOTIFICATION_ACTION_BUSY = false;
+        button.disabled = false;
+        button.classList.remove('animate-pulse');
+        button.setAttribute('aria-busy', 'false');
       }
 
     }
@@ -589,4 +605,42 @@ function bindBackButton(){
 
   );
 
+}
+
+function setNotificationError(error, mutation = false){
+  let status = document.getElementById('notification-load-status');
+  if(!error){
+    status?.remove();
+    return;
+  }
+  if(!status){
+    status = document.createElement('div');
+    status.id = 'notification-load-status';
+    status.className = 'rounded-2xl p-4 border border-white/15 mb-5 text-sm';
+    status.setAttribute('role', 'alert');
+    document.getElementById('notif-list').before(status);
+  }
+  const missingSession = error.message === 'PARTNER_NOT_FOUND';
+  status.replaceChildren();
+  const message = document.createElement('p');
+  message.textContent = missingSession
+    ? 'Sesi partner tidak tersedia. Kembali ke Dashboard untuk masuk.'
+    : mutation
+      ? 'Status tindakan belum dapat dipastikan. Muat ulang notifikasi sebelum mencoba lagi.'
+      : 'Notifikasi belum dapat dimuat. Silakan coba lagi.';
+  status.append(message);
+  if(!missingSession){
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.textContent = 'Coba lagi';
+    retry.className = 'mt-2 px-3 py-1.5 rounded-full border border-white/15';
+    retry.addEventListener('click', () => refreshNotificationCenter());
+    status.append(retry);
+  }
+  document.querySelectorAll('[data-template-id^="stat-"][data-template-id$="-value"]').forEach(element => {
+    if(element.textContent.trim() === 'loading...') element.textContent = '—';
+  });
+  if(!NotificationState.notifications.length){
+    document.getElementById('empty-state').classList.add('hidden');
+  }
 }
