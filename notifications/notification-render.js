@@ -381,7 +381,6 @@ if(unreadChip){
 function bindNotificationClicks(){
 
   let navigationBusy = false;
-  let navigationFailsafe = null;
 
   function setNavigationBusy(
     card,
@@ -410,21 +409,7 @@ function bindNotificationClicks(){
       String(!busy)
     );
 
-    clearTimeout(
-      navigationFailsafe
-    );
 
-    navigationFailsafe =
-      busy
-        ? setTimeout(
-          () =>
-            setNavigationBusy(
-              card,
-              false
-            ),
-          8000
-        )
-        : null;
   }
 
   document.addEventListener(
@@ -449,13 +434,17 @@ function bindNotificationClicks(){
 
       if(!card) return;
 
-      if(navigationBusy)
+      if(navigationBusy || window.NOTIFICATION_ACTION_BUSY)
         return;
 
       setNavigationBusy(
         card,
         true
       );
+
+      // ponytail: serialize notification actions; per-item locks if concurrency is needed.
+      window.NOTIFICATION_ACTION_BUSY = true;
+      try{
 
       const url =
         card.dataset.url;
@@ -561,10 +550,13 @@ if(
 
 await refreshNotificationCenter();
 
-setNavigationBusy(
-  card,
-  false
-);
+      }catch(error){
+        console.error('OPEN NOTIFICATION ERROR', error);
+        if(typeof setNotificationError === 'function') setNotificationError(error, true);
+      }finally{
+        window.NOTIFICATION_ACTION_BUSY = false;
+        setNavigationBusy(card, false);
+      }
           }   // penutup async function
 
   );    // penutup addEventListener
