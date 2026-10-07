@@ -39,6 +39,7 @@ document.addEventListener(
 renderPostSkeleton();
 
 bindMentionAutocomplete();
+refreshReserveStat();
 
 const initialData =
   await Promise.all([
@@ -68,7 +69,6 @@ allPosts =
     console.error
   );
       bindReserveStat();
-      refreshReserveStat();
 initAnnouncementVideo();
 renderPosts(
   getFilteredPosts()
