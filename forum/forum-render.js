@@ -75,8 +75,21 @@ ${
 ${
   post.videoUrl
   ? `
-  <div class="forum-media">
+  <div class="forum-media forum-media--video">
 
+    <div class="forum-video-toolbar">
+      <button
+        type="button"
+        class="forum-video-expand"
+        data-forum-video-expand
+        aria-label="Tampilkan video layar penuh"
+        title="Layar penuh">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5" />
+        </svg>
+      </button>
+    </div>
+    <div class="forum-video-frame">
     <iframe
       class="forum-media-iframe"
       src="${
@@ -92,6 +105,7 @@ ${
       loading="lazy"
     >
     </iframe>
+    </div>
 
   </div>
   `
